@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.lmax'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // dependencies
+    implementation 'org.bitcoinj:bitcoinj-core:0.15'
+    implementation 'net.i2p.crypto:eddsa:0.3.0'
+
+    // test dependencies
+    testImplementation 'org.assertj:assertj-core:3.25.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
