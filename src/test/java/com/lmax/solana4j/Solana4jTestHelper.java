@@ -3,6 +3,8 @@ package com.lmax.solana4j;
 import com.lmax.solana4j.api.Blockhash;
 import com.lmax.solana4j.api.ByteBufferSigner;
 import com.lmax.solana4j.api.PublicKey;
+import org.assertj.core.api.Assertions;
+import org.assertj.core.api.Fail;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -11,11 +13,7 @@ import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import static com.lmax.solana4j.Solana.account;
-import static com.lmax.solana4j.Solana.blockhash;
 import static java.util.Objects.requireNonNull;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Fail.fail;
 
 public class Solana4jTestHelper
 {
@@ -51,15 +49,15 @@ public class Solana4jTestHelper
     public static final byte[] UNSIGNED = newBlob(SIGNATURE_LENGTH, (byte) -77);
 
     public static final Map<PublicKey, byte[]> SIGNINGS = Map.of(
-            account(PAYER), SIGNATURE_PAYER,
-            account(ACCOUNT1), SIGNATURE1,
-            account(ACCOUNT2), SIGNATURE2,
-            account(ACCOUNT3), SIGNATURE3,
-            account(ACCOUNT4), SIGNATURE4,
-            account(ACCOUNT5), SIGNATURE5,
-            account(ACCOUNT6), SIGNATURE6,
-            account(ACCOUNT7), SIGNATURE7,
-            account(ACCOUNT8), SIGNATURE8
+            Solana.account(PAYER), SIGNATURE_PAYER,
+            Solana.account(ACCOUNT1), SIGNATURE1,
+            Solana.account(ACCOUNT2), SIGNATURE2,
+            Solana.account(ACCOUNT3), SIGNATURE3,
+            Solana.account(ACCOUNT4), SIGNATURE4,
+            Solana.account(ACCOUNT5), SIGNATURE5,
+            Solana.account(ACCOUNT6), SIGNATURE6,
+            Solana.account(ACCOUNT7), SIGNATURE7,
+            Solana.account(ACCOUNT8), SIGNATURE8
     );
 
     public static AssertingMessageReader reader(final ByteBuffer buffer)
@@ -80,7 +78,7 @@ public class Solana4jTestHelper
         final byte[] bytes = new byte[32];
         Arrays.fill(bytes, value);
 
-        return account(bytes);
+        return Solana.account(bytes);
     }
 
     public static Blockhash generateBlockhash(final byte value)
@@ -88,7 +86,7 @@ public class Solana4jTestHelper
         final byte[] bytes = new byte[32];
         Arrays.fill(bytes, value);
 
-        return blockhash(bytes);
+        return Solana.blockhash(bytes);
     }
 
     public static byte[] generateSignature(final byte value)
@@ -107,7 +105,6 @@ public class Solana4jTestHelper
         {
             Arrays.fill(sigs, SIGNATURE_LENGTH * i, (SIGNATURE_LENGTH) * (i + 1), signatureValues[i]);
         }
-
         return sigs;
     }
 
@@ -115,15 +112,15 @@ public class Solana4jTestHelper
     {
         Solana.builder(buffer)
                 .legacy()
-                .payer(account(PAYER))
-                .recent(blockhash(BLOCKHASH))
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
                 .instructions(tb -> tb
                         .append(ib -> ib
-                                .program(account(PROGRAM1))
-                                .account(account(ACCOUNT4), false, false)
-                                .account(account(ACCOUNT1), true, true)
-                                .account(account(ACCOUNT2), true, false)
-                                .account(account(ACCOUNT3), false, true)
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT4), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
                                 .data(DATA1.length, w -> w.put(DATA1))))
 
                 .seal()
@@ -135,11 +132,11 @@ public class Solana4jTestHelper
     {
         Solana.builder(buffer)
                 .legacy()
-                .payer(account(PAYER))
-                .recent(blockhash(BLOCKHASH))
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
                 .instructions(tb -> tb
                         .append(ib -> ib
-                                .program(account(PROGRAM1))
+                                .program(Solana.account(PROGRAM1))
                                 .data(DATA3.length, w -> w.put(DATA3))))
                 .seal()
                 .unsigned()
@@ -150,15 +147,15 @@ public class Solana4jTestHelper
     {
         Solana.builder(buffer)
                 .legacy()
-                .payer(account(PAYER))
-                .recent(blockhash(BLOCKHASH))
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
                 .instructions(tb -> tb
                         .append(ib -> ib
-                                .program(account(PROGRAM1))
-                                .account(account(ACCOUNT4), false, false)
-                                .account(account(ACCOUNT1), true, true)
-                                .account(account(ACCOUNT2), true, false)
-                                .account(account(ACCOUNT3), false, true)
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT4), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
                                 .data(DATA1.length, w -> w.put(DATA1))))
                 .seal()
                 .signed()
@@ -169,21 +166,21 @@ public class Solana4jTestHelper
     {
         Solana.builder(buffer)
                 .legacy()
-                .payer(account(PAYER))
-                .recent(blockhash(BLOCKHASH))
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
                 .instructions(tb -> tb
                         .append(ib -> ib
-                                .program(account(PROGRAM1))
-                                .account(account(ACCOUNT4), false, false)
-                                .account(account(ACCOUNT1), true, true)
-                                .account(account(ACCOUNT2), true, false)
-                                .account(account(ACCOUNT3), false, true)
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT4), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
                                 .data(DATA1.length, w -> w.put(DATA1))))
                 .seal()
                 .signed()
-                        .by(account(PAYER), getByteBufferSignerFor(PAYER))
-                        .by(account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
-                        .by(account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
+                        .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
+                        .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
+                        .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
                 .build();
     }
 
@@ -191,30 +188,30 @@ public class Solana4jTestHelper
     {
         Solana.builder(buffer)
                 .legacy()
-                .payer(account(PAYER))
-                .recent(blockhash(BLOCKHASH))
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
                 .instructions(tb -> tb
                         .append(ib -> ib
                                 // 8, program1, 4, program2
-                                .program(account(PROGRAM1))
-                                .account(account(ACCOUNT4), false, false)
-                                .account(account(ACCOUNT1), true, true)
-                                .account(account(ACCOUNT2), true, false)
-                                .account(account(ACCOUNT3), false, true)
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT4), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
                                 .data(DATA1.length, w -> w.put(DATA1)))
                         .append(ib -> ib
-                                .program(account(PROGRAM2))
-                                .account(account(ACCOUNT5), false, false)
-                                .account(account(ACCOUNT1), true, true)
-                                .account(account(ACCOUNT6), true, true)
-                                .account(account(ACCOUNT2), true, false)
-                                .account(account(ACCOUNT7), true, false)
-                                .account(account(ACCOUNT3), false, true)
-                                .account(account(ACCOUNT8), false, true)
+                                .program(Solana.account(PROGRAM2))
+                                .account(Solana.account(ACCOUNT5), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT6), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT7), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .account(Solana.account(ACCOUNT8), false, true)
                                 .data(DATA2.length, w -> w.put(DATA2)))
                         .append(ib -> ib
-                                .program(account(PROGRAM1))
-                                .account(account(ACCOUNT3), true, true)
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT3), true, true)
                                 .data(DATA1.length, w -> w.put(DATA1)))
                 )
                 .seal()
@@ -226,30 +223,30 @@ public class Solana4jTestHelper
     {
         Solana.builder(buffer)
                 .legacy()
-                .payer(account(PAYER))
-                .recent(blockhash(BLOCKHASH))
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
                 .instructions(tb -> tb
                         .append(ib -> ib
                                 // 8, program1, 4, program2
-                                .program(account(PROGRAM1))
-                                .account(account(ACCOUNT4), false, false)
-                                .account(account(ACCOUNT1), true, true)
-                                .account(account(ACCOUNT2), true, false)
-                                .account(account(ACCOUNT3), false, true)
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT4), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
                                 .data(DATA1.length, w -> w.put(DATA1)))
                         .append(ib -> ib
-                                .program(account(PROGRAM2))
-                                .account(account(ACCOUNT5), false, false)
-                                .account(account(ACCOUNT1), true, true)
-                                .account(account(ACCOUNT6), true, true)
-                                .account(account(ACCOUNT2), true, false)
-                                .account(account(ACCOUNT7), true, false)
-                                .account(account(ACCOUNT3), false, true)
-                                .account(account(ACCOUNT8), false, true)
+                                .program(Solana.account(PROGRAM2))
+                                .account(Solana.account(ACCOUNT5), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT6), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT7), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .account(Solana.account(ACCOUNT8), false, true)
                                 .data(DATA2.length, w -> w.put(DATA2)))
                         .append(ib -> ib
-                                .program(account(PROGRAM1))
-                                .account(account(ACCOUNT3), true, true)
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT3), true, true)
                                 .data(DATA2.length, w -> w.put(DATA2)))
                 )
                 .seal()
@@ -261,38 +258,38 @@ public class Solana4jTestHelper
     {
         Solana.builder(buffer)
                 .legacy()
-                .payer(account(PAYER))
-                .recent(blockhash(BLOCKHASH))
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
                 .instructions(tb -> tb
                         .append(ib -> ib
                                 // 8, program1, 4, program2
-                                .program(account(PROGRAM1))
-                                .account(account(ACCOUNT4), false, false)
-                                .account(account(ACCOUNT1), true, true)
-                                .account(account(ACCOUNT2), true, false)
-                                .account(account(ACCOUNT3), false, true)
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT4), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
                                 .data(DATA1.length, w -> w.put(DATA1)))
                         .append(ib -> ib
-                                .program(account(PROGRAM2))
-                                .account(account(ACCOUNT5), false, false)
-                                .account(account(ACCOUNT1), true, true)
-                                .account(account(ACCOUNT6), true, true)
-                                .account(account(ACCOUNT2), true, false)
-                                .account(account(ACCOUNT7), true, false)
-                                .account(account(ACCOUNT3), false, true)
-                                .account(account(ACCOUNT8), false, true)
+                                .program(Solana.account(PROGRAM2))
+                                .account(Solana.account(ACCOUNT5), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT6), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT7), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .account(Solana.account(ACCOUNT8), false, true)
                                 .data(DATA2.length, w -> w.put(DATA2)))
                         .append(ib -> ib
-                                .program(account(PROGRAM1))
-                                .account(account(ACCOUNT3), true, true)
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT3), true, true)
                                 .data(DATA2.length, w -> w.put(DATA2)))
                 )
                 .seal()
                 .signed()
-                        .by(account(PAYER), getByteBufferSignerFor(PAYER))
-                        .by(account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
-                        .by(account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
-                        .by(account(ACCOUNT7), getByteBufferSignerFor(ACCOUNT7))
+                        .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
+                        .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
+                        .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
+                        .by(Solana.account(ACCOUNT7), getByteBufferSignerFor(ACCOUNT7))
                 .build();
     }
 
@@ -303,7 +300,7 @@ public class Solana4jTestHelper
         final var countInstructions = readShortVecInt(buffer);
         if (index < 0 || index >= countInstructions)
         {
-            fail("instruction index out of bounds");
+            Fail.fail("instruction index out of bounds");
         }
 
         for (int i = 0; i < index; i++)
@@ -339,7 +336,6 @@ public class Solana4jTestHelper
         jumpToInstructions(buffer);
         return reader(buffer);
     }
-
 
     public static void jumpToBlockhash(final ByteBuffer buffer)
     {
@@ -382,7 +378,7 @@ public class Solana4jTestHelper
         final var countAccounts = readShortVecInt(buffer);
         if (index < 0 || index >= countAccounts)
         {
-            fail("account index out of bounds");
+            Fail.fail("account index out of bounds");
         }
         buffer.position(buffer.position() + (index * ACCOUNT_LENGTH));
     }
@@ -412,7 +408,7 @@ public class Solana4jTestHelper
 
         if (index < 0 || index >= signatures)
         {
-            fail("signature index out of bounds");
+            Fail.fail("signature index out of bounds");
         }
 
         buffer.position(buffer.position() + (index * SIGNATURE_LENGTH));
@@ -454,7 +450,7 @@ public class Solana4jTestHelper
 
     private static ByteBufferSigner getByteBufferSignerFor(final byte[] account)
     {
-        return (transaction, signature) -> signature.put(SIGNINGS.get(account(account)));
+        return (transaction, signature) -> signature.put(SIGNINGS.get(Solana.account(account)));
     }
 
     public static class AssertingMessageReader
@@ -470,14 +466,14 @@ public class Solana4jTestHelper
         public AssertingMessageReader expect(final String field, final byte expected)
         {
             final var actual = buffer.get();
-            assertThat(actual).as(field).isEqualTo(expected);
+            Assertions.assertThat(actual).as(field).isEqualTo(expected);
             return this;
         }
 
         public AssertingMessageReader expectShortVecInteger(final String field, final int expected)
         {
             final var actual = readShortVecInt(buffer);
-            assertThat(actual).as(field).isEqualTo(expected);
+            Assertions.assertThat(actual).as(field).isEqualTo(expected);
             return this;
         }
 
@@ -505,7 +501,7 @@ public class Solana4jTestHelper
                 }
             }
             final var options = Arrays.stream(bytes).map(Arrays::toString).collect(Collectors.joining(", "));
-            fail(String.format("%s; %s is none of %s", field, Arrays.toString(actual), options));
+            Fail.fail(String.format("%s; %s is none of %s", field, Arrays.toString(actual), options));
             return this;
         }
 
@@ -513,7 +509,7 @@ public class Solana4jTestHelper
         {
             final var actual = new byte[bytes.length];
             buffer.get(actual);
-            assertThat(actual).as(field).containsExactly(bytes);
+            Assertions.assertThat(actual).as(field).containsExactly(bytes);
             return this;
         }
 
