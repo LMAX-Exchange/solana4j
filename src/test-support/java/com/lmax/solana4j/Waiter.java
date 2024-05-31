@@ -1,6 +1,6 @@
 package com.lmax.solana4j;
 
-import com.lmax.solana4j.assertions.Assertion;
+import com.lmax.solana4j.assertion.Assertion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

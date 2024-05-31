@@ -5,20 +5,24 @@ import com.lmax.simpledsl.api.OptionalArg;
 import com.lmax.simpledsl.api.RequiredArg;
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.PublicKey;
-import com.lmax.solana4j.assertions.IsEqualToAssertion;
-import com.lmax.solana4j.assertions.IsNotNullAssertion;
+import com.lmax.solana4j.assertion.IsEqualToAssertion;
+import com.lmax.solana4j.assertion.IsNotNullAssertion;
+import com.lmax.solana4j.domain.Sol;
+import com.lmax.solana4j.domain.TestKeyPair;
+import com.lmax.solana4j.domain.TestKeyPairGenerator;
+import com.lmax.solana4j.domain.TestPublicKey;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
 import com.lmax.solana4j.programs.AddressWithBumpSeed;
-import com.lmax.solana4j.testclient.api.AccountInfo;
-import com.lmax.solana4j.testclient.api.Commitment;
-import com.lmax.solana4j.testclient.jsonrpc.SolanaClient;
+import com.lmax.solana4j.client.api.AccountInfo;
+import com.lmax.solana4j.client.api.Commitment;
+import com.lmax.solana4j.client.jsonrpc.SolanaClient;
 import org.bouncycastle.util.encoders.Base64;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.lmax.solana4j.testclient.api.Commitment.FINALIZED;
+import static com.lmax.solana4j.client.api.Commitment.FINALIZED;
 import static java.util.Arrays.stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 

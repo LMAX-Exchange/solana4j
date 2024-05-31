@@ -1,9 +1,10 @@
 package com.lmax.solana4j.programs;
 
+import com.lmax.solana4j.base.IntegrationTestBase;
+import com.lmax.solana4j.base.ParameterizedMessageEncodingTest;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-final class AddressLookupTableProgramIntegrationTest extends V0EncodingIntegrationTest
+final class AddressLookupTableProgramIntegrationTest extends IntegrationTestBase
 {
     @BeforeEach
     void beforeEachTest()
@@ -13,16 +14,20 @@ final class AddressLookupTableProgramIntegrationTest extends V0EncodingIntegrati
         solana.createKeyPair("addressLookupTableAuthority");
     }
 
-    @Test
-    void shouldCreateAddressLookupTable()
+    @ParameterizedMessageEncodingTest
+    void shouldCreateAddressLookupTable(final String messageEncoding)
     {
+        solana.setMessageEncoding(messageEncoding);
+
         solana.createAddressLookupTable("lookupTableAddress", "addressLookupTableAuthority", "payer");
         solana.retrieveAddressLookupTable("lookupTableAddress");
     }
 
-    @Test
-    void shouldExtendAddressLookupTable()
+    @ParameterizedMessageEncodingTest
+    void shouldExtendAddressLookupTable(final String messageEncoding)
     {
+        solana.setMessageEncoding(messageEncoding);
+
         solana.createAddressLookupTable("lookupTableAddress", "addressLookupTableAuthority", "payer");
 
         solana.createKeyPair("addressForLookupTable1");

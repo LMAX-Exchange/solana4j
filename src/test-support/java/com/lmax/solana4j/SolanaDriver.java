@@ -2,11 +2,16 @@ package com.lmax.solana4j;
 
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.Slot;
+import com.lmax.solana4j.domain.TestKeyPair;
+import com.lmax.solana4j.domain.TestPublicKey;
 import com.lmax.solana4j.programs.AddressWithBumpSeed;
-import com.lmax.solana4j.testclient.api.AccountInfo;
-import com.lmax.solana4j.testclient.api.Commitment;
-import com.lmax.solana4j.testclient.api.SolanaApi;
-import com.lmax.solana4j.testclient.api.TransactionResponse;
+import com.lmax.solana4j.client.api.AccountInfo;
+import com.lmax.solana4j.client.api.Commitment;
+import com.lmax.solana4j.client.api.SolanaApi;
+import com.lmax.solana4j.client.api.TransactionResponse;
+import com.lmax.solana4j.transaction.LegacyTransactionFactory;
+import com.lmax.solana4j.transaction.TransactionFactory;
+import com.lmax.solana4j.transaction.V0TransactionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,7 +58,7 @@ public class SolanaDriver
                                            final Slot slot,
                                            final List<AddressLookupTable> addressLookupTables)
     {
-        final com.lmax.solana4j.testclient.api.Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
+        final com.lmax.solana4j.client.api.Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
 
         final String transactionBlob = getTransactionFactory().createAddressLookupTable(
                 addressWithBumpSeed,
@@ -74,7 +79,7 @@ public class SolanaDriver
                                            final List<TestPublicKey> addressesToAdd,
                                            final List<AddressLookupTable> addressLookupTables)
     {
-        final com.lmax.solana4j.testclient.api.Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
+        final com.lmax.solana4j.client.api.Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
 
         final String transactionBlob = getTransactionFactory().extendAddressLookupTable(
                 addressLookupTable.getSolana4jPublicKey(),
