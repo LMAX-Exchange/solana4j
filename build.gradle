@@ -101,4 +101,8 @@ task integrationTest(type: Test) {
     }
 }
 
+tasks.processTestResources {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 check.dependsOn integrationTest
