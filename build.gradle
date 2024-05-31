@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'checkstyle'
 }
 
 group = 'com.lmax'
@@ -42,6 +43,11 @@ sourceSets {
         }
         resources.srcDir file('src/integration-test/resources')
     }
+}
+
+checkstyle {
+    toolVersion = '8.45'
+    configFile = file('config/checkstyle/checkstyle.xml')
 }
 
 dependencies {
@@ -103,6 +109,13 @@ task integrationTest(type: Test) {
 
 tasks.processTestResources {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
 }
 
 check.dependsOn integrationTest
