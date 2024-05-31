@@ -43,9 +43,9 @@ public class Waiter
         return this;
     }
 
-    public Waiter withMaxiumBackoff(final Duration maxiumumBackOff)
+    public Waiter withMaximumBackoff(final Duration maximumBackOff)
     {
-        this.maximumBackoff = maxiumumBackOff;
+        this.maximumBackoff = maximumBackOff;
         return this;
     }
 
