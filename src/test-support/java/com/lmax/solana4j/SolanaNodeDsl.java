@@ -27,13 +27,11 @@ public class SolanaNodeDsl
 {
     private final SolanaDriver solanaDriver;
     private final TestContext testContext;
-    private final Waiter waiter;
 
     public SolanaNodeDsl(final String rpcUrl)
     {
         this.solanaDriver = new SolanaDriver(new SolanaClient(rpcUrl));
         this.testContext = new TestContext();
-        this.waiter = new Waiter(30, Duration.ofSeconds(1), Duration.ofSeconds(0));
     }
 
     public void createKeyPair(final String... args)
@@ -60,7 +58,7 @@ public class SolanaNodeDsl
         final Sol sol = new Sol(Long.parseLong(params.value("amountSol")));
 
         final String transactionSignature = solanaDriver.requestAirdrop(address, sol.lamports());
-        waiter.waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
+        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
     }
 
     public void retrieveAddressLookupTable(final String... args)
@@ -73,7 +71,7 @@ public class SolanaNodeDsl
 
         final TestPublicKey account = testContext.getPublicKey(params.value("lookupTableAddress"));
 
-        final AccountInfo accountInfo = waiter.waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getAccountInfo(account, FINALIZED)));
+        final AccountInfo accountInfo = new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getAccountInfo(account, FINALIZED)));
 
         final List<PublicKey> expectedAddresses = stream(params.values("addresses"))
                 .map(address -> testContext.getKeyPair(address).getSolana4jPublicKey())
@@ -105,7 +103,7 @@ public class SolanaNodeDsl
         testContext.storePublicKey(params.value("lookupTableAddress"), addressWithBumpSeed.getLookupTableAddress());
 
         final String transactionSignature = solanaDriver.createAddressLookupTable(addressWithBumpSeed, authority, payer, Solana.slot(recentSlot), addressLookupTables);
-        waiter.waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
+        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
     }
 
     public void extendAddressLookupTable(final String... args)
@@ -134,7 +132,7 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.extendAddressLookupTable(addressLookupTable, authority, payer, addresses, addressLookupTables);
 
-        waiter.waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
+        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
     }
 
     public void waitForSlot(final String... args)
@@ -144,7 +142,7 @@ public class SolanaNodeDsl
                 new RequiredArg("slot")
         );
 
-        waiter.waitFor(new IsEqualToAssertion<>(true, () -> solanaDriver.getSlot(FINALIZED) > params.valueAsLong("slot")));
+        new Waiter().waitFor(new IsEqualToAssertion<>(true, () -> solanaDriver.getSlot(FINALIZED) > params.valueAsLong("slot")));
     }
 
     public void setMessageEncoding(final String messageEncoding)
