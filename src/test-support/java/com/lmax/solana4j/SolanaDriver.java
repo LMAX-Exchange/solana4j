@@ -20,7 +20,7 @@ public class SolanaDriver
     private final SolanaApi solanaApi;
     private TransactionFactory transactionFactory;
 
-    public SolanaDriver(SolanaApi solanaApi)
+    public SolanaDriver(final SolanaApi solanaApi)
     {
         this.solanaApi = solanaApi;
     }

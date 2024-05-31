@@ -23,7 +23,7 @@ final class SolanaMessageBuilderLegacy implements MessageBuilderLegacy
 
     private final List<TransactionInstruction> instructions = new ArrayList<>();
 
-    public SolanaMessageBuilderLegacy(final SolanaMessageBuilder parent, final ByteBuffer buffer)
+    SolanaMessageBuilderLegacy(final SolanaMessageBuilder parent, final ByteBuffer buffer)
     {
         this.parent = requireNonNull(parent);
         this.buffer = buffer;

@@ -10,6 +10,11 @@ repositories {
     mavenCentral()
 }
 
+checkstyle {
+    toolVersion = '10.4'
+    configFile = file('config/checkstyle/checkstyle.xml')
+}
+
 configurations {
     integrationTestImplementation.extendsFrom testImplementation
     integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
@@ -45,12 +50,8 @@ sourceSets {
     }
 }
 
-checkstyle {
-    toolVersion = '8.45'
-    configFile = file('config/checkstyle/checkstyle.xml')
-}
-
 dependencies {
+    checkstyle 'com.puppycrawl.tools:checkstyle:10.4'
     // dependencies
     implementation 'org.bitcoinj:bitcoinj-core:0.15'
     implementation 'net.i2p.crypto:eddsa:0.3.0'
@@ -111,11 +112,15 @@ tasks.processTestResources {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
-tasks.withType(Checkstyle) {
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
+javadoc {
+    title = 'solana4j'
+
+    options.addStringOption('XDignore.symbol.file', '-quiet')
+    options.author = true
+    options.bottom = "<i>Copyright &#169; 2011 - ${Calendar.instance[Calendar.YEAR]} LMAX Ltd. All Rights Reserved.</i>"
+    options.use = true
+    options.version = true
+    options.showFromPublic()
 }
 
 check.dependsOn integrationTest

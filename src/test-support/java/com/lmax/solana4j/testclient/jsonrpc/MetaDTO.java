@@ -94,13 +94,13 @@ final class MetaDTO implements TransactionMetadata
     @Override
     public List<TokenBalance> getPreTokenBalances()
     {
-        return preTokenBalances.stream().map(x -> (TokenBalance)x).collect(Collectors.toList());
+        return preTokenBalances.stream().map(x -> (TokenBalance) x).collect(Collectors.toList());
     }
 
     @Override
     public List<Reward> getRewards()
     {
-        return rewards.stream().map(x -> (Reward)x).collect(Collectors.toList());
+        return rewards.stream().map(x -> (Reward) x).collect(Collectors.toList());
     }
 
     @Override

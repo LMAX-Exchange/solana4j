@@ -45,7 +45,8 @@ public final class SystemProgram
                 .program(SYSTEM_PROGRAM_ACCOUNT)
                 .account(payer, true, true)
                 .account(newAccount, true, true)
-                .data(52, bb -> {
+                .data(52, bb ->
+                {
                     bb
                             .order(ByteOrder.LITTLE_ENDIAN)
                             .putInt(CREATE_ACCOUNT_INSTRUCTION)
@@ -64,7 +65,8 @@ public final class SystemProgram
                 .account(nonce, false, true)
                 .account(SysVar.RECENT_BLOCKHASHES, false, false)
                 .account(SysVar.RENT, false, false)
-                .data(36, bb -> {
+                .data(36, bb ->
+                {
                     bb.order(ByteOrder.LITTLE_ENDIAN)
                             .putInt(NONCE_INIT_INSTRUCTION);
                     authorized.write(bb);

@@ -28,7 +28,8 @@ public class Waiter
             {
                 assertion.doAssert();
                 return assertion.getActual();
-            } catch (final Throwable throwable)
+            }
+            catch (final Throwable throwable)
             {
                 LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(calculateExponentialBackoffDelay(i + 1)));
             }
@@ -63,7 +64,7 @@ public class Waiter
         }
     }
 
-    private long calculateExponentialBackoffDelay(int attempt)
+    private long calculateExponentialBackoffDelay(final int attempt)
     {
         long delay = (1L << (attempt - 1));
         delay = Math.min(delay, maximumBackoff.toSeconds());

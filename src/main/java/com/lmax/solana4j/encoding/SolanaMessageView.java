@@ -26,7 +26,7 @@ abstract class SolanaMessageView implements MessageView
 
     private final ByteBuffer transaction;
 
-    public SolanaMessageView(
+    SolanaMessageView(
             final int countAccountsSigned,
             final int countAccountsSignedReadOnly,
             final int countAccountsUnsignedReadOnly,

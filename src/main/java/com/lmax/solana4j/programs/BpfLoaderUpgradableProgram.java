@@ -41,7 +41,8 @@ final class BpfLoaderUpgradableProgram
     {
         final PublicKey programDataAddress = Solana.programDerivedAddress(programAddress, PROGRAM_ACCOUNT).address();
 
-        tb.append(ib -> {
+        tb.append(ib ->
+        {
             ib.program(PROGRAM_ACCOUNT)
                     .account(programDataAddress, false, true)
                     .account(currentAuthorityAddress, true, false);

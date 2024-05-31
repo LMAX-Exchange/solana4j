@@ -8,7 +8,7 @@ final class SolanaAddressLookupIndex implements AddressLookupTableIndexes.Addres
     private final PublicKey account;
     private final int index;
 
-    public SolanaAddressLookupIndex(final PublicKey account, final int index)
+    SolanaAddressLookupIndex(final PublicKey account, final int index)
     {
         this.account = account;
         this.index = index;

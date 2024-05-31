@@ -11,7 +11,7 @@ final class SolanaAddressesFromLookup implements AddressesFromLookup
     private final List<PublicKey> writable;
     private final List<PublicKey> readOnly;
 
-    public SolanaAddressesFromLookup(final List<PublicKey> writable, final List<PublicKey> readOnly)
+    SolanaAddressesFromLookup(final List<PublicKey> writable, final List<PublicKey> readOnly)
     {
         this.writable = writable;
         this.readOnly = readOnly;

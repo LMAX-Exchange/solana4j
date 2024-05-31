@@ -23,6 +23,7 @@ public interface MessageVisitor<T>
         ByteBuffer transaction();
 
         /**
+         * @param account used to sign the transaction
          * @return buffer with position=0 limit=capacity=size-in-bytes
          */
         ByteBuffer signature(PublicKey account);

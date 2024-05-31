@@ -28,11 +28,11 @@ final class SolanaShortVec
         int bytes = 1;
         while ((b & 0x80) == 0x80)
         {
-            result = result | ((b & 0x7f) << (7*(bytes-1)));
+            result = result | ((b & 0x7f) << (7 * (bytes - 1)));
             b = buffer.get();
             bytes++;
         }
-        result = result | (b << (7*(bytes-1)));
+        result = result | (b << (7 * (bytes - 1)));
         return result;
     }
 
@@ -43,11 +43,11 @@ final class SolanaShortVec
         int bytes = 1;
         while ((b & 0x80) == 0x80)
         {
-            result = result | (((long) (b & 0x7f)) << (7*(bytes-1)));
+            result = result | (((long) (b & 0x7f)) << (7 * (bytes - 1)));
             b = buffer.get();
             bytes++;
         }
-        result = result | (((long) b) << (7*(bytes-1)));
+        result = result | (((long) b) << (7 * (bytes - 1)));
         return result;
     }
 }

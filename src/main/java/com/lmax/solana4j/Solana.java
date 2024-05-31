@@ -18,6 +18,7 @@ public final class Solana
     {
     }
 
+
     public static final int MAX_MESSAGE_SIZE = SolanaEncoding.MAX_MESSAGE_SIZE;
 
     public static MessageBuilder builder(final ByteBuffer buffer)

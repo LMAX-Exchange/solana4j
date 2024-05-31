@@ -15,7 +15,7 @@ final class SignatureInfoDTO implements SignatureInfo
     private final Commitment confirmationStatus;
 
     @JsonCreator
-    public SignatureInfoDTO(
+    SignatureInfoDTO(
             final @JsonProperty("signature") String signature,
             final @JsonProperty("slot") long slot,
             final @JsonProperty("err") Object err,

@@ -44,7 +44,7 @@ final class SignatureStatusesDTO implements SolanaRpcResponse<List<SignatureStat
         private final Commitment confirmationStatus;
 
         @JsonCreator
-        public SignatureStatusesDataDTO(
+        SignatureStatusesDataDTO(
                 final @JsonProperty("confirmations") Long confirmations,
                 final @JsonProperty("slot") long slot,
                 final @JsonProperty("err") Object err,

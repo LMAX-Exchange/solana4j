@@ -14,7 +14,7 @@ final class SolanaAccountsView implements MessageVisitor.AccountsView
     private final int countReadWriteLookups;
     private final int countReadOnlyLookups;
 
-    public SolanaAccountsView(final List<PublicKey> staticAccounts, final int countReadWriteLookups, final int countReadOnlyLookups)
+    SolanaAccountsView(final List<PublicKey> staticAccounts, final int countReadWriteLookups, final int countReadOnlyLookups)
     {
         this.staticAccounts = staticAccounts;
         this.countReadWriteLookups = countReadWriteLookups;
@@ -30,7 +30,7 @@ final class SolanaAccountsView implements MessageVisitor.AccountsView
     @Override
     public List<PublicKey> allAccounts(final AddressesFromLookup addressesFromLookup)
     {
-        if(countReadOnlyLookups != addressesFromLookup.countReadOnly() || countReadWriteLookups != addressesFromLookup.countReadWrite())
+        if (countReadOnlyLookups != addressesFromLookup.countReadOnly() || countReadWriteLookups != addressesFromLookup.countReadWrite())
         {
             throw new IllegalArgumentException("Cannot evaluate accounts, missing account lookup values");
         }

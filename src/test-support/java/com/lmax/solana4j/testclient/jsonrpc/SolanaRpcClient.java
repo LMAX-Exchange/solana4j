@@ -2,7 +2,6 @@ package com.lmax.solana4j.testclient.jsonrpc;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.http.HttpHeaders;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,7 +12,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -58,7 +56,7 @@ public class SolanaRpcClient
             final TypeReference<RpcWrapperDTO<T>> type) throws IOException
     {
         final HttpPost request = buildPostRequest(solanaCodec.encodeRequest(method, params));
-        try (final CloseableHttpResponse httpResponse = httpClient.execute(request))
+        try (CloseableHttpResponse httpResponse = httpClient.execute(request))
         {
             if (httpResponse.getStatusLine().getStatusCode() != 200)
             {

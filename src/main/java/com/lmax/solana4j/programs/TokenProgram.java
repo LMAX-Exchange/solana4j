@@ -87,7 +87,8 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
                 .program(programId)
                 .account(tokenMintAddress, false, true)
                 .account(RENT, false, false)
-                .data(67, bb -> {
+                .data(67, bb ->
+                {
                     bb.order(ByteOrder.LITTLE_ENDIAN)
                             .put((byte) INITIALIZE_MINT_INSTRUCTION)
                             .put(decimals);
@@ -186,7 +187,8 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
             final long amount,
             final List<PublicKey> signers)
     {
-        tb.append(ib -> {
+        tb.append(ib ->
+        {
             ib
                     .program(programId)
                     .data(1 + 8, bb -> bb.order(ByteOrder.LITTLE_ENDIAN)
@@ -206,7 +208,8 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
             final List<PublicKey> signers,
             final int requiredSignatures)
     {
-        tb.append(ib -> {
+        tb.append(ib ->
+        {
             ib
                     .program(programId)
                     .data(1 + 1, bb -> bb.order(ByteOrder.LITTLE_ENDIAN)
@@ -231,7 +234,8 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
         final var newAuthorityBuffer = ByteBuffer.allocate(PublicKey.PUBLIC_KEY_LENGTH);
         newAuthority.write(newAuthorityBuffer);
 
-        tb.append(ib -> {
+        tb.append(ib ->
+        {
             ib
                     .program(programId)
                     .data(1 + 1 + 1 + PublicKey.PUBLIC_KEY_LENGTH, bb -> bb.order(ByteOrder.LITTLE_ENDIAN)

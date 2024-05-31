@@ -27,7 +27,7 @@ final class SolanaMessageBuilderV0 implements MessageBuilderV0
     private final List<TransactionInstruction> instructions = new ArrayList<>();
     private List<AddressLookupTable> accountLookups;
 
-    public SolanaMessageBuilderV0(final MessageBuilder parent, final ByteBuffer buffer)
+    SolanaMessageBuilderV0(final MessageBuilder parent, final ByteBuffer buffer)
     {
         this.parent = requireNonNull(parent);
         this.buffer = buffer;

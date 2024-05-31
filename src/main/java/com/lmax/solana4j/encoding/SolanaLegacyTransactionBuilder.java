@@ -18,7 +18,7 @@ final class SolanaLegacyTransactionBuilder implements LegacyTransactionBuilder
     private final SolanaMessageBuilder messageBuilder;
     private final List<TransactionInstruction> instructions;
 
-    public SolanaLegacyTransactionBuilder(final SolanaMessageBuilder messageBuilder, final List<TransactionInstruction> instructions)
+    SolanaLegacyTransactionBuilder(final SolanaMessageBuilder messageBuilder, final List<TransactionInstruction> instructions)
     {
         this.messageBuilder = messageBuilder;
         this.instructions = instructions;

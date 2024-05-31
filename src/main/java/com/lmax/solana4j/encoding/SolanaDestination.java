@@ -8,7 +8,7 @@ final class SolanaDestination implements Destination
     private final PublicKey destination;
     private final long amount;
 
-    public SolanaDestination(final PublicKey destination, final long amount)
+    SolanaDestination(final PublicKey destination, final long amount)
     {
         this.destination = destination;
         this.amount = amount;

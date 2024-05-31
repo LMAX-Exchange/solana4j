@@ -15,6 +15,7 @@ import java.nio.ByteOrder;
 
 public final class SolanaEncoding
 {
+    // TODO: javadoc comment
     public static final int MAX_MESSAGE_SIZE = 1280 - 40 - 8;
 
     public static MessageBuilder builder(final ByteBuffer buffer)

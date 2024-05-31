@@ -11,7 +11,7 @@ final class SolanaAccountLookupTableView implements MessageVisitor.AccountLookup
     private final List<Integer> readWriteTableIndexes;
     private final List<Integer> readOnlyTableIndexes;
 
-    public SolanaAccountLookupTableView(final PublicKey lookupAccount, final List<Integer> readWriteTableIndexes, final List<Integer> readOnlyTableIndexes)
+    SolanaAccountLookupTableView(final PublicKey lookupAccount, final List<Integer> readWriteTableIndexes, final List<Integer> readOnlyTableIndexes)
     {
         this.lookupAccount = lookupAccount;
         this.readWriteTableIndexes = readWriteTableIndexes;

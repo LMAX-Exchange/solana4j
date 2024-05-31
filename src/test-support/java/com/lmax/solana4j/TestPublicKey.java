@@ -6,7 +6,7 @@ public class TestPublicKey
 {
     private final byte[] publicKey;
 
-    public TestPublicKey(byte[] publicKey)
+    public TestPublicKey(final byte[] publicKey)
     {
         this.publicKey = publicKey;
     }

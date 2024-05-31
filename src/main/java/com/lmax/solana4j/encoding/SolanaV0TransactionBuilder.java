@@ -19,7 +19,7 @@ final class SolanaV0TransactionBuilder implements VersionedTransactionBuilder
     private final MessageBuilder messageBuilder;
     private final List<TransactionInstruction> instructions;
 
-    public SolanaV0TransactionBuilder(final MessageBuilder messageBuilder, final List<TransactionInstruction> instructions)
+    SolanaV0TransactionBuilder(final MessageBuilder messageBuilder, final List<TransactionInstruction> instructions)
     {
         this.messageBuilder = messageBuilder;
         this.instructions = instructions;
