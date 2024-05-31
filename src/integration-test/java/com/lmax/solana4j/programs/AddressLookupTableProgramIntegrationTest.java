@@ -3,7 +3,7 @@ package com.lmax.solana4j.programs;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class AddressLookupTableProgramIntegrationTest extends SolanaValidatorIntegrationTestBase
+final class AddressLookupTableProgramIntegrationTest extends V0EncodingIntegrationTest
 {
     @BeforeEach
     void beforeEachTest()
