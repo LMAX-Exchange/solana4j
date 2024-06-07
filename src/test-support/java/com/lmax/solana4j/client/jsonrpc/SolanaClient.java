@@ -108,6 +108,8 @@ public class SolanaClient implements SolanaApi
     @Override
     public Long getMinimalBalanceForRentExemption(final int size)
     {
-        throw new UnsupportedOperationException();
+        return rpcClient.queryForObject(new TypeReference<>()
+        {
+        }, "getMinimumBalanceForRentExemption", size);
     }
 }

@@ -1,14 +1,15 @@
 package com.lmax.solana4j;
 
 import com.lmax.solana4j.api.AddressLookupTable;
+import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.Slot;
-import com.lmax.solana4j.domain.TestKeyPair;
-import com.lmax.solana4j.domain.TestPublicKey;
-import com.lmax.solana4j.programs.AddressWithBumpSeed;
 import com.lmax.solana4j.client.api.AccountInfo;
 import com.lmax.solana4j.client.api.Commitment;
 import com.lmax.solana4j.client.api.SolanaApi;
 import com.lmax.solana4j.client.api.TransactionResponse;
+import com.lmax.solana4j.domain.TestKeyPair;
+import com.lmax.solana4j.domain.TestPublicKey;
+import com.lmax.solana4j.programs.AddressWithBumpSeed;
 import com.lmax.solana4j.transaction.LegacyTransactionFactory;
 import com.lmax.solana4j.transaction.TransactionFactory;
 import com.lmax.solana4j.transaction.V0TransactionFactory;
@@ -62,10 +63,11 @@ public class SolanaDriver
 
         final String transactionBlob = getTransactionFactory().createAddressLookupTable(
                 addressWithBumpSeed,
-                authority,
-                payer,
+                authority.getSolana4jPublicKey(),
                 slot,
                 Solana.blockhash(recentBlockhash.getBytes()),
+                payer.getSolana4jPublicKey(),
+                List.of(payer, authority),
                 addressLookupTables);
 
         LOGGER.info("About to send transaction blob {}.", transactionBlob);
@@ -83,11 +85,62 @@ public class SolanaDriver
 
         final String transactionBlob = getTransactionFactory().extendAddressLookupTable(
                 addressLookupTable.getSolana4jPublicKey(),
-                authority,
-                payer,
+                authority.getSolana4jPublicKey(),
                 addressesToAdd.stream().map(TestPublicKey::getSolana4jPublicKey).collect(Collectors.toList()),
                 Solana.blockhash(recentBlockhash.getBytes()),
+                payer.getSolana4jPublicKey(),
+                List.of(payer, authority),
                 addressLookupTables);
+
+        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+    }
+
+    public String initializeMint(
+            final TokenProgramFactory tokenProgramFactory,
+            final TestPublicKey mintAddress,
+            final int decimals,
+            final TestKeyPair mintAuthority,
+            final TestKeyPair freezeAuthority,
+            final TestKeyPair payer,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final com.lmax.solana4j.client.api.Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
+
+        final String transactionBlob = getTransactionFactory().initializeMint(
+                tokenProgramFactory,
+                mintAddress.getSolana4jPublicKey(),
+                decimals,
+                mintAuthority.getSolana4jPublicKey(),
+                freezeAuthority.getSolana4jPublicKey(),
+                Solana.blockhash(recentBlockhash.getBytes()),
+                payer.getSolana4jPublicKey(),
+                List.of(payer, mintAuthority),
+                addressLookupTables
+        );
+
+        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+    }
+
+    public String createAccount(
+            final PublicKey tokenProgram,
+            final TestKeyPair account,
+            final TestKeyPair payer,
+            final int accountSpan,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final com.lmax.solana4j.client.api.Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
+        final long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
+
+        final String transactionBlob = getTransactionFactory().createAccount(
+                account.getSolana4jPublicKey(),
+                tokenProgram,
+                rentExemption,
+                accountSpan,
+                Solana.blockhash(recentBlockhash.getBytes()),
+                payer.getSolana4jPublicKey(),
+                List.of(payer, account),
+                addressLookupTables
+        );
 
         return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
     }
