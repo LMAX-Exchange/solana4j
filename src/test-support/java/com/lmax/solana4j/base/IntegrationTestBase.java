@@ -20,6 +20,7 @@ public abstract class IntegrationTestBase
         {
             SOLANA_VALIDATOR = new GenericContainer<>("solanalabs/solana:v1.17.34")
                     .withExposedPorts(SOLANA_HTTP_PORT, SOLANA_WS_PORT)
+                    .withEnv("SOLANA_RUN_SH_GENESIS_ARGS", "--ticks-per-slot=2")
                     .withNetwork(NETWORK);
 
             SOLANA_VALIDATOR.start();
