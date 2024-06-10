@@ -15,6 +15,12 @@ checkstyle {
     configFile = file('config/checkstyle/checkstyle.xml')
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 configurations {
     integrationTestImplementation.extendsFrom testImplementation
     integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
