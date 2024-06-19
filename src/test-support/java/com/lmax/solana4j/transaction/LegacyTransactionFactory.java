@@ -46,7 +46,7 @@ public class LegacyTransactionFactory implements TransactionFactory
                                 to,
                                 amount
                         ))
-                .payer(from)
+                .payer(payer)
                 .seal()
                 .unsigned()
                 .build();

@@ -279,6 +279,27 @@ public class SolanaDriver
         return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
     }
 
+    public String transfer(
+            final TestKeyPair from,
+            final TestPublicKey to,
+            final long amount,
+            final TestKeyPair payer,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+
+        final String transactionBlob = getTransactionFactory().solTransfer(
+                from.getSolana4jPublicKey(),
+                to.getSolana4jPublicKey(),
+                amount,
+                Solana.blockhash(blockhash.getBytes()),
+                payer.getSolana4jPublicKey(),
+                List.of(payer, from),
+                addressLookupTables);
+
+        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+    }
+
     public void setMessageEncoding(final String messageEncoding)
     {
         if (messageEncoding.equals("V0"))

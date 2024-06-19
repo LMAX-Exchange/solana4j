@@ -21,7 +21,7 @@ public class SystemProgramIntegrationTest extends IntegrationTestBase
         solana.createKeyPair("account");
         solana.createKeyPair("authority");
 
-        solana.airdrop("address: authority", "amountSol: 10");
+        solana.airdrop("authority", "10");
         solana.createNonceAccount("account", "authority", "payer");
     }
 
@@ -37,5 +37,21 @@ public class SystemProgramIntegrationTest extends IntegrationTestBase
         solana.createNonceAccount("account", "authority", "payer");
 
         solana.advanceNonce("account", "authority", "payer");
+    }
+
+    @ParameterizedMessageEncodingTest
+    void shouldTransferSol(final String messageEncoding)
+    {
+        solana.setMessageEncoding(messageEncoding);
+
+        solana.createKeyPair("from");
+        solana.createKeyPair("to");
+
+        solana.airdrop("from", "10");
+
+        solana.transfer("from", "to", "1", "payer");
+
+        solana.balance("from", "9");
+        solana.balance("to", "1");
     }
 }

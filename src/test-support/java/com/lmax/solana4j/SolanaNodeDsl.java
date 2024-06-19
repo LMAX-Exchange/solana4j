@@ -69,7 +69,7 @@ public class SolanaNodeDsl
                 new OptionalArg("rememberTransactionId"));
 
         final TestPublicKey address = testContext.getPublicKey(params.value("address"));
-        final Sol sol = new Sol(Long.parseLong(params.value("amountSol")));
+        final Sol sol = new Sol(params.valueAsLong("amountSol"));
 
         final String transactionSignature = solanaDriver.requestAirdrop(address, sol.lamports());
         new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
@@ -285,6 +285,21 @@ public class SolanaNodeDsl
         new Waiter().waitFor(new IsEqualToAssertion<>(amount, () -> solanaDriver.getTokenBalance(address.getPublicKeyBase58(), commitment)));
     }
 
+    public void balance(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("address"),
+                new RequiredArg("amountSol"),
+                new OptionalArg("commitment").setDefault("FINALIZED").setAllowedValues(Commitment.class));
+
+        final TestPublicKey address = testContext.getPublicKey(params.value("address"));
+        final Sol sol = new Sol(params.valueAsLong("amountSol"));
+        final Commitment commitment = params.valueAs("commitment", Commitment.class);
+
+        new Waiter().waitFor(new IsEqualToAssertion<>(sol.lamports(), () -> solanaDriver.getBalance(address.getPublicKeyBase58(), commitment)));
+    }
+
     public void tokenTransfer(final String... args)
     {
         final DslParams params = DslParams.create(
@@ -353,6 +368,30 @@ public class SolanaNodeDsl
                 .toList();
 
         final String transactionSignature = solanaDriver.advanceNonce(account, authority, payer, addressLookupTables);
+
+        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
+    }
+
+    public void transfer(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("from"),
+                new RequiredArg("to"),
+                new RequiredArg("amountSol"),
+                new RequiredArg("payer"),
+                new OptionalArg("addressLookupTables").setAllowMultipleValues()
+        );
+
+        final TestKeyPair from = testContext.getKeyPair(params.value("from"));
+        final TestPublicKey to = testContext.getPublicKey(params.value("to"));
+        final Sol sol = new Sol(params.valueAsLong("amountSol"));
+        final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
+        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
+                .map(testContext::getAddressLookupTable)
+                .toList();
+
+        final String transactionSignature = solanaDriver.transfer(from, to, sol.lamports(), payer, addressLookupTables);
 
         new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
     }
