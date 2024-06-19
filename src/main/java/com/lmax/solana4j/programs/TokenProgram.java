@@ -64,7 +64,7 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
     }
 
 
-    public T createInitializeAccountInstruction(final PublicKey account, final PublicKey mint, final PublicKey owner)
+    public T createInitializeTokenAccountInstruction(final PublicKey account, final PublicKey mint, final PublicKey owner)
     {
         tb.append(ib -> ib
                 .program(programId)
@@ -77,7 +77,7 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
         return (T) this;
     }
 
-    public T createInitializeMintInstruction(
+    public T createInitializeMintAccountInstruction(
             final PublicKey tokenMintAddress,
             final byte decimals,
             final PublicKey mintAuthority,

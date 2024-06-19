@@ -115,4 +115,12 @@ public interface TransactionFactory
             PublicKey payer,
             List<TestKeyPair> signers,
             List<AddressLookupTable> addressLookupTables);
+
+    String advanceNonce(
+            PublicKey account,
+            PublicKey authority,
+            Blockhash blockhash,
+            PublicKey payer,
+            List<TestKeyPair> signers,
+            List<AddressLookupTable> addressLookupTables);
 }

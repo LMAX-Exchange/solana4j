@@ -235,6 +235,25 @@ public class SolanaDriver
         return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
     }
 
+    public String advanceNonce(
+            final TestKeyPair account,
+            final TestKeyPair authority,
+            final TestKeyPair payer,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+
+        final String transactionBlob = getTransactionFactory().advanceNonce(
+                account.getSolana4jPublicKey(),
+                authority.getSolana4jPublicKey(),
+                Solana.blockhash(blockhash.getBytes()),
+                payer.getSolana4jPublicKey(),
+                List.of(payer, authority),
+                addressLookupTables);
+
+        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+    }
+
     public String tokenTransfer(
             final TokenProgram tokenProgram,
             final TestKeyPair from,

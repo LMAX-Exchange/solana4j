@@ -201,7 +201,7 @@ public class V0TransactionFactory implements TransactionFactory
                                 accountSpan,
                                 tokenProgram.getProgram()))
                 .instructions(builder -> tokenProgram.getFactory().factory(builder)
-                        .createInitializeMintInstruction(
+                        .createInitializeMintAccountInstruction(
                                 account,
                                 (byte) decimals,
                                 mintAuthority,
@@ -285,7 +285,7 @@ public class V0TransactionFactory implements TransactionFactory
                                 accountSpan,
                                 tokenProgram.getProgram()))
                 .instructions(legacyTransactionBuilder -> tokenProgram.getFactory().factory(legacyTransactionBuilder)
-                        .createInitializeAccountInstruction(
+                        .createInitializeTokenAccountInstruction(
                                 account,
                                 mint,
                                 owner))
@@ -378,6 +378,37 @@ public class V0TransactionFactory implements TransactionFactory
                                 payer,
                                 addressesToAdd)
                 )
+                .payer(payer)
+                .lookups(addressLookupTables)
+                .seal()
+                .unsigned()
+                .build();
+
+        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
+        for (final TestKeyPair signer : signers)
+        {
+            signedMessageBuilder.by(signer.getSolana4jPublicKey(), new BouncyCastleSigner(signer.getPrivateKeyBytes()));
+        }
+
+        signedMessageBuilder.build();
+        return base58encode(buffer);
+    }
+
+    @Override
+    public String advanceNonce(
+            final PublicKey account,
+            final PublicKey authority,
+            final Blockhash blockhash,
+            final PublicKey payer,
+            final List<TestKeyPair> signers,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+        Solana.builder(buffer)
+                .v0()
+                .recent(blockhash)
+                .instructions(tb -> SystemProgram.factory(tb)
+                        .nonceAdvance(account, authority))
                 .payer(payer)
                 .lookups(addressLookupTables)
                 .seal()

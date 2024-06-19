@@ -44,18 +44,6 @@ class TokenProgramIntegrationTest extends IntegrationTestBase
     }
 
     @ParameterizedTokenTest
-    void shouldCreateNonce(final String messageEncoding, final String tokenProgram)
-    {
-        solana.setMessageEncoding(messageEncoding);
-
-        solana.createKeyPair("account");
-        solana.createKeyPair("authority");
-
-        solana.airdrop("address: authority", "amountSol: 10");
-        solana.createNonceAccount("account", "authority", "payer", tokenProgram);
-    }
-
-    @ParameterizedTokenTest
     void shouldTransferToken(final String messageEncoding, final String tokenProgram)
     {
         solana.setMessageEncoding(messageEncoding);

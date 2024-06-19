@@ -320,7 +320,6 @@ public class SolanaNodeDsl
                 new RequiredArg("account"),
                 new RequiredArg("authority"),
                 new RequiredArg("payer"),
-                new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token"),
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
@@ -332,6 +331,28 @@ public class SolanaNodeDsl
                 .toList();
 
         final String transactionSignature = solanaDriver.createNonceAccount(account, authority, payer, NONCE_ACCOUNT_LAYOUT_SPAN, addressLookupTables);
+
+        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
+    }
+
+    public void advanceNonce(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("account"),
+                new RequiredArg("authority"),
+                new RequiredArg("payer"),
+                new OptionalArg("addressLookupTables").setAllowMultipleValues()
+        );
+
+        final TestKeyPair account = testContext.getKeyPair(params.value("account"));
+        final TestKeyPair authority = testContext.getKeyPair(params.value("authority"));
+        final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
+        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
+                .map(testContext::getAddressLookupTable)
+                .toList();
+
+        final String transactionSignature = solanaDriver.advanceNonce(account, authority, payer, addressLookupTables);
 
         new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
     }
