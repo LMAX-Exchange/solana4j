@@ -14,7 +14,7 @@ class TokenProgramIntegrationTest extends IntegrationTestBase
     }
 
     @ParameterizedTokenTest
-    void shouldInitializeTokenMint(final String messageEncoding, final String tokenProgram)
+    void shouldCreateTokenMint(final String messageEncoding, final String tokenProgram)
     {
         solana.setMessageEncoding(messageEncoding);
 
@@ -22,7 +22,24 @@ class TokenProgramIntegrationTest extends IntegrationTestBase
         solana.createKeyPair("mintAuthority");
         solana.createKeyPair("freezeAuthority");
 
-        solana.createMintAccount("tokenMintAddress", "payer", tokenProgram);
-        solana.initializeMint("tokenMintAddress", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram);
+        solana.createMintAccount("tokenMintAddress", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram);
+    }
+
+    @ParameterizedTokenTest
+    void shouldMintToToken(final String messageEncoding, final String tokenProgram)
+    {
+        solana.setMessageEncoding(messageEncoding);
+
+        solana.createKeyPair("tokenMint");
+        solana.createKeyPair("mintAuthority");
+        solana.createKeyPair("freezeAuthority");
+        solana.createKeyPair("tokenAccount");
+        solana.createKeyPair("tokenAccountOwner");
+
+        solana.createMintAccount("tokenMint", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram);
+        solana.createTokenAccount("tokenAccount", "tokenAccountOwner", "tokenMint", "payer", tokenProgram);
+
+        solana.mintTo("tokenMint", "tokenAccount", "mintAuthority", "payer", "100", tokenProgram);
+        solana.tokenBalance("tokenAccount", "0.0000000000000001");
     }
 }

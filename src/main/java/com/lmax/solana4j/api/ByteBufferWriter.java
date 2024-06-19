@@ -1,8 +1,8 @@
-package com.lmax.solana4j.encoding;
+package com.lmax.solana4j.api;
 
 import java.nio.ByteBuffer;
 
-interface ByteBufferWriter
+public interface ByteBufferWriter
 {
     void write(References references, ByteBuffer buffer);
 }

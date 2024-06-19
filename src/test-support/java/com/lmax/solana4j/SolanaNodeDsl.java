@@ -158,11 +158,11 @@ public class SolanaNodeDsl
         new Waiter().waitFor(new IsEqualToAssertion<>(true, () -> solanaDriver.getSlot(FINALIZED) > params.valueAsLong("slot")));
     }
 
-    public void initializeMint(final String... args)
+    public void createMintAccount(final String... args)
     {
         final DslParams params = DslParams.create(
                 args,
-                new RequiredArg("tokenMintAddress"),
+                new RequiredArg("account"),
                 new RequiredArg("decimals"),
                 new RequiredArg("mintAuthority"),
                 new RequiredArg("freezeAuthority"),
@@ -171,7 +171,7 @@ public class SolanaNodeDsl
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
-        final TestPublicKey tokenMintAddress = testContext.getPublicKey(params.value("tokenMintAddress"));
+        final TestKeyPair account = testContext.getKeyPair(params.value("account"));
         final int decimals = params.valueAsInt("decimals");
         final TestKeyPair mintAuthority = testContext.getKeyPair(params.value("mintAuthority"));
         final TestKeyPair freezeAuthority = testContext.getKeyPair(params.value("freezeAuthority"));
@@ -181,12 +181,12 @@ public class SolanaNodeDsl
                 .map(testContext::getAddressLookupTable)
                 .toList();
 
-        final String transactionSignature = solanaDriver.initializeMint(tokenProgram.getFactory(), tokenMintAddress, decimals, mintAuthority, freezeAuthority, payer, addressLookupTables);
+        final String transactionSignature = solanaDriver.createMintAccount(tokenProgram, account, decimals, mintAuthority, freezeAuthority, payer, MINT_LAYOUT_SPAN, addressLookupTables);
 
         new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
     }
 
-    public void createMintAccount(final String... args)
+    public void createAccount(final String... args)
     {
         final DslParams params = DslParams.create(
                 args,
@@ -203,8 +203,84 @@ public class SolanaNodeDsl
                 .map(testContext::getAddressLookupTable)
                 .toList();
 
-        final String transactionSignature = solanaDriver.createAccount(tokenProgram.getProgram(), account, payer, MINT_LAYOUT_SPAN, addressLookupTables);
+        final String transactionSignature = solanaDriver.createAccount(tokenProgram.getProgram(), account, payer, ACCOUNT_LAYOUT_SPAN, addressLookupTables);
 
         new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
+    }
+
+    public void mintTo(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("tokenMint"),
+                new RequiredArg("to"),
+                new RequiredArg("authority"),
+                new RequiredArg("payer"),
+                new RequiredArg("amount"),
+                new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token"),
+                new OptionalArg("addressLookupTables").setAllowMultipleValues()
+        );
+
+        final TestPublicKey tokenMint = testContext.getPublicKey(params.value("tokenMint"));
+        final TestKeyPair authority = testContext.getKeyPair(params.value("authority"));
+        final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
+        final TestPublicKey to = testContext.getPublicKey(params.value("to"));
+        final long amount = params.valueAsLong("amount");
+        final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
+        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
+                .map(testContext::getAddressLookupTable)
+                .toList();
+
+        final String transactionSignature = solanaDriver.mintTo(tokenProgram.getFactory(), tokenMint, to, amount, authority, payer, addressLookupTables);
+
+        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
+    }
+
+    public void createTokenAccount(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("account"),
+                new RequiredArg("owner"),
+                new RequiredArg("tokenMint"),
+                new RequiredArg("payer"),
+                new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token"),
+                new OptionalArg("addressLookupTables").setAllowMultipleValues()
+        );
+
+        final TestKeyPair account = testContext.getKeyPair(params.value("account"));
+        final TestPublicKey owner = testContext.getPublicKey(params.value("owner"));
+        final TestPublicKey tokenMint = testContext.getPublicKey(params.value("tokenMint"));
+        final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
+        final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
+        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
+                .map(testContext::getAddressLookupTable)
+                .toList();
+
+        final String transactionSignature = solanaDriver.createTokenAccount(
+                tokenProgram,
+                account,
+                owner,
+                tokenMint,
+                payer,
+                ACCOUNT_LAYOUT_SPAN,
+                addressLookupTables);
+
+        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
+    }
+
+    public void tokenBalance(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("address"),
+                new RequiredArg("amount"),
+                new OptionalArg("commitment").setDefault("FINALIZED").setAllowedValues(Commitment.class));
+
+        final TestPublicKey address = testContext.getPublicKey(params.value("address"));
+        final String amount = params.value("amount");
+        final Commitment commitment = params.valueAs("commitment", Commitment.class);
+
+        new Waiter().waitFor(new IsEqualToAssertion<>(amount, () -> solanaDriver.getTokenBalance(address.getPublicKeyBase58(), commitment)));
     }
 }

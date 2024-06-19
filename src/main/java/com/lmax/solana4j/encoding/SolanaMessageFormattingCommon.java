@@ -5,6 +5,7 @@ import com.lmax.solana4j.api.Blockhash;
 import com.lmax.solana4j.api.MessageVisitor;
 import com.lmax.solana4j.api.MessageVisitor.InstructionView;
 import com.lmax.solana4j.api.PublicKey;
+import com.lmax.solana4j.api.References;
 import com.lmax.solana4j.api.TransactionInstruction;
 
 import java.nio.ByteBuffer;

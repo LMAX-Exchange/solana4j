@@ -4,11 +4,13 @@ import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.client.api.AccountInfo;
+import com.lmax.solana4j.client.api.Blockhash;
 import com.lmax.solana4j.client.api.Commitment;
 import com.lmax.solana4j.client.api.SolanaApi;
 import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TestPublicKey;
+import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.programs.AddressWithBumpSeed;
 import com.lmax.solana4j.transaction.LegacyTransactionFactory;
 import com.lmax.solana4j.transaction.TransactionFactory;
@@ -95,26 +97,29 @@ public class SolanaDriver
         return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
     }
 
-    public String initializeMint(
-            final TokenProgramFactory tokenProgramFactory,
-            final TestPublicKey mintAddress,
+    public String createMintAccount(
+            final TokenProgram tokenProgram,
+            final TestKeyPair account,
             final int decimals,
             final TestKeyPair mintAuthority,
             final TestKeyPair freezeAuthority,
-            final TestKeyPair payer,
+            final TestKeyPair payer, final int accountSpan,
             final List<AddressLookupTable> addressLookupTables)
     {
         final com.lmax.solana4j.client.api.Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
+        final long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
 
-        final String transactionBlob = getTransactionFactory().initializeMint(
-                tokenProgramFactory,
-                mintAddress.getSolana4jPublicKey(),
+        final String transactionBlob = getTransactionFactory().createMintAccount(
+                tokenProgram,
+                account.getSolana4jPublicKey(),
                 decimals,
                 mintAuthority.getSolana4jPublicKey(),
                 freezeAuthority.getSolana4jPublicKey(),
+                rentExemption,
+                accountSpan,
                 Solana.blockhash(recentBlockhash.getBytes()),
                 payer.getSolana4jPublicKey(),
-                List.of(payer, mintAuthority),
+                List.of(payer, account),
                 addressLookupTables
         );
 
@@ -143,6 +148,68 @@ public class SolanaDriver
         );
 
         return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+    }
+
+    public String mintTo(
+            final TokenProgramFactory tokenProgramFactory,
+            final TestPublicKey tokenMintAddress,
+            final TestPublicKey to,
+            final long amount,
+            final TestKeyPair authority,
+            final TestKeyPair payer,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final com.lmax.solana4j.client.api.Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
+
+        final String transactionBlob = getTransactionFactory().mintTo(
+                tokenProgramFactory,
+                tokenMintAddress.getSolana4jPublicKey(),
+                authority.getSolana4jPublicKey(),
+                SolanaEncoding.destination(to.getSolana4jPublicKey(), amount),
+                SolanaEncoding.blockhash(recentBlockhash.getBytes()),
+                payer.getSolana4jPublicKey(),
+                List.of(payer, authority),
+                addressLookupTables
+        );
+
+        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+    }
+
+    public String createTokenAccount(
+            final TokenProgram tokenProgram,
+            final TestKeyPair account,
+            final TestPublicKey owner,
+            final TestPublicKey tokenMintAddress,
+            final TestKeyPair payer,
+            final int accountSpan,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final Long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
+        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+
+        final String transactionBlob = getTransactionFactory().initializeTokenAccount(
+                tokenProgram,
+                rentExemption,
+                accountSpan,
+                account.getSolana4jPublicKey(),
+                owner.getSolana4jPublicKey(),
+                tokenMintAddress.getSolana4jPublicKey(),
+                Solana.blockhash(blockhash.getBytes()),
+                payer.getSolana4jPublicKey(),
+                List.of(payer, account),
+                addressLookupTables);
+
+        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+    }
+
+    public long getBalance(final String address, final Commitment commitment)
+    {
+        return solanaApi.getBalance(address, commitment);
+    }
+
+    public String getTokenBalance(final String address, final Commitment commitment)
+    {
+        return solanaApi.getTokenAccountBalance(address, commitment).getUiAmountString();
     }
 
     private TransactionFactory getTransactionFactory()

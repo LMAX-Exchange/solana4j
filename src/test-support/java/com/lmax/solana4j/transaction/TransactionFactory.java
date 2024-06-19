@@ -1,5 +1,6 @@
 package com.lmax.solana4j.transaction;
 
+import com.lmax.solana4j.TokenProgram;
 import com.lmax.solana4j.TokenProgramFactory;
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.Blockhash;
@@ -53,19 +54,22 @@ public interface TransactionFactory
             List<TestKeyPair> signers,
             List<AddressLookupTable> addressLookupTables);
 
-    String initializeMint(
-            TokenProgramFactory tokenProgram,
+    String createMintAccount(
+            TokenProgram tokenProgram,
             PublicKey account,
             int decimals,
             PublicKey mintAuthority,
             PublicKey freezeAuthority,
+            long rentExemption,
+            int accountSpan,
             Blockhash blockhash,
             PublicKey payer,
             List<TestKeyPair> signers,
             List<AddressLookupTable> addressLookupTables);
 
     String initializeNonce(
-            TokenProgramFactory tokenProgramFactory,
+            long rentExemption,
+            int accountSpan,
             PublicKey nonce,
             PublicKey authority,
             Blockhash blockhash,
@@ -74,7 +78,9 @@ public interface TransactionFactory
             List<AddressLookupTable> addressLookupTables);
 
     String initializeTokenAccount(
-            TokenProgramFactory tokenProgramFactory,
+            TokenProgram tokenProgram,
+            long rentExemption,
+            int accountSpan,
             PublicKey account,
             PublicKey owner,
             PublicKey mint,

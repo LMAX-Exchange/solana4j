@@ -35,19 +35,19 @@ public class SolanaClient implements SolanaApi
                                         {
                                         },
                 "getTransaction",
-                // solana config set --url http://localhost:8899 on the node
-                transactionSignature, Map.of(
+                transactionSignature,
+                Map.of(
                         "commitment", commitment.name().toLowerCase(Locale.UK),
                         "econding", "jsonParsed",
-                        "maxSupportedTransactionVersion", 0)
+                        "maxSupportedTransactionVersion", 0
+                )
         );
     }
 
     @Override
     public String sendTransaction(final String transactionBlob, final Commitment commitment)
     {
-        // there is something wrong here
-        return rpcClient.queryForObject(new TypeReference<RpcWrapperDTO<String>>()
+        return rpcClient.queryForObject(new TypeReference<>()
                                         {
                                         },
                 "sendTransaction",
@@ -59,13 +59,25 @@ public class SolanaClient implements SolanaApi
     @Override
     public Long getBalance(final String address, final Commitment commitment)
     {
-        throw new UnsupportedOperationException();
+        return rpcClient.queryForObject(new TypeReference<RpcWrapperDTO<BalanceDTO>>()
+                                        {
+                                        },
+                "getBalance",
+                address,
+                Map.of("commitment", commitment.name().toLowerCase(Locale.UK))
+        ).getValue();
     }
 
     @Override
     public TokenAmount getTokenAccountBalance(final String address, final Commitment commitment)
     {
-        throw new UnsupportedOperationException();
+        return rpcClient.queryForObject(new TypeReference<RpcWrapperDTO<TokenAmountDTO>>()
+                                        {
+                                        },
+                "getTokenAccountBalance",
+                address,
+                Map.of("commitment", commitment.name().toLowerCase(Locale.UK))
+        ).getValue();
     }
 
     @Override
@@ -84,7 +96,9 @@ public class SolanaClient implements SolanaApi
     @Override
     public Long getBlockHeight()
     {
-        throw new UnsupportedOperationException();
+        return rpcClient.queryForObject(new TypeReference<>()
+        {
+        }, "getBlockHeight");
     }
 
     @Override

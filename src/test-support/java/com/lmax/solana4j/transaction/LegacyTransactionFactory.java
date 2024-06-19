@@ -2,6 +2,7 @@ package com.lmax.solana4j.transaction;
 
 import com.lmax.solana4j.ByteBufferPrimitiveArray;
 import com.lmax.solana4j.Solana;
+import com.lmax.solana4j.TokenProgram;
 import com.lmax.solana4j.TokenProgramFactory;
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.Blockhash;
@@ -19,6 +20,7 @@ import org.bitcoinj.core.Base58;
 import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class LegacyTransactionFactory implements TransactionFactory
 {
@@ -33,7 +35,30 @@ public class LegacyTransactionFactory implements TransactionFactory
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
     {
-        return null;
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
+        Solana.builder(buffer)
+                .legacy()
+                .recent(blockhash)
+                .instructions(builder -> SystemProgram.factory(builder)
+                        .transfer(
+                                from,
+                                to,
+                                amount
+                        ))
+                .payer(from)
+                .seal()
+                .unsigned()
+                .build();
+
+        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
+        for (final TestKeyPair signer : signers)
+        {
+            signedMessageBuilder.by(signer.getSolana4jPublicKey(), new BouncyCastleSigner(signer.getPrivateKeyBytes()));
+        }
+        signedMessageBuilder.build();
+
+        return base58encode(buffer);
     }
 
     @Override
@@ -48,7 +73,33 @@ public class LegacyTransactionFactory implements TransactionFactory
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
     {
-        return null;
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
+        Solana.builder(buffer)
+                .legacy()
+                .recent(blockhash)
+                .instructions(builder -> tokenProgramFactory.factory(builder)
+                        .createTransferInstruction(
+                                from,
+                                to,
+                                owner,
+                                amount,
+                                signers.stream().map(TestKeyPair::getSolana4jPublicKey).collect(Collectors.toList())
+                        ))
+                .payer(payer)
+                .seal()
+                .unsigned()
+                .build();
+
+        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
+        for (final TestKeyPair signer : signers)
+        {
+            signedMessageBuilder.by(signer.getSolana4jPublicKey(), new BouncyCastleSigner(signer.getPrivateKeyBytes()));
+        }
+
+        signedMessageBuilder.build();
+
+        return base58encode(buffer);
     }
 
     @Override
@@ -62,7 +113,30 @@ public class LegacyTransactionFactory implements TransactionFactory
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
     {
-        return null;
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+        Solana.builder(buffer)
+                .legacy()
+                .recent(blockhash)
+                .instructions(builder -> tokenProgramFactory.factory(builder)
+                        .createMintToInstruction(
+                                mint,
+                                authority,
+                                destination
+                        ))
+                .payer(payer)
+                .seal()
+                .unsigned()
+                .build();
+
+        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
+        for (final TestKeyPair signer : signers)
+        {
+            signedMessageBuilder.by(signer.getSolana4jPublicKey(), new BouncyCastleSigner(signer.getPrivateKeyBytes()));
+        }
+
+        signedMessageBuilder.build();
+
+        return base58encode(buffer);
     }
 
     @Override
@@ -105,12 +179,14 @@ public class LegacyTransactionFactory implements TransactionFactory
 
 
     @Override
-    public String initializeMint(
-            final TokenProgramFactory tokenProgram,
+    public String createMintAccount(
+            final TokenProgram tokenProgram,
             final PublicKey account,
             final int decimals,
             final PublicKey mintAuthority,
             final PublicKey freezeAuthority,
+            final long rentExemption,
+            final int accountSpan,
             final Blockhash blockhash,
             final PublicKey payer,
             final List<TestKeyPair> signers,
@@ -120,7 +196,14 @@ public class LegacyTransactionFactory implements TransactionFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(builder -> tokenProgram.factory(builder)
+                .instructions(versionedTransactionBuilder -> SystemProgram.factory(versionedTransactionBuilder)
+                        .createAccount(
+                                payer,
+                                account,
+                                rentExemption,
+                                accountSpan,
+                                tokenProgram.getProgram()))
+                .instructions(builder -> tokenProgram.getFactory().factory(builder)
                         .createInitializeMintInstruction(
                                 account,
                                 (byte) decimals,
@@ -144,7 +227,8 @@ public class LegacyTransactionFactory implements TransactionFactory
 
     @Override
     public String initializeNonce(
-            final TokenProgramFactory tokenProgramFactory,
+            final long rentExemption,
+            final int accountSpan,
             final PublicKey nonce,
             final PublicKey authority,
             final Blockhash blockhash,
@@ -152,12 +236,37 @@ public class LegacyTransactionFactory implements TransactionFactory
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
     {
-        return null;
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+        Solana.builder(buffer)
+                .legacy()
+                .recent(blockhash)
+                .instructions(legacyTransactionBuilder -> SystemProgram.factory(legacyTransactionBuilder)
+                        .createAccount(
+                                authority,
+                                nonce,
+                                rentExemption,
+                                accountSpan))
+                .instructions(legacyTransactionBuilder -> SystemProgram.factory(legacyTransactionBuilder).nonceInitialize(nonce, authority))
+                .payer(payer)
+                .seal()
+                .unsigned()
+                .build();
+
+        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
+        for (final TestKeyPair signer : signers)
+        {
+            signedMessageBuilder.by(signer.getSolana4jPublicKey(), new BouncyCastleSigner(signer.getPrivateKeyBytes()));
+        }
+        signedMessageBuilder.build();
+
+        return base58encode(buffer);
     }
 
     @Override
     public String initializeTokenAccount(
-            final TokenProgramFactory tokenProgramFactory,
+            final TokenProgram tokenProgram,
+            final long rentExemption,
+            final int accountSpan,
             final PublicKey account,
             final PublicKey owner,
             final PublicKey mint,
@@ -166,7 +275,35 @@ public class LegacyTransactionFactory implements TransactionFactory
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
     {
-        return null;
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+        Solana.builder(buffer)
+                .legacy()
+                .recent(blockhash)
+                .instructions(legacyTransactionBuilder -> SystemProgram.factory(legacyTransactionBuilder)
+                        .createAccount(
+                                payer,
+                                account,
+                                rentExemption,
+                                accountSpan,
+                                tokenProgram.getProgram()))
+                .instructions(legacyTransactionBuilder -> tokenProgram.getFactory().factory(legacyTransactionBuilder)
+                        .createInitializeAccountInstruction(
+                                account,
+                                mint,
+                                owner))
+                .payer(payer)
+                .seal()
+                .unsigned()
+                .build();
+
+        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
+        for (final TestKeyPair signer : signers)
+        {
+            signedMessageBuilder.by(signer.getSolana4jPublicKey(), new BouncyCastleSigner(signer.getPrivateKeyBytes()));
+        }
+        signedMessageBuilder.build();
+
+        return base58encode(buffer);
     }
 
     @Override

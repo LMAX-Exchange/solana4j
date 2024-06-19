@@ -62,7 +62,7 @@ public final class SolanaEncoding
         return new SolanaSlot(recentSlotBuffer.array());
     }
 
-    public static Destination destinationAddress(final PublicKey destination, final long amount)
+    public static Destination destination(final PublicKey destination, final long amount)
     {
         return new SolanaDestination(destination, amount);
     }

@@ -1,6 +1,8 @@
 package com.lmax.solana4j.encoding;
 
 import com.lmax.solana4j.api.Blockhash;
+import com.lmax.solana4j.api.ByteBufferWriter;
+import com.lmax.solana4j.api.References;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
