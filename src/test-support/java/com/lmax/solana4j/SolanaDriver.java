@@ -212,13 +212,52 @@ public class SolanaDriver
         return solanaApi.getTokenAccountBalance(address, commitment).getUiAmountString();
     }
 
-    private TransactionFactory getTransactionFactory()
+    public String createNonceAccount(
+            final TestKeyPair account,
+            final TestKeyPair authority,
+            final TestKeyPair payer,
+            final int accountSpan,
+            final List<AddressLookupTable> addressLookupTables)
     {
-        if (transactionFactory == null)
-        {
-            throw new RuntimeException("Please set the message encoding used to create transactions for submitting to the solana blockchain.");
-        }
-        return transactionFactory;
+        final Long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
+        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+
+        final String transactionBlob = getTransactionFactory().createNonce(
+                account.getSolana4jPublicKey(),
+                authority.getSolana4jPublicKey(),
+                Solana.blockhash(blockhash.getBytes()),
+                rentExemption,
+                accountSpan,
+                payer.getSolana4jPublicKey(),
+                List.of(payer, account, authority),
+                addressLookupTables);
+
+        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+    }
+
+    public String tokenTransfer(
+            final TokenProgram tokenProgram,
+            final TestKeyPair from,
+            final TestPublicKey to,
+            final TestKeyPair owner,
+            final long amount,
+            final TestKeyPair payer,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+
+        final String transactionBlob = getTransactionFactory().tokenTransfer(
+                tokenProgram.getFactory(),
+                from.getSolana4jPublicKey(),
+                to.getSolana4jPublicKey(),
+                owner.getSolana4jPublicKey(),
+                amount,
+                Solana.blockhash(blockhash.getBytes()),
+                payer.getSolana4jPublicKey(),
+                List.of(payer, owner),
+                addressLookupTables);
+
+        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
     }
 
     public void setMessageEncoding(final String messageEncoding)
@@ -235,5 +274,14 @@ public class SolanaDriver
         {
             throw new RuntimeException("Unknown message encoding");
         }
+    }
+
+    private TransactionFactory getTransactionFactory()
+    {
+        if (transactionFactory == null)
+        {
+            throw new RuntimeException("Please set the message encoding used to create transactions for submitting to the solana blockchain.");
+        }
+        return transactionFactory;
     }
 }

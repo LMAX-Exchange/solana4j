@@ -223,12 +223,12 @@ public class V0TransactionFactory implements TransactionFactory
     }
 
     @Override
-    public String initializeNonce(
-            final long rentExemption,
-            final int accountSpan,
+    public String createNonce(
             final PublicKey nonce,
             final PublicKey authority,
             final Blockhash blockhash,
+            final long rentExemption,
+            final int accountSpan,
             final PublicKey payer,
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
@@ -239,7 +239,7 @@ public class V0TransactionFactory implements TransactionFactory
                 .recent(blockhash)
                 .instructions(legacyTransactionBuilder -> SystemProgram.factory(legacyTransactionBuilder)
                         .createAccount(
-                                authority,
+                                payer,
                                 nonce,
                                 rentExemption,
                                 accountSpan))

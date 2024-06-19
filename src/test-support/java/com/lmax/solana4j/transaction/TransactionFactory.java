@@ -67,12 +67,12 @@ public interface TransactionFactory
             List<TestKeyPair> signers,
             List<AddressLookupTable> addressLookupTables);
 
-    String initializeNonce(
-            long rentExemption,
-            int accountSpan,
+    String createNonce(
             PublicKey nonce,
             PublicKey authority,
             Blockhash blockhash,
+            long rentExemption,
+            int accountSpan,
             PublicKey payer,
             List<TestKeyPair> signers,
             List<AddressLookupTable> addressLookupTables);
