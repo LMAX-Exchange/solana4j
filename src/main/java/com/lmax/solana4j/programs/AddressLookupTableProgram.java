@@ -72,6 +72,11 @@ public final class AddressLookupTableProgram
         );
     }
 
+    public static ProgramDerivedAddress deriveAddress(final PublicKey authority, final Slot slot)
+    {
+        return SolanaEncoding.deriveProgramAddress(List.of(authority.bytes(), slot.bytes()), AddressLookupTableProgram.PROGRAM_ACCOUNT);
+    }
+
     public static AddressLookupTable deserializeAddressLookupTable(final PublicKey lookupTableAddress, final byte[] lookupAddressData)
     {
         final int serializedAddressesLength = lookupAddressData.length - LOOKUP_TABLE_META_SIZE;

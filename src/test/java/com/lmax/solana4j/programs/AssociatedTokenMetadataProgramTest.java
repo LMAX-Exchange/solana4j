@@ -1,6 +1,7 @@
 package com.lmax.solana4j.programs;
 
 import com.lmax.solana4j.Solana;
+import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.encoding.TokenMetadata;
 import org.bitcoinj.core.Base58;
@@ -15,8 +16,8 @@ class AssociatedTokenMetadataProgramTest
     void derivesCorrectTokenMetadataProgramAddress()
     {
         final PublicKey mint = Solana.account(Base58.decode("HDLRMKW1FDz2q5Zg778CZx26UgrtnqpUDkNNJHhmVUFr"));
-        final byte[] metadataAddress = AssociatedTokenMetadataProgram.deriveAssociatedTokenMetadata(mint);
-        assertArrayEquals(Base58.decode("Ff68e9DL9p1GUBkhRXxdv61wiYd8X6iFWTS6XWgsDptP"), metadataAddress);
+        final ProgramDerivedAddress metadataAddress = AssociatedTokenMetadataProgram.deriveAddress(mint);
+        assertArrayEquals(Base58.decode("Ff68e9DL9p1GUBkhRXxdv61wiYd8X6iFWTS6XWgsDptP"), metadataAddress.address().bytes());
     }
 
     @Test

@@ -114,9 +114,7 @@ public class SolanaNodeDsl
 
         final long recentSlot = solanaDriver.getSlot(Commitment.FINALIZED);
 
-        final ProgramDerivedAddress programDerivedAddress = SolanaEncoding.deriveProgramAddress(
-                List.of(authority.getPublicKeyBytes(), Solana.slot(recentSlot).bytes()),
-                AddressLookupTableProgram.PROGRAM_ACCOUNT);
+        final ProgramDerivedAddress programDerivedAddress = AddressLookupTableProgram.deriveAddress(authority.getSolana4jPublicKey(), SolanaEncoding.slot(recentSlot));
         testContext.storePublicKey(params.value("lookupTableAddress"), new TestPublicKey(programDerivedAddress.address().bytes()));
 
         final String transactionSignature = solanaDriver.createAddressLookupTable(programDerivedAddress, authority, payer, Solana.slot(recentSlot), addressLookupTables);
