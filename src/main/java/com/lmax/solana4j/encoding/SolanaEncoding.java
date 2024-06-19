@@ -1,5 +1,6 @@
 package com.lmax.solana4j.encoding;
 
+import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.AssociatedTokenAddress;
 import com.lmax.solana4j.api.Blockhash;
 import com.lmax.solana4j.api.Destination;
@@ -12,6 +13,7 @@ import com.lmax.solana4j.api.Slot;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.List;
 
 public final class SolanaEncoding
 {
@@ -38,9 +40,14 @@ public final class SolanaEncoding
         return new SolanaAccount(bytes);
     }
 
-    public static ProgramDerivedAddress programDerivedAddress(final PublicKey owner, final PublicKey programId)
+    public static ProgramDerivedAddress deriveProgramAddress(final PublicKey owner, final PublicKey programId)
     {
         return SolanaProgramDerivedAddress.deriveProgramAddress(owner, programId);
+    }
+
+    public static ProgramDerivedAddress deriveProgramAddress(final List<byte[]> seeds, final PublicKey programId)
+    {
+        return SolanaProgramDerivedAddress.deriveProgramAddress(seeds, programId);
     }
 
     public static AssociatedTokenAddress associatedTokenAddress(final PublicKey owner, final PublicKey mint, final PublicKey tokenProgramAccount)
@@ -65,5 +72,10 @@ public final class SolanaEncoding
     public static Destination destination(final PublicKey destination, final long amount)
     {
         return new SolanaDestination(destination, amount);
+    }
+
+    public static AddressLookupTable addressLookupTable(final PublicKey lookupTableAddress, final List<PublicKey> addressLookups)
+    {
+        return new SolanaAddressLookupTable(lookupTableAddress, addressLookups);
     }
 }

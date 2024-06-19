@@ -2,21 +2,17 @@ package com.lmax.solana4j.programs;
 
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.AddressLookupTable;
+import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.api.TransactionBuilderBase;
-import net.i2p.crypto.eddsa.math.Curve;
+import com.lmax.solana4j.encoding.SolanaEncoding;
 import org.bitcoinj.core.Base58;
-import org.bitcoinj.core.Sha256Hash;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
-
-import static net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable.ED_25519_CURVE_SPEC;
 
 public final class AddressLookupTableProgram
 {
@@ -40,11 +36,11 @@ public final class AddressLookupTableProgram
         this.tb = tb;
     }
 
-    public void createAddressLookupTableInstruction(final AddressWithBumpSeed addressWithBumpSeed, final PublicKey authority, final PublicKey payer, final Slot recentSlot)
+    public void createAddressLookupTableInstruction(final ProgramDerivedAddress programDerivedAddress, final PublicKey authority, final PublicKey payer, final Slot recentSlot)
     {
         tb.append(ib -> ib
                 .program(PROGRAM_ACCOUNT)
-                .account(Solana.account(addressWithBumpSeed.getLookupTableAddress()), false, true)
+                .account(programDerivedAddress.address(), false, true)
                 .account(authority, true, false)
                 .account(payer, true, false)
                 .account(SystemProgram.SYSTEM_PROGRAM_ACCOUNT, false, false)
@@ -52,7 +48,7 @@ public final class AddressLookupTableProgram
                         {
                             bb.order(ByteOrder.LITTLE_ENDIAN).putInt(CREATE_LOOKUP_TABLE_INSTRUCTION);
                             recentSlot.write(bb);
-                            bb.put((byte) addressWithBumpSeed.getBumpSeed());
+                            bb.put((byte) programDerivedAddress.nonce());
                         }
                 )
         );
@@ -98,65 +94,6 @@ public final class AddressLookupTableProgram
             addresses.add(address);
         }
 
-        return new SolanaAddressLookupTable(lookupTableAddress, addresses);
+        return SolanaEncoding.addressLookupTable(lookupTableAddress, addresses);
     }
-
-
-    public static AddressWithBumpSeed deriveLookupTableAddress(final PublicKey authority, final Slot slot)
-    {
-        final Curve curve = ED_25519_CURVE_SPEC.getCurve();
-        int bumpSeed = 255;
-
-        byte[] programAddress = new byte[32];
-        try
-        {
-            while (bumpSeed > 0)
-            {
-                final ByteBuffer slotBuffer = ByteBuffer.allocate(8);
-                slotBuffer.order(ByteOrder.LITTLE_ENDIAN);
-                slot.write(slotBuffer);
-
-                final ByteBuffer seeds = ByteBuffer.allocate(41);
-                authority.write(seeds);
-                seeds.order(ByteOrder.LITTLE_ENDIAN);
-                seeds.put(slotBuffer.flip());
-
-                seeds.put(getNextSeed(bumpSeed));
-
-                final ByteBuffer programId = ByteBuffer.allocate(32);
-                PROGRAM_ACCOUNT.write(programId);
-
-                programAddress = createProgramAddress(seeds, programId);
-                curve.createPoint(programAddress, false);
-                bumpSeed--;
-            }
-        }
-        catch (final RuntimeException re)
-        {
-            return new AddressWithBumpSeed(programAddress, bumpSeed);
-        }
-
-        throw new RuntimeException("Could not find a program address off the curve.");
-    }
-
-    private static byte[] createProgramAddress(final ByteBuffer seeds, final ByteBuffer programId)
-    {
-        final MessageDigest messageDigest = Sha256Hash.newDigest();
-
-        messageDigest.update(seeds.flip());
-        messageDigest.update(programId.flip());
-        messageDigest.update("ProgramDerivedAddress".getBytes(StandardCharsets.UTF_8));
-
-        return messageDigest.digest();
-    }
-
-    private static byte[] getNextSeed(final int currentSignedByteValue)
-    {
-        final byte[] seed = new byte[1];
-
-        seed[0] = (byte) (currentSignedByteValue);
-
-        return seed;
-    }
-
 }

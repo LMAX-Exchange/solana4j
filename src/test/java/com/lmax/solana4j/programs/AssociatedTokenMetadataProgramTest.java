@@ -2,6 +2,7 @@ package com.lmax.solana4j.programs;
 
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;
+import com.lmax.solana4j.encoding.TokenMetadata;
 import org.bitcoinj.core.Base58;
 import org.junit.jupiter.api.Test;
 

@@ -43,7 +43,7 @@ public final class Solana
 
     public static ProgramDerivedAddress programDerivedAddress(final PublicKey owner, final PublicKey programId)
     {
-        return SolanaEncoding.programDerivedAddress(owner, programId);
+        return SolanaEncoding.deriveProgramAddress(owner, programId);
     }
 
     public static AssociatedTokenAddress associatedTokenAddress(final PublicKey owner, final PublicKey mint, final PublicKey tokenProgramAccount)

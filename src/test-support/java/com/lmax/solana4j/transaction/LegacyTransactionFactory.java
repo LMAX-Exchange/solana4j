@@ -7,13 +7,13 @@ import com.lmax.solana4j.TokenProgramFactory;
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.Blockhash;
 import com.lmax.solana4j.api.Destination;
+import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.SignedMessageBuilder;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.BouncyCastleSigner;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
-import com.lmax.solana4j.programs.AddressWithBumpSeed;
 import com.lmax.solana4j.programs.SystemProgram;
 import org.bitcoinj.core.Base58;
 
@@ -321,7 +321,7 @@ public class LegacyTransactionFactory implements TransactionFactory
 
     @Override
     public String createAddressLookupTable(
-            final AddressWithBumpSeed addressWithBumpSeed,
+            final ProgramDerivedAddress programDerivedAddress,
             final PublicKey authority,
             final Slot recentSlot,
             final Blockhash blockhash,
@@ -336,7 +336,7 @@ public class LegacyTransactionFactory implements TransactionFactory
                 .recent(blockhash)
                 .instructions(builder -> AddressLookupTableProgram.factory(builder)
                         .createAddressLookupTableInstruction(
-                                addressWithBumpSeed,
+                                programDerivedAddress,
                                 authority,
                                 payer,
                                 recentSlot)

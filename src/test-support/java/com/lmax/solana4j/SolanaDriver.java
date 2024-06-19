@@ -1,6 +1,7 @@
 package com.lmax.solana4j;
 
 import com.lmax.solana4j.api.AddressLookupTable;
+import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.client.api.AccountInfo;
@@ -11,7 +12,6 @@ import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TestPublicKey;
 import com.lmax.solana4j.encoding.SolanaEncoding;
-import com.lmax.solana4j.programs.AddressWithBumpSeed;
 import com.lmax.solana4j.transaction.LegacyTransactionFactory;
 import com.lmax.solana4j.transaction.TransactionFactory;
 import com.lmax.solana4j.transaction.V0TransactionFactory;
@@ -55,7 +55,7 @@ public class SolanaDriver
         return solanaApi.getAccountInfo(address.getPublicKeyBase58(), commitment);
     }
 
-    public String createAddressLookupTable(final AddressWithBumpSeed addressWithBumpSeed,
+    public String createAddressLookupTable(final ProgramDerivedAddress programDerivedAddress,
                                            final TestKeyPair authority,
                                            final TestKeyPair payer,
                                            final Slot slot,
@@ -64,7 +64,7 @@ public class SolanaDriver
         final com.lmax.solana4j.client.api.Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
 
         final String transactionBlob = getTransactionFactory().createAddressLookupTable(
-                addressWithBumpSeed,
+                programDerivedAddress,
                 authority.getSolana4jPublicKey(),
                 slot,
                 Solana.blockhash(recentBlockhash.getBytes()),

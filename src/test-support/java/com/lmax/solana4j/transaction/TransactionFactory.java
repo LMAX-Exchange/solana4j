@@ -5,10 +5,10 @@ import com.lmax.solana4j.TokenProgramFactory;
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.Blockhash;
 import com.lmax.solana4j.api.Destination;
+import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.TestKeyPair;
-import com.lmax.solana4j.programs.AddressWithBumpSeed;
 
 import java.util.List;
 
@@ -99,7 +99,7 @@ public interface TransactionFactory
             List<AddressLookupTable> addressLookupTables);
 
     String createAddressLookupTable(
-            AddressWithBumpSeed addressWithBumpSeed,
+            ProgramDerivedAddress programDerivedAddress,
             PublicKey authority,
             Slot slot,
             Blockhash blockhash,

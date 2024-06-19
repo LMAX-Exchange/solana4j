@@ -29,6 +29,12 @@ final class SolanaAccount implements PublicKey, Comparable<SolanaAccount>
     }
 
     @Override
+    public byte[] bytes()
+    {
+        return bytes;
+    }
+
+    @Override
     public void write(final ByteBuffer buffer)
     {
         buffer.put(bytes);

@@ -28,6 +28,12 @@ final class SolanaSlot implements Slot
     }
 
     @Override
+    public byte[] bytes()
+    {
+        return bytes;
+    }
+
+    @Override
     public boolean equals(final Object o)
     {
         if (this == o)

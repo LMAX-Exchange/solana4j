@@ -4,8 +4,6 @@ public interface ProgramDerivedAddress
 {
     PublicKey address();
 
-    PublicKey owner();
-
     PublicKey programId();
 
     int nonce();

@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static com.lmax.solana4j.programs.SysVar.RENT;
+import static com.lmax.solana4j.encoding.SysVar.RENT;
 import static com.lmax.solana4j.programs.SystemProgram.SYSTEM_PROGRAM_ACCOUNT;
 
 

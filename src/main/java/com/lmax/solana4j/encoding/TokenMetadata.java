@@ -1,4 +1,4 @@
-package com.lmax.solana4j.programs;
+package com.lmax.solana4j.encoding;
 
 public class TokenMetadata
 {

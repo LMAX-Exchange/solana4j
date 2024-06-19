@@ -4,6 +4,7 @@ import com.lmax.simpledsl.api.DslParams;
 import com.lmax.simpledsl.api.OptionalArg;
 import com.lmax.simpledsl.api.RequiredArg;
 import com.lmax.solana4j.api.AddressLookupTable;
+import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.assertion.IsEqualToAssertion;
 import com.lmax.solana4j.assertion.IsNotNullAssertion;
@@ -15,8 +16,8 @@ import com.lmax.solana4j.domain.Sol;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TestKeyPairGenerator;
 import com.lmax.solana4j.domain.TestPublicKey;
+import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
-import com.lmax.solana4j.programs.AddressWithBumpSeed;
 import org.bouncycastle.util.encoders.Base64;
 
 import java.util.ArrayList;
@@ -113,10 +114,12 @@ public class SolanaNodeDsl
 
         final long recentSlot = solanaDriver.getSlot(Commitment.FINALIZED);
 
-        final AddressWithBumpSeed addressWithBumpSeed = AddressLookupTableProgram.deriveLookupTableAddress(Solana.account(authority.getPublicKeyBytes()), Solana.slot(recentSlot));
-        testContext.storePublicKey(params.value("lookupTableAddress"), addressWithBumpSeed.getLookupTableAddress());
+        final ProgramDerivedAddress programDerivedAddress = SolanaEncoding.deriveProgramAddress(
+                List.of(authority.getPublicKeyBytes(), Solana.slot(recentSlot).bytes()),
+                AddressLookupTableProgram.PROGRAM_ACCOUNT);
+        testContext.storePublicKey(params.value("lookupTableAddress"), new TestPublicKey(programDerivedAddress.address().bytes()));
 
-        final String transactionSignature = solanaDriver.createAddressLookupTable(addressWithBumpSeed, authority, payer, Solana.slot(recentSlot), addressLookupTables);
+        final String transactionSignature = solanaDriver.createAddressLookupTable(programDerivedAddress, authority, payer, Solana.slot(recentSlot), addressLookupTables);
         new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
     }
 
