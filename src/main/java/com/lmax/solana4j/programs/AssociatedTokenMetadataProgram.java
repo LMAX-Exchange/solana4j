@@ -17,9 +17,6 @@ import static net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable.ED_25519_CURVE_SPEC
 
 public final class AssociatedTokenMetadataProgram
 {
-    private static final byte[] ASSOCIATED_TOKEN_PROGRAM_ID = Base58.decode("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
-    public static final PublicKey ASSOCIATED_TOKEN_PROGRAM_ACCOUNT = Solana.account(ASSOCIATED_TOKEN_PROGRAM_ID);
-
     private static final byte[] METADATA_MAGIC_STRING = "metadata".getBytes(UTF_8);
     private static final byte[] ADDRESS_MAGIC_STRING = "ProgramDerivedAddress".getBytes(UTF_8);
     private static final byte[] ASSOCIATED_TOKEN_METADATA_PROGRAM_ID = Base58.decode("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
