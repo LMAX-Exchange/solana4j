@@ -36,7 +36,7 @@ public final class AddressLookupTableProgram
         this.tb = tb;
     }
 
-    public void createAddressLookupTableInstruction(final ProgramDerivedAddress programDerivedAddress, final PublicKey authority, final PublicKey payer, final Slot recentSlot)
+    public AddressLookupTableProgram createLookupTable(final ProgramDerivedAddress programDerivedAddress, final PublicKey authority, final PublicKey payer, final Slot recentSlot)
     {
         tb.append(ib -> ib
                 .program(PROGRAM_ACCOUNT)
@@ -52,9 +52,11 @@ public final class AddressLookupTableProgram
                         }
                 )
         );
+
+        return this;
     }
 
-    public void extendAddressLookupTable(final PublicKey lookupTable, final PublicKey authority, final PublicKey payer, final List<PublicKey> addresses)
+    public AddressLookupTableProgram extendLookupTable(final PublicKey lookupTable, final PublicKey authority, final PublicKey payer, final List<PublicKey> addresses)
     {
         tb.append(ib -> ib
                 .program(PROGRAM_ACCOUNT)
@@ -70,6 +72,8 @@ public final class AddressLookupTableProgram
                       }
                 )
         );
+
+        return this;
     }
 
     public static ProgramDerivedAddress deriveAddress(final PublicKey authority, final Slot slot)

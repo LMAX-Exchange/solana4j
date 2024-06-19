@@ -8,12 +8,10 @@ import org.bitcoinj.core.Base58;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static com.lmax.solana4j.encoding.SysVar.RENT;
-import static com.lmax.solana4j.programs.SystemProgram.SYSTEM_PROGRAM_ACCOUNT;
 
 
 @SuppressWarnings("unchecked") // return type cast is pretty safe after all as we're limited to our types only
@@ -46,8 +44,6 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
     private static final int INITIALIZE_MULTISIG2_INSTRUCTION = 19;
     private static final int INITIALIZE_MINT2_INSTRUCTION = 20;
     public static final int AUTHORITY_TYPE_ACCOUNT_OWNER = 2;
-    public static final int IDEMPOTENT_CREATE_INSTRUCTION = 1;
-    public static final int CREATE_INSTRUCTION = 0;
 
     private final PublicKey programId;
     private final TransactionBuilderBase tb;
@@ -64,7 +60,7 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
     }
 
 
-    public T createInitializeTokenAccountInstruction(final PublicKey account, final PublicKey mint, final PublicKey owner)
+    public T initializeAccount(final PublicKey account, final PublicKey mint, final PublicKey owner)
     {
         tb.append(ib -> ib
                 .program(programId)
@@ -74,10 +70,11 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
                 .account(RENT, false, false)
                 .data(1, bb -> bb.order(ByteOrder.LITTLE_ENDIAN).put((byte) INITIALIZE_ACCOUNT_INSTRUCTION))
         );
+
         return (T) this;
     }
 
-    public T createInitializeMintAccountInstruction(
+    public T initializeMint(
             final PublicKey tokenMintAddress,
             final byte decimals,
             final PublicKey mintAuthority,
@@ -108,50 +105,11 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
                     }
                 })
         );
+
         return (T) this;
     }
 
-    public T createTokenAccountInstruction(
-            final PublicKey payer,
-            final PublicKey associatedTokenAddress,
-            final PublicKey mint,
-            final PublicKey associatedTokenProgramId,
-            final PublicKey owner,
-            final boolean idempotent)
-    {
-        tb.append(ib -> ib
-                .program(associatedTokenProgramId)
-                .account(payer, true, true)
-                .account(associatedTokenAddress, false, true)
-                .account(owner, false, false)
-                .account(mint, false, false)
-                .account(SYSTEM_PROGRAM_ACCOUNT, false, false)
-                .account(programId, false, false)
-                .account(RENT, false, false)
-                .data(1, bb -> bb.order(ByteOrder.LITTLE_ENDIAN)
-                        .put((byte) (idempotent ? IDEMPOTENT_CREATE_INSTRUCTION : CREATE_INSTRUCTION)))
-        );
-        return (T) this;
-    }
-
-    public T createMintToInstruction(
-            final PublicKey mint,
-            final PublicKey authority,
-            final Destination destination)
-    {
-        tb.append(ib -> ib
-                .program(programId)
-                .account(mint, false, true)
-                .account(destination.getDestination(), false, true)
-                .account(authority, true, false)
-                .data(1 + 8, bb -> bb.order(ByteOrder.LITTLE_ENDIAN)
-                        .put((byte) MINT_TO_INSTRUCTION)
-                        .putLong(destination.getAmount()))
-        );
-        return (T) this;
-    }
-
-    public T createMintToInstructions(
+    public T mintTo(
             final PublicKey mint,
             final PublicKey authority,
             final List<Destination> destinations)
@@ -168,19 +126,11 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
                             .putLong(destination.getAmount()))
             );
         }
+
         return (T) this;
     }
 
-    public T createTransferInstruction(
-            final PublicKey source,
-            final PublicKey destination,
-            final PublicKey owner,
-            final long amount)
-    {
-        return createTransferInstruction(source, destination, owner, amount, Collections.emptyList());
-    }
-
-    public T createTransferInstruction(
+    public T transfer(
             final PublicKey source,
             final PublicKey destination,
             final PublicKey owner,
@@ -200,10 +150,11 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
             signers.forEach(signer -> ib
                     .account(signer, true, false));
         });
+
         return (T) this;
     }
 
-    public T createInitializeMultisigInstruction(
+    public T initializeMultisig(
             final PublicKey multisigPublicKey,
             final List<PublicKey> signers,
             final int requiredSignatures)
@@ -220,10 +171,11 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
             signers.forEach(signer -> ib
                     .account(signer, false, false));
         });
+
         return (T) this;
     }
 
-    public T createSetAuthorityInstruction(
+    public T setAuthority(
             final PublicKey tokenAccount,
             final PublicKey newAuthority,
             final PublicKey oldAuthority,
@@ -249,6 +201,7 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
             signers.forEach(signer -> ib
                     .account(signer, true, false));
         });
+
         return (T) this;
     }
 

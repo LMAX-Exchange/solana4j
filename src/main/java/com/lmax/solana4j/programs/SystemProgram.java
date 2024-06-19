@@ -14,7 +14,8 @@ public final class SystemProgram
     private static final byte[] SYSTEM_PROGRAM_ID = Base58.decode("11111111111111111111111111111111");
     public static final PublicKey SYSTEM_PROGRAM_ACCOUNT = Solana.account(SYSTEM_PROGRAM_ID);
 
-    public static final int NONCE_ACCOUNT_LENGTH = 80; // ref solana-web3.js PATH:programs/system.ts (NonceAccountLayout)
+    public static final int NONCE_ACCOUNT_LENGTH = 80;
+    public static final int MINT_ACCOUNT_LENGTH = 82;
 
     private static final int CREATE_ACCOUNT_INSTRUCTION = 0;
     private static final int TRANSFER_INSTRUCTION = 2;
@@ -34,12 +35,6 @@ public final class SystemProgram
         this.tb = tb;
     }
 
-    public SystemProgram createAccount(final PublicKey payer, final PublicKey newAccount, final long lamports, final long space)
-    {
-        createAccount(payer, newAccount, lamports, space, SYSTEM_PROGRAM_ACCOUNT);
-        return this;
-    }
-
     public SystemProgram createAccount(final PublicKey payer, final PublicKey newAccount, final long lamports, final long space, final PublicKey program)
     {
         tb.append(ib -> ib
@@ -56,6 +51,7 @@ public final class SystemProgram
                     program.write(bb);
                 })
         );
+
         return this;
     }
 

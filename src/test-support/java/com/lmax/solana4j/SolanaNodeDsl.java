@@ -25,16 +25,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.lmax.solana4j.client.api.Commitment.FINALIZED;
+import static com.lmax.solana4j.programs.SystemProgram.MINT_ACCOUNT_LENGTH;
+import static com.lmax.solana4j.programs.SystemProgram.NONCE_ACCOUNT_LENGTH;
+import static com.lmax.solana4j.programs.TokenProgram.ACCOUNT_LAYOUT_SPAN;
 import static java.util.Arrays.stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class SolanaNodeDsl
 {
-    public static final int MINT_LAYOUT_SPAN = 82;
-    public static final int ACCOUNT_LAYOUT_SPAN = 165;
-    public static final int NONCE_ACCOUNT_LAYOUT_SPAN = 80;
-    public static final int MULTISIG_LAYOUT_SPAN = 355;
-
     private final SolanaDriver solanaDriver;
     private final TestContext testContext;
 
@@ -183,29 +181,7 @@ public class SolanaNodeDsl
                 .map(testContext::getAddressLookupTable)
                 .toList();
 
-        final String transactionSignature = solanaDriver.createMintAccount(tokenProgram, account, decimals, mintAuthority, freezeAuthority, payer, MINT_LAYOUT_SPAN, addressLookupTables);
-
-        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
-    }
-
-    public void createAccount(final String... args)
-    {
-        final DslParams params = DslParams.create(
-                args,
-                new RequiredArg("account"),
-                new RequiredArg("payer"),
-                new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token"),
-                new OptionalArg("addressLookupTables").setAllowMultipleValues()
-        );
-
-        final TestKeyPair account = testContext.getKeyPair(params.value("account"));
-        final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
-        final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
-        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
-                .map(testContext::getAddressLookupTable)
-                .toList();
-
-        final String transactionSignature = solanaDriver.createAccount(tokenProgram.getProgram(), account, payer, ACCOUNT_LAYOUT_SPAN, addressLookupTables);
+        final String transactionSignature = solanaDriver.createMintAccount(tokenProgram, account, decimals, mintAuthority, freezeAuthority, payer, MINT_ACCOUNT_LENGTH, addressLookupTables);
 
         new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
     }
@@ -346,7 +322,7 @@ public class SolanaNodeDsl
                 .map(testContext::getAddressLookupTable)
                 .toList();
 
-        final String transactionSignature = solanaDriver.createNonceAccount(account, authority, payer, NONCE_ACCOUNT_LAYOUT_SPAN, addressLookupTables);
+        final String transactionSignature = solanaDriver.createNonceAccount(account, authority, payer, NONCE_ACCOUNT_LENGTH, addressLookupTables);
 
         new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature, FINALIZED).getTransaction()));
     }

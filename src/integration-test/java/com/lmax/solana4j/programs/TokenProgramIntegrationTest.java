@@ -3,6 +3,9 @@ package com.lmax.solana4j.programs;
 import com.lmax.solana4j.base.IntegrationTestBase;
 import com.lmax.solana4j.base.ParameterizedTokenTest;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 class TokenProgramIntegrationTest extends IntegrationTestBase
 {
@@ -67,4 +70,19 @@ class TokenProgramIntegrationTest extends IntegrationTestBase
         solana.tokenBalance("tokenAccountSender", "0.00000000000000009");
         solana.tokenBalance("tokenAccountReceiver", "0.00000000000000001");
     }
+
+    @Disabled
+    @ParameterizedTokenTest
+    void shouldCreateMultisig(final String messageEncoding, final String tokenProgram)
+    {
+        fail();
+    }
+
+    @Disabled
+    @ParameterizedTokenTest
+    void shouldSetAuthority(final String messageEncoding, final String tokenProgram)
+    {
+        fail();
+    }
+
 }

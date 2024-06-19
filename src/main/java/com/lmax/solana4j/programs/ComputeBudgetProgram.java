@@ -36,6 +36,7 @@ public class ComputeBudgetProgram
                         .put((byte) SET_COMPUTE_UNIT_LIMIT_INSTRUCTION)
                         .putInt(computeUnits))
         );
+
         return this;
     }
 
@@ -48,6 +49,7 @@ public class ComputeBudgetProgram
                         .put((byte) SET_COMPUTE_UNIT_PRICE_INSTRUCTION)
                         .putLong(microLamports))
         );
+
         return this;
     }
 }

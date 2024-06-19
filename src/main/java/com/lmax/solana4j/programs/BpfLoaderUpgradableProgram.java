@@ -48,6 +48,7 @@ final class BpfLoaderUpgradableProgram
             maybeNewAuthorityAddress.ifPresent(newAuthorityAddress -> ib.account(newAuthorityAddress, false, false));
             ib.data(4, bb -> bb.order(ByteOrder.LITTLE_ENDIAN).putInt(SET_AUTHORITY_INSTRUCTION));
         });
+
         return this;
     }
 }

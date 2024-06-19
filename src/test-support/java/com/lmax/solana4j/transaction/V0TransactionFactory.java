@@ -14,13 +14,15 @@ import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.BouncyCastleSigner;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
-import com.lmax.solana4j.programs.SystemProgram;
 import org.bitcoinj.core.Base58;
 
 import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.lmax.solana4j.programs.SystemProgram.SYSTEM_PROGRAM_ACCOUNT;
+import static com.lmax.solana4j.programs.SystemProgram.factory;
 
 public class V0TransactionFactory implements TransactionFactory
 {
@@ -40,7 +42,7 @@ public class V0TransactionFactory implements TransactionFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(builder -> SystemProgram.factory(builder).transfer(from, to, amount))
+                .instructions(builder -> factory(builder).transfer(from, to, amount))
                 .payer(payer)
                 .lookups(addressLookupTables)
                 .seal()
@@ -75,7 +77,7 @@ public class V0TransactionFactory implements TransactionFactory
                 .v0()
                 .recent(blockhash)
                 .instructions(builder -> tokenProgramFactory.factory(builder)
-                        .createTransferInstruction(
+                        .transfer(
                                 from,
                                 to,
                                 owner,
@@ -115,10 +117,10 @@ public class V0TransactionFactory implements TransactionFactory
                 .v0()
                 .recent(blockhash)
                 .instructions(builder -> tokenProgramFactory.factory(builder)
-                        .createMintToInstruction(
+                        .mintTo(
                                 mint,
                                 authority,
-                                destination
+                                List.of(destination)
                         ))
                 .payer(payer)
                 .lookups(addressLookupTables)
@@ -152,7 +154,7 @@ public class V0TransactionFactory implements TransactionFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(versionedTransactionBuilder -> SystemProgram.factory(versionedTransactionBuilder)
+                .instructions(versionedTransactionBuilder -> factory(versionedTransactionBuilder)
                         .createAccount(
                                 payer,
                                 account,
@@ -193,7 +195,7 @@ public class V0TransactionFactory implements TransactionFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(versionedTransactionBuilder -> SystemProgram.factory(versionedTransactionBuilder)
+                .instructions(versionedTransactionBuilder -> factory(versionedTransactionBuilder)
                         .createAccount(
                                 payer,
                                 account,
@@ -201,7 +203,7 @@ public class V0TransactionFactory implements TransactionFactory
                                 accountSpan,
                                 tokenProgram.getProgram()))
                 .instructions(builder -> tokenProgram.getFactory().factory(builder)
-                        .createInitializeMintAccountInstruction(
+                        .initializeMint(
                                 account,
                                 (byte) decimals,
                                 mintAuthority,
@@ -237,13 +239,14 @@ public class V0TransactionFactory implements TransactionFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(legacyTransactionBuilder -> SystemProgram.factory(legacyTransactionBuilder)
+                .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder)
                         .createAccount(
                                 payer,
                                 nonce,
                                 rentExemption,
-                                accountSpan))
-                .instructions(legacyTransactionBuilder -> SystemProgram.factory(legacyTransactionBuilder).nonceInitialize(nonce, authority))
+                                accountSpan,
+                                SYSTEM_PROGRAM_ACCOUNT))
+                .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder).nonceInitialize(nonce, authority))
                 .payer(payer)
                 .lookups(addressLookupTables)
                 .seal()
@@ -277,7 +280,7 @@ public class V0TransactionFactory implements TransactionFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(legacyTransactionBuilder -> SystemProgram.factory(legacyTransactionBuilder)
+                .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder)
                         .createAccount(
                                 payer,
                                 account,
@@ -285,7 +288,7 @@ public class V0TransactionFactory implements TransactionFactory
                                 accountSpan,
                                 tokenProgram.getProgram()))
                 .instructions(legacyTransactionBuilder -> tokenProgram.getFactory().factory(legacyTransactionBuilder)
-                        .createInitializeTokenAccountInstruction(
+                        .initializeAccount(
                                 account,
                                 mint,
                                 owner))
@@ -334,7 +337,7 @@ public class V0TransactionFactory implements TransactionFactory
                 .v0()
                 .recent(blockhash)
                 .instructions(builder -> AddressLookupTableProgram.factory(builder)
-                        .createAddressLookupTableInstruction(
+                        .createLookupTable(
                                 programDerivedAddress,
                                 authority,
                                 payer,
@@ -372,7 +375,7 @@ public class V0TransactionFactory implements TransactionFactory
                 .v0()
                 .recent(blockhash)
                 .instructions(builder -> AddressLookupTableProgram.factory(builder)
-                        .extendAddressLookupTable(
+                        .extendLookupTable(
                                 lookupAddress,
                                 authority,
                                 payer,
@@ -407,7 +410,7 @@ public class V0TransactionFactory implements TransactionFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(tb -> SystemProgram.factory(tb)
+                .instructions(tb -> factory(tb)
                         .nonceAdvance(account, authority))
                 .payer(payer)
                 .lookups(addressLookupTables)

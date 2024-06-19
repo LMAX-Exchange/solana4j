@@ -103,7 +103,8 @@ public class SolanaDriver
             final int decimals,
             final TestKeyPair mintAuthority,
             final TestKeyPair freezeAuthority,
-            final TestKeyPair payer, final int accountSpan,
+            final TestKeyPair payer,
+            final int accountSpan,
             final List<AddressLookupTable> addressLookupTables)
     {
         final com.lmax.solana4j.client.api.Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
