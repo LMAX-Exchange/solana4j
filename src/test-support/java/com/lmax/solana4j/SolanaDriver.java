@@ -2,19 +2,20 @@ package com.lmax.solana4j;
 
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
-import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.Slot;
-import com.lmax.solana4j.client.api.AccountInfo;
-import com.lmax.solana4j.client.api.Blockhash;
-import com.lmax.solana4j.client.api.Commitment;
-import com.lmax.solana4j.client.api.SolanaApi;
-import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TestPublicKey;
+import com.lmax.solana4j.domain.TokenProgram;
+import com.lmax.solana4j.domain.TokenProgramFactory;
 import com.lmax.solana4j.encoding.SolanaEncoding;
-import com.lmax.solana4j.transaction.LegacyTransactionFactory;
-import com.lmax.solana4j.transaction.TransactionFactory;
-import com.lmax.solana4j.transaction.V0TransactionFactory;
+import com.lmax.solana4j.solanaclient.api.AccountInfo;
+import com.lmax.solana4j.solanaclient.api.Blockhash;
+import com.lmax.solana4j.solanaclient.api.Commitment;
+import com.lmax.solana4j.solanaclient.api.SolanaApi;
+import com.lmax.solana4j.solanaclient.api.TransactionResponse;
+import com.lmax.solana4j.transaction.factory.LegacyTransactionFactory;
+import com.lmax.solana4j.transaction.factory.TransactionFactory;
+import com.lmax.solana4j.transaction.factory.V0TransactionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,7 +62,7 @@ public class SolanaDriver
                                            final Slot slot,
                                            final List<AddressLookupTable> addressLookupTables)
     {
-        final com.lmax.solana4j.client.api.Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
+        final Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
 
         final String transactionBlob = getTransactionFactory().createAddressLookupTable(
                 programDerivedAddress,
@@ -83,7 +84,7 @@ public class SolanaDriver
                                            final List<TestPublicKey> addressesToAdd,
                                            final List<AddressLookupTable> addressLookupTables)
     {
-        final com.lmax.solana4j.client.api.Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
+        final Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
 
         final String transactionBlob = getTransactionFactory().extendAddressLookupTable(
                 addressLookupTable.getSolana4jPublicKey(),
@@ -107,7 +108,7 @@ public class SolanaDriver
             final int accountSpan,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final com.lmax.solana4j.client.api.Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
+        final Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
         final long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
 
         final String transactionBlob = getTransactionFactory().createMintAccount(
@@ -116,30 +117,6 @@ public class SolanaDriver
                 decimals,
                 mintAuthority.getSolana4jPublicKey(),
                 freezeAuthority.getSolana4jPublicKey(),
-                rentExemption,
-                accountSpan,
-                Solana.blockhash(recentBlockhash.getBytes()),
-                payer.getSolana4jPublicKey(),
-                List.of(payer, account),
-                addressLookupTables
-        );
-
-        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
-    }
-
-    public String createAccount(
-            final PublicKey tokenProgram,
-            final TestKeyPair account,
-            final TestKeyPair payer,
-            final int accountSpan,
-            final List<AddressLookupTable> addressLookupTables)
-    {
-        final com.lmax.solana4j.client.api.Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
-        final long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
-
-        final String transactionBlob = getTransactionFactory().createAccount(
-                account.getSolana4jPublicKey(),
-                tokenProgram,
                 rentExemption,
                 accountSpan,
                 Solana.blockhash(recentBlockhash.getBytes()),
@@ -160,7 +137,7 @@ public class SolanaDriver
             final TestKeyPair payer,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final com.lmax.solana4j.client.api.Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
+        final Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
 
         final String transactionBlob = getTransactionFactory().mintTo(
                 tokenProgramFactory,

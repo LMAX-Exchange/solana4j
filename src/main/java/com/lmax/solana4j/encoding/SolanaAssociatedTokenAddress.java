@@ -17,9 +17,17 @@ final class SolanaAssociatedTokenAddress extends SolanaProgramDerivedAddress imp
 
     public static SolanaAssociatedTokenAddress deriveAssociatedTokenAddress(final PublicKey owner, final PublicKey mint, final PublicKey tokenProgramAccount)
     {
-        final ProgramDerivedAddress programDerivedAddress =
-                SolanaProgramDerivedAddress.deriveProgramAddress(List.of(owner.bytes(), tokenProgramAccount.bytes(), mint.bytes()), ASSOCIATED_TOKEN_PROGRAM_ACCOUNT);
-        return new SolanaAssociatedTokenAddress(new SolanaAccount(programDerivedAddress.address().bytes()), owner, mint, tokenProgramAccount, programDerivedAddress.nonce());
+        final ProgramDerivedAddress programDerivedAddress = SolanaProgramDerivedAddress.deriveProgramAddress(
+                List.of(owner.bytes(), tokenProgramAccount.bytes(), mint.bytes()),
+                ASSOCIATED_TOKEN_PROGRAM_ACCOUNT
+        );
+        return new SolanaAssociatedTokenAddress(
+                new SolanaAccount(programDerivedAddress.address().bytes()),
+                owner,
+                mint,
+                tokenProgramAccount,
+                programDerivedAddress.nonce()
+        );
     }
 
 

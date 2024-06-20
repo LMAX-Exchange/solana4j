@@ -6,6 +6,7 @@ import com.lmax.solana4j.api.TransactionBuilderBase;
 import org.bitcoinj.core.Base58;
 
 import java.nio.ByteOrder;
+import java.util.List;
 import java.util.Optional;
 
 final class BpfLoaderUpgradableProgram
@@ -38,7 +39,7 @@ final class BpfLoaderUpgradableProgram
             final PublicKey currentAuthorityAddress,
             final Optional<PublicKey> maybeNewAuthorityAddress)
     {
-        final PublicKey programDataAddress = Solana.programDerivedAddress(programAddress, PROGRAM_ACCOUNT).address();
+        final PublicKey programDataAddress = Solana.programDerivedAddress(List.of(programAddress.bytes()), PROGRAM_ACCOUNT).address();
 
         tb.append(ib ->
         {

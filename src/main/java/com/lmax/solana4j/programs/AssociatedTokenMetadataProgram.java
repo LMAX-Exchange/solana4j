@@ -4,7 +4,6 @@ import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.encoding.SolanaEncoding;
-import com.lmax.solana4j.encoding.TokenMetadata;
 import org.bitcoinj.core.Base58;
 
 import java.nio.ByteBuffer;
@@ -25,7 +24,7 @@ public final class AssociatedTokenMetadataProgram
         return SolanaEncoding.deriveProgramAddress(List.of(METADATA_MAGIC_STRING, ASSOCIATED_TOKEN_METADATA_PROGRAM_ID, mint.bytes()), ASSOCIATED_TOKEN_METADATA_PROGRAM_ACCOUNT);
     }
 
-    public static TokenMetadata extractTokenMetadata(final String base64Metadata)
+    public static String extractTokenName(final String base64Metadata)
     {
         final byte[] metadata = Base64.getDecoder().decode(base64Metadata);
 
@@ -37,8 +36,7 @@ public final class AssociatedTokenMetadataProgram
 
         final ByteBuffer nameBuffer = ByteBuffer.allocate(nameLength);
         nameBuffer.put(metadata, 69, nameLength);
-        final String name = new String(nameBuffer.array(), UTF_8).trim();
 
-        return new TokenMetadata(name);
+        return new String(nameBuffer.array(), UTF_8).trim();
     }
 }

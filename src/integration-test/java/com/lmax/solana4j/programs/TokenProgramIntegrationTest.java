@@ -1,7 +1,7 @@
 package com.lmax.solana4j.programs;
 
-import com.lmax.solana4j.base.IntegrationTestBase;
-import com.lmax.solana4j.base.ParameterizedTokenTest;
+import com.lmax.solana4j.parameterization.IntegrationTestBase;
+import com.lmax.solana4j.parameterization.ParameterizedTokenTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 

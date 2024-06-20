@@ -9,22 +9,23 @@ import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.assertion.IsEqualToAssertion;
 import com.lmax.solana4j.assertion.IsNotNullAssertion;
 import com.lmax.solana4j.assertion.Waiter;
-import com.lmax.solana4j.client.api.AccountInfo;
-import com.lmax.solana4j.client.api.Commitment;
-import com.lmax.solana4j.client.jsonrpc.SolanaClient;
+import com.lmax.solana4j.solanaclient.api.AccountInfo;
+import com.lmax.solana4j.solanaclient.api.Commitment;
+import com.lmax.solana4j.solanaclient.jsonrpc.SolanaClient;
 import com.lmax.solana4j.domain.Sol;
 import com.lmax.solana4j.domain.TestKeyPair;
-import com.lmax.solana4j.domain.TestKeyPairGenerator;
 import com.lmax.solana4j.domain.TestPublicKey;
+import com.lmax.solana4j.domain.TokenProgram;
 import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
+import com.lmax.solana4j.util.TestKeyPairGenerator;
 import org.bouncycastle.util.encoders.Base64;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.lmax.solana4j.client.api.Commitment.FINALIZED;
+import static com.lmax.solana4j.solanaclient.api.Commitment.FINALIZED;
 import static com.lmax.solana4j.programs.SystemProgram.MINT_ACCOUNT_LENGTH;
 import static com.lmax.solana4j.programs.SystemProgram.NONCE_ACCOUNT_LENGTH;
 import static com.lmax.solana4j.programs.TokenProgram.ACCOUNT_LAYOUT_SPAN;

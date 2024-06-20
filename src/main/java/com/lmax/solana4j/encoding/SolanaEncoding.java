@@ -40,17 +40,12 @@ public final class SolanaEncoding
         return new SolanaAccount(bytes);
     }
 
-    public static ProgramDerivedAddress deriveProgramAddress(final PublicKey owner, final PublicKey programId)
-    {
-        return SolanaProgramDerivedAddress.deriveProgramAddress(owner, programId);
-    }
-
     public static ProgramDerivedAddress deriveProgramAddress(final List<byte[]> seeds, final PublicKey programId)
     {
         return SolanaProgramDerivedAddress.deriveProgramAddress(seeds, programId);
     }
 
-    public static AssociatedTokenAddress associatedTokenAddress(final PublicKey owner, final PublicKey mint, final PublicKey tokenProgramAccount)
+    public static AssociatedTokenAddress deriveAssociatedTokenAddress(final PublicKey owner, final PublicKey mint, final PublicKey tokenProgramAccount)
     {
         return SolanaAssociatedTokenAddress.deriveAssociatedTokenAddress(owner, mint, tokenProgramAccount);
     }

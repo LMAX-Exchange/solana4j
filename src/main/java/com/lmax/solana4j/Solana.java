@@ -11,6 +11,7 @@ import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.encoding.SolanaEncoding;
 
 import java.nio.ByteBuffer;
+import java.util.List;
 
 public final class Solana
 {
@@ -41,14 +42,14 @@ public final class Solana
         return SolanaEncoding.account(bytes);
     }
 
-    public static ProgramDerivedAddress programDerivedAddress(final PublicKey owner, final PublicKey programId)
+    public static ProgramDerivedAddress programDerivedAddress(final List<byte[]> seeds, final PublicKey programId)
     {
-        return SolanaEncoding.deriveProgramAddress(owner, programId);
+        return SolanaEncoding.deriveProgramAddress(seeds, programId);
     }
 
     public static AssociatedTokenAddress associatedTokenAddress(final PublicKey owner, final PublicKey mint, final PublicKey tokenProgramAccount)
     {
-        return SolanaEncoding.associatedTokenAddress(owner, mint, tokenProgramAccount);
+        return SolanaEncoding.deriveAssociatedTokenAddress(owner, mint, tokenProgramAccount);
     }
 
     public static Blockhash blockhash(final byte[] bytes)

@@ -3,7 +3,6 @@ package com.lmax.solana4j.programs;
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
-import com.lmax.solana4j.encoding.TokenMetadata;
 import org.bitcoinj.core.Base58;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +36,7 @@ class AssociatedTokenMetadataProgramTest
                 "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
                 "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==";
 
-        final TokenMetadata metadata = AssociatedTokenMetadataProgram.extractTokenMetadata(base64Metadata);
-        assertThat(new TokenMetadata("MILLIONSY").toString()).isEqualTo(metadata.toString());
+        final String tokenName = AssociatedTokenMetadataProgram.extractTokenName(base64Metadata);
+        assertThat("MILLIONSY").isEqualTo(tokenName);
     }
 }
