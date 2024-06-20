@@ -13,9 +13,9 @@ import com.lmax.solana4j.solanaclient.api.Blockhash;
 import com.lmax.solana4j.solanaclient.api.Commitment;
 import com.lmax.solana4j.solanaclient.api.SolanaApi;
 import com.lmax.solana4j.solanaclient.api.TransactionResponse;
-import com.lmax.solana4j.transaction.factory.LegacyTransactionFactory;
-import com.lmax.solana4j.transaction.factory.TransactionFactory;
-import com.lmax.solana4j.transaction.factory.V0TransactionFactory;
+import com.lmax.solana4j.transactionblobs.LegacyTransactionBlobFactory;
+import com.lmax.solana4j.transactionblobs.TransactionBlobFactory;
+import com.lmax.solana4j.transactionblobs.V0TransactionBlobFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +27,7 @@ public class SolanaDriver
     private static final Logger LOGGER = LoggerFactory.getLogger(SolanaDriver.class);
 
     private final SolanaApi solanaApi;
-    private TransactionFactory transactionFactory;
+    private TransactionBlobFactory transactionBlobFactory;
 
     public SolanaDriver(final SolanaApi solanaApi)
     {
@@ -282,11 +282,11 @@ public class SolanaDriver
     {
         if (messageEncoding.equals("V0"))
         {
-            transactionFactory = new V0TransactionFactory();
+            transactionBlobFactory = new V0TransactionBlobFactory();
         }
         else if (messageEncoding.equals("Legacy"))
         {
-            transactionFactory = new LegacyTransactionFactory();
+            transactionBlobFactory = new LegacyTransactionBlobFactory();
         }
         else
         {
@@ -294,12 +294,12 @@ public class SolanaDriver
         }
     }
 
-    private TransactionFactory getTransactionFactory()
+    private TransactionBlobFactory getTransactionFactory()
     {
-        if (transactionFactory == null)
+        if (transactionBlobFactory == null)
         {
             throw new RuntimeException("Please set the message encoding used to create transactions for submitting to the solana blockchain.");
         }
-        return transactionFactory;
+        return transactionBlobFactory;
     }
 }

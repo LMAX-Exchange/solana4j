@@ -1,4 +1,4 @@
-package com.lmax.solana4j.transaction.factory;
+package com.lmax.solana4j.transactionblobs;
 
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.Blockhash;
@@ -12,7 +12,7 @@ import com.lmax.solana4j.domain.TokenProgramFactory;
 
 import java.util.List;
 
-public interface TransactionFactory
+public interface TransactionBlobFactory
 {
     String solTransfer(
             PublicKey from,

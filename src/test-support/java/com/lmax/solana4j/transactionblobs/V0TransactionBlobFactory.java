@@ -1,4 +1,4 @@
-package com.lmax.solana4j.transaction.factory;
+package com.lmax.solana4j.transactionblobs;
 
 import com.lmax.solana4j.ByteBufferPrimitiveArray;
 import com.lmax.solana4j.Solana;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import static com.lmax.solana4j.programs.SystemProgram.SYSTEM_PROGRAM_ACCOUNT;
 import static com.lmax.solana4j.programs.SystemProgram.factory;
 
-public class LegacyTransactionFactory implements TransactionFactory
+public class V0TransactionBlobFactory implements TransactionBlobFactory
 {
 
     @Override
@@ -40,15 +40,11 @@ public class LegacyTransactionFactory implements TransactionFactory
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
         Solana.builder(buffer)
-                .legacy()
+                .v0()
                 .recent(blockhash)
-                .instructions(builder -> factory(builder)
-                        .transfer(
-                                from,
-                                to,
-                                amount
-                        ))
+                .instructions(builder -> factory(builder).transfer(from, to, amount))
                 .payer(payer)
+                .lookups(addressLookupTables)
                 .seal()
                 .unsigned()
                 .build();
@@ -78,7 +74,7 @@ public class LegacyTransactionFactory implements TransactionFactory
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
         Solana.builder(buffer)
-                .legacy()
+                .v0()
                 .recent(blockhash)
                 .instructions(builder -> tokenProgramFactory.factory(builder)
                         .transfer(
@@ -89,6 +85,7 @@ public class LegacyTransactionFactory implements TransactionFactory
                                 signers.stream().map(TestKeyPair::getSolana4jPublicKey).collect(Collectors.toList())
                         ))
                 .payer(payer)
+                .lookups(addressLookupTables)
                 .seal()
                 .unsigned()
                 .build();
@@ -117,7 +114,7 @@ public class LegacyTransactionFactory implements TransactionFactory
     {
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
         Solana.builder(buffer)
-                .legacy()
+                .v0()
                 .recent(blockhash)
                 .instructions(builder -> tokenProgramFactory.factory(builder)
                         .mintTo(
@@ -126,6 +123,7 @@ public class LegacyTransactionFactory implements TransactionFactory
                                 List.of(destination)
                         ))
                 .payer(payer)
+                .lookups(addressLookupTables)
                 .seal()
                 .unsigned()
                 .build();
@@ -201,17 +199,18 @@ public class LegacyTransactionFactory implements TransactionFactory
     {
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
         Solana.builder(buffer)
-                .legacy()
+                .v0()
                 .recent(blockhash)
                 .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder)
                         .createAccount(
-                                authority,
+                                payer,
                                 nonce,
                                 rentExemption,
                                 accountSpan,
                                 SYSTEM_PROGRAM_ACCOUNT))
                 .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder).nonceInitialize(nonce, authority))
                 .payer(payer)
+                .lookups(addressLookupTables)
                 .seal()
                 .unsigned()
                 .build();
@@ -241,7 +240,7 @@ public class LegacyTransactionFactory implements TransactionFactory
     {
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
         Solana.builder(buffer)
-                .legacy()
+                .v0()
                 .recent(blockhash)
                 .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder)
                         .createAccount(
@@ -256,6 +255,7 @@ public class LegacyTransactionFactory implements TransactionFactory
                                 mint,
                                 owner))
                 .payer(payer)
+                .lookups(addressLookupTables)
                 .seal()
                 .unsigned()
                 .build();
@@ -280,14 +280,14 @@ public class LegacyTransactionFactory implements TransactionFactory
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
     {
-        return null;
+        throw new UnsupportedOperationException("This hasn't been implemented yet!!");
     }
 
     @Override
     public String createAddressLookupTable(
             final ProgramDerivedAddress programDerivedAddress,
             final PublicKey authority,
-            final Slot recentSlot,
+            final Slot slot,
             final Blockhash blockhash,
             final PublicKey payer,
             final List<TestKeyPair> signers,
@@ -296,16 +296,17 @@ public class LegacyTransactionFactory implements TransactionFactory
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
         Solana.builder(buffer)
-                .legacy()
+                .v0()
                 .recent(blockhash)
                 .instructions(builder -> AddressLookupTableProgram.factory(builder)
                         .createLookupTable(
                                 programDerivedAddress,
                                 authority,
                                 payer,
-                                recentSlot)
+                                slot)
                 )
                 .payer(payer)
+                .lookups(addressLookupTables)
                 .seal()
                 .unsigned()
                 .build();
@@ -333,7 +334,7 @@ public class LegacyTransactionFactory implements TransactionFactory
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
         Solana.builder(buffer)
-                .legacy()
+                .v0()
                 .recent(blockhash)
                 .instructions(builder -> AddressLookupTableProgram.factory(builder)
                         .extendLookupTable(
@@ -343,6 +344,7 @@ public class LegacyTransactionFactory implements TransactionFactory
                                 addressesToAdd)
                 )
                 .payer(payer)
+                .lookups(addressLookupTables)
                 .seal()
                 .unsigned()
                 .build();
@@ -352,8 +354,8 @@ public class LegacyTransactionFactory implements TransactionFactory
         {
             signedMessageBuilder.by(signer.getSolana4jPublicKey(), new BouncyCastleSigner(signer.getPrivateKeyBytes()));
         }
-        signedMessageBuilder.build();
 
+        signedMessageBuilder.build();
         return base58encode(buffer);
     }
 
@@ -368,11 +370,12 @@ public class LegacyTransactionFactory implements TransactionFactory
     {
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
         Solana.builder(buffer)
-                .legacy()
+                .v0()
                 .recent(blockhash)
                 .instructions(tb -> factory(tb)
                         .nonceAdvance(account, authority))
                 .payer(payer)
+                .lookups(addressLookupTables)
                 .seal()
                 .unsigned()
                 .build();
