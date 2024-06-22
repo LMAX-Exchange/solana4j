@@ -4,5 +4,5 @@ import java.util.function.Consumer;
 
 public interface TransactionBuilder
 {
-    TransactionBuilder append(Consumer<InstructionBuilder> builder);
+    TransactionBuilder append(Consumer<InstructionBuilderBase> builder);
 }

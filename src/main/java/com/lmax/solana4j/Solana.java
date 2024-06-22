@@ -2,6 +2,7 @@ package com.lmax.solana4j;
 
 import com.lmax.solana4j.api.AssociatedTokenAddress;
 import com.lmax.solana4j.api.Blockhash;
+import com.lmax.solana4j.api.InnerTransactionBuilder;
 import com.lmax.solana4j.api.Message;
 import com.lmax.solana4j.api.MessageBuilder;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
@@ -25,6 +26,11 @@ public final class Solana
     public static MessageBuilder builder(final ByteBuffer buffer)
     {
         return SolanaEncoding.builder(buffer);
+    }
+
+    public static InnerTransactionBuilder innerTxBuilder(final PublicKey payer)
+    {
+        return SolanaEncoding.innerTxBuilder(payer);
     }
 
     public static SignedMessageBuilder forSigning(final ByteBuffer message)

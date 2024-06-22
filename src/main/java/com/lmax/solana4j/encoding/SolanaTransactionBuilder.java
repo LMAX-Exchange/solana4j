@@ -1,6 +1,7 @@
 package com.lmax.solana4j.encoding;
 
 import com.lmax.solana4j.api.InstructionBuilder;
+import com.lmax.solana4j.api.InstructionBuilderBase;
 import com.lmax.solana4j.api.MessageBuilder;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionBuilder;
@@ -25,15 +26,15 @@ final class SolanaTransactionBuilder implements TransactionBuilder
     }
 
     @Override
-    public TransactionBuilder append(final Consumer<InstructionBuilder> consumer)
+    public TransactionBuilder append(final Consumer<InstructionBuilderBase> consumer)
     {
-        final SolanaInstructionBuilder ib = new SolanaInstructionBuilder();
+        final InstructionBuilder ib = new SolanaInstructionBuilderBase();
         consumer.accept(ib);
         ib.build();
         return this;
     }
 
-    private class SolanaInstructionBuilder implements InstructionBuilder
+    private class SolanaInstructionBuilderBase implements InstructionBuilder
     {
         private final List<SolanaAccountReference> references = new ArrayList<>();
         private SolanaAccount program;
@@ -43,7 +44,7 @@ final class SolanaTransactionBuilder implements TransactionBuilder
         private SolanaAccountReference programReference;
 
         @Override
-        public InstructionBuilder account(final PublicKey account, final boolean signs, final boolean writes)
+        public InstructionBuilderBase account(final PublicKey account, final boolean signs, final boolean writes)
         {
             requireNonNull(account);
             references.add(new SolanaAccountReference(account, signs, writes, false));
@@ -51,14 +52,14 @@ final class SolanaTransactionBuilder implements TransactionBuilder
         }
 
         @Override
-        public InstructionBuilder program(final PublicKey account)
+        public InstructionBuilderBase program(final PublicKey account)
         {
             program = (SolanaAccount) account;
             return this;
         }
 
         @Override
-        public InstructionBuilder data(final int datasize, final Consumer<ByteBuffer> writer)
+        public InstructionBuilderBase data(final int datasize, final Consumer<ByteBuffer> writer)
         {
             this.datasize = datasize;
             data = writer;

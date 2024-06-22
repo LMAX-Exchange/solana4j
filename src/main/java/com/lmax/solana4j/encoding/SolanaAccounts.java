@@ -77,6 +77,11 @@ final class SolanaAccounts implements Accounts
         return countUnsignedReadOnly;
     }
 
+    public static Accounts create(final List<TransactionInstruction> instructions, final TransactionInstruction.AccountReference payerReference)
+    {
+        return create(instructions, List.of(), payerReference);
+    }
+
     public static Accounts create(final List<TransactionInstruction> instructions, final List<AddressLookupTable> addressLookupTables, final TransactionInstruction.AccountReference payerReference)
     {
         final var instructionAccountReferences = getInstructionAccountReferences(instructions, payerReference);
