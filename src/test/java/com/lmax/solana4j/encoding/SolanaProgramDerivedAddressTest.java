@@ -1,10 +1,6 @@
 package com.lmax.solana4j.encoding;
 
-import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
-import com.lmax.solana4j.api.PublicKey;
-import com.lmax.solana4j.api.Slot;
-import com.lmax.solana4j.programs.AddressLookupTableProgram;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.bitcoinj.core.Base58;
 import org.junit.jupiter.api.Test;
@@ -42,21 +38,5 @@ class SolanaProgramDerivedAddressTest
 
         AssertionsForClassTypes.assertThat(programDerivedAddress.address().base58()).isEqualTo("FiZFCNEX1WJbP1UEyr2o4uyhtEFoZc3cMyYScf6LAYDx");
         AssertionsForClassTypes.assertThat(programDerivedAddress.nonce()).isEqualTo(254);
-    }
-
-    @Test
-    void shouldCalculateAProgramDerivedAddressForAddressLookupTable()
-    {
-        final PublicKey authority = Solana.account(Base58.decode("EYB1g5R8beNtVqDpKpmkKWtLdhBY8Wh7q3QT3U3fbw7y"));
-
-        final Slot recentSlot = Solana.slot(265008810);
-
-        final ProgramDerivedAddress programDerivedAddress = SolanaProgramDerivedAddress.deriveProgramAddress(
-                List.of(authority.bytes(), recentSlot.bytes()),
-                AddressLookupTableProgram.PROGRAM_ACCOUNT
-        );
-
-        assertThat(programDerivedAddress.address().base58()).isEqualTo("DmTtM8rQMcqR56ksBkayLd9KuYiFaGYZEAPnh5iUtgVV");
-        assertThat(programDerivedAddress.nonce()).isEqualTo(255);
     }
 }

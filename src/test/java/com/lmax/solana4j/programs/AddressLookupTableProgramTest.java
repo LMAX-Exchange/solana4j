@@ -11,7 +11,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class AddressLookupTableProgramTest
 {
     @Test
-    void derivesCorrectAddressLookupAddressAndBumpSeed()
+    void derivesCorrectProgramDerivedAddressForAddressLookupTableProgram()
     {
         final PublicKey authority = Solana.account(Base58.decode("EYB1g5R8beNtVqDpKpmkKWtLdhBY8Wh7q3QT3U3fbw7y"));
         final ProgramDerivedAddress programDerivedAddress = AddressLookupTableProgram.deriveAddress(authority, Solana.slot(265008810));

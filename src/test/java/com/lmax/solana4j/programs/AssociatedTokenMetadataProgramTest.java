@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 class AssociatedTokenMetadataProgramTest
 {
     @Test
-    void derivesCorrectTokenMetadataProgramAddress()
+    void derivesCorrectProgramDerivedAddressForTokenMetadataProgram()
     {
         final PublicKey mint = Solana.account(Base58.decode("HDLRMKW1FDz2q5Zg778CZx26UgrtnqpUDkNNJHhmVUFr"));
         final ProgramDerivedAddress metadataAddress = AssociatedTokenMetadataProgram.deriveAddress(mint);
