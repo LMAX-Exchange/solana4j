@@ -5,7 +5,7 @@ import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.Slot;
-import com.lmax.solana4j.api.TransactionBuilderBase;
+import com.lmax.solana4j.api.TransactionBuilder;
 import com.lmax.solana4j.encoding.SolanaEncoding;
 import org.bitcoinj.core.Base58;
 
@@ -24,14 +24,14 @@ public final class AddressLookupTableProgram
 
     private static final int LOOKUP_TABLE_META_SIZE = 56;
 
-    private final TransactionBuilderBase tb;
+    private final TransactionBuilder tb;
 
-    public static AddressLookupTableProgram factory(final TransactionBuilderBase tb)
+    public static AddressLookupTableProgram factory(final TransactionBuilder tb)
     {
         return new AddressLookupTableProgram(tb);
     }
 
-    private AddressLookupTableProgram(final TransactionBuilderBase tb)
+    private AddressLookupTableProgram(final TransactionBuilder tb)
     {
         this.tb = tb;
     }

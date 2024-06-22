@@ -2,7 +2,7 @@ package com.lmax.solana4j.programs;
 
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;
-import com.lmax.solana4j.api.TransactionBuilderBase;
+import com.lmax.solana4j.api.TransactionBuilder;
 import org.bitcoinj.core.Base58;
 
 import java.nio.ByteOrder;
@@ -15,14 +15,14 @@ public class ComputeBudgetProgram
     private static final int SET_COMPUTE_UNIT_LIMIT_INSTRUCTION = 2;
     private static final int SET_COMPUTE_UNIT_PRICE_INSTRUCTION = 3;
 
-    private final TransactionBuilderBase tb;
+    private final TransactionBuilder tb;
 
-    public static ComputeBudgetProgram factory(final TransactionBuilderBase tb)
+    public static ComputeBudgetProgram factory(final TransactionBuilder tb)
     {
         return new ComputeBudgetProgram(tb);
     }
 
-    ComputeBudgetProgram(final TransactionBuilderBase tb)
+    ComputeBudgetProgram(final TransactionBuilder tb)
     {
         this.tb = tb;
     }

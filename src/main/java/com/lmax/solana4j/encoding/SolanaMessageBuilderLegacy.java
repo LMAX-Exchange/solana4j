@@ -1,10 +1,10 @@
 package com.lmax.solana4j.encoding;
 
 import com.lmax.solana4j.api.Blockhash;
-import com.lmax.solana4j.api.LegacyTransactionBuilder;
 import com.lmax.solana4j.api.MessageBuilderLegacy;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.SealedMessageBuilder;
+import com.lmax.solana4j.api.TransactionBuilder;
 import com.lmax.solana4j.api.TransactionInstruction;
 
 import java.nio.ByteBuffer;
@@ -44,9 +44,9 @@ final class SolanaMessageBuilderLegacy implements MessageBuilderLegacy
     }
 
     @Override
-    public MessageBuilderLegacy instructions(final Consumer<LegacyTransactionBuilder> builder)
+    public MessageBuilderLegacy instructions(final Consumer<TransactionBuilder> builder)
     {
-        builder.accept(new SolanaLegacyTransactionBuilder(parent, instructions));
+        builder.accept(new SolanaTransactionBuilder(parent, instructions));
         return this;
     }
 

@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 
 public interface MessageBuilderLegacy
 {
-    MessageBuilderLegacy instructions(Consumer<LegacyTransactionBuilder> builder);
+    MessageBuilderLegacy instructions(Consumer<TransactionBuilder> builder);
 
     List<? extends TransactionInstruction>  getInstructions();
 

@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 
 public interface MessageBuilderV0
 {
-    MessageBuilderV0 instructions(Consumer<VersionedTransactionBuilder> builder);
+    MessageBuilderV0 instructions(Consumer<TransactionBuilder> builder);
 
     MessageBuilderV0 payer(PublicKey account);
 

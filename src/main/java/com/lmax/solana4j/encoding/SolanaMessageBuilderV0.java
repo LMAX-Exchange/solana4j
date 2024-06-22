@@ -7,8 +7,8 @@ import com.lmax.solana4j.api.MessageBuilder;
 import com.lmax.solana4j.api.MessageBuilderV0;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.SealedMessageBuilder;
+import com.lmax.solana4j.api.TransactionBuilder;
 import com.lmax.solana4j.api.TransactionInstruction;
-import com.lmax.solana4j.api.VersionedTransactionBuilder;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -34,9 +34,9 @@ final class SolanaMessageBuilderV0 implements MessageBuilderV0
     }
 
     @Override
-    public MessageBuilderV0 instructions(final Consumer<VersionedTransactionBuilder> builder)
+    public MessageBuilderV0 instructions(final Consumer<TransactionBuilder> builder)
     {
-        builder.accept(new SolanaV0TransactionBuilder(parent, instructions));
+        builder.accept(new SolanaTransactionBuilder((SolanaMessageBuilder) parent, instructions));
         return this;
     }
 

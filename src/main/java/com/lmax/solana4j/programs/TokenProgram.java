@@ -3,7 +3,7 @@ package com.lmax.solana4j.programs;
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.Destination;
 import com.lmax.solana4j.api.PublicKey;
-import com.lmax.solana4j.api.TransactionBuilderBase;
+import com.lmax.solana4j.api.TransactionBuilder;
 import org.bitcoinj.core.Base58;
 
 import java.nio.ByteBuffer;
@@ -46,14 +46,14 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
     public static final int AUTHORITY_TYPE_ACCOUNT_OWNER = 2;
 
     private final PublicKey programId;
-    private final TransactionBuilderBase tb;
+    private final TransactionBuilder tb;
 
-    public static TokenProgram<?> factory(final TransactionBuilderBase tb)
+    public static TokenProgram<?> factory(final TransactionBuilder tb)
     {
         return new TokenProgram<>(PROGRAM_ACCOUNT, tb);
     }
 
-    TokenProgram(final PublicKey tokenProgramId, final TransactionBuilderBase tb)
+    TokenProgram(final PublicKey tokenProgramId, final TransactionBuilder tb)
     {
         this.programId = tokenProgramId;
         this.tb = tb;

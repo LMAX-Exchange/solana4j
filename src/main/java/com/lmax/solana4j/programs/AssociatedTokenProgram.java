@@ -3,7 +3,7 @@ package com.lmax.solana4j.programs;
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
-import com.lmax.solana4j.api.TransactionBuilderBase;
+import com.lmax.solana4j.api.TransactionBuilder;
 import org.bitcoinj.core.Base58;
 
 import java.nio.ByteOrder;
@@ -19,14 +19,14 @@ public final class AssociatedTokenProgram
     public static final int IDEMPOTENT_CREATE_INSTRUCTION = 1;
     public static final int CREATE_INSTRUCTION = 0;
 
-    private final TransactionBuilderBase tb;
+    private final TransactionBuilder tb;
 
-    public static AssociatedTokenProgram factory(final TransactionBuilderBase tb)
+    public static AssociatedTokenProgram factory(final TransactionBuilder tb)
     {
         return new AssociatedTokenProgram(tb);
     }
 
-    private AssociatedTokenProgram(final TransactionBuilderBase tb)
+    private AssociatedTokenProgram(final TransactionBuilder tb)
     {
         this.tb = tb;
     }

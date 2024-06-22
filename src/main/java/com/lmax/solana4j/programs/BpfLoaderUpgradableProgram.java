@@ -2,7 +2,7 @@ package com.lmax.solana4j.programs;
 
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;
-import com.lmax.solana4j.api.TransactionBuilderBase;
+import com.lmax.solana4j.api.TransactionBuilder;
 import org.bitcoinj.core.Base58;
 
 import java.nio.ByteOrder;
@@ -22,14 +22,14 @@ final class BpfLoaderUpgradableProgram
     private static final int CLOSE_INSTRUCTION = 5;
     private static final int SET_AUTHORITY_CHECKED_INSTRUCTION = 7;
 
-    private final TransactionBuilderBase tb;
+    private final TransactionBuilder tb;
 
-    public static BpfLoaderUpgradableProgram factory(final TransactionBuilderBase tb)
+    public static BpfLoaderUpgradableProgram factory(final TransactionBuilder tb)
     {
         return new BpfLoaderUpgradableProgram(tb);
     }
 
-    BpfLoaderUpgradableProgram(final TransactionBuilderBase tb)
+    BpfLoaderUpgradableProgram(final TransactionBuilder tb)
     {
         this.tb = tb;
     }

@@ -2,7 +2,7 @@ package com.lmax.solana4j.programs;
 
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;
-import com.lmax.solana4j.api.TransactionBuilderBase;
+import com.lmax.solana4j.api.TransactionBuilder;
 import com.lmax.solana4j.encoding.SysVar;
 import org.bitcoinj.core.Base58;
 
@@ -23,14 +23,14 @@ public final class SystemProgram
     private static final int NONCE_INIT_INSTRUCTION = 6;
 
 
-    private final TransactionBuilderBase tb;
+    private final TransactionBuilder tb;
 
-    public static SystemProgram factory(final TransactionBuilderBase tb)
+    public static SystemProgram factory(final TransactionBuilder tb)
     {
         return new SystemProgram(tb);
     }
 
-    SystemProgram(final TransactionBuilderBase tb)
+    SystemProgram(final TransactionBuilder tb)
     {
         this.tb = tb;
     }
