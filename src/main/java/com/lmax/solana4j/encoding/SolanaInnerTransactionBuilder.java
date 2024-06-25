@@ -21,18 +21,20 @@ public class SolanaInnerTransactionBuilder implements InnerTransactionBuilder
 {
     private final List<TransactionInstruction> innerInstructions = new ArrayList<>();
 
-    private final TransactionInstruction.AccountReference payerReference;
-
-    public SolanaInnerTransactionBuilder(final PublicKey payer)
-    {
-        this.payerReference = new SolanaAccountReference(payer, true, true, false);
-    }
+    private TransactionInstruction.AccountReference payerReference = new SolanaAccountReference(Solana.account(new byte[32]), true, true, false);
 
     @Override
     public InnerTransactionBuilder instructions(final Consumer<TransactionBuilder> builder)
     {
         final SolanaInnerInstructionsBuilder innerInstructionsBuilder = new SolanaInnerInstructionsBuilder();
         builder.accept(innerInstructionsBuilder);
+        return this;
+    }
+
+    @Override
+    public InnerTransactionBuilder payer(final PublicKey payer)
+    {
+        payerReference = new SolanaAccountReference(payer, true, true, false);
         return this;
     }
 

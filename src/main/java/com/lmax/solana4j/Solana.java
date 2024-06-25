@@ -28,9 +28,9 @@ public final class Solana
         return SolanaEncoding.builder(buffer);
     }
 
-    public static InnerTransactionBuilder innerTxBuilder(final PublicKey payer)
+    public static InnerTransactionBuilder innerTxBuilder()
     {
-        return SolanaEncoding.innerTxBuilder(payer);
+        return SolanaEncoding.innerTxBuilder();
     }
 
     public static SignedMessageBuilder forSigning(final ByteBuffer message)
