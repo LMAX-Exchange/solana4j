@@ -79,7 +79,7 @@ public class SolanaDriver
 
         LOGGER.info("About to send transaction blob {}.", transactionBlob);
 
-        return solanaApi.sendTransaction(transactionBlob, Commitment.CONFIRMED);
+        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
     }
 
     public String extendAddressLookupTable(final TestPublicKey addressLookupTable,
