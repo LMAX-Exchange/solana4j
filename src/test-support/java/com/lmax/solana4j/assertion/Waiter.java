@@ -30,7 +30,9 @@ public class Waiter
             }
             catch (final Throwable throwable)
             {
-                LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(calculateExponentialBackoffDelay(i + 1)));
+                final long exponentialBackoff = calculateExponentialBackoffDelay(i + 1);
+                LOGGER.info("Retrying assertion after {} seconds, retry atempt {}.", exponentialBackoff, i);
+                LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(exponentialBackoff));
             }
         }
         throw new AssertionError("Waiting for condition that never happened.");
