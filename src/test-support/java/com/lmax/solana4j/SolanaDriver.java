@@ -41,13 +41,17 @@ public class SolanaDriver
 
     public TransactionResponse getTransactionResponse(final String transactionSignature, final Commitment commitment)
     {
-        return solanaApi.getTransactionResponse(transactionSignature, commitment);
+        final TransactionResponse transactionResponse = solanaApi.getTransactionResponse(transactionSignature, commitment);
+        LOGGER.info("Received transaction response {}.", transactionResponse);
+
+        return transactionResponse;
     }
 
     public long getSlot(final Commitment commitment)
     {
         final long slot = solanaApi.getSlot(commitment);
         LOGGER.info("Received slot {}.", slot);
+
         return slot;
     }
 
