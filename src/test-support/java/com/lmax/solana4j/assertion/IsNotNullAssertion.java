@@ -21,6 +21,7 @@ public class IsNotNullAssertion<T> extends Assertion<T>
     @Override
     public void doAssert()
     {
+        LOGGER.info("Retrieving actual value.");
         final T actual = actualSupplier.get();
         LOGGER.info("Actual value {}.", actual);
         assertThat(actual).isNotNull();
