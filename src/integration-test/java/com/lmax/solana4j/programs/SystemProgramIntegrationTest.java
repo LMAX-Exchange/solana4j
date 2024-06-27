@@ -10,7 +10,7 @@ public class SystemProgramIntegrationTest extends IntegrationTestBase
     void beforeEachTest()
     {
         solana.createKeyPair("payer");
-        solana.airdrop("payer", "100");
+        solana.airdrop("payer", "1");
     }
 
     @ParameterizedMessageEncodingTest

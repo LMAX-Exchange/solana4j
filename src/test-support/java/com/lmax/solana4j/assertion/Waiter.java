@@ -25,14 +25,12 @@ public class Waiter
         {
             try
             {
-                LOGGER.info("Attempting to run assertion, retry attempt {}.", i);
                 assertion.doAssert();
                 return assertion.getActual();
             }
             catch (final Throwable throwable)
             {
                 final long exponentialBackoff = calculateExponentialBackoffDelay(i + 1);
-                LOGGER.info("Retrying assertion after {} seconds, retry attempt {}.", exponentialBackoff, i);
                 LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(exponentialBackoff));
             }
         }

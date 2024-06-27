@@ -10,7 +10,6 @@ import com.lmax.solana4j.domain.TokenProgramFactory;
 import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.solanaclient.api.AccountInfo;
 import com.lmax.solana4j.solanaclient.api.Blockhash;
-import com.lmax.solana4j.solanaclient.api.Commitment;
 import com.lmax.solana4j.solanaclient.api.SolanaApi;
 import com.lmax.solana4j.solanaclient.api.TransactionResponse;
 import com.lmax.solana4j.transactionblobs.LegacyTransactionBlobFactory;
@@ -39,25 +38,19 @@ public class SolanaDriver
         return solanaApi.requestAirdrop(address.getPublicKeyBase58(), amountLamports);
     }
 
-    public TransactionResponse getTransactionResponse(final String transactionSignature, final Commitment commitment)
+    public TransactionResponse getTransactionResponse(final String transactionSignature)
     {
-        final TransactionResponse transactionResponse = solanaApi.getTransactionResponse(transactionSignature, commitment);
-        LOGGER.info("Received transaction response {}.", transactionResponse);
-
-        return transactionResponse;
+        return solanaApi.getTransactionResponse(transactionSignature);
     }
 
-    public long getSlot(final Commitment commitment)
+    public long getSlot()
     {
-        final long slot = solanaApi.getSlot(commitment);
-        LOGGER.info("Received slot {}.", slot);
-
-        return slot;
+        return solanaApi.getSlot();
     }
 
-    public AccountInfo getAccountInfo(final TestPublicKey address, final Commitment commitment)
+    public AccountInfo getAccountInfo(final TestPublicKey address)
     {
-        return solanaApi.getAccountInfo(address.getPublicKeyBase58(), commitment);
+        return solanaApi.getAccountInfo(address.getPublicKeyBase58());
     }
 
     public String createAddressLookupTable(final ProgramDerivedAddress programDerivedAddress,
@@ -79,7 +72,7 @@ public class SolanaDriver
 
         LOGGER.info("About to send transaction blob {}.", transactionBlob);
 
-        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+        return solanaApi.sendTransaction(transactionBlob);
     }
 
     public String extendAddressLookupTable(final TestPublicKey addressLookupTable,
@@ -99,7 +92,7 @@ public class SolanaDriver
                 List.of(payer, authority),
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+        return solanaApi.sendTransaction(transactionBlob);
     }
 
     public String createMintAccount(
@@ -129,7 +122,7 @@ public class SolanaDriver
                 addressLookupTables
         );
 
-        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+        return solanaApi.sendTransaction(transactionBlob);
     }
 
     public String mintTo(
@@ -154,7 +147,7 @@ public class SolanaDriver
                 addressLookupTables
         );
 
-        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+        return solanaApi.sendTransaction(transactionBlob);
     }
 
     public String createTokenAccount(
@@ -181,17 +174,17 @@ public class SolanaDriver
                 List.of(payer, account),
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+        return solanaApi.sendTransaction(transactionBlob);
     }
 
-    public long getBalance(final String address, final Commitment commitment)
+    public long getBalance(final String address)
     {
-        return solanaApi.getBalance(address, commitment);
+        return solanaApi.getBalance(address);
     }
 
-    public String getTokenBalance(final String address, final Commitment commitment)
+    public String getTokenBalance(final String address)
     {
-        return solanaApi.getTokenAccountBalance(address, commitment).getUiAmountString();
+        return solanaApi.getTokenAccountBalance(address).getUiAmountString();
     }
 
     public String createNonceAccount(
@@ -214,7 +207,7 @@ public class SolanaDriver
                 List.of(payer, account, authority),
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+        return solanaApi.sendTransaction(transactionBlob);
     }
 
     public String advanceNonce(
@@ -233,7 +226,7 @@ public class SolanaDriver
                 List.of(payer, authority),
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+        return solanaApi.sendTransaction(transactionBlob);
     }
 
     public String tokenTransfer(
@@ -258,7 +251,7 @@ public class SolanaDriver
                 List.of(payer, owner),
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+        return solanaApi.sendTransaction(transactionBlob);
     }
 
     public String transfer(
@@ -279,7 +272,7 @@ public class SolanaDriver
                 List.of(payer, from),
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob, Commitment.FINALIZED);
+        return solanaApi.sendTransaction(transactionBlob);
     }
 
     public void setMessageEncoding(final String messageEncoding)

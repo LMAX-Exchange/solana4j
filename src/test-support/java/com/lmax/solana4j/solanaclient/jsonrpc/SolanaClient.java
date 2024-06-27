@@ -29,7 +29,7 @@ public class SolanaClient implements SolanaApi
     }
 
     @Override
-    public TransactionResponse getTransactionResponse(final String transactionSignature, final Commitment commitment)
+    public TransactionResponse getTransactionResponse(final String transactionSignature)
     {
         return rpcClient.queryForObject(new TypeReference<RpcWrapperDTO<TransactionResponseDTO>>()
                                         {
@@ -37,7 +37,6 @@ public class SolanaClient implements SolanaApi
                 "getTransaction",
                 transactionSignature,
                 Map.of(
-                        "commitment", commitment.name().toLowerCase(Locale.UK),
                         "econding", "jsonParsed",
                         "maxSupportedTransactionVersion", 0
                 )
@@ -45,51 +44,46 @@ public class SolanaClient implements SolanaApi
     }
 
     @Override
-    public String sendTransaction(final String transactionBlob, final Commitment commitment)
+    public String sendTransaction(final String transactionBlob)
     {
         return rpcClient.queryForObject(new TypeReference<>()
                                         {
                                         },
                 "sendTransaction",
                 transactionBlob,
-                Map.of("preflightCommitment", commitment.name().toLowerCase(Locale.UK))
+                Map.of("preflightCommitment", Commitment.FINALIZED.toString().toLowerCase(Locale.UK))
         );
     }
 
     @Override
-    public Long getBalance(final String address, final Commitment commitment)
+    public Long getBalance(final String address)
     {
         return rpcClient.queryForObject(new TypeReference<RpcWrapperDTO<BalanceDTO>>()
                                         {
                                         },
                 "getBalance",
-                address,
-                Map.of("commitment", commitment.name().toLowerCase(Locale.UK))
-        ).getValue();
+                address).getValue();
     }
 
     @Override
-    public TokenAmount getTokenAccountBalance(final String address, final Commitment commitment)
+    public TokenAmount getTokenAccountBalance(final String address)
     {
         return rpcClient.queryForObject(new TypeReference<RpcWrapperDTO<TokenAmountDTO>>()
                                         {
                                         },
                 "getTokenAccountBalance",
-                address,
-                Map.of("commitment", commitment.name().toLowerCase(Locale.UK))
-        ).getValue();
+                address).getValue();
     }
 
     @Override
-    public AccountInfo getAccountInfo(final String address, final Commitment commitment)
+    public AccountInfo getAccountInfo(final String address)
     {
         return rpcClient.queryForObject(new TypeReference<RpcWrapperDTO<AccountInfoDTO>>()
                                         {
                                         },
                 "getAccountInfo",
                 address,
-                Map.of("encoding", "base64",
-                        "commitment", commitment.name().toLowerCase(Locale.UK))
+                Map.of("encoding", "base64")
         ).getValue();
     }
 
@@ -102,13 +96,11 @@ public class SolanaClient implements SolanaApi
     }
 
     @Override
-    public Long getSlot(final Commitment commitment)
+    public Long getSlot()
     {
         return rpcClient.queryForObject(new TypeReference<>()
                                         {
-                                        },
-                "getSlot",
-                Map.of("commitment", commitment.name().toLowerCase(Locale.UK)));
+                                        }, "getSlot");
     }
 
     @Override
