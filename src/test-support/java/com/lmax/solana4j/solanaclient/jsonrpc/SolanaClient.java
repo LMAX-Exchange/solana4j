@@ -37,7 +37,6 @@ public class SolanaClient implements SolanaApi
                 "getTransaction",
                 transactionSignature,
                 Map.of(
-                        "commitment", Commitment.CONFIRMED.toString().toLowerCase(Locale.UK),
                         "econding", "jsonParsed",
                         "maxSupportedTransactionVersion", 0
                 )
