@@ -23,9 +23,17 @@ public class IsEqualToAssertion<T> extends Assertion<T>
     @Override
     public void doAssert()
     {
-        T actual = actualSupplier.get();
-        LOGGER.info("Expected value {} and actual value {}.", expected, actual);
-        assertThat(expected).isEqualTo(actual);
+        try
+        {
+            final T actual = actualSupplier.get();
+            LOGGER.info("Expected value {} and actual value {}.", expected, actual);
+            assertThat(expected).isEqualTo(actual);
+        }
+        catch (final Exception e)
+        {
+            LOGGER.error("Something went wrong trying to get the actual value.", e);
+            throw e;
+        }
     }
 
     @Override

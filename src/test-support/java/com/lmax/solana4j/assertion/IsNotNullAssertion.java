@@ -21,10 +21,17 @@ public class IsNotNullAssertion<T> extends Assertion<T>
     @Override
     public void doAssert()
     {
-        LOGGER.info("Retrieving actual value.");
-        final T actual = actualSupplier.get();
-        LOGGER.info("Actual value {}.", actual);
-        assertThat(actual).isNotNull();
+        try
+        {
+            final T actual = actualSupplier.get();
+            LOGGER.info("Actual value {}.", actual);
+            assertThat(actual).isNotNull();
+        }
+        catch (final Exception e)
+        {
+            LOGGER.error("Something went wrong trying to get the actual value.", e);
+            throw e;
+        }
     }
 
     @Override
