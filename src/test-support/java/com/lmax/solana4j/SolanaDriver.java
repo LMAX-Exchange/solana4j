@@ -15,16 +15,12 @@ import com.lmax.solana4j.solanaclient.api.TransactionResponse;
 import com.lmax.solana4j.transactionblobs.LegacyTransactionBlobFactory;
 import com.lmax.solana4j.transactionblobs.TransactionBlobFactory;
 import com.lmax.solana4j.transactionblobs.V0TransactionBlobFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SolanaDriver
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SolanaDriver.class);
-
     private final SolanaApi solanaApi;
     private TransactionBlobFactory transactionBlobFactory;
 
@@ -69,8 +65,6 @@ public class SolanaDriver
                 payer.getSolana4jPublicKey(),
                 List.of(payer, authority),
                 addressLookupTables);
-
-        LOGGER.info("About to send transaction blob {}.", transactionBlob);
 
         return solanaApi.sendTransaction(transactionBlob);
     }

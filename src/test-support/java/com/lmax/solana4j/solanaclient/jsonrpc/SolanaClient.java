@@ -7,12 +7,16 @@ import com.lmax.solana4j.solanaclient.api.Commitment;
 import com.lmax.solana4j.solanaclient.api.SolanaApi;
 import com.lmax.solana4j.solanaclient.api.TokenAmount;
 import com.lmax.solana4j.solanaclient.api.TransactionResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Locale;
 import java.util.Map;
 
 public class SolanaClient implements SolanaApi
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SolanaClient.class);
+
     final SolanaRpcClient rpcClient;
 
     public SolanaClient(final String rpcUrl)
@@ -46,13 +50,19 @@ public class SolanaClient implements SolanaApi
     @Override
     public String sendTransaction(final String transactionBlob)
     {
-        return rpcClient.queryForObject(new TypeReference<>()
-                                        {
-                                        },
+        LOGGER.info("About to send transaction blob {}.", transactionBlob);
+
+        final String transactionSignature = rpcClient.queryForObject(new TypeReference<>()
+                                            {
+                                            },
                 "sendTransaction",
                 transactionBlob,
                 Map.of("preflightCommitment", Commitment.FINALIZED.toString().toLowerCase(Locale.UK))
         );
+
+        LOGGER.info("Transaction signature received {}.", transactionSignature);
+
+        return transactionSignature;
     }
 
     @Override
