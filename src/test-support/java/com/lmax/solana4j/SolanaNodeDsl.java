@@ -67,7 +67,7 @@ public class SolanaNodeDsl
                 new OptionalArg("rememberTransactionId"));
 
         final TestPublicKey address = testContext.getPublicKey(params.value("address"));
-        final Sol sol = new Sol(params.valueAsLong("amountSol"));
+        final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
 
         final String transactionSignature = solanaDriver.requestAirdrop(address, sol.lamports());
         new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
@@ -269,7 +269,7 @@ public class SolanaNodeDsl
                 new RequiredArg("amountSol"));
 
         final TestPublicKey address = testContext.getPublicKey(params.value("address"));
-        final Sol sol = new Sol(params.valueAsLong("amountSol"));
+        final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
 
         new Waiter().waitFor(new IsEqualToAssertion<>(sol.lamports(), () -> solanaDriver.getBalance(address.getPublicKeyBase58())));
     }
@@ -359,7 +359,7 @@ public class SolanaNodeDsl
 
         final TestKeyPair from = testContext.getKeyPair(params.value("from"));
         final TestPublicKey to = testContext.getPublicKey(params.value("to"));
-        final Sol sol = new Sol(params.valueAsLong("amountSol"));
+        final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
         final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext::getAddressLookupTable)

@@ -13,7 +13,7 @@ public class ComputeBudgetProgramIntegrationTest extends IntegrationTestBase
     void beforeEachTest()
     {
         solana.createKeyPair("payer");
-        solana.airdrop("payer", "1");
+        solana.airdrop("payer", "0.1");
     }
 
     @Disabled

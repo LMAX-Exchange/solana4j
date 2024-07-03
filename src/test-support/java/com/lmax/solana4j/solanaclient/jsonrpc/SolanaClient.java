@@ -27,9 +27,15 @@ public class SolanaClient implements SolanaApi
     @Override
     public String requestAirdrop(final String address, final long amountLamports)
     {
-        return rpcClient.queryForObject(new TypeReference<>()
+        LOGGER.info("About to airdrop to {} for an amount {}", address, amountLamports);
+
+        final String transactionSignature = rpcClient.queryForObject(new TypeReference<>()
         {
         }, "requestAirdrop", address, amountLamports);
+
+        LOGGER.info("Transaction signature received {}.", transactionSignature);
+
+        return transactionSignature;
     }
 
     @Override
