@@ -20,6 +20,7 @@ import com.lmax.solana4j.solanaclient.jsonrpc.SolanaClient;
 import com.lmax.solana4j.util.TestKeyPairGenerator;
 import org.bouncycastle.util.encoders.Base64;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -70,7 +71,7 @@ public class SolanaNodeDsl
         final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
 
         final String transactionSignature = solanaDriver.requestAirdrop(address, sol.lamports());
-        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        new Waiter().withRetrys(15).withMaximumBackoff(Duration.ofSeconds(30)).waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
     }
 
     public void retrieveAddressLookupTable(final String... args)

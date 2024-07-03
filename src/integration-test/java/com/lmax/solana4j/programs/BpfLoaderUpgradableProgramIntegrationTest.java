@@ -13,7 +13,7 @@ public class BpfLoaderUpgradableProgramIntegrationTest extends IntegrationTestBa
     void beforeEachTest()
     {
         solana.createKeyPair("payer");
-        solana.airdrop("payer", "0.1");
+        solana.airdrop("payer", "0.01");
     }
 
     @Disabled

@@ -10,7 +10,7 @@ public class SystemProgramIntegrationTest extends IntegrationTestBase
     void beforeEachTest()
     {
         solana.createKeyPair("payer");
-        solana.airdrop("payer", "0.1");
+        solana.airdrop("payer", "0.01");
     }
 
     @ParameterizedMessageEncodingTest
@@ -21,7 +21,7 @@ public class SystemProgramIntegrationTest extends IntegrationTestBase
         solana.createKeyPair("account");
         solana.createKeyPair("authority");
 
-        solana.airdrop("authority", "0.1");
+        solana.airdrop("authority", "0.01");
         solana.createNonceAccount("account", "authority", "payer");
     }
 
@@ -33,7 +33,7 @@ public class SystemProgramIntegrationTest extends IntegrationTestBase
         solana.createKeyPair("account");
         solana.createKeyPair("authority");
 
-        solana.airdrop("address: authority", "amountSol: 0.1");
+        solana.airdrop("address: authority", "amountSol: 0.01");
         solana.createNonceAccount("account", "authority", "payer");
 
         solana.advanceNonce("account", "authority", "payer");
@@ -47,7 +47,7 @@ public class SystemProgramIntegrationTest extends IntegrationTestBase
         solana.createKeyPair("from");
         solana.createKeyPair("to");
 
-        solana.airdrop("from", "0.1");
+        solana.airdrop("from", "0.01");
 
         solana.transfer("from", "to", "0.01", "payer");
 
