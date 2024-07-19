@@ -46,7 +46,7 @@ public class SystemProgramIntegrationTest extends IntegrationTestBase
         solana.createKeyPair("from");
         solana.createKeyPair("to");
 
-        solana.airdrop("from", "0.01");
+        solana.airdrop("from", "0.1");
 
         solana.transfer("from", "to", "0.01", "payer");
 
