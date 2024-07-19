@@ -1,9 +1,13 @@
-package com.lmax.solana4j.parameterization;
+package com.lmax.solana4j.programs;
 
 import com.lmax.solana4j.SolanaNodeDsl;
 import org.junit.jupiter.api.BeforeEach;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
+import org.testcontainers.images.builder.ImageFromDockerfile;
+import org.testcontainers.utility.MountableFile;
+
+import java.nio.file.Path;
 
 public abstract class IntegrationTestBase
 {
@@ -18,7 +22,8 @@ public abstract class IntegrationTestBase
     {
         try
         {
-            SOLANA_VALIDATOR = new GenericContainer<>("solanalabs/solana:v1.17.34")
+            SOLANA_VALIDATOR = new GenericContainer<>(new ImageFromDockerfile().withDockerfile(Path.of(MountableFile.forClasspathResource("Dockerfile").getFilesystemPath())))
+                    .withCopyFileToContainer(MountableFile.forClasspathResource("solana-run.sh"), "/solana-run.sh")
                     .withExposedPorts(SOLANA_HTTP_PORT, SOLANA_WS_PORT)
                     .withEnv("SOLANA_RUN_SH_GENESIS_ARGS", "--ticks-per-slot=2")
                     .withNetwork(NETWORK);
