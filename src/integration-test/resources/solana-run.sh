@@ -108,9 +108,9 @@ args=(
   --rpc-faucet-address 127.0.0.1:9900
   --log -
   --enable-rpc-transaction-history
-  --enable-extended-tx-metadata-storage
   --init-complete-file "$dataDir"/init-completed
   --require-tower
+  --no-snapshot-fetch
   --no-wait-for-vote-to-start-leader
   --no-os-network-limits-test
 )
