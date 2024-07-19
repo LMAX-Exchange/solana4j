@@ -31,7 +31,7 @@ public class IsEqualToAssertion<T> extends Assertion<T>
         }
         catch (final Exception e)
         {
-            LOGGER.error("Something went wrong trying to get the actual value.", e);
+            LOGGER.info("Something went wrong trying to get the actual value: {}", e.getMessage());
             throw e;
         }
     }
