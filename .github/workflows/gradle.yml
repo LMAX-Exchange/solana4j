@@ -37,7 +37,7 @@ jobs:
         echo '  echo "$(date): Memory Usage:" >> resource_usage.log' >> monitor_resources.sh
         echo '  free -h >> resource_usage.log' >> monitor_resources.sh
         echo '  echo "" >> resource_usage.log' >> monitor_resources.sh
-        echo '  sleep 30' >> monitor_resources.sh
+        echo '  sleep 5' >> monitor_resources.sh
         echo 'done' >> monitor_resources.sh
 
         # Make the script executable
