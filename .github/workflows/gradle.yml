@@ -24,8 +24,50 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5
 
-    - name: Build with Gradle Wrapper
-      run: ./gradlew build -i
+To continually display the resource usage throughout the duration of your workflow, you can use a combination of background processes and logging. Below is an example workflow that demonstrates how to capture and display disk, CPU, and memory usage at regular intervals during the run of your tests:
+
+  yaml
+
+name: Continuous Resource Usage Monitoring
+
+on: [push]
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup continuous monitoring
+        run: |
+          # Create a script to log resource usage
+          echo 'while true; do' > monitor_resources.sh
+          echo '  echo "Disk Usage:" >> resource_usage.log' >> monitor_resources.sh
+          echo '  df -h >> resource_usage.log' >> monitor_resources.sh
+          echo '  echo "" >> resource_usage.log' >> monitor_resources.sh
+          echo '  echo "CPU Usage:" >> resource_usage.log' >> monitor_resources.sh
+          echo '  top -b -n 1 | head -n 10 >> resource_usage.log' >> monitor_resources.sh
+          echo '  echo "" >> resource_usage.log' >> monitor_resources.sh
+          echo '  echo "Memory Usage:" >> resource_usage.log' >> monitor_resources.sh
+          echo '  free -h >> resource_usage.log' >> monitor_resources.sh
+          echo '  echo "" >> resource_usage.log' >> monitor_resources.sh
+          echo '  sleep 30' >> monitor_resources.sh
+          echo 'done' >> monitor_resources.sh
+          
+          # Make the script executable
+          chmod +x monitor_resources.sh
+          
+          # Start the script in the background
+          nohup ./monitor_resources.sh &
+
+      - name: Build with Gradle Wrapper
+        run: ./gradlew build -i
+
+      - name: Display collected resource usage
+        run: |
+          cat resource_usage.log
 
   dependency-submission:
 
