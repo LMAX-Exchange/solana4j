@@ -72,7 +72,7 @@ public class SolanaNodeDsl
         final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
 
         final String transactionSignature = solanaDriver.requestAirdrop(address, sol.lamports());
-        new Waiter().withRetrys(15).withMaximumBackoff(Duration.ofSeconds(60)).waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
     }
 
     public void retrieveAddressLookupTable(final String... args)
