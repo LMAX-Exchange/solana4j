@@ -14,7 +14,7 @@ public class Waiter
     private static final Random RANDOM = new Random();
 
     private int retrys = 10;
-    private Duration maximumBackoff = Duration.ofSeconds(30);
+    private Duration maximumBackoff = Duration.ofSeconds(3);
     private Duration initialDelay = Duration.ofSeconds(1);
 
     public <T> T waitFor(final Assertion<T> assertion)
