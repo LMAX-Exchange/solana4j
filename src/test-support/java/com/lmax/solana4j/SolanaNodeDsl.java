@@ -15,6 +15,7 @@ import com.lmax.solana4j.domain.TestPublicKey;
 import com.lmax.solana4j.domain.TokenProgram;
 import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
+import com.lmax.solana4j.programs.SystemProgram;
 import com.lmax.solana4j.solanaclient.api.AccountInfo;
 import com.lmax.solana4j.solanaclient.jsonrpc.SolanaClient;
 import com.lmax.solana4j.util.TestKeyPairGenerator;
@@ -23,6 +24,7 @@ import org.bouncycastle.util.encoders.Base64;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.lmax.solana4j.programs.SystemProgram.MINT_ACCOUNT_LENGTH;
@@ -64,8 +66,7 @@ public class SolanaNodeDsl
         final DslParams params = DslParams.create(
                 args,
                 new RequiredArg("address"),
-                new RequiredArg("amountSol"),
-                new OptionalArg("rememberTransactionId"));
+                new RequiredArg("amountSol"));
 
         final TestPublicKey address = testContext.getPublicKey(params.value("address"));
         final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
@@ -332,12 +333,14 @@ public class SolanaNodeDsl
                 new RequiredArg("account"),
                 new RequiredArg("authority"),
                 new RequiredArg("payer"),
+                new OptionalArg("nonce"),
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
         final TestKeyPair account = testContext.getKeyPair(params.value("account"));
         final TestKeyPair authority = testContext.getKeyPair(params.value("authority"));
         final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
+        final Optional<TestPublicKey> nonce = params.valueAsOptional("nonce").map(testContext::getPublicKey);
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext::getAddressLookupTable)
                 .toList();
@@ -345,6 +348,29 @@ public class SolanaNodeDsl
         final String transactionSignature = solanaDriver.advanceNonce(account, authority, payer, addressLookupTables);
 
         new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+
+        if (nonce.isPresent())
+        {
+            final AccountInfo accountInfo = solanaDriver.getAccountInfo(account.getPublicKey());
+            final PublicKey newNonce = SystemProgram.getNonceAccountValue(Base64.decode(accountInfo.getData().get(0)));
+            assertThat(newNonce).isNotEqualTo(nonce);
+        }
+    }
+
+    public void nonceValue(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("account"),
+                new OptionalArg("rememberNonce")
+        );
+
+        final TestPublicKey account = testContext.getPublicKey(params.value("account"));
+
+        final AccountInfo accountInfo = solanaDriver.getAccountInfo(account);
+        final PublicKey nonceAccountValue = SystemProgram.getNonceAccountValue(Base64.decode(accountInfo.getData().get(0)));
+
+        testContext.storePublicKey("rememberNonce", new TestPublicKey(nonceAccountValue.bytes()));
     }
 
     public void transfer(final String... args)

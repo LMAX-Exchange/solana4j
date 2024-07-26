@@ -6,6 +6,7 @@ import com.lmax.solana4j.api.TransactionBuilder;
 import com.lmax.solana4j.encoding.SysVar;
 import org.bitcoinj.core.Base58;
 
+import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 
@@ -99,5 +100,19 @@ public final class SystemProgram
         );
 
         return this;
+    }
+
+    public static PublicKey getNonceAccountValue(final byte[] nonceAccountDataBytes)
+    {
+        assert nonceAccountDataBytes.length >= 72;
+
+        final ByteBuffer nonceAccountData = ByteBuffer.allocate(nonceAccountDataBytes.length);
+        nonceAccountData.put(nonceAccountDataBytes);
+
+        final byte[] nonceValue = new byte[32];
+        nonceAccountData.position(40);
+        nonceAccountData.get(nonceValue, 0, 32);
+
+        return Solana.account(nonceValue);
     }
 }

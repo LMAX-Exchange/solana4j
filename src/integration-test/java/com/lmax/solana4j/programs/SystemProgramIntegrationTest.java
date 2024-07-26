@@ -34,8 +34,9 @@ public class SystemProgramIntegrationTest extends IntegrationTestBase
 
         solana.airdrop("address: authority", "amountSol: 0.01");
         solana.createNonceAccount("account", "authority", "payer");
+        solana.nonceValue("account", "nonce");
 
-        solana.advanceNonce("account", "authority", "payer");
+        solana.advanceNonce("account", "authority", "payer", "nonce");
     }
 
     @ParameterizedMessageEncodingTest

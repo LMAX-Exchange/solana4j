@@ -34,4 +34,9 @@ public class TestKeyPair
     {
         return privateKey;
     }
+
+    public TestPublicKey getPublicKey()
+    {
+        return new TestPublicKey(publicKey);
+    }
 }
