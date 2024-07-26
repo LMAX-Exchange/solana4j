@@ -24,7 +24,7 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5
 
-    - name: Setup continuous monitoring
+    - name: Start resource usage collection
       run: |
         # Create a script to log resource usage
         echo 'while true; do' > monitor_resources.sh
@@ -48,8 +48,10 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run: ./gradlew build -i
+      continue-on-error: true
 
     - name: Display collected resource usage
+      if: always()
       run: |
         cat resource_usage.log      
 
