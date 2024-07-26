@@ -56,8 +56,8 @@ public class SolanaNodeDsl
 
         final TestKeyPair testKeyPair = TestKeyPairGenerator.generateSolanaKeyPair();
 
-        testContext.storeKeyPair(params.value("alias"), testKeyPair);
-        testContext.storePublicKey(params.value("alias"), new TestPublicKey(testKeyPair.getPublicKeyBytes()));
+        testContext.data(TestDataType.TEST_KEY_PAIR).store(params.value("alias"), testKeyPair);
+        testContext.data(TestDataType.TEST_PUBLIC_KEY).store(params.value("alias"), new TestPublicKey(testKeyPair.getPublicKeyBytes()));
     }
 
     public void airdrop(final String... args)
@@ -67,7 +67,7 @@ public class SolanaNodeDsl
                 new RequiredArg("address"),
                 new RequiredArg("amountSol"));
 
-        final TestPublicKey address = testContext.getPublicKey(params.value("address"));
+        final TestPublicKey address = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("address"));
         final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
 
         final String transactionSignature = solanaDriver.requestAirdrop(address, sol.lamports());
@@ -82,17 +82,17 @@ public class SolanaNodeDsl
                 new OptionalArg("addresses").setAllowMultipleValues()
         );
 
-        final TestPublicKey account = testContext.getPublicKey(params.value("lookupTableAddress"));
+        final TestPublicKey account = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("lookupTableAddress"));
 
         final AccountInfo accountInfo = new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getAccountInfo(account)));
 
         final List<PublicKey> expectedAddresses = stream(params.values("addresses"))
-                .map(address -> testContext.getKeyPair(address).getSolana4jPublicKey())
+                .map(address -> testContext.data(TestDataType.TEST_KEY_PAIR).lookup(address).getSolana4jPublicKey())
                 .collect(Collectors.toList());
 
         final AddressLookupTable addressLookupTable = AddressLookupTableProgram.deserializeAddressLookupTable(account.getSolana4jPublicKey(), Base64.decode(accountInfo.getData().get(0)));
         assertThat(addressLookupTable.getAddressLookups()).usingRecursiveComparison().isEqualTo(expectedAddresses);
-        testContext.storeAddressLookupTable(params.value("lookupTableAddress"), addressLookupTable);
+        testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE).store(params.value("lookupTableAddress"), addressLookupTable);
     }
 
     public void createAddressLookupTable(final String... args)
@@ -104,16 +104,18 @@ public class SolanaNodeDsl
                 new RequiredArg("payer"),
                 new OptionalArg("addressLookupTables").setAllowMultipleValues());
 
-        final TestKeyPair authority = testContext.getKeyPair(params.value("authority"));
-        final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
-        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
-                .map(testContext::getAddressLookupTable)
+        final TestKeyPair authority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("authority"));
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables")
+                .stream()
+                .map(lookupTable -> testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE).lookup(lookupTable))
                 .toList();
 
         final long recentSlot = solanaDriver.getSlot();
 
         final ProgramDerivedAddress programDerivedAddress = AddressLookupTableProgram.deriveAddress(authority.getSolana4jPublicKey(), SolanaEncoding.slot(recentSlot));
-        testContext.storePublicKey(params.value("lookupTableAddress"), new TestPublicKey(programDerivedAddress.address().bytes()));
+        final TestPublicKey address = new TestPublicKey(programDerivedAddress.address().bytes());
+        testContext.data(TestDataType.TEST_PUBLIC_KEY).store(params.value("lookupTableAddress"), address);
 
         // intermittency caused by slot not moving on to the next slot before sending the transaction
         waitForSlot(recentSlot + 1);
@@ -132,17 +134,17 @@ public class SolanaNodeDsl
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
-        final TestPublicKey addressLookupTable = testContext.getPublicKey(params.value("lookupTableAddress"));
-        final TestKeyPair authority = testContext.getKeyPair(params.value("authority"));
-        final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
+        final TestPublicKey addressLookupTable = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("lookupTableAddress"));
+        final TestKeyPair authority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("authority"));
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
-                .map(testContext::getAddressLookupTable)
+                .map(lookupTable -> testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE).lookup(lookupTable))
                 .toList();
 
         final List<TestPublicKey> addresses = new ArrayList<>();
         for (final String address : params.values("addresses"))
         {
-            addresses.add(testContext.getPublicKey(address));
+            addresses.add(testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(address));
         }
 
         final String transactionSignature = solanaDriver.extendAddressLookupTable(addressLookupTable, authority, payer, addresses, addressLookupTables);
@@ -173,14 +175,14 @@ public class SolanaNodeDsl
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
-        final TestKeyPair account = testContext.getKeyPair(params.value("account"));
+        final TestKeyPair account = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("account"));
         final int decimals = params.valueAsInt("decimals");
-        final TestKeyPair mintAuthority = testContext.getKeyPair(params.value("mintAuthority"));
-        final TestKeyPair freezeAuthority = testContext.getKeyPair(params.value("freezeAuthority"));
-        final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
+        final TestKeyPair mintAuthority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("mintAuthority"));
+        final TestKeyPair freezeAuthority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("freezeAuthority"));
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
         final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
-                .map(testContext::getAddressLookupTable)
+                .map(lookupTable -> testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE).lookup(lookupTable))
                 .toList();
 
         final String transactionSignature = solanaDriver.createMintAccount(tokenProgram, account, decimals, mintAuthority, freezeAuthority, payer, MINT_ACCOUNT_LENGTH, addressLookupTables);
@@ -201,14 +203,14 @@ public class SolanaNodeDsl
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
-        final TestPublicKey tokenMint = testContext.getPublicKey(params.value("tokenMint"));
-        final TestKeyPair authority = testContext.getKeyPair(params.value("authority"));
-        final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
-        final TestPublicKey to = testContext.getPublicKey(params.value("to"));
+        final TestPublicKey tokenMint = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("tokenMint"));
+        final TestKeyPair authority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("authority"));
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+        final TestPublicKey to = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("to"));
         final long amount = params.valueAsLong("amount");
         final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
-                .map(testContext::getAddressLookupTable)
+                .map(lookupTable -> testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE).lookup(lookupTable))
                 .toList();
 
         final String transactionSignature = solanaDriver.mintTo(tokenProgram.getFactory(), tokenMint, to, amount, authority, payer, addressLookupTables);
@@ -228,13 +230,13 @@ public class SolanaNodeDsl
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
-        final TestKeyPair account = testContext.getKeyPair(params.value("account"));
-        final TestPublicKey owner = testContext.getPublicKey(params.value("owner"));
-        final TestPublicKey tokenMint = testContext.getPublicKey(params.value("tokenMint"));
-        final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
+        final TestKeyPair account = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("account"));
+        final TestPublicKey owner = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("owner"));
+        final TestPublicKey tokenMint = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("tokenMint"));
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
         final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
-                .map(testContext::getAddressLookupTable)
+                .map(lookupTable -> testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE).lookup(lookupTable))
                 .toList();
 
         final String transactionSignature = solanaDriver.createTokenAccount(
@@ -256,7 +258,7 @@ public class SolanaNodeDsl
                 new RequiredArg("address"),
                 new RequiredArg("amount"));
 
-        final TestPublicKey address = testContext.getPublicKey(params.value("address"));
+        final TestPublicKey address = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("address"));
         final String amount = params.value("amount");
 
         new Waiter().waitFor(new IsEqualToAssertion<>(amount, () -> solanaDriver.getTokenBalance(address.getPublicKeyBase58())));
@@ -269,7 +271,7 @@ public class SolanaNodeDsl
                 new RequiredArg("address"),
                 new RequiredArg("amountSol"));
 
-        final TestPublicKey address = testContext.getPublicKey(params.value("address"));
+        final TestPublicKey address = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("address"));
         final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
 
         new Waiter().waitFor(new IsEqualToAssertion<>(sol.lamports(), () -> solanaDriver.getBalance(address.getPublicKeyBase58())));
@@ -288,14 +290,14 @@ public class SolanaNodeDsl
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
-        final TestKeyPair from = testContext.getKeyPair(params.value("from"));
-        final TestPublicKey to = testContext.getPublicKey(params.value("to"));
-        final TestKeyPair owner = testContext.getKeyPair(params.value("owner"));
+        final TestKeyPair from = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("from"));
+        final TestPublicKey to = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("to"));
+        final TestKeyPair owner = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("owner"));
         final long amount = params.valueAsLong("amount");
-        final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
         final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
-                .map(testContext::getAddressLookupTable)
+                .map(lookupTable -> testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE).lookup(lookupTable))
                 .toList();
 
         final String transactionSignature = solanaDriver.tokenTransfer(tokenProgram, from, to, owner, amount, payer, addressLookupTables);
@@ -313,11 +315,11 @@ public class SolanaNodeDsl
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
-        final TestKeyPair account = testContext.getKeyPair(params.value("account"));
-        final TestKeyPair authority = testContext.getKeyPair(params.value("authority"));
-        final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
+        final TestKeyPair account = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("account"));
+        final TestKeyPair authority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("authority"));
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
-                .map(testContext::getAddressLookupTable)
+                .map(lookupTable -> testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE).lookup(lookupTable))
                 .toList();
 
         final String transactionSignature = solanaDriver.createNonceAccount(account, authority, payer, NONCE_ACCOUNT_LENGTH, addressLookupTables);
@@ -336,12 +338,12 @@ public class SolanaNodeDsl
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
-        final TestKeyPair account = testContext.getKeyPair(params.value("account"));
-        final TestKeyPair authority = testContext.getKeyPair(params.value("authority"));
-        final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
-        final Optional<TestPublicKey> nonce = params.valueAsOptional("nonce").map(testContext::getPublicKey);
+        final TestKeyPair account = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("account"));
+        final TestKeyPair authority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("authority"));
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+        final Optional<TestPublicKey> nonce = params.valueAsOptional("nonce").map(key -> testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(key));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
-                .map(testContext::getAddressLookupTable)
+                .map(lookupTable -> testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE).lookup(lookupTable))
                 .toList();
 
         final String transactionSignature = solanaDriver.advanceNonce(account, authority, payer, addressLookupTables);
@@ -364,12 +366,13 @@ public class SolanaNodeDsl
                 new OptionalArg("rememberNonce")
         );
 
-        final TestPublicKey account = testContext.getPublicKey(params.value("account"));
+        final TestPublicKey account = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("account"));
 
         final AccountInfo accountInfo = solanaDriver.getAccountInfo(account);
         final PublicKey nonceAccountValue = SystemProgram.getNonceAccountValue(Base64.decode(accountInfo.getData().get(0)));
 
-        testContext.storePublicKey("rememberNonce", new TestPublicKey(nonceAccountValue.bytes()));
+        final TestPublicKey address = new TestPublicKey(nonceAccountValue.bytes());
+        testContext.data(TestDataType.TEST_PUBLIC_KEY).store("rememberNonce", address);
     }
 
     public void transfer(final String... args)
@@ -383,12 +386,12 @@ public class SolanaNodeDsl
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
-        final TestKeyPair from = testContext.getKeyPair(params.value("from"));
-        final TestPublicKey to = testContext.getPublicKey(params.value("to"));
+        final TestKeyPair from = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("from"));
+        final TestPublicKey to = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("to"));
         final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
-        final TestKeyPair payer = testContext.getKeyPair(params.value("payer"));
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
-                .map(testContext::getAddressLookupTable)
+                .map(lookupTable -> testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE).lookup(lookupTable))
                 .toList();
 
         final String transactionSignature = solanaDriver.transfer(from, to, sol.lamports(), payer, addressLookupTables);
