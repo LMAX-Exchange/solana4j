@@ -51,10 +51,12 @@ jobs:
       run: ./gradlew build -i || echo "Gradle build failed" > gradle_build_result.txt
       continue-on-error: true
 
-    - name: Display collected resource usage
+    - name: Upload resource usage log
       if: always()
-      run: |
-        cat resource_usage.log
+      uses: actions/upload-artifact@v2
+      with:
+        name: resource-usage-log
+        path: resource_usage.log
 
     - name: Check build result
       if: always()
