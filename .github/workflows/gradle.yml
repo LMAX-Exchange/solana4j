@@ -24,17 +24,17 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5
 
-    - name: Start resource usage collection
+    - name: Setup resource usage collection
       run: |
-        # Create a script to log resource usage
+        # Create a script to log resource usage with timestamps
         echo 'while true; do' > monitor_resources.sh
-        echo '  echo "Disk Usage:" >> resource_usage.log' >> monitor_resources.sh
+        echo '  echo "$(date): Disk Usage:" >> resource_usage.log' >> monitor_resources.sh
         echo '  df -h >> resource_usage.log' >> monitor_resources.sh
         echo '  echo "" >> resource_usage.log' >> monitor_resources.sh
-        echo '  echo "CPU Usage:" >> resource_usage.log' >> monitor_resources.sh
+        echo '  echo "$(date): CPU Usage:" >> resource_usage.log' >> monitor_resources.sh
         echo '  top -b -n 1 | head -n 10 >> resource_usage.log' >> monitor_resources.sh
         echo '  echo "" >> resource_usage.log' >> monitor_resources.sh
-        echo '  echo "Memory Usage:" >> resource_usage.log' >> monitor_resources.sh
+        echo '  echo "$(date): Memory Usage:" >> resource_usage.log' >> monitor_resources.sh
         echo '  free -h >> resource_usage.log' >> monitor_resources.sh
         echo '  echo "" >> resource_usage.log' >> monitor_resources.sh
         echo '  sleep 30' >> monitor_resources.sh
@@ -44,16 +44,28 @@ jobs:
         chmod +x monitor_resources.sh
 
         # Start the script in the background
-        nohup ./monitor_resources.sh &      
+        nohup ./monitor_resources.sh &
 
     - name: Build with Gradle Wrapper
-      run: ./gradlew build -i
+      id: gradle_build
+      run: ./gradlew build -i || echo "Gradle build failed" > gradle_build_result.txt
       continue-on-error: true
 
     - name: Display collected resource usage
       if: always()
       run: |
-        cat resource_usage.log      
+        cat resource_usage.log
+
+    - name: Check build result
+      if: always()
+      run: |
+        if [ -f gradle_build_result.txt ]; then
+          echo "Build failed."
+          exit 1
+        else
+          echo "Build succeeded."
+        fi
+
 
   dependency-submission:
 
