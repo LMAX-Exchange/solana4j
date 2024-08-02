@@ -25,7 +25,7 @@ public abstract class IntegrationTestBase
             SOLANA_VALIDATOR = new GenericContainer<>(new ImageFromDockerfile().withDockerfile(Path.of(MountableFile.forClasspathResource("Dockerfile").getFilesystemPath())))
                     .withCopyFileToContainer(MountableFile.forClasspathResource("solana-run.sh"), "/solana-run.sh")
                     .withExposedPorts(SOLANA_HTTP_PORT, SOLANA_WS_PORT)
-                    .withEnv("SOLANA_RUN_SH_GENESIS_ARGS", "--ticks-per-slot=2")
+                    .withEnv("SOLANA_RUN_SH_GENESIS_ARGS", "--ticks-per-slot=8")
                     .withNetwork(NETWORK);
 
             SOLANA_VALIDATOR.start();
