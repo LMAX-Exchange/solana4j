@@ -7,16 +7,43 @@ import org.bitcoinj.core.Base58;
 
 import java.nio.ByteOrder;
 
+/**
+ * Program for managing compute budgets on the Solana blockchain.
+ */
 public class ComputeBudgetProgram
 {
     private static final byte[] COMPUTE_BUDGET_PROGRAM_ID = Base58.decode("ComputeBudget111111111111111111111111111111");
+    /**
+     * The public key for the compute budget program account.
+     * <p>
+     * This constant defines the public key associated with the Solana account for the compute budget program.
+     * It is set to the value returned by {@link Solana#account(byte[])} using the {@link #COMPUTE_BUDGET_PROGRAM_ID}.
+     * </p>
+     */
     public static final PublicKey COMPUTE_BUDGET_PROGRAM_ACCOUNT = Solana.account(COMPUTE_BUDGET_PROGRAM_ID);
-
-    private static final int SET_COMPUTE_UNIT_LIMIT_INSTRUCTION = 2;
-    private static final int SET_COMPUTE_UNIT_PRICE_INSTRUCTION = 3;
+    /**
+     * The instruction code for setting the compute unit limit.
+     * <p>
+     * This constant defines the instruction code used to set the compute unit limit in the compute budget program in Solana.
+     * </p>
+     */
+    public static final int SET_COMPUTE_UNIT_LIMIT_INSTRUCTION = 2;
+    /**
+     * The instruction code for setting the compute unit price.
+     * <p>
+     * This constant defines the instruction code used to set the compute unit price in the compute budget program in Solana.
+     * </p>
+     */
+    public static final int SET_COMPUTE_UNIT_PRICE_INSTRUCTION = 3;
 
     private final TransactionBuilder tb;
 
+    /**
+     * Factory method for creating a new instance of {@code ComputeBudgetProgram}.
+     *
+     * @param tb the transaction builder
+     * @return a new instance of {@code ComputeBudgetProgram}
+     */
     public static ComputeBudgetProgram factory(final TransactionBuilder tb)
     {
         return new ComputeBudgetProgram(tb);
@@ -27,6 +54,12 @@ public class ComputeBudgetProgram
         this.tb = tb;
     }
 
+    /**
+     * Sets the compute unit limit.
+     *
+     * @param computeUnits the number of compute units to set as the limit
+     * @return this {@code ComputeBudgetProgram} instance
+     */
     public ComputeBudgetProgram setComputeUnitLimit(final int computeUnits)
     {
         tb.append(ib -> ib
@@ -40,6 +73,12 @@ public class ComputeBudgetProgram
         return this;
     }
 
+    /**
+     * Sets the compute unit price.
+     *
+     * @param microLamports the price in microLamports per compute unit
+     * @return this {@code ComputeBudgetProgram} instance
+     */
     public ComputeBudgetProgram setComputeUnitPrice(final long microLamports)
     {
         tb.append(ib -> ib

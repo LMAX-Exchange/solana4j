@@ -15,12 +15,13 @@ final class SolanaAssociatedTokenAddress extends SolanaProgramDerivedAddress imp
     private final PublicKey mint;
     private final PublicKey owner;
 
-    public static SolanaAssociatedTokenAddress deriveAssociatedTokenAddress(final PublicKey owner, final PublicKey mint, final PublicKey tokenProgramAccount)
+    static SolanaAssociatedTokenAddress deriveAssociatedTokenAddress(final PublicKey owner, final PublicKey mint, final PublicKey tokenProgramAccount)
     {
         final ProgramDerivedAddress programDerivedAddress = SolanaProgramDerivedAddress.deriveProgramAddress(
                 List.of(owner.bytes(), tokenProgramAccount.bytes(), mint.bytes()),
                 ASSOCIATED_TOKEN_PROGRAM_ACCOUNT
         );
+
         return new SolanaAssociatedTokenAddress(
                 new SolanaAccount(programDerivedAddress.address().bytes()),
                 owner,
@@ -30,8 +31,7 @@ final class SolanaAssociatedTokenAddress extends SolanaProgramDerivedAddress imp
         );
     }
 
-
-    SolanaAssociatedTokenAddress(final PublicKey address, final PublicKey owner, final PublicKey mint, final PublicKey programAccount, final int nonce)
+    private SolanaAssociatedTokenAddress(final PublicKey address, final PublicKey owner, final PublicKey mint, final PublicKey programAccount, final int nonce)
     {
         super(address, programAccount, nonce);
         this.mint = requireNonNull(mint, "The mint public key must be specified, but was null");

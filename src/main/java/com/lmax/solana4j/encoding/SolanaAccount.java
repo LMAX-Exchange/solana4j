@@ -10,8 +10,8 @@ import static java.util.Objects.requireNonNull;
 
 final class SolanaAccount implements PublicKey, Comparable<SolanaAccount>
 {
-    public static final int PUBLIC_KEY_LENGTH = 32;
-    /*protected*/ final byte[] bytes;
+    private static final int PUBLIC_KEY_LENGTH = 32;
+    final byte[] bytes;
 
     SolanaAccount(final byte[] bytes)
     {

@@ -23,7 +23,7 @@ class SolanaProgramDerivedAddress implements ProgramDerivedAddress
     final PublicKey programAccount;
     final int nonce;
 
-    public static ProgramDerivedAddress deriveProgramAddress(final List<byte[]> seeds, final PublicKey programId)
+    static ProgramDerivedAddress deriveProgramAddress(final List<byte[]> seeds, final PublicKey programId)
     {
         final int seedLength = seeds.stream().mapToInt(seed -> seed.length).sum();
         final int byteLength = seedLength + PUBLIC_KEY_LENGTH + PROGRAM_DERIVED_ADDRESS_BYTES.length + BUMP_LENGTH;

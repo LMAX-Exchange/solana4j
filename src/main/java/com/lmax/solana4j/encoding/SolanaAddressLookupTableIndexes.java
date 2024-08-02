@@ -10,9 +10,9 @@ import java.util.stream.Stream;
 
 final class SolanaAddressLookupTableIndexes implements AddressLookupTableIndexes
 {
-    final PublicKey account;
-    final List<AddressLookupIndex> readWriteAccountIndexes;
-    final List<AddressLookupIndex> readOnlyAccountIndexes;
+    private final PublicKey account;
+    private final List<AddressLookupIndex> readWriteAccountIndexes;
+    private final List<AddressLookupIndex> readOnlyAccountIndexes;
 
     SolanaAddressLookupTableIndexes(final PublicKey account)
     {

@@ -6,12 +6,12 @@ import com.lmax.solana4j.api.TransactionInstruction;
 import java.nio.ByteBuffer;
 import java.util.List;
 
-public class SolanaInnerInstructions implements InnerInstructions
+class SolanaInnerInstructions implements InnerInstructions
 {
     private final List<TransactionInstruction> innerInstructions;
     private final ByteBuffer innerTransactionBytes;
 
-    public SolanaInnerInstructions(final List<TransactionInstruction> innerInstructions, final ByteBuffer innerTransactionBytes)
+    SolanaInnerInstructions(final List<TransactionInstruction> innerInstructions, final ByteBuffer innerTransactionBytes)
     {
         this.innerInstructions = innerInstructions;
         this.innerTransactionBytes = innerTransactionBytes;

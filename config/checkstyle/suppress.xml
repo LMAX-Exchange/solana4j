@@ -4,8 +4,18 @@
         "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 <suppressions>
     <suppress files=".*\.java" checks="MagicNumber"/>
-    <suppress checks="JavadocMethod"/>
-    <suppress checks="JavadocType"/>
-    <suppress checks="JavadocVariable"/>
-    <suppress checks="MissingJavadocMethod"/>
+    <suppress files="src/integration-test/.*\.java" checks="JavadocMethod"/>
+    <suppress files="src/integration-test/.*\.java" checks="JavadocType"/>
+    <suppress files="src/integration-test/.*\.java" checks="JavadocVariable"/>
+    <suppress files="src/integration-test/.*\.java" checks="MissingJavadocMethod"/>
+
+    <suppress files="src/test/.*\.java" checks="JavadocMethod"/>
+    <suppress files="src/test/.*\.java" checks="JavadocType"/>
+    <suppress files="src/test/.*\.java" checks="JavadocVariable"/>
+    <suppress files="src/test/.*\.java" checks="MissingJavadocMethod"/>
+
+    <suppress files="src/test-support/.*\.java" checks="JavadocMethod"/>
+    <suppress files="src/test-support/.*\.java" checks="JavadocType"/>
+    <suppress files="src/test-support/.*\.java" checks="JavadocVariable"/>
+    <suppress files="src/test-support/.*\.java" checks="MissingJavadocMethod"/>
 </suppressions>

@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 
 import static java.util.Objects.requireNonNull;
 
-public class SolanaInnerTransactionBuilder implements InnerTransactionBuilder
+class SolanaInnerTransactionBuilder implements InnerTransactionBuilder
 {
     private final List<TransactionInstruction> innerInstructions = new ArrayList<>();
 

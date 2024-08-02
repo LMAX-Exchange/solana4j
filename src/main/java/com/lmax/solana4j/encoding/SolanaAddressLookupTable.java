@@ -7,8 +7,8 @@ import java.util.List;
 
 final class SolanaAddressLookupTable implements AddressLookupTable
 {
-    final PublicKey lookupTableAddress;
-    final List<PublicKey> lookupAddresses;
+    private final PublicKey lookupTableAddress;
+    private final List<PublicKey> lookupAddresses;
 
     SolanaAddressLookupTable(final PublicKey lookupTableAddress, final List<PublicKey> lookupAddresses)
     {

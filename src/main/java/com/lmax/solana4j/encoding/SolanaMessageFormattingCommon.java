@@ -213,7 +213,7 @@ final class SolanaMessageFormattingCommon
         return new SolanaInstructionView(program, accRefs, data);
     }
 
-    public List<MessageVisitor.AccountLookupTableView> readLookupTables()
+    List<MessageVisitor.AccountLookupTableView> readLookupTables()
     {
         final var count = SolanaShortVec.readInt(buffer);
         final List<MessageVisitor.AccountLookupTableView> entries = new ArrayList<>();

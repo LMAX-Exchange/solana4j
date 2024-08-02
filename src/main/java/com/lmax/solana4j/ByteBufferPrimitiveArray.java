@@ -4,12 +4,19 @@ import java.nio.ByteBuffer;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Utility class for operations involving {@link ByteBuffer} and primitive byte arrays.
+ */
 public class ByteBufferPrimitiveArray
 {
+
     /**
      * Creates a copy of the contents of the buffer.
-     * @param buffer byte buffer to copy (does not copy entire underlying array)
-     * @return new byte array of size buffer.limit() with the contents from position 0 to limit.
+     *
+     * @param buffer the byte buffer to copy (does not copy the entire underlying array)
+     * @return a new byte array of size buffer.limit() with the contents from position 0 to limit.
+     * @throws UnsupportedOperationException if the buffer does not have an accessible array
+     * @throws NullPointerException          if the buffer is null
      */
     public static byte[] copy(final ByteBuffer buffer)
     {
@@ -25,6 +32,12 @@ public class ByteBufferPrimitiveArray
         return bytes;
     }
 
+    /**
+     * Wraps a byte array into a {@link ByteBuffer}.
+     *
+     * @param bytes the byte array to wrap
+     * @return a ByteBuffer containing the given byte array
+     */
     public static ByteBuffer toByteBuffer(final byte[] bytes)
     {
         return ByteBuffer.wrap(bytes);
