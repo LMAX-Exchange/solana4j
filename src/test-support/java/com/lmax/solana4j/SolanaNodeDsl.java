@@ -17,6 +17,7 @@ import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
 import com.lmax.solana4j.programs.SystemProgram;
 import com.lmax.solana4j.solanaclient.api.AccountInfo;
+import com.lmax.solana4j.solanaclient.api.TransactionData;
 import com.lmax.solana4j.solanaclient.jsonrpc.SolanaClient;
 import com.lmax.solana4j.util.TestKeyPairGenerator;
 import org.bouncycastle.util.encoders.Base64;
@@ -75,7 +76,7 @@ public class SolanaNodeDsl
         final long recentBlockHeight = solanaDriver.getBlockHeight();
         waitForBlockHeight(recentBlockHeight + 1);
 
-        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        new Waiter().waitFor(transactionFinalized(transactionSignature));
     }
 
     public void retrieveAddressLookupTable(final String... args)
@@ -121,10 +122,10 @@ public class SolanaNodeDsl
         final TestPublicKey address = new TestPublicKey(programDerivedAddress.address().bytes());
         testContext.data(TestDataType.TEST_PUBLIC_KEY).store(params.value("lookupTableAddress"), address);
 
-        // intermittency caused by slot not moving on to the next slot before sending the transaction
+        // intermittency caused by slot not moving on to the next slot before including in the sent transaction
         waitForSlot(recentSlot + 1);
         final String transactionSignature = solanaDriver.createAddressLookupTable(programDerivedAddress, authority, payer, SolanaEncoding.slot(recentSlot), addressLookupTables);
-        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        new Waiter().waitFor(transactionFinalized(transactionSignature));
     }
 
     public void extendAddressLookupTable(final String... args)
@@ -153,7 +154,7 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.extendAddressLookupTable(addressLookupTable, authority, payer, addresses, addressLookupTables);
 
-        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        new Waiter().waitFor(transactionFinalized(transactionSignature));
     }
 
     public void waitForSlot(final String... args)
@@ -194,7 +195,7 @@ public class SolanaNodeDsl
         final long recentBlockHeight = solanaDriver.getBlockHeight();
         waitForBlockHeight(recentBlockHeight + 1);
 
-        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        new Waiter().waitFor(transactionFinalized(transactionSignature));
     }
 
     public void mintTo(final String... args)
@@ -222,7 +223,7 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.mintTo(tokenProgram.getFactory(), tokenMint, to, amount, authority, payer, addressLookupTables);
 
-        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        new Waiter().waitFor(transactionFinalized(transactionSignature));
     }
 
     public void createTokenAccount(final String... args)
@@ -255,7 +256,7 @@ public class SolanaNodeDsl
                 ACCOUNT_LAYOUT_SPAN,
                 addressLookupTables);
 
-        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        new Waiter().waitFor(transactionFinalized(transactionSignature));
     }
 
     public void tokenBalance(final String... args)
@@ -309,7 +310,7 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.tokenTransfer(tokenProgram, from, to, owner, amount, payer, addressLookupTables);
 
-        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        new Waiter().waitFor(transactionFinalized(transactionSignature));
     }
 
     public void createNonceAccount(final String... args)
@@ -331,7 +332,7 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.createNonceAccount(account, authority, payer, NONCE_ACCOUNT_LENGTH, addressLookupTables);
 
-        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        new Waiter().waitFor(transactionFinalized(transactionSignature));
     }
 
     public void advanceNonce(final String... args)
@@ -355,7 +356,7 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.advanceNonce(account, authority, payer, addressLookupTables);
 
-        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        new Waiter().waitFor(transactionFinalized(transactionSignature));
 
         if (nonce.isPresent())
         {
@@ -403,7 +404,14 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.transfer(from, to, sol.lamports(), payer, addressLookupTables);
 
-        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        new Waiter().waitFor(transactionFinalized(transactionSignature));
+    }
+
+    private IsNotNullAssertion<TransactionData> transactionFinalized(final String transactionSignature)
+    {
+        // intermittency caused by block height not moving on to the next block before checking the transaction response ... it's a bit weird
+        waitForBlockHeight(solanaDriver.getBlockHeight() + 1);
+        return new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction());
     }
 
     private void waitForSlot(final long slot)
