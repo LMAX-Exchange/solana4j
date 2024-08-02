@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
@@ -34,7 +35,7 @@ public class Waiter
                 LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(exponentialBackoff));
             }
         }
-        throw new AssertionError("Waiting for condition that never happened.");
+        throw new AssertionError("Waiting for condition that never happened. " + ZonedDateTime.now());
     }
 
     public Waiter withRetrys(final int retrys)

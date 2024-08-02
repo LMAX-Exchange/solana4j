@@ -71,6 +71,10 @@ public class SolanaNodeDsl
         final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
 
         final String transactionSignature = solanaDriver.requestAirdrop(address, sol.lamports());
+
+        final long recentBlockHeight = solanaDriver.getBlockHeight();
+        waitForBlockHeight(recentBlockHeight + 1);
+
         new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
     }
 
@@ -186,6 +190,9 @@ public class SolanaNodeDsl
                 .toList();
 
         final String transactionSignature = solanaDriver.createMintAccount(tokenProgram, account, decimals, mintAuthority, freezeAuthority, payer, MINT_ACCOUNT_LENGTH, addressLookupTables);
+
+        final long recentBlockHeight = solanaDriver.getBlockHeight();
+        waitForBlockHeight(recentBlockHeight + 1);
 
         new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
     }
@@ -402,5 +409,10 @@ public class SolanaNodeDsl
     private void waitForSlot(final long slot)
     {
         new Waiter().waitFor(new IsEqualToAssertion<>(true, () -> solanaDriver.getSlot() > slot));
+    }
+
+    private void waitForBlockHeight(final long blockHeight)
+    {
+        new Waiter().waitFor(new IsEqualToAssertion<>(true, () -> solanaDriver.getBlockHeight() > blockHeight));
     }
 }

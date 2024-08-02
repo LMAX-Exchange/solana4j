@@ -44,6 +44,11 @@ public class SolanaDriver
         return solanaApi.getSlot();
     }
 
+    public long getBlockHeight()
+    {
+        return solanaApi.getBlockHeight();
+    }
+
     public AccountInfo getAccountInfo(final TestPublicKey address)
     {
         return solanaApi.getAccountInfo(address.getPublicKeyBase58());
