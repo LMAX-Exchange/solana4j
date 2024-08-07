@@ -19,7 +19,9 @@ import java.util.List;
  */
 public final class AddressLookupTableProgram
 {
+
     private static final byte[] ADDRESS_LOOKUP_TABLE_PROGRAM = Base58.decode("AddressLookupTab1e1111111111111111111111111");
+
     /**
      * The public key for the address lookup table program account.
      * <p>
@@ -28,6 +30,7 @@ public final class AddressLookupTableProgram
      * </p>
      */
     public static final PublicKey PROGRAM_ACCOUNT = Solana.account(ADDRESS_LOOKUP_TABLE_PROGRAM);
+
     /**
      * The instruction code for creating a lookup table.
      * <p>
@@ -35,6 +38,7 @@ public final class AddressLookupTableProgram
      * </p>
      */
     public static final int CREATE_LOOKUP_TABLE_INSTRUCTION = 0;
+
     /**
      * The instruction code for extending a lookup table.
      * <p>
@@ -42,6 +46,7 @@ public final class AddressLookupTableProgram
      * </p>
      */
     public static final int EXTEND_LOOKUP_TABLE_INSTRUCTION = 2;
+
     /**
      * The size of the lookup table metadata in bytes.
      * <p>
@@ -52,6 +57,12 @@ public final class AddressLookupTableProgram
 
     private final TransactionBuilder tb;
 
+    /**
+     * Factory method for creating a new instance of {@code AddressLookupTableProgram}.
+     *
+     * @param tb the transaction builder
+     * @return a new instance of {@code AddressLookupTableProgram}
+     */
     public static AddressLookupTableProgram factory(final TransactionBuilder tb)
     {
         return new AddressLookupTableProgram(tb);
@@ -66,9 +77,9 @@ public final class AddressLookupTableProgram
      * Creates a new address lookup table.
      *
      * @param programDerivedAddress the program derived address
-     * @param authority the authority public key
-     * @param payer the payer public key
-     * @param recentSlot the recent slot
+     * @param authority             the authority public key
+     * @param payer                 the payer public key
+     * @param recentSlot            the recent slot
      * @return this {@code AddressLookupTableProgram} instance
      */
     public AddressLookupTableProgram createLookupTable(final ProgramDerivedAddress programDerivedAddress, final PublicKey authority, final PublicKey payer, final Slot recentSlot)
@@ -80,12 +91,11 @@ public final class AddressLookupTableProgram
                 .account(payer, true, false)
                 .account(SystemProgram.SYSTEM_PROGRAM_ACCOUNT, false, false)
                 .data(13, bb ->
-                        {
-                            bb.order(ByteOrder.LITTLE_ENDIAN).putInt(CREATE_LOOKUP_TABLE_INSTRUCTION);
-                            recentSlot.write(bb);
-                            bb.put((byte) programDerivedAddress.nonce());
-                        }
-                )
+                {
+                    bb.order(ByteOrder.LITTLE_ENDIAN).putInt(CREATE_LOOKUP_TABLE_INSTRUCTION);
+                    recentSlot.write(bb);
+                    bb.put((byte) programDerivedAddress.nonce());
+                })
         );
 
         return this;
@@ -95,9 +105,9 @@ public final class AddressLookupTableProgram
      * Extends an existing address lookup table with new addresses.
      *
      * @param lookupTable the lookup table public key
-     * @param authority the authority public key
-     * @param payer the payer public key
-     * @param addresses the list of new addresses to add
+     * @param authority   the authority public key
+     * @param payer       the payer public key
+     * @param addresses   the list of new addresses to add
      * @return this {@code AddressLookupTableProgram} instance
      */
     public AddressLookupTableProgram extendLookupTable(final PublicKey lookupTable, final PublicKey authority, final PublicKey payer, final List<PublicKey> addresses)
@@ -109,12 +119,11 @@ public final class AddressLookupTableProgram
                 .account(payer, true, false)
                 .account(SystemProgram.SYSTEM_PROGRAM_ACCOUNT, false, false)
                 .data(12 + (addresses.size() * 32), bb ->
-                      {
-                          bb.order(ByteOrder.LITTLE_ENDIAN).putInt(EXTEND_LOOKUP_TABLE_INSTRUCTION);
-                          bb.putLong(addresses.size());
-                          addresses.forEach(address -> address.write(bb));
-                      }
-                )
+                {
+                    bb.order(ByteOrder.LITTLE_ENDIAN).putInt(EXTEND_LOOKUP_TABLE_INSTRUCTION);
+                    bb.putLong(addresses.size());
+                    addresses.forEach(address -> address.write(bb));
+                })
         );
 
         return this;
@@ -124,7 +133,7 @@ public final class AddressLookupTableProgram
      * Derives a program address for the given authority and slot.
      *
      * @param authority the authority public key
-     * @param slot the slot
+     * @param slot      the slot
      * @return the derived program address
      */
     public static ProgramDerivedAddress deriveAddress(final PublicKey authority, final Slot slot)
@@ -136,7 +145,7 @@ public final class AddressLookupTableProgram
      * Deserializes an address lookup table from the given data.
      *
      * @param lookupTableAddress the lookup table public key
-     * @param lookupAddressData the serialized lookup table data
+     * @param lookupAddressData  the serialized lookup table data
      * @return the deserialized address lookup table
      */
     public static AddressLookupTable deserializeAddressLookupTable(final PublicKey lookupTableAddress, final byte[] lookupAddressData)

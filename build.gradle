@@ -123,6 +123,8 @@ tasks.processTestResources {
 javadoc {
     title = 'solana4j'
 
+    source = fileTree('src/main/java').include('**/*.java')
+
     options.addStringOption('XDignore.symbol.file', '-quiet')
     options.author = true
     options.bottom = "<i>Copyright &#169; 2011 - ${Calendar.instance[Calendar.YEAR]} LMAX Ltd. All Rights Reserved.</i>"
@@ -130,6 +132,7 @@ javadoc {
     options.version = true
     options.showFromPublic()
 }
+
 
 task setUpGitHooks(type: Exec, description: 'Add a pre-commit git hook that runs gradle check & test tasks') {
     def hooksFolder = file('.githooks').getAbsolutePath()

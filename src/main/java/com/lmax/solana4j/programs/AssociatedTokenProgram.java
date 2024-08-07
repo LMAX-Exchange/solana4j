@@ -16,7 +16,9 @@ import static com.lmax.solana4j.programs.SystemProgram.SYSTEM_PROGRAM_ACCOUNT;
  */
 public final class AssociatedTokenProgram
 {
+
     private static final byte[] ASSOCIATED_TOKEN_PROGRAM_ID = Base58.decode("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
+
     /**
      * The public key for the associated token program account.
      * <p>
@@ -25,6 +27,7 @@ public final class AssociatedTokenProgram
      * </p>
      */
     public static final PublicKey ASSOCIATED_TOKEN_PROGRAM_ACCOUNT = Solana.account(ASSOCIATED_TOKEN_PROGRAM_ID);
+
     /**
      * The instruction code for creating an account.
      * <p>
@@ -32,6 +35,7 @@ public final class AssociatedTokenProgram
      * </p>
      */
     public static final int CREATE_INSTRUCTION = 0;
+
     /**
      * The instruction code for creating an account idempotently.
      * <p>
@@ -43,17 +47,17 @@ public final class AssociatedTokenProgram
 
     private final TransactionBuilder tb;
 
-    public static AssociatedTokenProgram factory(final TransactionBuilder tb)
-    {
-        return new AssociatedTokenProgram(tb);
-    }
-
     /**
      * Factory method for creating a new instance of {@code AssociatedTokenProgram}.
      *
      * @param tb the transaction builder
      * @return a new instance of {@code AssociatedTokenProgram}
      */
+    public static AssociatedTokenProgram factory(final TransactionBuilder tb)
+    {
+        return new AssociatedTokenProgram(tb);
+    }
+
     private AssociatedTokenProgram(final TransactionBuilder tb)
     {
         this.tb = tb;
@@ -63,10 +67,10 @@ public final class AssociatedTokenProgram
      * Creates a new associated token account.
      *
      * @param programDerivedAddress the program derived address
-     * @param mint the public key of the mint
-     * @param owner the public key of the owner
-     * @param payer the public key of the payer
-     * @param idempotent whether the creation should be idempotent
+     * @param mint                  the public key of the mint
+     * @param owner                 the public key of the owner
+     * @param payer                 the public key of the payer
+     * @param idempotent            whether the creation should be idempotent
      * @return this {@code AssociatedTokenProgram} instance
      */
     public AssociatedTokenProgram createAssociatedToken(
