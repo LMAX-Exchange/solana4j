@@ -107,9 +107,10 @@ jobs:
         run: ./gradlew javadoc
 
       - name: Publish Javadoc
-        uses: actions/upload-artifact@v4.3.6
+        uses: actions/upload-artifact@v4
         with:
           path: build/docs/javadoc
+          name: github-pages
 
   publish_site:
     runs-on: ubuntu-latest
