@@ -85,3 +85,28 @@ jobs:
 
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@417ae3ccd767c252f5661f1ace9f835f9654f2b5
+
+
+  javadoc:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Build Javadoc
+        run: ./gradlew javadoc
+
+      - name: Publish Javadoc
+        uses: actions/upload-artifact@v4.3.6
+        with:
+          path: build/docs/javadoc
