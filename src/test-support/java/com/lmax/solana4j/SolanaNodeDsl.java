@@ -443,12 +443,12 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.createAssociatedTokenAddress(
                 associatedTokenAddress,
-                tokenMint,
-                owner,
-                payer,
-                addressLookupTables,
+                tokenMint.getSolana4jPublicKey(),
+                owner.getSolana4jPublicKey(),
                 params.valueAsBoolean("idempotent"),
-                tokenProgram.getProgram()
+                tokenProgram.getProgram(),
+                payer,
+                addressLookupTables
         );
 
         new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));

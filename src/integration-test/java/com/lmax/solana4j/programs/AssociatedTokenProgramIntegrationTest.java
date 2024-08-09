@@ -26,12 +26,13 @@ public class AssociatedTokenProgramIntegrationTest extends IntegrationTestBase
 
         solana.createMintAccount("mintAddress", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram);
 
-        // When
-        // I create the associated Token Address
-        solana.createAssociatedTokenAddress("associatedTokenAddress: tokenAddress", "owner: owner", "tokenMint: mintAddress", "payer: payer", "tokenProgram: " + tokenProgram);
+        solana.createAssociatedTokenAddress(
+                "associatedTokenAddress: tokenAddress",
+                "owner: owner",
+                "tokenMint: mintAddress",
+                "payer: payer",
+                "tokenProgram: " + tokenProgram);
 
-        // Then
-        // The associated Token Address is successfully created
         solana.tokenBalance("address: tokenAddress", "amount: 0");
     }
 }

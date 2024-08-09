@@ -116,13 +116,13 @@ public interface TransactionBlobFactory
             List<AddressLookupTable> addressLookupTables);
 
     String createAssociatedTokenAddress(
-            TestKeyPair payer,
-            TestPublicKey owner,
+            PublicKey owner,
             ProgramDerivedAddress associatedTokenAddress,
             Blockhash blockhash,
-            TestPublicKey mint,
-            List<TestKeyPair> signers,
-            List<AddressLookupTable> addressLookupTables,
+            PublicKey mint,
             boolean idempotent,
-            PublicKey tokenProgramId);
+            PublicKey tokenProgramId,
+            PublicKey payer,
+            List<TestKeyPair> signers,
+            List<AddressLookupTable> addressLookupTables);
 }

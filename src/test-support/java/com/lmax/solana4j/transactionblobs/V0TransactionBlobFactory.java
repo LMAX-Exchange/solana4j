@@ -394,13 +394,15 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
 
     @Override
     public String createAssociatedTokenAddress(
-            final TestKeyPair payer,
-            final TestPublicKey owner,
+            final PublicKey owner,
             final ProgramDerivedAddress associatedTokenAddress,
             final Blockhash blockhash,
-            final TestPublicKey mint,
-            final List<TestKeyPair> signers, final List<AddressLookupTable> addressLookupTables, final boolean idempotent,
-            final PublicKey tokenProgramId)
+            final PublicKey mint,
+            final boolean idempotent,
+            final PublicKey tokenProgramId,
+            final PublicKey payer,
+            final List<TestKeyPair> signers,
+            final List<AddressLookupTable> addressLookupTables)
     {
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
         Solana.builder(buffer)
@@ -408,10 +410,10 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .recent(blockhash)
                 .instructions(tb -> AssociatedTokenProgram.factory(tb)
                         .createAssociatedToken(
-                                associatedTokenAddress, mint.getSolana4jPublicKey(), owner.getSolana4jPublicKey(), payer.getSolana4jPublicKey(),
+                                associatedTokenAddress, mint, owner, payer,
                                 tokenProgramId,
                                 idempotent))
-                .payer(payer.getSolana4jPublicKey())
+                .payer(payer)
                 .lookups(addressLookupTables)
                 .seal()
                 .unsigned()

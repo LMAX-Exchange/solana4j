@@ -277,25 +277,25 @@ public class SolanaDriver
 
     public String createAssociatedTokenAddress(
             final ProgramDerivedAddress associatedTokenAddress,
-            final TestPublicKey mint,
-            final TestPublicKey owner,
-            final TestKeyPair payer,
-            final List<AddressLookupTable> addressLookupTables,
+            final PublicKey mint,
+            final PublicKey owner,
             final boolean idempotent,
-            final PublicKey tokenProgramId)
+            final PublicKey tokenProgramId,
+            final TestKeyPair payer,
+            final List<AddressLookupTable> addressLookupTables)
     {
         final Blockhash blockhash = solanaApi.getRecentBlockHash();
 
         final String transactionBlob = getTransactionFactory().createAssociatedTokenAddress(
-                payer,
                 owner,
                 associatedTokenAddress,
                 Solana.blockhash(blockhash.getBytes()),
                 mint,
-                List.of(payer),
-                addressLookupTables,
                 idempotent,
-                tokenProgramId);
+                tokenProgramId,
+                payer.getSolana4jPublicKey(),
+                List.of(payer),
+                addressLookupTables);
 
         return solanaApi.sendTransaction(transactionBlob);
     }
