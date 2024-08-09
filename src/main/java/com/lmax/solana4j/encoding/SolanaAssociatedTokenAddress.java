@@ -10,7 +10,7 @@ import java.util.Objects;
 import static com.lmax.solana4j.programs.AssociatedTokenProgram.ASSOCIATED_TOKEN_PROGRAM_ACCOUNT;
 import static java.util.Objects.requireNonNull;
 
-final class SolanaAssociatedTokenAddress extends SolanaProgramDerivedAddress implements AssociatedTokenAddress
+public final class SolanaAssociatedTokenAddress extends SolanaProgramDerivedAddress implements AssociatedTokenAddress
 {
     private final PublicKey mint;
     private final PublicKey owner;

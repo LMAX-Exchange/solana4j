@@ -2,6 +2,7 @@ package com.lmax.solana4j;
 
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
+import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TestPublicKey;
@@ -270,6 +271,31 @@ public class SolanaDriver
                 payer.getSolana4jPublicKey(),
                 List.of(payer, from),
                 addressLookupTables);
+
+        return solanaApi.sendTransaction(transactionBlob);
+    }
+
+    public String createAssociatedTokenAddress(
+            final ProgramDerivedAddress associatedTokenAddress,
+            final TestPublicKey mint,
+            final TestPublicKey owner,
+            final TestKeyPair payer,
+            final List<AddressLookupTable> addressLookupTables,
+            final boolean idempotent,
+            final PublicKey tokenProgramId)
+    {
+        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+
+        final String transactionBlob = getTransactionFactory().createAssociatedTokenAddress(
+                payer,
+                owner,
+                associatedTokenAddress,
+                Solana.blockhash(blockhash.getBytes()),
+                mint,
+                List.of(payer),
+                addressLookupTables,
+                idempotent,
+                tokenProgramId);
 
         return solanaApi.sendTransaction(transactionBlob);
     }

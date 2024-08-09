@@ -70,6 +70,7 @@ public final class AssociatedTokenProgram
      * @param mint                  the public key of the mint
      * @param owner                 the public key of the owner
      * @param payer                 the public key of the payer
+     * @param programId             the public key of the token program used to create the programDerivedAddress
      * @param idempotent            whether the creation should be idempotent
      * @return this {@code AssociatedTokenProgram} instance
      */
@@ -78,6 +79,7 @@ public final class AssociatedTokenProgram
             final PublicKey mint,
             final PublicKey owner,
             final PublicKey payer,
+            final PublicKey programId,
             final boolean idempotent)
     {
         tb.append(ib -> ib
@@ -87,7 +89,7 @@ public final class AssociatedTokenProgram
                 .account(owner, false, false)
                 .account(mint, false, false)
                 .account(SYSTEM_PROGRAM_ACCOUNT, false, false)
-                .account(ASSOCIATED_TOKEN_PROGRAM_ACCOUNT, false, false)
+                .account(programId, false, false)
                 .account(RENT, false, false)
                 .data(1, bb -> bb.order(ByteOrder.LITTLE_ENDIAN)
                         .put((byte) (idempotent ? IDEMPOTENT_CREATE_INSTRUCTION : CREATE_INSTRUCTION)))

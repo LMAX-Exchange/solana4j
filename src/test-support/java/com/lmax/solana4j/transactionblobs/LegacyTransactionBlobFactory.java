@@ -10,9 +10,11 @@ import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.SignedMessageBuilder;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.TestKeyPair;
+import com.lmax.solana4j.domain.TestPublicKey;
 import com.lmax.solana4j.domain.TokenProgram;
 import com.lmax.solana4j.domain.TokenProgramFactory;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
+import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.util.BouncyCastleSigner;
 import org.bitcoinj.core.Base58;
 
@@ -373,6 +375,42 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
                 .instructions(tb -> factory(tb)
                         .nonceAdvance(account, authority))
                 .payer(payer)
+                .seal()
+                .unsigned()
+                .build();
+
+        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
+        for (final TestKeyPair signer : signers)
+        {
+            signedMessageBuilder.by(signer.getSolana4jPublicKey(), new BouncyCastleSigner(signer.getPrivateKeyBytes()));
+        }
+
+        signedMessageBuilder.build();
+        return base58encode(buffer);
+    }
+
+    @Override
+    public String createAssociatedTokenAddress(
+            final TestKeyPair payer,
+            final TestPublicKey owner,
+            final ProgramDerivedAddress associatedTokenAddress,
+            final Blockhash blockhash,
+            final TestPublicKey mint,
+            final List<TestKeyPair> signers,
+            final List<AddressLookupTable> addressLookupTables,
+            final boolean idempotent,
+            final PublicKey tokenProgramId)
+    {
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+        Solana.builder(buffer)
+                .legacy()
+                .recent(blockhash)
+                .instructions(tb -> AssociatedTokenProgram.factory(tb)
+                        .createAssociatedToken(
+                                associatedTokenAddress, mint.getSolana4jPublicKey(), owner.getSolana4jPublicKey(), payer.getSolana4jPublicKey(),
+                                tokenProgramId,
+                                idempotent))
+                .payer(payer.getSolana4jPublicKey())
                 .seal()
                 .unsigned()
                 .build();

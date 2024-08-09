@@ -4,6 +4,7 @@ import com.lmax.simpledsl.api.DslParams;
 import com.lmax.simpledsl.api.OptionalArg;
 import com.lmax.simpledsl.api.RequiredArg;
 import com.lmax.solana4j.api.AddressLookupTable;
+import com.lmax.solana4j.api.AssociatedTokenAddress;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.assertion.IsEqualToAssertion;
@@ -27,6 +28,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.lmax.solana4j.encoding.SolanaEncoding.deriveAssociatedTokenAddress;
 import static com.lmax.solana4j.programs.SystemProgram.MINT_ACCOUNT_LENGTH;
 import static com.lmax.solana4j.programs.SystemProgram.NONCE_ACCOUNT_LENGTH;
 import static com.lmax.solana4j.programs.TokenProgram.ACCOUNT_LAYOUT_SPAN;
@@ -412,6 +414,44 @@ public class SolanaNodeDsl
         // intermittency caused by block height not moving on to the next block before checking the transaction response ... it's a bit weird
         waitForBlockHeight(solanaDriver.getBlockHeight() + 1);
         return new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction());
+    }
+
+    public void createAssociatedTokenAddress(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("associatedTokenAddress"),
+                new RequiredArg("owner"),
+                new RequiredArg("tokenMint"),
+                new RequiredArg("payer"),
+                new OptionalArg("addressLookupTables").setAllowMultipleValues(),
+                new OptionalArg("idempotent").setAllowedValues("true", "false").setDefault("true"),
+                new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token")
+        );
+
+        final TestPublicKey tokenMint = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("tokenMint"));
+        final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
+        final TestPublicKey owner = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("owner"));
+
+        final AssociatedTokenAddress associatedTokenAddress = deriveAssociatedTokenAddress(owner.getSolana4jPublicKey(), tokenMint.getSolana4jPublicKey(), tokenProgram.getProgram());
+        testContext.data(TestDataType.TEST_PUBLIC_KEY).store(params.value("associatedTokenAddress"), new TestPublicKey(associatedTokenAddress.address().bytes()));
+
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
+                .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
+                .toList();
+
+        final String transactionSignature = solanaDriver.createAssociatedTokenAddress(
+                associatedTokenAddress,
+                tokenMint,
+                owner,
+                payer,
+                addressLookupTables,
+                params.valueAsBoolean("idempotent"),
+                tokenProgram.getProgram()
+        );
+
+        new Waiter().waitFor(new IsNotNullAssertion<>(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
     }
 
     private void waitForSlot(final long slot)

@@ -7,6 +7,7 @@ import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.TestKeyPair;
+import com.lmax.solana4j.domain.TestPublicKey;
 import com.lmax.solana4j.domain.TokenProgram;
 import com.lmax.solana4j.domain.TokenProgramFactory;
 
@@ -113,4 +114,15 @@ public interface TransactionBlobFactory
             PublicKey payer,
             List<TestKeyPair> signers,
             List<AddressLookupTable> addressLookupTables);
+
+    String createAssociatedTokenAddress(
+            TestKeyPair payer,
+            TestPublicKey owner,
+            ProgramDerivedAddress associatedTokenAddress,
+            Blockhash blockhash,
+            TestPublicKey mint,
+            List<TestKeyPair> signers,
+            List<AddressLookupTable> addressLookupTables,
+            boolean idempotent,
+            PublicKey tokenProgramId);
 }
