@@ -1,5 +1,6 @@
 package com.lmax.solana4j.api;
 
+import java.nio.BufferOverflowException;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -47,8 +48,16 @@ public interface MessageBuilderV0
 
     /**
      * Seals the version 0 message and returns a sealed message builder.
+     * <p>
+     * This method finalizes the construction of a version 0 message, ensuring that all required data is properly
+     * written into the buffer. It then returns a {@link SealedMessageBuilder} instance representing the sealed message.
+     * </p>
      *
      * @return a {@link SealedMessageBuilder} instance representing the sealed message
+     * @throws BufferOverflowException if there is insufficient space in the buffer to write the complete message
+     *                                 data. This can occur if the buffer size is smaller than required to hold
+     *                                 all the data necessary for the message.
      */
-    SealedMessageBuilder seal();
+    SealedMessageBuilder seal() throws BufferOverflowException;
+
 }

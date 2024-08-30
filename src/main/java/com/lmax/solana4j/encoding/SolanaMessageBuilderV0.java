@@ -10,6 +10,7 @@ import com.lmax.solana4j.api.SealedMessageBuilder;
 import com.lmax.solana4j.api.TransactionBuilder;
 import com.lmax.solana4j.api.TransactionInstruction;
 
+import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +63,7 @@ final class SolanaMessageBuilderV0 implements MessageBuilderV0
     }
 
     @Override
-    public SealedMessageBuilder seal()
+    public SealedMessageBuilder seal() throws BufferOverflowException
     {
         if (this.payer == null)
         {
