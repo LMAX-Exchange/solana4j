@@ -31,12 +31,12 @@ final class SolanaMessageWriterLegacy
         formatter.reserveSignatures(accounts.getCountSigned());
 
         // write legacy header section
-        formatter.write((byte) accounts.getCountSigned());
-        formatter.write((byte) accounts.getCountSignedReadOnly());
-        formatter.write((byte) accounts.getCountUnsignedReadOnly());
+        formatter.writeByte((byte) accounts.getCountSigned());
+        formatter.writeByte((byte) accounts.getCountSignedReadOnly());
+        formatter.writeByte((byte) accounts.getCountUnsignedReadOnly());
 
         // write accounts table section
-        formatter.writeAccounts(accounts.getStaticAccounts());
+        formatter.writeStaticAccounts(accounts.getStaticAccounts());
 
         // write recent-block-header or NONCE
         formatter.writeBlockHash(recentBlockHash);

@@ -23,7 +23,7 @@ final class SolanaMessageFormattingCommon
         this.buffer = requireNonNull(buffer);
     }
 
-    void write(final byte value)
+    void writeByte(final byte value)
     {
         buffer.put(value);
     }
@@ -33,55 +33,24 @@ final class SolanaMessageFormattingCommon
         return buffer.get();
     }
 
-    void encode(final int value)
+    void writeLong(final long value)
     {
         SolanaShortVec.write(value, buffer);
     }
 
-    int decodeInt()
-    {
-        return SolanaShortVec.readInt(buffer);
-    }
-
-    void encode(final long value)
-    {
-        SolanaShortVec.write(value, buffer);
-    }
-
-    long decodeLong()
+    long readLong()
     {
         return SolanaShortVec.readLong(buffer);
     }
 
-    void reserveSignatures(final int count)
+    void writeInt(final int value)
     {
-        SolanaShortVec.write(count, buffer);
-        buffer.position(buffer.position() + (64 * count));
+        SolanaShortVec.write(value, buffer);
     }
 
-    void writeAccounts(final List<PublicKey> accounts)
+    int readInt()
     {
-        SolanaShortVec.write(accounts.size(), buffer);
-
-        for (final var account : accounts)
-        {
-            account.write(buffer);
-        }
-    }
-
-    void writeAccountIndices(final int[] list)
-    {
-        SolanaShortVec.write(list.length, buffer);
-
-        for (final var element : list)
-        {
-            if (element > 0xff)
-            {
-                throw new UnsupportedOperationException("index exceeds byte range limit");
-            }
-            final byte value = (byte) (element & 0xff);
-            buffer.put(value);
-        }
+        return SolanaShortVec.readInt(buffer);
     }
 
     void writeInstructions(final List<TransactionInstruction> transaction, final References references)
@@ -93,7 +62,7 @@ final class SolanaMessageFormattingCommon
         }
     }
 
-    void writeInstruction(final TransactionInstruction instruction, final References references)
+    private void writeInstruction(final TransactionInstruction instruction, final References references)
     {
         buffer.put((byte) references.indexOfAccount(instruction.program()));
 
@@ -114,76 +83,7 @@ final class SolanaMessageFormattingCommon
         instruction.data().accept(buffer);
     }
 
-    void writeBlockHash(final SolanaBlockhash blockHash)
-    {
-        blockHash.write(null, buffer);
-    }
-
-    void writeAccount(final PublicKey account)
-    {
-        account.write(buffer);
-    }
-
-    void writeLookupAccounts(final List<AddressLookupTableIndexes> tables)
-    {
-        SolanaShortVec.write(tables.size(), buffer);
-        for (final var table : tables)
-        {
-            writeLookupAccount(table);
-        }
-    }
-
-    void writeLookupAccount(final AddressLookupTableIndexes table)
-    {
-        writeAccount(table.getLookupTableAddress());
-
-        SolanaShortVec.write(table.getReadWriteAddressIndexes().size(), buffer);
-        for (int i = 0; i < table.getReadWriteAddressIndexes().size(); i++)
-        {
-            SolanaShortVec.write(table.getReadWriteAddressIndexes().get(i).getAddressIndex(), buffer);
-        }
-
-        SolanaShortVec.write(table.getReadOnlyAddressIndexes().size(), buffer);
-        for (int i = 0; i < table.getReadOnlyAddressIndexes().size(); i++)
-        {
-            SolanaShortVec.write(table.getReadOnlyAddressIndexes().get(i).getAddressIndex(), buffer);
-        }
-    }
-
-    public List<ByteBuffer> readSignatures()
-    {
-        final int count = SolanaShortVec.readInt(buffer);
-        final List<ByteBuffer> signatures = new ArrayList<>(count);
-        for (int i = 0; i < count; i++)
-        {
-            final var bytes = new byte[64];
-            buffer.get(bytes);
-            signatures.add(ByteBuffer.wrap(bytes));
-        }
-        return signatures;
-    }
-
-    public List<PublicKey> readStaticAccounts()
-    {
-        final int count = SolanaShortVec.readInt(buffer);
-        final List<PublicKey> publicKeys = new ArrayList<>(count);
-        for (int i = 0; i < count; i++)
-        {
-            final byte[] bytes = new byte[32];
-            buffer.get(bytes);
-            publicKeys.add(new SolanaAccount(bytes));
-        }
-        return publicKeys;
-    }
-
-    public Blockhash readBlockHash()
-    {
-        final byte[] bytes = new byte[32];
-        buffer.get(bytes);
-        return new SolanaBlockhash(bytes);
-    }
-
-    public List<InstructionView> readInstructions()
+    List<InstructionView> readInstructions()
     {
         final int count = SolanaShortVec.readInt(buffer);
         final List<InstructionView> instructions = new ArrayList<>(count);
@@ -194,7 +94,7 @@ final class SolanaMessageFormattingCommon
         return instructions;
     }
 
-    public InstructionView readInstruction()
+    private InstructionView readInstruction()
     {
         final var program = SolanaShortVec.readInt(buffer);
         final var countAccRefs = SolanaShortVec.readInt(buffer);
@@ -213,7 +113,50 @@ final class SolanaMessageFormattingCommon
         return new SolanaInstructionView(program, accRefs, data);
     }
 
-    List<MessageVisitor.AccountLookupTableView> readLookupTables()
+    void writeBlockHash(final SolanaBlockhash blockHash)
+    {
+        blockHash.write(null, buffer);
+    }
+
+    Blockhash readBlockHash()
+    {
+        final byte[] bytes = new byte[32];
+        buffer.get(bytes);
+        return new SolanaBlockhash(bytes);
+    }
+
+    void writeLookupAccounts(final List<AddressLookupTableIndexes> tables)
+    {
+        SolanaShortVec.write(tables.size(), buffer);
+        for (final var table : tables)
+        {
+            writeLookupAccount(table);
+        }
+    }
+
+    private void writeLookupAccount(final AddressLookupTableIndexes table)
+    {
+        writeAccount(table.getLookupTableAddress());
+
+        SolanaShortVec.write(table.getReadWriteAddressIndexes().size(), buffer);
+        for (int i = 0; i < table.getReadWriteAddressIndexes().size(); i++)
+        {
+            SolanaShortVec.write(table.getReadWriteAddressIndexes().get(i).getAddressIndex(), buffer);
+        }
+
+        SolanaShortVec.write(table.getReadOnlyAddressIndexes().size(), buffer);
+        for (int i = 0; i < table.getReadOnlyAddressIndexes().size(); i++)
+        {
+            SolanaShortVec.write(table.getReadOnlyAddressIndexes().get(i).getAddressIndex(), buffer);
+        }
+    }
+
+    private void writeAccount(final PublicKey account)
+    {
+        account.write(buffer);
+    }
+
+    List<MessageVisitor.AccountLookupTableView> readLookupAccounts()
     {
         final var count = SolanaShortVec.readInt(buffer);
         final List<MessageVisitor.AccountLookupTableView> entries = new ArrayList<>();
@@ -239,5 +182,47 @@ final class SolanaMessageFormattingCommon
         }
 
         return entries;
+    }
+
+    void reserveSignatures(final int count)
+    {
+        SolanaShortVec.write(count, buffer);
+        buffer.position(buffer.position() + (64 * count));
+    }
+
+    List<ByteBuffer> readSignatures()
+    {
+        final int count = SolanaShortVec.readInt(buffer);
+        final List<ByteBuffer> signatures = new ArrayList<>(count);
+        for (int i = 0; i < count; i++)
+        {
+            final var bytes = new byte[64];
+            buffer.get(bytes);
+            signatures.add(ByteBuffer.wrap(bytes));
+        }
+        return signatures;
+    }
+
+    void writeStaticAccounts(final List<PublicKey> accounts)
+    {
+        SolanaShortVec.write(accounts.size(), buffer);
+
+        for (final var account : accounts)
+        {
+            account.write(buffer);
+        }
+    }
+
+    public List<PublicKey> readStaticAccounts()
+    {
+        final int count = SolanaShortVec.readInt(buffer);
+        final List<PublicKey> publicKeys = new ArrayList<>(count);
+        for (int i = 0; i < count; i++)
+        {
+            final byte[] bytes = new byte[32];
+            buffer.get(bytes);
+            publicKeys.add(new SolanaAccount(bytes));
+        }
+        return publicKeys;
     }
 }

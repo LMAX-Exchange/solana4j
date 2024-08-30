@@ -104,7 +104,7 @@ abstract class SolanaMessageView implements MessageView
         }
         else if (v0Format)
         {
-            final var accountLookupTables = formatter.readLookupTables();
+            final var accountLookupTables = formatter.readLookupAccounts();
 
             final Integer readWriteCount = accountLookupTables.stream().map(accountLookupTableView -> accountLookupTableView.readWriteTableIndexes().size()).reduce(0, Integer::sum);
             final Integer readOnlyCount = accountLookupTables.stream().map(accountLookupTableView -> accountLookupTableView.readOnlyTableIndexes().size()).reduce(0, Integer::sum);

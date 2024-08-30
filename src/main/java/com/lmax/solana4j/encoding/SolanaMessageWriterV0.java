@@ -31,13 +31,13 @@ final class SolanaMessageWriterV0
         formatter.reserveSignatures(accounts.getCountSigned());
 
         // write V0 header section
-        formatter.write((byte) 0x80);
-        formatter.write((byte) accounts.getCountSigned());
-        formatter.write((byte) accounts.getCountSignedReadOnly());
-        formatter.write((byte) accounts.getCountUnsignedReadOnly());
+        formatter.writeByte((byte) 0x80);
+        formatter.writeByte((byte) accounts.getCountSigned());
+        formatter.writeByte((byte) accounts.getCountSignedReadOnly());
+        formatter.writeByte((byte) accounts.getCountUnsignedReadOnly());
 
         // write accounts table section
-        formatter.writeAccounts(accounts.getStaticAccounts());
+        formatter.writeStaticAccounts(accounts.getStaticAccounts());
 
         // write recent-block-header or NONCE
         formatter.writeBlockHash(recentBlockHash);

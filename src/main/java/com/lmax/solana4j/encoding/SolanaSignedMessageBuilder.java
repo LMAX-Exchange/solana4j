@@ -52,7 +52,7 @@ final class SolanaSignedMessageBuilder implements SignedMessageBuilder
                         message1.transaction()));
         final ByteBuffer signingBufferView = this.buffer.duplicate();
         final SolanaMessageFormattingCommon formatter = new SolanaMessageFormattingCommon(signingBufferView);
-        final int expectedSignatureCount = formatter.decodeInt();
+        final int expectedSignatureCount = formatter.readInt();
         if (expectedSignatureCount != info.signatories.size())
         {
             throw new IllegalStateException("message is malformed");
