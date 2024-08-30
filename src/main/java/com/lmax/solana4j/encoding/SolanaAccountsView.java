@@ -35,8 +35,7 @@ final class SolanaAccountsView implements MessageVisitor.AccountsView
             throw new IllegalArgumentException("Cannot evaluate accounts, missing account lookup values");
         }
 
-        final List<PublicKey> accounts = new ArrayList<>();
-        accounts.addAll(staticAccounts);
+        final List<PublicKey> accounts = new ArrayList<>(staticAccounts);
         addressesFromLookup.write(accounts);
 
         return accounts;

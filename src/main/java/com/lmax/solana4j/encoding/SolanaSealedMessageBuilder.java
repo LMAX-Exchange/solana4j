@@ -18,7 +18,6 @@ final class SolanaSealedMessageBuilder implements SealedMessageBuilder
     @Override
     public SignedMessageBuilder signed()
     {
-
         return new SolanaSignedMessageBuilder(buffer);
     }
 

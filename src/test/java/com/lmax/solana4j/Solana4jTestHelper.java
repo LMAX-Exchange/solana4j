@@ -46,6 +46,9 @@ public class Solana4jTestHelper
     public static final byte[] SIGNATURE6 = newBlob(SIGNATURE_LENGTH, (byte) 22);
     public static final byte[] SIGNATURE7 = newBlob(SIGNATURE_LENGTH, (byte) 23);
     public static final byte[] SIGNATURE8 = newBlob(SIGNATURE_LENGTH, (byte) 24);
+    public static final byte[] ACCOUNT_LOOKUP_TABLE1 = newBlob(ACCOUNT_LENGTH, (byte) 25);
+    public static final byte[] ACCOUNT_LOOKUP_TABLE2 = newBlob(ACCOUNT_LENGTH, (byte) 26);
+    public static final byte[] ACCOUNT_LOOKUP_TABLE3 = newBlob(ACCOUNT_LENGTH, (byte) 27);
     public static final byte[] UNSIGNED = newBlob(SIGNATURE_LENGTH, (byte) -77);
 
     public static final Map<PublicKey, byte[]> SIGNINGS = Map.of(

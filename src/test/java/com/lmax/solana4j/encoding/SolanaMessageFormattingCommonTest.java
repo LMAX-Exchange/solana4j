@@ -15,6 +15,8 @@ import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT4;
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT5;
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT6;
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT7;
+import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT_LOOKUP_TABLE1;
+import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT_LOOKUP_TABLE2;
 import static com.lmax.solana4j.Solana4jTestHelper.BLOCKHASH;
 import static com.lmax.solana4j.Solana4jTestHelper.DATA1;
 import static com.lmax.solana4j.Solana4jTestHelper.DATA2;
@@ -91,16 +93,16 @@ class SolanaMessageFormattingCommonTest
     @Test
     void writesLookupAccounts()
     {
-        // ACCOUNT1 is the lookup table address
-        final SolanaAddressLookupTableIndexes lookupTable1 = new SolanaAddressLookupTableIndexes(new SolanaAccount(ACCOUNT1));
+        // ACCOUNT_LOOKUP_TABLE1 is the lookup table address
+        final SolanaAddressLookupTableIndexes lookupTable1 = new SolanaAddressLookupTableIndexes(new SolanaAccount(ACCOUNT_LOOKUP_TABLE1));
         // ACCOUNT3 is the address referenced at the lookup table index 1
         lookupTable1.addReadOnlyIndex(new SolanaAccount(ACCOUNT3), 1);
         // ACCOUNT4 is the address referenced at the lookup table index 2
         lookupTable1.addReadWriteIndex(new SolanaAccount(ACCOUNT4), 2);
         lookupTable1.addReadWriteIndex(new SolanaAccount(ACCOUNT5), 3);
 
-        // ACCOUNT2 is the lookup table address
-        final SolanaAddressLookupTableIndexes lookupTable2 = new SolanaAddressLookupTableIndexes(new SolanaAccount(ACCOUNT2));
+        // ACCOUNT_LOOKUP_TABLE1 is the lookup table address
+        final SolanaAddressLookupTableIndexes lookupTable2 = new SolanaAddressLookupTableIndexes(new SolanaAccount(ACCOUNT_LOOKUP_TABLE2));
         // ACCOUNT5 is the address referenced at the lookup table index 1
         lookupTable2.addReadOnlyIndex(new SolanaAccount(ACCOUNT6), 4);
         // ACCOUNT6 is the address referenced at the lookup table index 2
@@ -115,7 +117,7 @@ class SolanaMessageFormattingCommonTest
 
         // lookup table 1 address
         final AccountLookupTableView accountLookupTable1 = accountLookupTableViews.get(0);
-        assertThat(accountLookupTable1.lookupAccount()).isEqualTo(new SolanaAccount(ACCOUNT1));
+        assertThat(accountLookupTable1.lookupAccount()).isEqualTo(new SolanaAccount(ACCOUNT_LOOKUP_TABLE1));
 
         assertThat(accountLookupTable1.readOnlyTableIndexes().size()).isEqualTo(1);
         assertThat(accountLookupTable1.readOnlyTableIndexes().get(0)).isEqualTo(1);
@@ -125,7 +127,7 @@ class SolanaMessageFormattingCommonTest
 
         // lookup table 2 address
         final AccountLookupTableView accountLookupTable2 = accountLookupTableViews.get(1);
-        assertThat(accountLookupTable2.lookupAccount()).isEqualTo(new SolanaAccount(ACCOUNT2));
+        assertThat(accountLookupTable2.lookupAccount()).isEqualTo(new SolanaAccount(ACCOUNT_LOOKUP_TABLE2));
 
         assertThat(accountLookupTable2.readOnlyTableIndexes().size()).isEqualTo(1);
         assertThat(accountLookupTable2.readOnlyTableIndexes().get(0)).isEqualTo(4);
