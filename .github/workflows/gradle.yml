@@ -124,6 +124,22 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Enable debug logging
+        run: |
+          echo "ACTIONS_RUNNER_DEBUG=true" >> $GITHUB_ENV
+          echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
+          
+      - name: Download Javadoc artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: github-pages
+          path: build/docs/javadoc
+
+      - name: List artifact contents for debugging
+        run: ls -R build/docs/javadoc
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          path: build/docs/javadoc
