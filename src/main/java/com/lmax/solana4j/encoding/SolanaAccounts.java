@@ -88,6 +88,7 @@ final class SolanaAccounts implements Accounts
 
         final Map<PublicKey, SolanaAddressLookupTableIndexes> accountLookupTableIndexes = new HashMap<>();
         final Set<PublicKey> accountsToDereference = new HashSet<>();
+        final Set<PublicKey> accountsFoundInLookupTables = new HashSet<>();
         for (final AddressLookupTable addressLookupTable : addressLookupTables)
         {
             final List<PublicKey> accountLookups = addressLookupTable.getAddressLookups();
@@ -95,8 +96,10 @@ final class SolanaAccounts implements Accounts
             {
                 final PublicKey account = accountLookups.get(i);
                 final Optional<TransactionInstruction.AccountReference> maybeFoundAccountLookup = instructionAccountReferences.stream().filter(x -> x.account().equals(account)).findAny();
-                if (maybeFoundAccountLookup.isPresent())
+
+                if (maybeFoundAccountLookup.isPresent() && !accountsFoundInLookupTables.contains(account))
                 {
+                    accountsFoundInLookupTables.add(account);
                     // signers have to be static keys
                     if (!maybeFoundAccountLookup.get().isSigner())
                     {

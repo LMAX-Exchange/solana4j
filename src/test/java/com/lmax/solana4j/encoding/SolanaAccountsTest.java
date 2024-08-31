@@ -2,7 +2,6 @@ package com.lmax.solana4j.encoding;
 
 import com.lmax.solana4j.api.Accounts;
 import com.lmax.solana4j.api.AddressLookupTable;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -182,7 +181,6 @@ class SolanaAccountsTest
     }
 
     @Test
-    @Disabled
     void ifAccountExistsInManyLookupTablesSelectTheIndexOfTheFirstLookupTableItsFoundIn()
     {
         final AddressLookupTable addressLookupTable1 = new SolanaAddressLookupTable(
@@ -212,7 +210,6 @@ class SolanaAccountsTest
 
         assertThat(accounts.getStaticAccounts().size()).isEqualTo(2);
         assertThat(accounts.getStaticAccounts()).usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(List.of(new SolanaAccount(PROGRAM1), new SolanaAccount(PAYER)));
-        // fails here ... it's actually 2, i'm not sure it should be
         assertThat(accounts.getLookupAccounts().size()).isEqualTo(1);
         assertThat(accounts.getLookupAccounts().get(0).getLookupTableAddress())
                 .usingRecursiveComparison()
@@ -223,7 +220,7 @@ class SolanaAccountsTest
         // ACCOUNT1 isWriter: false
         assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressIndexes().size()).isEqualTo(1);
         assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressIndexes().get(0).getAddress()).isEqualTo(new SolanaAccount(ACCOUNT1));
-        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressIndexes().get(0).getAddressIndex()).isEqualTo(2);
+        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressIndexes().get(0).getAddressIndex()).isEqualTo(1);
         assertThat(accounts.getLookupAccounts().get(0).getReadWriteAddressIndexes().size()).isEqualTo(0);
     }
 }
