@@ -71,7 +71,7 @@ final class SolanaMessageBuilderV0 implements MessageBuilderV0
         }
 
         final SolanaAccountReference payerReference = new SolanaAccountReference(this.payer, true, true, false);
-        final Accounts accounts = SolanaAccounts.create(instructions, accountLookups, payerReference);
+        final Accounts accounts = SolanaAccounts.create(instructions, payerReference, accountLookups);
 
         final var writer = new SolanaMessageWriterV0(recentBlockhash, instructions, accounts);
 

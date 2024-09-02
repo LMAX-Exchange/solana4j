@@ -94,19 +94,19 @@ class SolanaMessageFormattingCommonTest
     void writesLookupAccounts()
     {
         // ACCOUNT_LOOKUP_TABLE1 is the lookup table address
-        final SolanaAddressLookupTableIndexes lookupTable1 = new SolanaAddressLookupTableIndexes(new SolanaAccount(ACCOUNT_LOOKUP_TABLE1));
+        final SolanaAddressLookupTableEntrys lookupTable1 = new SolanaAddressLookupTableEntrys(new SolanaAccount(ACCOUNT_LOOKUP_TABLE1));
         // ACCOUNT3 is the address referenced at the lookup table index 1
-        lookupTable1.addReadOnlyIndex(new SolanaAccount(ACCOUNT3), 1);
+        lookupTable1.addReadOnlyEntry(new SolanaAccount(ACCOUNT3), 1);
         // ACCOUNT4 is the address referenced at the lookup table index 2
-        lookupTable1.addReadWriteIndex(new SolanaAccount(ACCOUNT4), 2);
-        lookupTable1.addReadWriteIndex(new SolanaAccount(ACCOUNT5), 3);
+        lookupTable1.addReadWriteEntry(new SolanaAccount(ACCOUNT4), 2);
+        lookupTable1.addReadWriteEntry(new SolanaAccount(ACCOUNT5), 3);
 
         // ACCOUNT_LOOKUP_TABLE1 is the lookup table address
-        final SolanaAddressLookupTableIndexes lookupTable2 = new SolanaAddressLookupTableIndexes(new SolanaAccount(ACCOUNT_LOOKUP_TABLE2));
+        final SolanaAddressLookupTableEntrys lookupTable2 = new SolanaAddressLookupTableEntrys(new SolanaAccount(ACCOUNT_LOOKUP_TABLE2));
         // ACCOUNT5 is the address referenced at the lookup table index 1
-        lookupTable2.addReadOnlyIndex(new SolanaAccount(ACCOUNT6), 4);
+        lookupTable2.addReadOnlyEntry(new SolanaAccount(ACCOUNT6), 4);
         // ACCOUNT6 is the address referenced at the lookup table index 2
-        lookupTable2.addReadWriteIndex(new SolanaAccount(ACCOUNT7), 5);
+        lookupTable2.addReadWriteEntry(new SolanaAccount(ACCOUNT7), 5);
 
         solanaMessageFormattingCommon.writeLookupAccounts(List.of(lookupTable1, lookupTable2));
 

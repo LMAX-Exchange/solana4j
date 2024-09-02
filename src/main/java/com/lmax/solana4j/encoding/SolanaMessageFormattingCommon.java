@@ -1,6 +1,6 @@
 package com.lmax.solana4j.encoding;
 
-import com.lmax.solana4j.api.AddressLookupTableIndexes;
+import com.lmax.solana4j.api.AddressLookupTableEntrys;
 import com.lmax.solana4j.api.Blockhash;
 import com.lmax.solana4j.api.MessageVisitor;
 import com.lmax.solana4j.api.MessageVisitor.InstructionView;
@@ -125,7 +125,7 @@ final class SolanaMessageFormattingCommon
         return new SolanaBlockhash(bytes);
     }
 
-    void writeLookupAccounts(final List<AddressLookupTableIndexes> tables)
+    void writeLookupAccounts(final List<AddressLookupTableEntrys> tables)
     {
         SolanaShortVec.write(tables.size(), buffer);
         for (final var table : tables)
@@ -134,20 +134,20 @@ final class SolanaMessageFormattingCommon
         }
     }
 
-    private void writeLookupAccount(final AddressLookupTableIndexes table)
+    private void writeLookupAccount(final AddressLookupTableEntrys table)
     {
         writeAccount(table.getLookupTableAddress());
 
-        SolanaShortVec.write(table.getReadWriteAddressIndexes().size(), buffer);
-        for (int i = 0; i < table.getReadWriteAddressIndexes().size(); i++)
+        SolanaShortVec.write(table.getReadWriteAddressEntrys().size(), buffer);
+        for (int i = 0; i < table.getReadWriteAddressEntrys().size(); i++)
         {
-            SolanaShortVec.write(table.getReadWriteAddressIndexes().get(i).getAddressIndex(), buffer);
+            SolanaShortVec.write(table.getReadWriteAddressEntrys().get(i).getIndex(), buffer);
         }
 
-        SolanaShortVec.write(table.getReadOnlyAddressIndexes().size(), buffer);
-        for (int i = 0; i < table.getReadOnlyAddressIndexes().size(); i++)
+        SolanaShortVec.write(table.getReadOnlyAddressEntrys().size(), buffer);
+        for (int i = 0; i < table.getReadOnlyAddressEntrys().size(); i++)
         {
-            SolanaShortVec.write(table.getReadOnlyAddressIndexes().get(i).getAddressIndex(), buffer);
+            SolanaShortVec.write(table.getReadOnlyAddressEntrys().get(i).getIndex(), buffer);
         }
     }
 

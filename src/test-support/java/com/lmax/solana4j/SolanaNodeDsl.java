@@ -98,7 +98,7 @@ public class SolanaNodeDsl
                 .collect(Collectors.toList());
 
         final AddressLookupTable addressLookupTable = AddressLookupTableProgram.deserializeAddressLookupTable(account.getSolana4jPublicKey(), Base64.decode(accountInfo.getData().get(0)));
-        assertThat(addressLookupTable.getAddressLookups()).usingRecursiveComparison().isEqualTo(expectedAddresses);
+        assertThat(addressLookupTable.getAddresses()).usingRecursiveComparison().isEqualTo(expectedAddresses);
         testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE).store(params.value("lookupTableAddress"), addressLookupTable);
     }
 

@@ -8,12 +8,12 @@ import java.util.List;
 final class SolanaAddressLookupTable implements AddressLookupTable
 {
     private final PublicKey lookupTableAddress;
-    private final List<PublicKey> lookupAddresses;
+    private final List<PublicKey> addresses;
 
-    SolanaAddressLookupTable(final PublicKey lookupTableAddress, final List<PublicKey> lookupAddresses)
+    SolanaAddressLookupTable(final PublicKey lookupTableAddress, final List<PublicKey> addresses)
     {
         this.lookupTableAddress = lookupTableAddress;
-        this.lookupAddresses = lookupAddresses;
+        this.addresses = addresses;
     }
 
     @Override
@@ -23,8 +23,8 @@ final class SolanaAddressLookupTable implements AddressLookupTable
     }
 
     @Override
-    public List<PublicKey> getAddressLookups()
+    public List<PublicKey> getAddresses()
     {
-        return lookupAddresses;
+        return addresses;
     }
 }

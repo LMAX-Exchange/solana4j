@@ -25,9 +25,9 @@ public interface Accounts
     /**
      * Returns a list of address lookup table indexes.
      *
-     * @return a list of {@link AddressLookupTableIndexes} objects representing lookup accounts
+     * @return a list of {@link AddressLookupTableEntrys} objects representing lookup accounts
      */
-    List<AddressLookupTableIndexes> getLookupAccounts();
+    List<AddressLookupTableEntrys> getLookupAccounts();
 
     /**
      * Returns the count of signed accounts.

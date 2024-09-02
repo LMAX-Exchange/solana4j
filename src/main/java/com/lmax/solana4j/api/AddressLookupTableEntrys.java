@@ -3,26 +3,26 @@ package com.lmax.solana4j.api;
 import java.util.List;
 
 /**
- * Interface representing indexes for an address lookup table in the Solana blockchain.
+ * Interface representing entrys for an address lookup table in the Solana blockchain.
  */
-public interface AddressLookupTableIndexes
+public interface AddressLookupTableEntrys
 {
 
     /**
-     * Adds a read-only index for the given address.
+     * Adds a read-only entry for the given address.
      *
      * @param address       the {@link PublicKey} of the address
      * @param readOnlyIndex the index of the read-only address
      */
-    void addReadOnlyIndex(PublicKey address, int readOnlyIndex);
+    void addReadOnlyEntry(PublicKey address, int readOnlyIndex);
 
     /**
-     * Adds a read-write index for the given address.
+     * Adds a read-write entry for the given address.
      *
      * @param address        the {@link PublicKey} of the address
      * @param readWriteIndex the index of the read-write address
      */
-    void addReadWriteIndex(PublicKey address, int readWriteIndex);
+    void addReadWriteEntry(PublicKey address, int readWriteIndex);
 
     /**
      * Returns a list of all public keys in the address lookup table.
@@ -41,21 +41,21 @@ public interface AddressLookupTableIndexes
     /**
      * Returns a list of read-write address indexes.
      *
-     * @return a list of {@link AddressLookupIndex} objects representing read-write address indexes
+     * @return a list of {@link LookupTableEntry} objects representing read-write address indexes
      */
-    List<AddressLookupIndex> getReadWriteAddressIndexes();
+    List<LookupTableEntry> getReadWriteAddressEntrys();
 
     /**
      * Returns a list of read-only address indexes.
      *
-     * @return a list of {@link AddressLookupIndex} objects representing read-only address indexes
+     * @return a list of {@link LookupTableEntry} objects representing read-only address indexes
      */
-    List<AddressLookupIndex> getReadOnlyAddressIndexes();
+    List<LookupTableEntry> getReadOnlyAddressEntrys();
 
     /**
      * Interface representing an address lookup index in the Solana blockchain.
      */
-    interface AddressLookupIndex
+    interface LookupTableEntry
     {
 
         /**
@@ -70,6 +70,6 @@ public interface AddressLookupTableIndexes
          *
          * @return the index of the address
          */
-        int getAddressIndex();
+        int getIndex();
     }
 }

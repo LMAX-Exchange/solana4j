@@ -33,9 +33,9 @@ class SolanaAccountsTest
 
         final Accounts accounts = SolanaAccounts.create(
                 List.of(solanaTransactionInstruction),
+                new SolanaAccountReference(new SolanaAccount(PAYER), true, true, false),
                 // no account table lookups
-                List.of(),
-                new SolanaAccountReference(new SolanaAccount(PAYER), true, true, false)
+                List.of()
         );
 
         assertThat(accounts.getStaticAccounts().size()).isEqualTo(3);
@@ -63,8 +63,8 @@ class SolanaAccountsTest
 
         final Accounts accounts = SolanaAccounts.create(
                 List.of(solanaTransactionInstruction),
-                List.of(addressLookupTable),
-                new SolanaAccountReference(new SolanaAccount(PAYER), true, true, false)
+                new SolanaAccountReference(new SolanaAccount(PAYER), true, true, false),
+                List.of(addressLookupTable)
         );
 
         assertThat(accounts.getStaticAccounts().size()).isEqualTo(3);
@@ -91,8 +91,8 @@ class SolanaAccountsTest
 
         final Accounts accounts = SolanaAccounts.create(
                 List.of(solanaTransactionInstruction),
-                List.of(addressLookupTable1),
-                new SolanaAccountReference(new SolanaAccount(PAYER), true, true, false)
+                new SolanaAccountReference(new SolanaAccount(PAYER), true, true, false),
+                List.of(addressLookupTable1)
         );
 
         assertThat(accounts.getStaticAccounts().size()).isEqualTo(2);
@@ -105,10 +105,10 @@ class SolanaAccountsTest
         assertThat(accounts.getLookupAccounts().get(0).getAddresses().size()).isEqualTo(1);
         assertThat(accounts.getLookupAccounts().get(0).getAddresses().get(0)).isEqualTo(new SolanaAccount(ACCOUNT1));
         // ACCOUNT1 isWriter: true
-        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressIndexes().size()).isEqualTo(0);
-        assertThat(accounts.getLookupAccounts().get(0).getReadWriteAddressIndexes().size()).isEqualTo(1);
-        assertThat(accounts.getLookupAccounts().get(0).getReadWriteAddressIndexes().get(0).getAddress()).isEqualTo(new SolanaAccount(ACCOUNT1));
-        assertThat(accounts.getLookupAccounts().get(0).getReadWriteAddressIndexes().get(0).getAddressIndex()).isEqualTo(0);
+        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressEntrys().size()).isEqualTo(0);
+        assertThat(accounts.getLookupAccounts().get(0).getReadWriteAddressEntrys().size()).isEqualTo(1);
+        assertThat(accounts.getLookupAccounts().get(0).getReadWriteAddressEntrys().get(0).getAddress()).isEqualTo(new SolanaAccount(ACCOUNT1));
+        assertThat(accounts.getLookupAccounts().get(0).getReadWriteAddressEntrys().get(0).getIndex()).isEqualTo(0);
     }
 
     @Test
@@ -127,8 +127,8 @@ class SolanaAccountsTest
 
         final Accounts accounts = SolanaAccounts.create(
                 List.of(solanaTransactionInstruction),
-                List.of(addressLookupTable1),
-                new SolanaAccountReference(new SolanaAccount(PAYER), true, true, false)
+                new SolanaAccountReference(new SolanaAccount(PAYER), true, true, false),
+                List.of(addressLookupTable1)
         );
 
         assertThat(accounts.getStaticAccounts().size()).isEqualTo(2);
@@ -144,10 +144,10 @@ class SolanaAccountsTest
         assertThat(accounts.getLookupAccounts().get(0).getAddresses().size()).isEqualTo(1);
         assertThat(accounts.getLookupAccounts().get(0).getAddresses().get(0)).isEqualTo(new SolanaAccount(ACCOUNT1));
         // ACCOUNT1 isWriter: false
-        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressIndexes().size()).isEqualTo(1);
-        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressIndexes().get(0).getAddress()).isEqualTo(new SolanaAccount(ACCOUNT1));
-        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressIndexes().get(0).getAddressIndex()).isEqualTo(0);
-        assertThat(accounts.getLookupAccounts().get(0).getReadWriteAddressIndexes().size()).isEqualTo(0);
+        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressEntrys().size()).isEqualTo(1);
+        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressEntrys().get(0).getAddress()).isEqualTo(new SolanaAccount(ACCOUNT1));
+        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressEntrys().get(0).getIndex()).isEqualTo(0);
+        assertThat(accounts.getLookupAccounts().get(0).getReadWriteAddressEntrys().size()).isEqualTo(0);
     }
 
     @Test
@@ -167,9 +167,9 @@ class SolanaAccountsTest
 
         final Accounts accounts = SolanaAccounts.create(
                 List.of(solanaTransactionInstruction1, solanaTransactionInstruction2),
+                new SolanaAccountReference(new SolanaAccount(PAYER), true, true, false),
                 // no account table lookups
-                List.of(),
-                new SolanaAccountReference(new SolanaAccount(PAYER), true, true, false)
+                List.of()
         );
 
         assertThat(accounts.getStaticAccounts().size()).isEqualTo(4);
@@ -204,8 +204,8 @@ class SolanaAccountsTest
 
         final Accounts accounts = SolanaAccounts.create(
                 List.of(solanaTransactionInstruction1),
-                List.of(addressLookupTable1, addressLookupTable2, addressLookupTable3),
-                new SolanaAccountReference(new SolanaAccount(PAYER), true, true, false)
+                new SolanaAccountReference(new SolanaAccount(PAYER), true, true, false),
+                List.of(addressLookupTable1, addressLookupTable2, addressLookupTable3)
         );
 
         assertThat(accounts.getStaticAccounts().size()).isEqualTo(2);
@@ -218,9 +218,9 @@ class SolanaAccountsTest
         assertThat(accounts.getLookupAccounts().get(0).getAddresses().size()).isEqualTo(1);
         assertThat(accounts.getLookupAccounts().get(0).getAddresses().get(0)).isEqualTo(new SolanaAccount(ACCOUNT1));
         // ACCOUNT1 isWriter: false
-        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressIndexes().size()).isEqualTo(1);
-        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressIndexes().get(0).getAddress()).isEqualTo(new SolanaAccount(ACCOUNT1));
-        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressIndexes().get(0).getAddressIndex()).isEqualTo(1);
-        assertThat(accounts.getLookupAccounts().get(0).getReadWriteAddressIndexes().size()).isEqualTo(0);
+        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressEntrys().size()).isEqualTo(1);
+        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressEntrys().get(0).getAddress()).isEqualTo(new SolanaAccount(ACCOUNT1));
+        assertThat(accounts.getLookupAccounts().get(0).getReadOnlyAddressEntrys().get(0).getIndex()).isEqualTo(1);
+        assertThat(accounts.getLookupAccounts().get(0).getReadWriteAddressEntrys().size()).isEqualTo(0);
     }
 }

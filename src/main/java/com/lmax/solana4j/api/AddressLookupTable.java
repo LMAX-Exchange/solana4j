@@ -20,5 +20,5 @@ public interface AddressLookupTable
      *
      * @return a list of {@link PublicKey} objects representing the address lookups
      */
-    List<PublicKey> getAddressLookups();
+    List<PublicKey> getAddresses();
 }

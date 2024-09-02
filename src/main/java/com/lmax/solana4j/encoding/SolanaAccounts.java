@@ -2,40 +2,35 @@ package com.lmax.solana4j.encoding;
 
 import com.lmax.solana4j.api.Accounts;
 import com.lmax.solana4j.api.AddressLookupTable;
-import com.lmax.solana4j.api.AddressLookupTableIndexes;
+import com.lmax.solana4j.api.AddressLookupTableEntrys;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionInstruction;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 final class SolanaAccounts implements Accounts
 {
     private final List<PublicKey> staticAccounts;
-    private final List<AddressLookupTableIndexes> addressLookupTableIndices;
+    private final List<AddressLookupTableEntrys> lookupAccounts;
     private final int countSigned;
     private final int countSignedReadOnly;
     private final int countUnsignedReadOnly;
 
     private SolanaAccounts(
             final List<PublicKey> staticAccounts,
-            final List<AddressLookupTableIndexes> addressLookupTableIndices,
+            final List<AddressLookupTableEntrys> lookupAccounts,
             final int countSigned,
             final int countSignedReadOnly,
             final int countUnsignedReadOnly)
     {
         this.staticAccounts = staticAccounts;
-        this.addressLookupTableIndices = addressLookupTableIndices;
+        this.lookupAccounts = lookupAccounts;
         this.countSigned = countSigned;
         this.countSignedReadOnly = countSignedReadOnly;
         this.countUnsignedReadOnly = countUnsignedReadOnly;
@@ -44,7 +39,7 @@ final class SolanaAccounts implements Accounts
     @Override
     public List<PublicKey> getFlattenedAccountList()
     {
-        return Stream.concat(staticAccounts.stream(), addressLookupTableIndices.stream().flatMap(accountLookupIndex -> accountLookupIndex.getAddresses().stream())).collect(Collectors.toList());
+        return Stream.concat(staticAccounts.stream(), lookupAccounts.stream().flatMap(lookupTable -> lookupTable.getAddresses().stream())).collect(Collectors.toList());
     }
 
     @Override
@@ -54,9 +49,9 @@ final class SolanaAccounts implements Accounts
     }
 
     @Override
-    public List<AddressLookupTableIndexes> getLookupAccounts()
+    public List<AddressLookupTableEntrys> getLookupAccounts()
     {
-        return addressLookupTableIndices;
+        return lookupAccounts;
     }
 
     @Override
@@ -79,62 +74,24 @@ final class SolanaAccounts implements Accounts
 
     static Accounts create(final List<TransactionInstruction> instructions, final TransactionInstruction.AccountReference payerReference)
     {
-        return create(instructions, List.of(), payerReference);
+        return create(instructions, payerReference, List.of());
     }
 
-    static Accounts create(final List<TransactionInstruction> instructions, final List<AddressLookupTable> addressLookupTables, final TransactionInstruction.AccountReference payerReference)
+    static Accounts create(
+            final List<TransactionInstruction> instructions,
+            final TransactionInstruction.AccountReference payerReference,
+            final List<AddressLookupTable> addressLookupTables)
     {
-        final var instructionAccountReferences = getInstructionAccountReferences(instructions, payerReference);
+        final var allAccountReferences = mergeAccountReferences(instructions, payerReference);
 
-        final Map<PublicKey, SolanaAddressLookupTableIndexes> accountLookupTableIndexes = new HashMap<>();
-        final Set<PublicKey> accountsToDereference = new HashSet<>();
-        final Set<PublicKey> accountsFoundInLookupTables = new HashSet<>();
-        for (final AddressLookupTable addressLookupTable : addressLookupTables)
-        {
-            final List<PublicKey> accountLookups = addressLookupTable.getAddressLookups();
-            for (int i = 0; i < accountLookups.size(); i++)
-            {
-                final PublicKey account = accountLookups.get(i);
-                final Optional<TransactionInstruction.AccountReference> maybeFoundAccountLookup = instructionAccountReferences.stream().filter(x -> x.account().equals(account)).findAny();
+        final var lookupAccounts = LookupAccounts.create(allAccountReferences, addressLookupTables);
 
-                if (maybeFoundAccountLookup.isPresent() && !accountsFoundInLookupTables.contains(account))
-                {
-                    accountsFoundInLookupTables.add(account);
-                    // signers have to be static keys
-                    if (!maybeFoundAccountLookup.get().isSigner())
-                    {
-                        accountsToDereference.add(account);
-                        final AddressLookupTableIndexes accountLookupTableIndex = accountLookupTableIndexes.computeIfAbsent(
-                                addressLookupTable.getLookupTableAddress(),
-                                SolanaAddressLookupTableIndexes::new);
-
-                        final TransactionInstruction.AccountReference accountReference = maybeFoundAccountLookup.get();
-                        if (accountReference.isWriter())
-                        {
-                            accountLookupTableIndex.addReadWriteIndex(account, i);
-                        }
-                        else
-                        {
-                            accountLookupTableIndex.addReadOnlyIndex(account, i);
-                        }
-                    }
-                }
-            }
-        }
-
-        final var orderedDistinctAccountReferences = instructionAccountReferences
-                .stream()
-                .filter(account -> !accountsToDereference.contains(account.account()))
-                .collect(Collectors.toMap(
-                        TransactionInstruction.AccountReference::account,
-                        Function.identity(),
-                        SolanaAccounts::prepareHashMap,
-                        LinkedHashMap::new));
+        final var staticAccountReferences = calculateStaticAccountReferences(allAccountReferences, lookupAccounts.getAccountsInLookupTables());
 
         int countSigned = 0;
         int countSignedReadOnly = 0;
         int countUnsignedReadOnly = 0;
-        for (final var accountReference : orderedDistinctAccountReferences.values())
+        for (final var accountReference : staticAccountReferences)
         {
             if (accountReference.isSigner())
             {
@@ -150,32 +107,59 @@ final class SolanaAccounts implements Accounts
             }
         }
 
-        final List<PublicKey> staticAccounts = orderedDistinctAccountReferences.values()
-                .stream()
-                .map(TransactionInstruction.AccountReference::account)
-                .collect(Collectors.toList());
+        countUnsignedReadOnly += lookupAccounts.countUnsignedReadOnly();
 
-        return new SolanaAccounts(staticAccounts, new ArrayList<>(accountLookupTableIndexes.values()), countSigned, countSignedReadOnly, countUnsignedReadOnly);
+        return new SolanaAccounts(
+                staticAccountReferences.stream().map(TransactionInstruction.AccountReference::account).collect(Collectors.toList()),
+                lookupAccounts.getLookupTableEntries(),
+                countSigned,
+                countSignedReadOnly,
+                countUnsignedReadOnly
+        );
     }
 
-    private static List<TransactionInstruction.AccountReference> getInstructionAccountReferences(
+    private static List<TransactionInstruction.AccountReference> calculateStaticAccountReferences(
+            final List<TransactionInstruction.AccountReference> allAccountReferences,
+            final Set<PublicKey> accountsInLookup)
+    {
+        final LinkedHashMap<PublicKey, TransactionInstruction.AccountReference> staticAccountReferences = new LinkedHashMap<>();
+        for (final var accountReference : allAccountReferences)
+        {
+            if (!accountsInLookup.contains(accountReference.account()))
+            {
+                if (staticAccountReferences.containsKey(accountReference.account()))
+                {
+                    staticAccountReferences.merge(accountReference.account(), accountReference, SolanaAccounts::merge);
+                }
+                else
+                {
+                    staticAccountReferences.put(accountReference.account(), accountReference);
+                }
+            }
+        }
+
+        return new ArrayList<>(staticAccountReferences.values());
+    }
+
+    private static List<TransactionInstruction.AccountReference> mergeAccountReferences(
             final List<TransactionInstruction> instructions,
             final TransactionInstruction.AccountReference payerReference)
     {
-        final Comparator<TransactionInstruction.AccountReference> comparator = Comparator.comparing(r -> r.isSigner() ? -1 : 1);
+        final var cmp = Comparator
+                .<TransactionInstruction.AccountReference, Integer>comparing(r1 -> r1.isSigner() ? -1 : 1)
+                .thenComparing(r -> r.isWriter() ? -1 : 1);
 
-        final var cmp = comparator.thenComparing(r -> r.isWriter() ? -1 : 1);
         return Stream.concat(
                 Stream.of(payerReference),
                 instructions.stream()
                         .flatMap(instruction -> Stream.concat(
-                                Stream.of(
-                                        new SolanaAccountReference(instruction.program(), false, false, true)),
-                                instruction.accountReferences().stream()))
+                                Stream.of(new SolanaAccountReference(instruction.program(), false, false, true)),
+                                instruction.accountReferences().stream())
+                        )
                         .sorted(cmp)).collect(Collectors.toList());
     }
 
-    private static TransactionInstruction.AccountReference prepareHashMap(
+    private static TransactionInstruction.AccountReference merge(
             final TransactionInstruction.AccountReference accountReference,
             final TransactionInstruction.AccountReference accountReference2)
     {
@@ -183,6 +167,7 @@ final class SolanaAccounts implements Accounts
                 accountReference.account(),
                 accountReference.isSigner() || accountReference2.isSigner(),
                 accountReference.isWriter() || accountReference2.isWriter(),
-                accountReference.isExecutable() || accountReference2.isExecutable());
+                accountReference.isExecutable() || accountReference2.isExecutable()
+        );
     }
 }
