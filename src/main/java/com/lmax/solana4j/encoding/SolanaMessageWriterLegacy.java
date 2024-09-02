@@ -15,8 +15,7 @@ final class SolanaMessageWriterLegacy
     SolanaMessageWriterLegacy(
             final Accounts accounts,
             final SolanaBlockhash recentBlockHash,
-            final List<TransactionInstruction> instructions
-    )
+            final List<TransactionInstruction> instructions)
     {
         this.accounts = accounts;
         this.recentBlockHash = recentBlockHash;

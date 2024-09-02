@@ -15,14 +15,14 @@ import static com.lmax.solana4j.api.TransactionInstruction.AccountReference;
 
 public class LookupAccounts
 {
-    private final List<AddressLookupTableEntrys> lookupTableEntries;
+    private final List<AddressLookupTableEntrys> lookupTableEntrys;
     private final Set<PublicKey> accountsInLookupTables;
 
     public LookupAccounts(
             final List<AddressLookupTableEntrys> lookupTableEntrys,
             final Set<PublicKey> accountsInLookupTables)
     {
-        this.lookupTableEntries = lookupTableEntrys;
+        this.lookupTableEntrys = lookupTableEntrys;
         this.accountsInLookupTables = accountsInLookupTables;
     }
 
@@ -71,9 +71,9 @@ public class LookupAccounts
         return new LookupAccounts(new ArrayList<>(accountLookupTableEntrys.values()), addressesFoundInLookupTables);
     }
 
-    public List<AddressLookupTableEntrys> getLookupTableEntries()
+    public List<AddressLookupTableEntrys> getLookupTableEntrys()
     {
-        return lookupTableEntries;
+        return lookupTableEntrys;
     }
 
     public Set<PublicKey> getAccountsInLookupTables()
@@ -83,6 +83,6 @@ public class LookupAccounts
 
     public int countUnsignedReadOnly()
     {
-        return lookupTableEntries.stream().map(x -> x.getReadOnlyAddressEntrys().size()).mapToInt(Integer::intValue).sum();
+        return lookupTableEntrys.stream().map(x -> x.getReadOnlyAddressEntrys().size()).mapToInt(Integer::intValue).sum();
     }
 }

@@ -112,7 +112,7 @@ final class SolanaAccounts implements Accounts
 
         return new SolanaAccounts(
                 staticAccountReferences.stream().map(TransactionInstruction.AccountReference::account).collect(Collectors.toList()),
-                lookupAccounts.getLookupTableEntries(),
+                lookupAccounts.getLookupTableEntrys(),
                 countSigned,
                 countSignedReadOnly,
                 countUnsignedReadOnly
