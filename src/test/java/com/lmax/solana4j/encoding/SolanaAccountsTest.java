@@ -84,8 +84,8 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT, roUAccount2, roUAccount1));
-        assertCountUnsignedReadOnly(accounts.getCountUnsignedReadOnly(), 3);
-        assertCountSignedReadOnly(accounts.getCountSignedReadOnly(), 0);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 3);
+        countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 0);
         countSignedEquals(accounts.getCountSigned(), 1);
     }
 
@@ -117,8 +117,8 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT, roUAccount2, roUAccount1));
-        assertCountUnsignedReadOnly(accounts.getCountUnsignedReadOnly(), 3);
-        assertCountSignedReadOnly(accounts.getCountSignedReadOnly(), 0);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 3);
+        countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 0);
         countSignedEquals(accounts.getCountSigned(), 1);
     }
 
@@ -140,8 +140,8 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, rwUAccount, RO_U_PROGRAM1_ACCOUNT));
-        assertCountUnsignedReadOnly(accounts.getCountUnsignedReadOnly(), 1);
-        assertCountSignedReadOnly(accounts.getCountSignedReadOnly(), 0);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 1);
+        countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 0);
         countSignedEquals(accounts.getCountSigned(), 1);
     }
 
@@ -165,8 +165,8 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, rwSAccount2, rwSAccount1, RO_U_PROGRAM1_ACCOUNT));
-        assertCountUnsignedReadOnly(accounts.getCountUnsignedReadOnly(), 1);
-        assertCountSignedReadOnly(accounts.getCountSignedReadOnly(), 0);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 1);
+        countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 0);
         countSignedEquals(accounts.getCountSigned(), 1);
     }
 
@@ -199,8 +199,8 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, rwUAccount2, rwUAccount1, RO_U_PROGRAM1_ACCOUNT));
-        assertCountUnsignedReadOnly(accounts.getCountUnsignedReadOnly(), 1);
-        assertCountSignedReadOnly(accounts.getCountSignedReadOnly(), 0);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 1);
+        countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 0);
         countSignedEquals(accounts.getCountSigned(), 1);
     }
 
@@ -221,8 +221,8 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, roSAccount, RO_U_PROGRAM1_ACCOUNT));
-        assertCountUnsignedReadOnly(accounts.getCountUnsignedReadOnly(), 1);
-        assertCountSignedReadOnly(accounts.getCountSignedReadOnly(), 1);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 1);
+        countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 1);
         countSignedEquals(accounts.getCountSigned(), 2);
     }
 
@@ -246,8 +246,8 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, roSAccount2, roSAccount1, RO_U_PROGRAM1_ACCOUNT));
-        assertCountUnsignedReadOnly(accounts.getCountUnsignedReadOnly(), 1);
-        assertCountSignedReadOnly(accounts.getCountSignedReadOnly(), 2);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 1);
+        countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 2);
         countSignedEquals(accounts.getCountSigned(), 3);
     }
 
@@ -279,8 +279,8 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, roSAccount2, roSAccount1, RO_U_PROGRAM1_ACCOUNT));
-        assertCountUnsignedReadOnly(accounts.getCountUnsignedReadOnly(), 1);
-        assertCountSignedReadOnly(accounts.getCountSignedReadOnly(), 2);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 1);
+        countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 2);
         countSignedEquals(accounts.getCountSigned(), 3);
     }
 
@@ -301,8 +301,8 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, rwSAccount, RO_U_PROGRAM1_ACCOUNT));
-        assertCountUnsignedReadOnly(accounts.getCountUnsignedReadOnly(), 1);
-        assertCountSignedReadOnly(accounts.getCountSignedReadOnly(), 0);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 1);
+        countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 0);
         countSignedEquals(accounts.getCountSigned(), 2);
     }
 
@@ -327,8 +327,8 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, rwSAccount2, rwSAccount1, RO_U_PROGRAM1_ACCOUNT));
-        assertCountUnsignedReadOnly(accounts.getCountUnsignedReadOnly(), 1);
-        assertCountSignedReadOnly(accounts.getCountSignedReadOnly(), 0);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 1);
+        countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 0);
         countSignedEquals(accounts.getCountSigned(), 3);
     }
 
@@ -360,8 +360,8 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, rwSAccount2, rwSAccount1, RO_U_PROGRAM1_ACCOUNT));
-        assertCountUnsignedReadOnly(accounts.getCountUnsignedReadOnly(), 1);
-        assertCountSignedReadOnly(accounts.getCountSignedReadOnly(), 0);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 1);
+        countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 0);
         countSignedEquals(accounts.getCountSigned(), 3);
     }
 
@@ -407,8 +407,8 @@ class SolanaAccountsTest
                 RO_U_PROGRAM1_ACCOUNT,
                 roUAccount)
         );
-        assertCountUnsignedReadOnly(accounts.getCountUnsignedReadOnly(), 2);
-        assertCountSignedReadOnly(accounts.getCountSignedReadOnly(), 1);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 2);
+        countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 1);
         countSignedEquals(accounts.getCountSigned(), 4);
     }
 
@@ -441,9 +441,9 @@ class SolanaAccountsTest
         // ACCOUNT deduplicated
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, account, RO_U_PROGRAM1_ACCOUNT));
 
-        assertCountUnsignedReadOnly(accounts.getCountUnsignedReadOnly(), 1);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 1);
         // ACCOUNT isSigner: true and isWriter: true
-        assertCountSignedReadOnly(accounts.getCountSignedReadOnly(), 0);
+        countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 0);
         countSignedEquals(accounts.getCountSigned(), 2);
     }
 
@@ -515,10 +515,10 @@ class SolanaAccountsTest
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT));
         lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress, List.of(roUAccount));
-        lookupAccountsReadOnlyIndexEqual(accounts.getLookupAccounts(), lookupTableAddress, roUAccount, 0);
+        lookupAccountReadOnlyIndexEquals(accounts.getLookupAccounts(), lookupTableAddress, roUAccount, 0);
         flattenedAccountListEquals(accounts.getFlattenedAccountList(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT, roUAccount));
-        assertCountUnsignedReadOnly(accounts.getCountUnsignedReadOnly(), 2);
-        assertCountSignedReadOnly(accounts.getCountSignedReadOnly(), 0);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 2);
+        countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 0);
         countSignedEquals(accounts.getCountSigned(), 1);
     }
 
@@ -544,10 +544,10 @@ class SolanaAccountsTest
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT));
         lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress, List.of(roUAccount));
-        lookupAccountsReadWriteIndexEqual(accounts.getLookupAccounts(), lookupTableAddress, roUAccount, 0);
+        lookupAccountReadWriteIndexEquals(accounts.getLookupAccounts(), lookupTableAddress, roUAccount, 0);
         flattenedAccountListEquals(accounts.getFlattenedAccountList(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT, roUAccount));
-        assertCountUnsignedReadOnly(accounts.getCountUnsignedReadOnly(), 1);
-        assertCountSignedReadOnly(accounts.getCountSignedReadOnly(), 0);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 1);
+        countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 0);
         countSignedEquals(accounts.getCountSigned(), 1);
     }
 
@@ -578,7 +578,7 @@ class SolanaAccountsTest
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT));
         lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress1, List.of(roUAccount1));
-        lookupAccountsReadOnlyIndexEqual(accounts.getLookupAccounts(), lookupTableAddress1, roUAccount1, 2);
+        lookupAccountReadOnlyIndexEquals(accounts.getLookupAccounts(), lookupTableAddress1, roUAccount1, 2);
         flattenedAccountListEquals(accounts.getFlattenedAccountList(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT, roUAccount1));
     }
 
@@ -612,8 +612,8 @@ class SolanaAccountsTest
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT));
         lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress1, List.of(roUAccount2));
         lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress2, List.of(roUAccount1));
-        lookupAccountsReadOnlyIndexEqual(accounts.getLookupAccounts(), lookupTableAddress1, roUAccount2, 0);
-        lookupAccountsReadOnlyIndexEqual(accounts.getLookupAccounts(), lookupTableAddress2, roUAccount1, 0);
+        lookupAccountReadOnlyIndexEquals(accounts.getLookupAccounts(), lookupTableAddress1, roUAccount2, 0);
+        lookupAccountReadOnlyIndexEquals(accounts.getLookupAccounts(), lookupTableAddress2, roUAccount1, 0);
         flattenedAccountListEquals(accounts.getFlattenedAccountList(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT, roUAccount2, roUAccount1));
     }
 
@@ -658,8 +658,8 @@ class SolanaAccountsTest
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, rwSAccount3, rwUAccount4, RO_U_PROGRAM1_ACCOUNT));
         lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress1, List.of(roUAccount2));
         lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress2, List.of(roUAccount1));
-        lookupAccountsReadOnlyIndexEqual(accounts.getLookupAccounts(), lookupTableAddress1, roUAccount2, 1);
-        lookupAccountsReadWriteIndexEqual(accounts.getLookupAccounts(), lookupTableAddress2, roUAccount1, 0);
+        lookupAccountReadOnlyIndexEquals(accounts.getLookupAccounts(), lookupTableAddress1, roUAccount2, 1);
+        lookupAccountReadWriteIndexEquals(accounts.getLookupAccounts(), lookupTableAddress2, roUAccount1, 0);
         flattenedAccountListEquals(accounts.getFlattenedAccountList(), List.of(
                 RW_S_PAYER_ACCOUNT,
                 rwSAccount3,
@@ -706,7 +706,7 @@ class SolanaAccountsTest
         }
     }
 
-    private void lookupAccountsReadOnlyIndexEqual(
+    private void lookupAccountReadOnlyIndexEquals(
             final List<AddressLookupTableEntrys> lookupAccounts,
             final SolanaAccount lookupTableAddress,
             final SolanaAccount lookupAccount,
@@ -729,7 +729,7 @@ class SolanaAccountsTest
         fail();
     }
 
-    private void lookupAccountsReadWriteIndexEqual(
+    private void lookupAccountReadWriteIndexEquals(
             final List<AddressLookupTableEntrys> lookupAccounts,
             final SolanaAccount lookupTableAddress,
             final SolanaAccount lookupAccount,
@@ -757,12 +757,12 @@ class SolanaAccountsTest
         assertThat(flattenedAccounts).usingRecursiveComparison().isEqualTo(expectedAccounts);
     }
 
-    private void assertCountUnsignedReadOnly(final int countUnsignedReadOnly, final int expectedCount)
+    private void countUnsignedReadOnlyEquals(final int countUnsignedReadOnly, final int expectedCount)
     {
         assertThat(countUnsignedReadOnly).isEqualTo(expectedCount);
     }
 
-    private void assertCountSignedReadOnly(final int countSignedReadOnly, final int expectedCount)
+    private void countSignedReadOnlyEquals(final int countSignedReadOnly, final int expectedCount)
     {
         assertThat(countSignedReadOnly).isEqualTo(expectedCount);
     }
