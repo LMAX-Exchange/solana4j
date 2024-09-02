@@ -70,8 +70,7 @@ final class SolanaMessageBuilderV0 implements MessageBuilderV0
             throw new IllegalStateException("Solana transaction incomplete; payer has not been specified.");
         }
 
-        final SolanaAccountReference payerReference = new SolanaAccountReference(this.payer, true, true, false);
-        final Accounts accounts = SolanaAccounts.create(instructions, payerReference, accountLookups);
+        final Accounts accounts = SolanaAccounts.create(instructions, payer, accountLookups);
 
         final var writer = new SolanaMessageWriterV0(recentBlockhash, instructions, accounts);
 

@@ -72,16 +72,17 @@ final class SolanaAccounts implements Accounts
         return countUnsignedReadOnly;
     }
 
-    static Accounts create(final List<TransactionInstruction> instructions, final TransactionInstruction.AccountReference payerReference)
+    static Accounts create(final List<TransactionInstruction> instructions, final PublicKey payer)
     {
-        return create(instructions, payerReference, List.of());
+        return create(instructions, payer, List.of());
     }
 
     static Accounts create(
             final List<TransactionInstruction> instructions,
-            final TransactionInstruction.AccountReference payerReference,
+            final PublicKey payer,
             final List<AddressLookupTable> addressLookupTables)
     {
+        final var payerReference = new SolanaAccountReference(payer, true, true, false);
         final var allAccountReferences = mergeAccountReferences(instructions, payerReference);
 
         final var lookupAccounts = LookupAccounts.create(allAccountReferences, addressLookupTables);

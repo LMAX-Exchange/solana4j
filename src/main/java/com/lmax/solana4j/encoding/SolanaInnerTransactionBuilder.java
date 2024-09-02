@@ -20,8 +20,7 @@ import static java.util.Objects.requireNonNull;
 class SolanaInnerTransactionBuilder implements InnerTransactionBuilder
 {
     private final List<TransactionInstruction> innerInstructions = new ArrayList<>();
-
-    private TransactionInstruction.AccountReference payerReference = new SolanaAccountReference(Solana.account(new byte[32]), true, true, false);
+    private PublicKey payer = Solana.account(new byte[32]);
 
     @Override
     public InnerTransactionBuilder instructions(final Consumer<TransactionBuilder> builder)
@@ -34,7 +33,7 @@ class SolanaInnerTransactionBuilder implements InnerTransactionBuilder
     @Override
     public InnerTransactionBuilder payer(final PublicKey payer)
     {
-        payerReference = new SolanaAccountReference(payer, true, true, false);
+        this.payer = payer;
         return this;
     }
 
@@ -42,7 +41,7 @@ class SolanaInnerTransactionBuilder implements InnerTransactionBuilder
     public InnerInstructions build()
     {
         final ByteBuffer innerTransactionBytes = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
-        final Accounts accounts = SolanaAccounts.create(innerInstructions, payerReference);
+        final Accounts accounts = SolanaAccounts.create(innerInstructions, payer);
         final SolanaMessageWriterLegacy writer = new SolanaMessageWriterLegacy(accounts, new SolanaBlockhash(new byte[32]), innerInstructions);
 
         writer.write(innerTransactionBytes);
