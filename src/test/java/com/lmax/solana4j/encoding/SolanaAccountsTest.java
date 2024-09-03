@@ -124,7 +124,7 @@ class SolanaAccountsTest
 
 
     @Test
-    void unsignedReadWriteAccountReferenceSortedAfterSignersButBeforeReadOnlyAccountsInStaticAccountList()
+    void unsignedReadWriteAccountReferenceSortedAfterSignersButBeforeUnsignedReadOnlyAccounts()
     {
         final SolanaAccount rwUAccount = new SolanaAccount(ACCOUNT1);
 
