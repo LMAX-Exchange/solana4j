@@ -139,7 +139,7 @@ jobs:
         run: ls -R build/docs/javadoc
 
       - name: Check for any symlinks
-        run: find -type l build/docs/javadoc
+        run: find build/docs/javadoc -type l
 
       - name: Deploy to GitHub Pages
         id: deployment
