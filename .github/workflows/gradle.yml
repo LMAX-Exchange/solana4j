@@ -128,21 +128,7 @@ jobs:
         run: |
           echo "ACTIONS_RUNNER_DEBUG=true" >> $GITHUB_ENV
           echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
-          
-      - name: Download Javadoc artifact
-        uses: actions/download-artifact@v4.1.7
-        with:
-          name: github-pages
-          path: build/docs/javadoc
-
-      - name: List artifact contents for debugging
-        run: ls -R build/docs/javadoc
-
-      - name: Check for any symlinks
-        run: find build/docs/javadoc -type l
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          path: build/docs/javadoc
