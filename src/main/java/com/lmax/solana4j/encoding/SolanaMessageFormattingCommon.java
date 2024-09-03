@@ -115,7 +115,7 @@ final class SolanaMessageFormattingCommon
 
     void writeBlockHash(final SolanaBlockhash blockHash)
     {
-        blockHash.write(null, buffer);
+        blockHash.write(buffer);
     }
 
     Blockhash readBlockHash()

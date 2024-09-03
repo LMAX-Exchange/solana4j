@@ -1,15 +1,13 @@
 package com.lmax.solana4j.encoding;
 
 import com.lmax.solana4j.api.Blockhash;
-import com.lmax.solana4j.api.ByteBufferWriter;
-import com.lmax.solana4j.api.References;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 import static java.util.Objects.requireNonNull;
 
-final class SolanaBlockhash implements Blockhash, ByteBufferWriter
+final class SolanaBlockhash implements Blockhash
 {
     private static final int BLOCKHASH_LENGTH = 32;
     private final byte[] bytes;
@@ -18,13 +16,13 @@ final class SolanaBlockhash implements Blockhash, ByteBufferWriter
     {
         if (requireNonNull(bytes).length != BLOCKHASH_LENGTH)
         {
-            throw new IllegalStateException("invalid block hash length. Expected length: " + BLOCKHASH_LENGTH);
+            throw new IllegalArgumentException("invalid block hash length. Expected length: " + BLOCKHASH_LENGTH);
         }
         this.bytes = bytes.clone();
     }
 
     @Override
-    public void write(final References references, final ByteBuffer buffer)
+    public void write(final ByteBuffer buffer)
     {
         buffer.put(bytes);
     }

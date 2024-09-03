@@ -1,5 +1,7 @@
 package com.lmax.solana4j.api;
 
+import java.nio.ByteBuffer;
+
 /**
  * Interface representing a blockhash in the Solana blockchain.
  * <p>
@@ -9,5 +11,10 @@ package com.lmax.solana4j.api;
  */
 public interface Blockhash
 {
-    // This interface represents a blockhash and does not define any methods.
+    /**
+     * Writes the blockhash to the provided byte buffer.
+     *
+     * @param buffer the {@link ByteBuffer} to write the blockhash to
+     */
+    void write(ByteBuffer buffer);
 }
