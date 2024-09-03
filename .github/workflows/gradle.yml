@@ -106,29 +106,9 @@ jobs:
       - name: Build Javadoc
         run: ./gradlew javadoc
 
-      - name: Publish Javadoc
-        uses: actions/upload-artifact@v4
+      - name: Deploy Pages Content
+        uses: JamesIves/github-pages-deploy-action@v4
+        # https://stackoverflow.com/questions/64781462/github-actions-default-branch-variable
+        if: ${{ always() && format('refs/heads/{0}', github.event.repository.default_branch) == github.ref }}
         with:
-          path: build/docs/javadoc
-          name: github-pages
-
-  publish_site:
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-      pages: write
-    needs:
-      - javadoc
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Enable debug logging
-        run: |
-          echo "ACTIONS_RUNNER_DEBUG=true" >> $GITHUB_ENV
-          echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          folder: build/docs/javadoc
