@@ -51,7 +51,6 @@ class SolanaProgramDerivedAddress implements ProgramDerivedAddress
 
     private static boolean isOffCurve(final byte[] programAddress)
     {
-        //is this the best way?
         try
         {
             final GroupElement point = ED_25519_CURVE_SPEC.getCurve().createPoint(programAddress, false);
@@ -63,7 +62,6 @@ class SolanaProgramDerivedAddress implements ProgramDerivedAddress
         }
     }
 
-    // programId is just the Solana term for the public key of the program account
     public static ProgramDerivedAddress deriveProgramAddress(final PublicKey owner, final PublicKey programId)
     {
         return deriveProgramAddress(List.of(owner.bytes()), programId);
