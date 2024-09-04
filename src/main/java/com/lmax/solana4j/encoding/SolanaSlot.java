@@ -16,7 +16,7 @@ final class SolanaSlot implements Slot
     {
         if (requireNonNull(bytes).length != SLOT_LENGTH)
         {
-            throw new IllegalStateException("invalid slot length. Expected length: " + SLOT_LENGTH);
+            throw new IllegalArgumentException("invalid slot length. Expected length: " + SLOT_LENGTH);
         }
         this.bytes = bytes.clone();
     }
