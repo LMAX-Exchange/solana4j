@@ -13,12 +13,12 @@ import java.util.Set;
 
 import static com.lmax.solana4j.api.TransactionInstruction.AccountReference;
 
-public class LookupAccounts
+final class LookupAccounts
 {
     private final List<AddressLookupTableEntrys> lookupTableEntrys;
     private final Set<PublicKey> accountsInLookupTables;
 
-    public LookupAccounts(
+    LookupAccounts(
             final List<AddressLookupTableEntrys> lookupTableEntrys,
             final Set<PublicKey> accountsInLookupTables)
     {
