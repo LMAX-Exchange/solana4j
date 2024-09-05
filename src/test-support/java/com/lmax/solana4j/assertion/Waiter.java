@@ -9,15 +9,11 @@ public final class Waiter
     private static final Duration DEFAULT_INITIAL_DELAY = Duration.ZERO;
     private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(30);
     private static final Duration DEFAULT_POLLING_INTERVAL = Duration.ofSeconds(3);
+    private static final Waiter DEFAULT_WAITER = new Waiter(DEFAULT_INITIAL_DELAY, DEFAULT_TIMEOUT, DEFAULT_POLLING_INTERVAL);
 
     private final Duration initialDelay;
     private final Duration timeout;
     private final Duration pollingInterval;
-
-    private Waiter()
-    {
-        this(DEFAULT_INITIAL_DELAY, DEFAULT_TIMEOUT, DEFAULT_POLLING_INTERVAL);
-    }
 
     private Waiter(final Duration initialDelay, final Duration timeout, final Duration pollingInterval)
     {
@@ -62,8 +58,13 @@ public final class Waiter
         throw new AssertionError("Waiting for condition that never happened. " + ZonedDateTime.now());
     }
 
+    public static Waiter waiter()
+    {
+        return DEFAULT_WAITER;
+    }
+
     public static <T> T waitFor(final Assertion<T> assertion)
     {
-        return new Waiter().waitForAssertion(assertion);
+        return waiter().waitForAssertion(assertion);
     }
 }
