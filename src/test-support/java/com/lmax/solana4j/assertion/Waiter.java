@@ -16,11 +16,11 @@ public class Waiter
 
     private int retries = 10;
     private Duration maximumBackoff = Duration.ofSeconds(3);
-    private Duration initialDelay = Duration.ofSeconds(1);
+    private Duration initialDelay = Duration.ofSeconds(0);
 
     public <T> T waitFor(final Assertion<T> assertion)
     {
-        initialBackOff();
+        LockSupport.parkNanos(this.initialDelay.toNanos());
 
         for (int i = 0; i < retries; i++)
         {
@@ -54,15 +54,6 @@ public class Waiter
     {
         this.initialDelay = initialDelay;
         return this;
-    }
-
-    private void initialBackOff()
-    {
-        final long startTime = System.currentTimeMillis();
-        while ((System.currentTimeMillis() - startTime) < initialDelay.toMillis())
-        {
-            LockSupport.parkNanos(1000 * 500);
-        }
     }
 
     private long calculateExponentialBackoffDelay(final int attempt)
