@@ -24,14 +24,17 @@ public class AssociatedTokenProgramIntegrationTest extends IntegrationTestBase
     {
         solana.setMessageEncoding(messageEncoding);
 
-        solana.createMintAccount("mintAddress", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram);
+        solana.maybeCreateAndExtendAddressLookupTable(messageEncoding, "addressLookupTable", "payer", "mintAddress", "mintAuthority", "freezeAuthority");
+
+        solana.createMintAccount("mintAddress", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram, "addressLookupTable");
 
         solana.createAssociatedTokenAddress(
                 "associatedTokenAddress: tokenAddress",
                 "owner: owner",
                 "tokenMint: mintAddress",
                 "payer: payer",
-                "tokenProgram: " + tokenProgram);
+                "tokenProgram: " + tokenProgram,
+                "addressLookupTables: addressLookupTable");
 
         solana.tokenBalance("address: tokenAddress", "amount: 0");
     }

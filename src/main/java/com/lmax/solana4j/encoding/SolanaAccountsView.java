@@ -1,24 +1,27 @@
 package com.lmax.solana4j.encoding;
 
-import com.lmax.solana4j.api.AddressesFromLookup;
 import com.lmax.solana4j.api.MessageVisitor;
 import com.lmax.solana4j.api.PublicKey;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 final class SolanaAccountsView implements MessageVisitor.AccountsView
 {
     private final List<PublicKey> staticAccounts;
-    private final int countReadWriteLookups;
-    private final int countReadOnlyLookups;
+    private final List<MessageVisitor.AccountLookupTableView> lookupAccounts;
 
-    SolanaAccountsView(final List<PublicKey> staticAccounts, final int countReadWriteLookups, final int countReadOnlyLookups)
+    SolanaAccountsView(final List<PublicKey> staticAccounts)
     {
         this.staticAccounts = staticAccounts;
-        this.countReadWriteLookups = countReadWriteLookups;
-        this.countReadOnlyLookups = countReadOnlyLookups;
+        this.lookupAccounts = List.of();
+    }
+
+    SolanaAccountsView(final List<PublicKey> staticAccounts, final List<MessageVisitor.AccountLookupTableView> lookupAccounts)
+    {
+        this.staticAccounts = staticAccounts;
+        this.lookupAccounts = lookupAccounts;
     }
 
     @Override
@@ -28,22 +31,8 @@ final class SolanaAccountsView implements MessageVisitor.AccountsView
     }
 
     @Override
-    public List<PublicKey> allAccounts(final AddressesFromLookup addressesFromLookup)
-    {
-        if (countReadOnlyLookups != addressesFromLookup.countReadOnly() || countReadWriteLookups != addressesFromLookup.countReadWrite())
-        {
-            throw new IllegalArgumentException("Cannot evaluate accounts, missing account lookup values");
-        }
-
-        final List<PublicKey> accounts = new ArrayList<>(staticAccounts);
-        addressesFromLookup.write(accounts);
-
-        return accounts;
-    }
-
-    @Override
     public List<PublicKey> allAccounts()
     {
-        return allAccounts(new SolanaAddressesFromLookup(Collections.emptyList(), Collections.emptyList()));
+        return Stream.concat(staticAccounts.stream(), lookupAccounts.stream().map(MessageVisitor.AccountLookupTableView::lookupAccount)).collect(Collectors.toList());
     }
 }

@@ -291,8 +291,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
             final Slot recentSlot,
             final Blockhash blockhash,
             final PublicKey payer,
-            final List<TestKeyPair> signers,
-            final List<AddressLookupTable> addressLookupTables)
+            final List<TestKeyPair> signers)
     {
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 

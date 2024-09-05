@@ -291,8 +291,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
             final Slot slot,
             final Blockhash blockhash,
             final PublicKey payer,
-            final List<TestKeyPair> signers,
-            final List<AddressLookupTable> addressLookupTables)
+            final List<TestKeyPair> signers)
     {
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -307,7 +306,6 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                                 slot)
                 )
                 .payer(payer)
-                .lookups(addressLookupTables)
                 .seal()
                 .unsigned()
                 .build();

@@ -94,8 +94,7 @@ public interface TransactionBlobFactory
             Slot slot,
             Blockhash blockhash,
             PublicKey payer,
-            List<TestKeyPair> signers,
-            List<AddressLookupTable> addressLookupTables);
+            List<TestKeyPair> signers);
 
     String extendAddressLookupTable(
             PublicKey lookupAddress,

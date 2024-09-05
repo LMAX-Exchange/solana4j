@@ -118,15 +118,6 @@ public interface MessageVisitor<T>
         boolean isWriter(PublicKey account);
 
         /**
-         * Checks if the given account is a writer, considering lookup addresses.
-         *
-         * @param account             the account to check
-         * @param addressesFromLookup the lookup addresses
-         * @return {@code true} if the account is a writer, {@code false} otherwise
-         */
-        boolean isWriter(PublicKey account, AddressesFromLookup addressesFromLookup);
-
-        /**
          * Returns the list of signer public keys for the transaction.
          *
          * @return a list of {@link PublicKey} objects representing the signers
@@ -258,15 +249,7 @@ public interface MessageVisitor<T>
         List<PublicKey> staticAccounts();
 
         /**
-         * Returns the list of all accounts, including those from lookup addresses.
-         *
-         * @param addressesFromLookup the lookup addresses
-         * @return a list of {@link PublicKey} objects representing all accounts
-         */
-        List<PublicKey> allAccounts(AddressesFromLookup addressesFromLookup);
-
-        /**
-         * Returns the list of all accounts.
+         * Returns the list of all accounts, static accounts and lookup accounts.
          *
          * @return a list of {@link PublicKey} objects representing all accounts
          */

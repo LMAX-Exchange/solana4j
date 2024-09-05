@@ -24,7 +24,9 @@ class TokenProgramIntegrationTest extends IntegrationTestBase
         solana.createKeyPair("mintAuthority");
         solana.createKeyPair("freezeAuthority");
 
-        solana.createMintAccount("tokenMintAddress", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram);
+        solana.maybeCreateAndExtendAddressLookupTable(messageEncoding, "addressLookupTable", "payer", "tokenMintAddress", "mintAuthority", "freezeAuthority");
+
+        solana.createMintAccount("tokenMintAddress", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram, "addressLookupTable");
     }
 
     @ParameterizedTokenTest
@@ -38,10 +40,12 @@ class TokenProgramIntegrationTest extends IntegrationTestBase
         solana.createKeyPair("tokenAccount");
         solana.createKeyPair("tokenAccountOwner");
 
-        solana.createMintAccount("tokenMint", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram);
-        solana.createTokenAccount("tokenAccount", "tokenAccountOwner", "tokenMint", "payer", tokenProgram);
+        solana.maybeCreateAndExtendAddressLookupTable(messageEncoding, "addressLookupTable", "payer", "tokenMint", "mintAuthority", "freezeAuthority", "tokenAccount", "tokenAccountOwner");
 
-        solana.mintTo("tokenMint", "tokenAccount", "mintAuthority", "payer", "100", tokenProgram);
+        solana.createMintAccount("tokenMint", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram, "addressLookupTable");
+        solana.createTokenAccount("tokenAccount", "tokenAccountOwner", "tokenMint", "payer", tokenProgram, "addressLookupTable");
+
+        solana.mintTo("tokenMint", "tokenAccount", "mintAuthority", "payer", "100", tokenProgram, "addressLookupTable");
         solana.tokenBalance("tokenAccount", "0.0000000000000001");
     }
 
@@ -57,15 +61,26 @@ class TokenProgramIntegrationTest extends IntegrationTestBase
         solana.createKeyPair("tokenAccountReceiver");
         solana.createKeyPair("tokenAccountOwner");
 
-        solana.createMintAccount("tokenMint", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram);
-        solana.createTokenAccount("tokenAccountSender", "tokenAccountOwner", "tokenMint", "payer", tokenProgram);
+        solana.maybeCreateAndExtendAddressLookupTable(
+                messageEncoding,
+                "addressLookupTable",
+                "payer",
+                "tokenMint",
+                "mintAuthority",
+                "freezeAuthority",
+                "tokenAccountSender",
+                "tokenAccountReceiver",
+                "tokenAccountOwner");
 
-        solana.mintTo("tokenMint", "tokenAccountSender", "mintAuthority", "payer", "100", tokenProgram);
+        solana.createMintAccount("tokenMint", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram, "addressLookupTable");
+        solana.createTokenAccount("tokenAccountSender", "tokenAccountOwner", "tokenMint", "payer", tokenProgram, "addressLookupTable");
+
+        solana.mintTo("tokenMint", "tokenAccountSender", "mintAuthority", "payer", "100", tokenProgram, "addressLookupTable");
         solana.tokenBalance("tokenAccountSender", "0.0000000000000001");
 
-        solana.createTokenAccount("tokenAccountReceiver", "tokenAccountOwner", "tokenMint", "payer", tokenProgram);
+        solana.createTokenAccount("tokenAccountReceiver", "tokenAccountOwner", "tokenMint", "payer", tokenProgram, "addressLookupTable");
 
-        solana.tokenTransfer("tokenAccountSender", "tokenAccountReceiver", "tokenAccountOwner", "10", "payer", tokenProgram);
+        solana.tokenTransfer("tokenAccountSender", "tokenAccountReceiver", "tokenAccountOwner", "10", "payer", tokenProgram, "addressLookupTable");
         solana.tokenBalance("tokenAccountSender", "0.00000000000000009");
         solana.tokenBalance("tokenAccountReceiver", "0.00000000000000001");
     }

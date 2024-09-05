@@ -58,8 +58,7 @@ public class SolanaDriver
     public String createAddressLookupTable(final ProgramDerivedAddress programDerivedAddress,
                                            final TestKeyPair authority,
                                            final TestKeyPair payer,
-                                           final Slot slot,
-                                           final List<AddressLookupTable> addressLookupTables)
+                                           final Slot slot)
     {
         final Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
 
@@ -69,8 +68,7 @@ public class SolanaDriver
                 slot,
                 Solana.blockhash(recentBlockhash.getBytes()),
                 payer.getSolana4jPublicKey(),
-                List.of(payer, authority),
-                addressLookupTables);
+                List.of(payer, authority));
 
         return solanaApi.sendTransaction(transactionBlob);
     }

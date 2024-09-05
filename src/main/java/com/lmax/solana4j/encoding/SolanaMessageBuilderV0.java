@@ -26,7 +26,7 @@ final class SolanaMessageBuilderV0 implements MessageBuilderV0
     private SolanaBlockhash recentBlockhash;
 
     private final List<TransactionInstruction> instructions = new ArrayList<>();
-    private List<AddressLookupTable> accountLookups;
+    private List<AddressLookupTable> accountLookups = new ArrayList<>();
 
     SolanaMessageBuilderV0(final MessageBuilder parent, final ByteBuffer buffer)
     {
