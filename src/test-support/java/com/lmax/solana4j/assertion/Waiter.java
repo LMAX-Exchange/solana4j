@@ -14,7 +14,7 @@ public class Waiter
     private static final Logger LOGGER = LoggerFactory.getLogger(Waiter.class);
     private static final Random RANDOM = new Random();
 
-    private int retrys = 10;
+    private int retries = 10;
     private Duration maximumBackoff = Duration.ofSeconds(3);
     private Duration initialDelay = Duration.ofSeconds(1);
 
@@ -22,7 +22,7 @@ public class Waiter
     {
         initialBackOff();
 
-        for (int i = 0; i < retrys; i++)
+        for (int i = 0; i < retries; i++)
         {
             try
             {
@@ -38,9 +38,9 @@ public class Waiter
         throw new AssertionError("Waiting for condition that never happened. " + ZonedDateTime.now());
     }
 
-    public Waiter withRetrys(final int retrys)
+    public Waiter withRetries(final int retries)
     {
-        this.retrys = retrys;
+        this.retries = retries;
         return this;
     }
 
