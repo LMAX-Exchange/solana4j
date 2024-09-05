@@ -26,12 +26,12 @@ public class IsEqualToAssertion<T> extends Assertion<T>
         try
         {
             final T actual = actualSupplier.get();
-            LOGGER.info("Expected value {} and actual value {}.", expected, actual);
+            LOGGER.debug("Expected value {} and actual value {}.", expected, actual);
             assertThat(expected).isEqualTo(actual);
         }
         catch (final Exception e)
         {
-            LOGGER.info("Something went wrong trying to get the actual value: {}", e.getMessage());
+            LOGGER.debug("Something went wrong trying to get the actual value: {}", e.getMessage());
             throw e;
         }
     }

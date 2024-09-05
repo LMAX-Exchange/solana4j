@@ -1,28 +1,52 @@
 package com.lmax.solana4j.assertion;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.time.Duration;
 import java.time.ZonedDateTime;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 
-public class Waiter
+public final class Waiter
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Waiter.class);
-    private static final Random RANDOM = new Random();
+    private static final Duration DEFAULT_INITIAL_DELAY = Duration.ZERO;
+    private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(30);
+    private static final Duration DEFAULT_POLLING_INTERVAL = Duration.ofSeconds(3);
 
-    private int retries = 10;
-    private Duration maximumBackoff = Duration.ofSeconds(3);
-    private Duration initialDelay = Duration.ofSeconds(0);
+    private final Duration initialDelay;
+    private final Duration timeout;
+    private final Duration pollingInterval;
 
-    public <T> T waitFor(final Assertion<T> assertion)
+    private Waiter()
     {
-        LockSupport.parkNanos(this.initialDelay.toNanos());
+        this(DEFAULT_INITIAL_DELAY, DEFAULT_TIMEOUT, DEFAULT_POLLING_INTERVAL);
+    }
 
-        for (int i = 0; i < retries; i++)
+    private Waiter(final Duration initialDelay, final Duration timeout, final Duration pollingInterval)
+    {
+        this.initialDelay = initialDelay;
+        this.timeout = timeout;
+        this.pollingInterval = pollingInterval;
+    }
+
+    public Waiter withInitialDelay(final Duration initialDelay)
+    {
+        return new Waiter(initialDelay, timeout, pollingInterval);
+    }
+
+    public Waiter withTimeout(final Duration timeout)
+    {
+        return new Waiter(initialDelay, timeout, pollingInterval);
+    }
+
+    public Waiter withPollingInterval(final Duration pollingInterval)
+    {
+        return new Waiter(initialDelay, timeout, pollingInterval);
+    }
+
+    public <T> T waitForAssertion(final Assertion<T> assertion)
+    {
+        final long endTimeMillis = System.currentTimeMillis() + timeout.toMillis();
+
+        LockSupport.parkNanos(initialDelay.toNanos());
+        while (System.currentTimeMillis() < endTimeMillis)
         {
             try
             {
@@ -31,40 +55,15 @@ public class Waiter
             }
             catch (final Throwable throwable)
             {
-                final long exponentialBackoff = calculateExponentialBackoffDelay(i + 1);
-                LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(exponentialBackoff));
+                LockSupport.parkNanos(pollingInterval.toNanos());
             }
         }
+
         throw new AssertionError("Waiting for condition that never happened. " + ZonedDateTime.now());
     }
 
-    public Waiter withRetries(final int retries)
+    public static <T> T waitFor(final Assertion<T> assertion)
     {
-        this.retries = retries;
-        return this;
-    }
-
-    public Waiter withMaximumBackoff(final Duration maximumBackOff)
-    {
-        this.maximumBackoff = maximumBackOff;
-        return this;
-    }
-
-    public Waiter withInitialDelay(final Duration initialDelay)
-    {
-        this.initialDelay = initialDelay;
-        return this;
-    }
-
-    private long calculateExponentialBackoffDelay(final int attempt)
-    {
-        long delay = (1L << (attempt - 1));
-        delay = Math.min(delay, maximumBackoff.toSeconds());
-        if (delay > 1)
-        {
-            delay = delay / 2 + RANDOM.nextInt((int) delay / 2);
-        }
-        LOGGER.debug("Backing off, delay now is {} seconds.", delay);
-        return delay;
+        return new Waiter().waitForAssertion(assertion);
     }
 }
