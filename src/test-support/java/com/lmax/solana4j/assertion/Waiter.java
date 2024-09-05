@@ -37,7 +37,7 @@ public final class Waiter
         return new Waiter(initialDelay, timeout, pollingInterval);
     }
 
-    public <T> T waitForAssertion(final Assertion<T> assertion)
+    public <T> T waitForCondition(final Condition<T> condition)
     {
         final long endTimeMillis = System.currentTimeMillis() + timeout.toMillis();
 
@@ -46,8 +46,8 @@ public final class Waiter
         {
             try
             {
-                assertion.doAssert();
-                return assertion.getActual();
+                condition.check();
+                return condition.getActual();
             }
             catch (final Throwable throwable)
             {
@@ -63,8 +63,8 @@ public final class Waiter
         return DEFAULT_WAITER;
     }
 
-    public static <T> T waitFor(final Assertion<T> assertion)
+    public static <T> T waitFor(final Condition<T> condition)
     {
-        return waiter().waitForAssertion(assertion);
+        return waiter().waitForCondition(condition);
     }
 }

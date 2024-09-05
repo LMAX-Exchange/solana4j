@@ -7,25 +7,34 @@ import java.util.function.Supplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class IsNotNullAssertion<T> extends Assertion<T>
+class IsNotEqualToCondition<T> extends Condition<T>
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(IsNotNullAssertion.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(IsNotEqualToCondition.class);
 
+    private final T notExpected;
     private final Supplier<T> actualSupplier;
 
-    public IsNotNullAssertion(final Supplier<T> actualSupplier)
+    IsNotEqualToCondition(final T notExpected, final Supplier<T> actualSupplier)
     {
+        this.notExpected = notExpected;
         this.actualSupplier = actualSupplier;
     }
 
     @Override
-    public void doAssert()
+    public void check()
     {
         try
         {
             final T actual = actualSupplier.get();
             LOGGER.debug("Actual value {}.", actual);
-            assertThat(actual).isNotNull();
+            if (notExpected == null)
+            {
+                assertThat(actual).isNotNull();
+            }
+            else
+            {
+                assertThat(actual).isNotEqualTo(notExpected);
+            }
         }
         catch (final Exception e)
         {

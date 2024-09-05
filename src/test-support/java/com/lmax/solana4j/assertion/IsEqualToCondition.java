@@ -7,21 +7,21 @@ import java.util.function.Supplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class IsEqualToAssertion<T> extends Assertion<T>
+class IsEqualToCondition<T> extends Condition<T>
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(IsEqualToAssertion.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(IsEqualToCondition.class);
 
     private final T expected;
     private final Supplier<T> actualSupplier;
 
-    public IsEqualToAssertion(final T expected, final Supplier<T> actualSupplier)
+    IsEqualToCondition(final T expected, final Supplier<T> actualSupplier)
     {
         this.expected = expected;
         this.actualSupplier = actualSupplier;
     }
 
     @Override
-    public void doAssert()
+    public void check()
     {
         try
         {
