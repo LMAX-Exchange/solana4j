@@ -96,16 +96,11 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#allAccounts()" class="member-name-link">allAccounts</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Returns the list of all accounts.</div>
+<div class="block">Returns the list of all accounts, static accounts and lookup accounts.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#allAccounts(com.lmax.solana4j.api.AddressesFromLookup)" class="member-name-link">allAccounts</a><wbr>(<a href="AddressesFromLookup.html" title="interface in com.lmax.solana4j.api">AddressesFromLookup</a>&nbsp;addressesFromLookup)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#staticAccounts()" class="member-name-link">staticAccounts</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Returns the list of all accounts, including those from lookup addresses.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#staticAccounts()" class="member-name-link">staticAccounts</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Returns the list of static accounts.</div>
 </div>
 </div>
@@ -134,23 +129,10 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="allAccounts(com.lmax.solana4j.api.AddressesFromLookup)">
-<h3>allAccounts</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</span>&nbsp;<span class="element-name">allAccounts</span><wbr><span class="parameters">(<a href="AddressesFromLookup.html" title="interface in com.lmax.solana4j.api">AddressesFromLookup</a>&nbsp;addressesFromLookup)</span></div>
-<div class="block">Returns the list of all accounts, including those from lookup addresses.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>addressesFromLookup</code> - the lookup addresses</dd>
-<dt>Returns:</dt>
-<dd>a list of <a href="PublicKey.html" title="interface in com.lmax.solana4j.api"><code>PublicKey</code></a> objects representing all accounts</dd>
-</dl>
-</section>
-</li>
-<li>
 <section class="detail" id="allAccounts()">
 <h3>allAccounts</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</span>&nbsp;<span class="element-name">allAccounts</span>()</div>
-<div class="block">Returns the list of all accounts.</div>
+<div class="block">Returns the list of all accounts, static accounts and lookup accounts.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>a list of <a href="PublicKey.html" title="interface in com.lmax.solana4j.api"><code>PublicKey</code></a> objects representing all accounts</dd>
