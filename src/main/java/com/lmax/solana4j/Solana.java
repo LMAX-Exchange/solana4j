@@ -1,5 +1,6 @@
 package com.lmax.solana4j;
 
+import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.AssociatedTokenAddress;
 import com.lmax.solana4j.api.Blockhash;
 import com.lmax.solana4j.api.InnerTransactionBuilder;
@@ -16,6 +17,14 @@ import java.util.List;
 
 /**
  * Utility class for Solana blockchain operations.
+ * <p>
+ * This class provides various utility methods for creating, reading, and manipulating Solana blockchain data structures.
+ * It utilizes the Solana encoding to facilitate operations on different blockchain entities such as accounts, messages,
+ * transactions, and more.
+ * </p>
+ * <p>
+ * This class is designed to be non-instantiable and serves as a static utility holder.
+ * </p>
  */
 public final class Solana
 {
@@ -37,7 +46,7 @@ public final class Solana
     /**
      * Creates a new message builder for the given buffer.
      *
-     * @param buffer the ByteBuffer to use for building the message
+     * @param buffer the {@link ByteBuffer} to use for building the message
      * @return a new instance of {@link MessageBuilder}
      */
     public static MessageBuilder builder(final ByteBuffer buffer)
@@ -58,7 +67,7 @@ public final class Solana
     /**
      * Creates a new signed message builder for the given message buffer.
      *
-     * @param message the ByteBuffer containing the message
+     * @param message the {@link ByteBuffer} containing the message
      * @return a new instance of {@link SignedMessageBuilder}
      */
     public static SignedMessageBuilder forSigning(final ByteBuffer message)
@@ -69,7 +78,7 @@ public final class Solana
     /**
      * Reads a message from the given buffer.
      *
-     * @param message the ByteBuffer containing the message
+     * @param message the {@link ByteBuffer} containing the message
      * @return a new instance of {@link Message}
      */
     public static Message read(final ByteBuffer message)
@@ -86,6 +95,18 @@ public final class Solana
     public static PublicKey account(final byte[] bytes)
     {
         return SolanaEncoding.account(bytes);
+    }
+
+    /**
+     * Creates an address lookup table for the given lookup table address and list of addresses.
+     *
+     * @param lookupTableAddress the public key of the lookup table
+     * @param addresses          the list of public keys representing the addresses
+     * @return a new instance of {@link AddressLookupTable}
+     */
+    public static AddressLookupTable addressLookupTable(final PublicKey lookupTableAddress, final List<PublicKey> addresses)
+    {
+        return SolanaEncoding.addressLookupTable(lookupTableAddress, addresses);
     }
 
     /**

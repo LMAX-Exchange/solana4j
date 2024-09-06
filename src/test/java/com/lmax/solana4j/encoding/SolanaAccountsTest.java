@@ -14,8 +14,8 @@ import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT2;
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT3;
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT4;
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT5;
-import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT_LOOKUP_TABLE1;
-import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT_LOOKUP_TABLE2;
+import static com.lmax.solana4j.Solana4jTestHelper.LOOKUP_TABLE_ADDRESS1;
+import static com.lmax.solana4j.Solana4jTestHelper.LOOKUP_TABLE_ADDRESS2;
 import static com.lmax.solana4j.Solana4jTestHelper.DATA1;
 import static com.lmax.solana4j.Solana4jTestHelper.PAYER;
 import static com.lmax.solana4j.Solana4jTestHelper.PROGRAM1;
@@ -455,7 +455,7 @@ class SolanaAccountsTest
         final SolanaAccount roUAccount2 = new SolanaAccount(ACCOUNT2);
         final SolanaAccount rwSAccount3 = new SolanaAccount(ACCOUNT3);
 
-        final SolanaAccount lookupTableAddress1 = new SolanaAccount(ACCOUNT_LOOKUP_TABLE1);
+        final SolanaAccount lookupTableAddress1 = new SolanaAccount(LOOKUP_TABLE_ADDRESS1);
         final AddressLookupTable addressLookupTable1 = new SolanaAddressLookupTable(lookupTableAddress1, List.of(rwSAccount3, roUAccount2));
 
         final SolanaTransactionInstruction solanaTransactionInstruction1 = new SolanaTransactionInstruction(
@@ -501,7 +501,7 @@ class SolanaAccountsTest
     @Test
     void evenIfSignerAccountInLookupTableWillAlwaysBeStaticAccount()
     {
-        final SolanaAccount lookupTableAddress = new SolanaAccount(ACCOUNT_LOOKUP_TABLE1);
+        final SolanaAccount lookupTableAddress = new SolanaAccount(LOOKUP_TABLE_ADDRESS1);
         final AddressLookupTable addressLookupTable = new SolanaAddressLookupTable(lookupTableAddress, List.of(RW_S_PAYER_ACCOUNT));
 
         final SolanaTransactionInstruction solanaTransactionInstruction = new SolanaTransactionInstruction(
@@ -524,7 +524,7 @@ class SolanaAccountsTest
     @Test
     void nonSignerInLookupTableNoLongerInStaticAccounts()
     {
-        final SolanaAccount lookupTableAddress = new SolanaAccount(ACCOUNT_LOOKUP_TABLE1);
+        final SolanaAccount lookupTableAddress = new SolanaAccount(LOOKUP_TABLE_ADDRESS1);
         final AddressLookupTable addressLookupTable = new SolanaAddressLookupTable(lookupTableAddress, List.of(RO_U_PROGRAM1_ACCOUNT));
 
         final SolanaTransactionInstruction solanaTransactionInstruction = new SolanaTransactionInstruction(
@@ -549,7 +549,7 @@ class SolanaAccountsTest
     {
         final SolanaAccount roUAccount = new SolanaAccount(ACCOUNT1);
 
-        final SolanaAccount lookupTableAddress = new SolanaAccount(ACCOUNT_LOOKUP_TABLE1);
+        final SolanaAccount lookupTableAddress = new SolanaAccount(LOOKUP_TABLE_ADDRESS1);
         final AddressLookupTable addressLookupTable = new SolanaAddressLookupTable(lookupTableAddress, List.of(roUAccount));
 
         final SolanaTransactionInstruction solanaTransactionInstruction = new SolanaTransactionInstruction(
@@ -578,7 +578,7 @@ class SolanaAccountsTest
     {
         final SolanaAccount roUAccount = new SolanaAccount(ACCOUNT1);
 
-        final SolanaAccount lookupTableAddress = new SolanaAccount(ACCOUNT_LOOKUP_TABLE1);
+        final SolanaAccount lookupTableAddress = new SolanaAccount(LOOKUP_TABLE_ADDRESS1);
         final AddressLookupTable addressLookupTable = new SolanaAddressLookupTable(lookupTableAddress, List.of(roUAccount));
 
         final SolanaTransactionInstruction solanaTransactionInstruction = new SolanaTransactionInstruction(
@@ -609,10 +609,10 @@ class SolanaAccountsTest
         final SolanaAccount roUAccount2 = new SolanaAccount(ACCOUNT2);
         final SolanaAccount roUAccount3 = new SolanaAccount(ACCOUNT2);
 
-        final SolanaAccount lookupTableAddress1 = new SolanaAccount(ACCOUNT_LOOKUP_TABLE1);
+        final SolanaAccount lookupTableAddress1 = new SolanaAccount(LOOKUP_TABLE_ADDRESS1);
         final AddressLookupTable addressLookupTable1 = new SolanaAddressLookupTable(lookupTableAddress1, List.of(roUAccount2, roUAccount3, roUAccount1));
 
-        final SolanaAccount lookupTableAddress2 = new SolanaAccount(ACCOUNT_LOOKUP_TABLE2);
+        final SolanaAccount lookupTableAddress2 = new SolanaAccount(LOOKUP_TABLE_ADDRESS2);
         final AddressLookupTable addressLookupTable2 = new SolanaAddressLookupTable(lookupTableAddress2, List.of(roUAccount1));
 
         final SolanaTransactionInstruction solanaTransactionInstruction = new SolanaTransactionInstruction(
@@ -639,10 +639,10 @@ class SolanaAccountsTest
         final SolanaAccount roUAccount1 = new SolanaAccount(ACCOUNT1);
         final SolanaAccount roUAccount2 = new SolanaAccount(ACCOUNT2);
 
-        final SolanaAccount lookupTableAddress1 = new SolanaAccount(ACCOUNT_LOOKUP_TABLE1);
+        final SolanaAccount lookupTableAddress1 = new SolanaAccount(LOOKUP_TABLE_ADDRESS1);
         final AddressLookupTable addressLookupTable1 = new SolanaAddressLookupTable(lookupTableAddress1, List.of(roUAccount2));
 
-        final SolanaAccount lookupTableAddress2 = new SolanaAccount(ACCOUNT_LOOKUP_TABLE2);
+        final SolanaAccount lookupTableAddress2 = new SolanaAccount(LOOKUP_TABLE_ADDRESS2);
         final AddressLookupTable addressLookupTable2 = new SolanaAddressLookupTable(lookupTableAddress2, List.of(roUAccount1));
 
         final SolanaTransactionInstruction solanaTransactionInstruction = new SolanaTransactionInstruction(
@@ -676,10 +676,10 @@ class SolanaAccountsTest
         final SolanaAccount rwSAccount3 = new SolanaAccount(ACCOUNT3);
         final SolanaAccount rwUAccount4 = new SolanaAccount(ACCOUNT4);
 
-        final SolanaAccount lookupTableAddress1 = new SolanaAccount(ACCOUNT_LOOKUP_TABLE1);
+        final SolanaAccount lookupTableAddress1 = new SolanaAccount(LOOKUP_TABLE_ADDRESS1);
         final AddressLookupTable addressLookupTable1 = new SolanaAddressLookupTable(lookupTableAddress1, List.of(rwSAccount3, roUAccount2));
 
-        final SolanaAccount lookupTableAddress2 = new SolanaAccount(ACCOUNT_LOOKUP_TABLE2);
+        final SolanaAccount lookupTableAddress2 = new SolanaAccount(LOOKUP_TABLE_ADDRESS2);
         final AddressLookupTable addressLookupTable2 = new SolanaAddressLookupTable(lookupTableAddress2, List.of(roUAccount1));
 
         final SolanaTransactionInstruction solanaTransactionInstruction1 = new SolanaTransactionInstruction(

@@ -1,5 +1,6 @@
 package com.lmax.solana4j;
 
+import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.Blockhash;
 import com.lmax.solana4j.api.ByteBufferSigner;
 import com.lmax.solana4j.api.PublicKey;
@@ -8,6 +9,7 @@ import org.assertj.core.api.Fail;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;
@@ -21,6 +23,7 @@ public class Solana4jTestHelper
     public static final int BLOCKHASH_LENGTH = 32;
     public static final int SIGNATURE_LENGTH = 64;
     public static final int LEGACY_HEADER_LENGTH = 3;
+    public static final int V0_HEADER_LENGTH = 4;
 
     public static final byte[] PAYER = newBlob(ACCOUNT_LENGTH, (byte) 1);
     public static final byte[] BLOCKHASH = newBlob(BLOCKHASH_LENGTH, (byte) 2);
@@ -46,10 +49,17 @@ public class Solana4jTestHelper
     public static final byte[] SIGNATURE6 = newBlob(SIGNATURE_LENGTH, (byte) 22);
     public static final byte[] SIGNATURE7 = newBlob(SIGNATURE_LENGTH, (byte) 23);
     public static final byte[] SIGNATURE8 = newBlob(SIGNATURE_LENGTH, (byte) 24);
-    public static final byte[] ACCOUNT_LOOKUP_TABLE1 = newBlob(ACCOUNT_LENGTH, (byte) 25);
-    public static final byte[] ACCOUNT_LOOKUP_TABLE2 = newBlob(ACCOUNT_LENGTH, (byte) 26);
-    public static final byte[] ACCOUNT_LOOKUP_TABLE3 = newBlob(ACCOUNT_LENGTH, (byte) 27);
+    public static final byte[] LOOKUP_TABLE_ADDRESS1 = newBlob(ACCOUNT_LENGTH, (byte) 25);
+    public static final byte[] LOOKUP_TABLE_ADDRESS2 = newBlob(ACCOUNT_LENGTH, (byte) 26);
     public static final byte[] UNSIGNED = newBlob(SIGNATURE_LENGTH, (byte) -77);
+    public static final AddressLookupTable ADDRESS_LOOK_TABLE1 = Solana.addressLookupTable(
+            Solana.account(LOOKUP_TABLE_ADDRESS1),
+            List.of(Solana.account(ACCOUNT8), Solana.account(ACCOUNT3))
+    );
+    public static final AddressLookupTable ADDRESS_LOOK_TABLE2 = Solana.addressLookupTable(
+            Solana.account(LOOKUP_TABLE_ADDRESS2),
+            List.of(Solana.account(ACCOUNT1), Solana.account(ACCOUNT4))
+    );
 
     public static final Map<PublicKey, byte[]> SIGNINGS = Map.of(
             Solana.account(PAYER), SIGNATURE_PAYER,
@@ -131,6 +141,27 @@ public class Solana4jTestHelper
                 .build();
     }
 
+    static void writeSimpleUnsignedV0Message(final ByteBuffer buffer)
+    {
+        Solana.builder(buffer)
+                .v0()
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
+                .instructions(tb -> tb
+                        .append(ib -> ib
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT4), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .data(DATA1.length, w -> w.put(DATA1))))
+                // account3 and account4 should appear in lookup table accounts and be omitted from the accounts section
+                .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
+                .seal()
+                .unsigned()
+                .build();
+    }
+
     static void writeSimpleUnsignedLegacyMessageWithBigData(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
@@ -141,6 +172,22 @@ public class Solana4jTestHelper
                         .append(ib -> ib
                                 .program(Solana.account(PROGRAM1))
                                 .data(DATA3.length, w -> w.put(DATA3))))
+                .seal()
+                .unsigned()
+                .build();
+    }
+
+    static void writeSimpleUnsignedV0MessageWithBigData(final ByteBuffer buffer)
+    {
+        Solana.builder(buffer)
+                .v0()
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
+                .instructions(tb -> tb
+                        .append(ib -> ib
+                                .program(Solana.account(PROGRAM1))
+                                .data(DATA3.length, w -> w.put(DATA3))))
+                .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
                 .seal()
                 .unsigned()
                 .build();
@@ -165,6 +212,26 @@ public class Solana4jTestHelper
                 .build();
     }
 
+    static void writeSimpleSignedV0MessageWithNoSignatures(final ByteBuffer buffer)
+    {
+        Solana.builder(buffer)
+                .v0()
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
+                .instructions(tb -> tb
+                        .append(ib -> ib
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT4), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .data(DATA1.length, w -> w.put(DATA1))))
+                .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
+                .seal()
+                .signed()
+                .build();
+    }
+
     static void writeSimpleFullySignedLegacyMessage(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
@@ -184,6 +251,29 @@ public class Solana4jTestHelper
                         .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
                         .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
                         .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
+                .build();
+    }
+
+    static void writeSimpleFullySignedV0Message(final ByteBuffer buffer)
+    {
+        Solana.builder(buffer)
+                .v0()
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
+                .instructions(tb -> tb
+                        .append(ib -> ib
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT4), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .data(DATA1.length, w -> w.put(DATA1))))
+                .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
+                .seal()
+                .signed()
+                .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
+                .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
+                .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
                 .build();
     }
 
@@ -222,6 +312,43 @@ public class Solana4jTestHelper
                 .build();
     }
 
+    static void writeComplexUnsignedV0Message(final ByteBuffer buffer)
+    {
+        Solana.builder(buffer)
+                .v0()
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
+                .instructions(tb -> tb
+                        .append(ib -> ib
+                                // 8, program1, 4, program2
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT4), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .data(DATA1.length, w -> w.put(DATA1)))
+                        .append(ib -> ib
+                                .program(Solana.account(PROGRAM2))
+                                .account(Solana.account(ACCOUNT5), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT6), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT7), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .account(Solana.account(ACCOUNT8), false, true)
+                                .data(DATA2.length, w -> w.put(DATA2)))
+                        .append(ib -> ib
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT3), true, true)
+                                .data(DATA1.length, w -> w.put(DATA1)))
+                )
+                // account4 and account8 should appear in lookup table accounts and be omitted from the accounts section
+                .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
+                .seal()
+                .unsigned()
+                .build();
+    }
+
     static void writeComplexSignedLegacyMessageWithNoSignatures(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
@@ -252,6 +379,42 @@ public class Solana4jTestHelper
                                 .account(Solana.account(ACCOUNT3), true, true)
                                 .data(DATA2.length, w -> w.put(DATA2)))
                 )
+                .seal()
+                .signed()
+                .build();
+    }
+
+    static void writeComplexSignedV0MessageWithNoSignatures(final ByteBuffer buffer)
+    {
+        Solana.builder(buffer)
+                .v0()
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
+                .instructions(tb -> tb
+                        .append(ib -> ib
+                                // 8, program1, 4, program2
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT4), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .data(DATA1.length, w -> w.put(DATA1)))
+                        .append(ib -> ib
+                                .program(Solana.account(PROGRAM2))
+                                .account(Solana.account(ACCOUNT5), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT6), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT7), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .account(Solana.account(ACCOUNT8), false, true)
+                                .data(DATA2.length, w -> w.put(DATA2)))
+                        .append(ib -> ib
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT3), true, true)
+                                .data(DATA2.length, w -> w.put(DATA2)))
+                )
+                .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
                 .seal()
                 .signed()
                 .build();
@@ -293,6 +456,46 @@ public class Solana4jTestHelper
                         .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
                         .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
                         .by(Solana.account(ACCOUNT7), getByteBufferSignerFor(ACCOUNT7))
+                .build();
+    }
+
+    static void writeComplexPartiallySignedV0Message(final ByteBuffer buffer)
+    {
+        Solana.builder(buffer)
+                .v0()
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
+                .instructions(tb -> tb
+                        .append(ib -> ib
+                                // 8, program1, 4, program2
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT4), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .data(DATA1.length, w -> w.put(DATA1)))
+                        .append(ib -> ib
+                                .program(Solana.account(PROGRAM2))
+                                .account(Solana.account(ACCOUNT5), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT6), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT7), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .account(Solana.account(ACCOUNT8), false, true)
+                                .data(DATA2.length, w -> w.put(DATA2)))
+                        .append(ib -> ib
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT3), true, true)
+                                .data(DATA2.length, w -> w.put(DATA2)))
+                )
+                .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
+                .seal()
+                .signed()
+                .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
+                .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
+                .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
+                .by(Solana.account(ACCOUNT7), getByteBufferSignerFor(ACCOUNT7))
                 .build();
     }
 
@@ -369,9 +572,30 @@ public class Solana4jTestHelper
         // legacy header is three bytes, v0 header is four bytes.
         if ((first & 0x80) != 0)
         {
-            throw new UnsupportedOperationException("Solana v0 message format");
+            buffer.position(buffer.position() + (V0_HEADER_LENGTH - 1));
         }
-        buffer.position(buffer.position() + (LEGACY_HEADER_LENGTH - 1));
+        else
+        {
+            buffer.position(buffer.position() + (LEGACY_HEADER_LENGTH - 1));
+        }
+    }
+
+    public static void jumpToLookupAccountsTable(final ByteBuffer buffer)
+    {
+        jumpToInstructions(buffer);
+
+        final var countInstructions = readShortVecInt(buffer);
+        for (int i = 0; i < countInstructions; i++)
+        {
+            skipInstruction(buffer);
+        }
+    }
+
+    public static AssertingMessageReader fromLookupAccountsTable(final ByteBuffer buffer)
+    {
+        jumpToLookupAccountsTable(buffer);
+
+        return new AssertingMessageReader(buffer);
     }
 
     public static void jumpToAccount(final ByteBuffer buffer, final int index)
@@ -542,6 +766,79 @@ public class Solana4jTestHelper
             if (Arrays.equals(account, entry))
             {
                 return i;
+            }
+        }
+
+        throw new NoSuchElementException("account " + Arrays.toString(account));
+    }
+
+    static byte indexOfAccount(final ByteBuffer buffer, final byte[] account, final List<AddressLookupTable> lookupTables)
+    {
+        requireNonNull(buffer);
+        requireNonNull(account);
+
+        if (account.length != ACCOUNT_LENGTH)
+        {
+            throw new IllegalArgumentException("invalid account length, expected " + ACCOUNT_LENGTH);
+        }
+
+        final var view = buffer.duplicate(); // don't move the buffer position
+
+        jumpToAccountsTable(view);
+
+        final var staticAccountsCount = readShortVecInt(view);
+
+        final var entry = new byte[ACCOUNT_LENGTH];
+        for (byte i = 0; i < staticAccountsCount; i++)
+        {
+            view.get(entry);
+
+            if (Arrays.equals(account, entry))
+            {
+                return i;
+            }
+        }
+
+        // if haven't found it in the static accounts table, look for it in the lookup accounts table
+        jumpToLookupAccountsTable(view);
+
+        final var numberOfLookupAccounts = readShortVecInt(view);
+        var lookupTableIndex = -1;
+        for (byte i = 0; i < numberOfLookupAccounts; i++)
+        {
+            final var lookupTableAddress = new byte[ACCOUNT_LENGTH];
+            view.get(lookupTableAddress);
+
+            final var lookupTable = lookupTables
+                    .stream()
+                    .filter(x -> Arrays.equals(x.getLookupTableAddress().bytes(), lookupTableAddress))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException(
+                            "Could not find the address lookup table in the supplied lookup tables."));
+
+            final var numberOfWritableIndexes = readShortVecInt(view);
+            for (int j = 0; j < numberOfWritableIndexes; j++)
+            {
+                lookupTableIndex += 1;
+                final var index = readShortVecInt(view);
+
+                if (Arrays.equals(lookupTable.getAddresses().get(index).bytes(), account))
+                {
+
+                    return (byte) (staticAccountsCount + lookupTableIndex);
+                }
+            }
+
+            final var numberOfReadableIndexes = readShortVecInt(view);
+            for (int j = 0; j < numberOfReadableIndexes; j++)
+            {
+                lookupTableIndex += 1;
+                final var  index = readShortVecInt(view);
+
+                if (Arrays.equals(lookupTable.getAddresses().get(index).bytes(), account))
+                {
+                    return (byte) (staticAccountsCount + lookupTableIndex);
+                }
             }
         }
 
