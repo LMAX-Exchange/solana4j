@@ -84,18 +84,36 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>static <a href="../AssociatedTokenAddress.html" title="interface in com.lmax.solana4j.api">AssociatedTokenAddress</a></code></div>
-<div class="col-second even-row-color"><span class="type-name-label">Solana.</span><code><a href="../../Solana.html#associatedTokenAddress(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)" class="member-name-link">associatedTokenAddress</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
+<div class="col-first even-row-color"><code>static <a href="../AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">Solana.</span><code><a href="../../Solana.html#addressLookupTable(com.lmax.solana4j.api.PublicKey,java.util.List)" class="member-name-link">addressLookupTable</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;lookupTableAddress,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;addresses)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Creates an address lookup table for the given lookup table address and list of addresses.</div>
+</div>
+<div class="col-first odd-row-color"><code>static <a href="../AssociatedTokenAddress.html" title="interface in com.lmax.solana4j.api">AssociatedTokenAddress</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">Solana.</span><code><a href="../../Solana.html#associatedTokenAddress(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)" class="member-name-link">associatedTokenAddress</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
  <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
  <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenProgramAccount)</code></div>
-<div class="col-last even-row-color">
+<div class="col-last odd-row-color">
 <div class="block">Derives an associated token address for the given owner, mint, and token program account.</div>
 </div>
-<div class="col-first odd-row-color"><code>static <a href="../ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a></code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">Solana.</span><code><a href="../../Solana.html#programDerivedAddress(java.util.List,com.lmax.solana4j.api.PublicKey)" class="member-name-link">programDerivedAddress</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;byte[]&gt;&nbsp;seeds,
+<div class="col-first even-row-color"><code>static <a href="../ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">Solana.</span><code><a href="../../Solana.html#programDerivedAddress(java.util.List,com.lmax.solana4j.api.PublicKey)" class="member-name-link">programDerivedAddress</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;byte[]&gt;&nbsp;seeds,
  <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;programId)</code></div>
-<div class="col-last odd-row-color">
+<div class="col-last even-row-color">
 <div class="block">Derives a program address from the given seeds and program ID.</div>
+</div>
+</div>
+<div class="caption"><span>Method parameters in <a href="../../package-summary.html">com.lmax.solana4j</a> with type arguments of type <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Method</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static <a href="../AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">Solana.</span><code><a href="../../Solana.html#addressLookupTable(com.lmax.solana4j.api.PublicKey,java.util.List)" class="member-name-link">addressLookupTable</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;lookupTableAddress,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;addresses)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Creates an address lookup table for the given lookup table address and list of addresses.</div>
 </div>
 </div>
 </section>

@@ -78,7 +78,15 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">Solana</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">Utility class for Solana blockchain operations.</div>
+<div class="block">Utility class for Solana blockchain operations.
+ <p>
+ This class provides various utility methods for creating, reading, and manipulating Solana blockchain data structures.
+ It utilizes the Solana encoding to facilitate operations on different blockchain entities such as accounts, messages,
+ transactions, and more.
+ </p>
+ <p>
+ This class is designed to be non-instantiable and serves as a static utility holder.
+ </p></div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -115,47 +123,53 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Creates a new public key from the given byte array.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/AssociatedTokenAddress.html" title="interface in com.lmax.solana4j.api">AssociatedTokenAddress</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#associatedTokenAddress(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)" class="member-name-link">associatedTokenAddress</a><wbr>(<a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#addressLookupTable(com.lmax.solana4j.api.PublicKey,java.util.List)" class="member-name-link">addressLookupTable</a><wbr>(<a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;lookupTableAddress,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;addresses)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates an address lookup table for the given lookup table address and list of addresses.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/AssociatedTokenAddress.html" title="interface in com.lmax.solana4j.api">AssociatedTokenAddress</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#associatedTokenAddress(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)" class="member-name-link">associatedTokenAddress</a><wbr>(<a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
  <a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
  <a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenProgramAccount)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Derives an associated token address for the given owner, mint, and token program account.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/Blockhash.html" title="interface in com.lmax.solana4j.api">Blockhash</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#blockhash(byte%5B%5D)" class="member-name-link">blockhash</a><wbr>(byte[]&nbsp;bytes)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/Blockhash.html" title="interface in com.lmax.solana4j.api">Blockhash</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#blockhash(byte%5B%5D)" class="member-name-link">blockhash</a><wbr>(byte[]&nbsp;bytes)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Creates a new blockhash from the given byte array.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/MessageBuilder.html" title="interface in com.lmax.solana4j.api">MessageBuilder</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#builder(java.nio.ByteBuffer)" class="member-name-link">builder</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link">ByteBuffer</a>&nbsp;buffer)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/MessageBuilder.html" title="interface in com.lmax.solana4j.api">MessageBuilder</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#builder(java.nio.ByteBuffer)" class="member-name-link">builder</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link">ByteBuffer</a>&nbsp;buffer)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Creates a new message builder for the given buffer.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/SignedMessageBuilder.html" title="interface in com.lmax.solana4j.api">SignedMessageBuilder</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#forSigning(java.nio.ByteBuffer)" class="member-name-link">forSigning</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link">ByteBuffer</a>&nbsp;message)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/SignedMessageBuilder.html" title="interface in com.lmax.solana4j.api">SignedMessageBuilder</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#forSigning(java.nio.ByteBuffer)" class="member-name-link">forSigning</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link">ByteBuffer</a>&nbsp;message)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Creates a new signed message builder for the given message buffer.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/InnerTransactionBuilder.html" title="interface in com.lmax.solana4j.api">InnerTransactionBuilder</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#innerTxBuilder()" class="member-name-link">innerTxBuilder</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/InnerTransactionBuilder.html" title="interface in com.lmax.solana4j.api">InnerTransactionBuilder</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#innerTxBuilder()" class="member-name-link">innerTxBuilder</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Creates a new inner transaction builder.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#programDerivedAddress(java.util.List,com.lmax.solana4j.api.PublicKey)" class="member-name-link">programDerivedAddress</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;byte[]&gt;&nbsp;seeds,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#programDerivedAddress(java.util.List,com.lmax.solana4j.api.PublicKey)" class="member-name-link">programDerivedAddress</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;byte[]&gt;&nbsp;seeds,
  <a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;programId)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Derives a program address from the given seeds and program ID.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/Message.html" title="interface in com.lmax.solana4j.api">Message</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#read(java.nio.ByteBuffer)" class="member-name-link">read</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link">ByteBuffer</a>&nbsp;message)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/Message.html" title="interface in com.lmax.solana4j.api">Message</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#read(java.nio.ByteBuffer)" class="member-name-link">read</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link">ByteBuffer</a>&nbsp;message)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Reads a message from the given buffer.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/Slot.html" title="interface in com.lmax.solana4j.api">Slot</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#slot(long)" class="member-name-link">slot</a><wbr>(long&nbsp;slot)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="api/Slot.html" title="interface in com.lmax.solana4j.api">Slot</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#slot(long)" class="member-name-link">slot</a><wbr>(long&nbsp;slot)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Creates a new slot from the given slot number.</div>
 </div>
 </div>
@@ -209,7 +223,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Creates a new message builder for the given buffer.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>buffer</code> - the ByteBuffer to use for building the message</dd>
+<dd><code>buffer</code> - the <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link"><code>ByteBuffer</code></a> to use for building the message</dd>
 <dt>Returns:</dt>
 <dd>a new instance of <a href="api/MessageBuilder.html" title="interface in com.lmax.solana4j.api"><code>MessageBuilder</code></a></dd>
 </dl>
@@ -233,7 +247,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Creates a new signed message builder for the given message buffer.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>message</code> - the ByteBuffer containing the message</dd>
+<dd><code>message</code> - the <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link"><code>ByteBuffer</code></a> containing the message</dd>
 <dt>Returns:</dt>
 <dd>a new instance of <a href="api/SignedMessageBuilder.html" title="interface in com.lmax.solana4j.api"><code>SignedMessageBuilder</code></a></dd>
 </dl>
@@ -246,7 +260,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Reads a message from the given buffer.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>message</code> - the ByteBuffer containing the message</dd>
+<dd><code>message</code> - the <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link"><code>ByteBuffer</code></a> containing the message</dd>
 <dt>Returns:</dt>
 <dd>a new instance of <a href="api/Message.html" title="interface in com.lmax.solana4j.api"><code>Message</code></a></dd>
 </dl>
@@ -262,6 +276,21 @@ loadScripts(document, 'script');</script>
 <dd><code>bytes</code> - the byte array representing the public key</dd>
 <dt>Returns:</dt>
 <dd>a new instance of <a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api"><code>PublicKey</code></a></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="addressLookupTable(com.lmax.solana4j.api.PublicKey,java.util.List)">
+<h3>addressLookupTable</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="api/AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a></span>&nbsp;<span class="element-name">addressLookupTable</span><wbr><span class="parameters">(<a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;lookupTableAddress,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;addresses)</span></div>
+<div class="block">Creates an address lookup table for the given lookup table address and list of addresses.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>lookupTableAddress</code> - the public key of the lookup table</dd>
+<dd><code>addresses</code> - the list of public keys representing the addresses</dd>
+<dt>Returns:</dt>
+<dd>a new instance of <a href="api/AddressLookupTable.html" title="interface in com.lmax.solana4j.api"><code>AddressLookupTable</code></a></dd>
 </dl>
 </section>
 </li>
