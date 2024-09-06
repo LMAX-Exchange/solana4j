@@ -448,6 +448,57 @@ class SolanaAccountsTest
     }
 
     @Test
+    void lookupAccountPresentManyTimesIsDeduplicated()
+    {
+        // ... and actually becomes a static account
+        final SolanaAccount account1 = new SolanaAccount(ACCOUNT1);
+        final SolanaAccount roUAccount2 = new SolanaAccount(ACCOUNT2);
+        final SolanaAccount rwSAccount3 = new SolanaAccount(ACCOUNT3);
+
+        final SolanaAccount lookupTableAddress1 = new SolanaAccount(ACCOUNT_LOOKUP_TABLE1);
+        final AddressLookupTable addressLookupTable1 = new SolanaAddressLookupTable(lookupTableAddress1, List.of(rwSAccount3, roUAccount2));
+
+        final SolanaTransactionInstruction solanaTransactionInstruction1 = new SolanaTransactionInstruction(
+                List.of(
+                        // account1 is not a signer here
+                        new SolanaAccountReference(account1, false, true, false),
+                        new SolanaAccountReference(rwSAccount3, true, true, false)
+                ),
+                RO_U_PROGRAM1_ACCOUNT,
+                10,
+                w -> w.put(DATA1));
+
+        final SolanaTransactionInstruction solanaTransactionInstruction2 = new SolanaTransactionInstruction(
+                List.of(
+                        new SolanaAccountReference(roUAccount2, false, false, false),
+                        // account1 is a signer here
+                        new SolanaAccountReference(account1, true, true, false)
+                ),
+                RO_U_PROGRAM1_ACCOUNT,
+                10,
+                w -> w.put(DATA1));
+
+        final Accounts accounts = SolanaAccounts.create(
+                List.of(solanaTransactionInstruction1, solanaTransactionInstruction2),
+                RW_S_PAYER_ACCOUNT,
+                List.of(addressLookupTable1)
+        );
+
+        // acount1 is a static account because it's a signer - there was a bug before that was finding account1's first occurrence as a
+        // non signer, adding that to the lookup table and then dropping subsequent mentions on the floor
+        staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, rwSAccount3, account1, RO_U_PROGRAM1_ACCOUNT));
+        lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress1, List.of(roUAccount2));
+        lookupAccountReadOnlyIndexEquals(accounts.getLookupAccounts(), lookupTableAddress1, roUAccount2, 1);
+        flattenedAccountListEquals(accounts.getFlattenedAccountList(), List.of(
+                RW_S_PAYER_ACCOUNT,
+                rwSAccount3,
+                account1,
+                RO_U_PROGRAM1_ACCOUNT,
+                roUAccount2)
+        );
+    }
+
+    @Test
     void evenIfSignerAccountInLookupTableWillAlwaysBeStaticAccount()
     {
         final SolanaAccount lookupTableAddress = new SolanaAccount(ACCOUNT_LOOKUP_TABLE1);

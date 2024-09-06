@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -87,7 +86,7 @@ final class SolanaAccounts implements Accounts
 
         final var lookupAccounts = LookupAccounts.create(allAccountReferences, addressLookupTables);
 
-        final var staticAccountReferences = calculateStaticAccountReferences(allAccountReferences, lookupAccounts.getAccountsInLookupTables());
+        final var staticAccountReferences = allAccountReferences.stream().filter(accountReference -> !lookupAccounts.getAccountsInLookupTables().contains(accountReference.account())).toList();
 
         int countSigned = 0;
         int countSignedReadOnly = 0;
@@ -119,15 +118,15 @@ final class SolanaAccounts implements Accounts
         );
     }
 
-    private static List<TransactionInstruction.AccountReference> calculateStaticAccountReferences(
-            final List<TransactionInstruction.AccountReference> allAccountReferences,
-            final Set<PublicKey> accountsInLookup)
+    private static List<TransactionInstruction.AccountReference> mergeAccountReferences(
+            final List<TransactionInstruction> instructions,
+            final TransactionInstruction.AccountReference payerReference)
     {
+        final List<TransactionInstruction.AccountReference> allAccountReferences = concatAccountReferences(instructions, payerReference);
+
         final LinkedHashMap<PublicKey, TransactionInstruction.AccountReference> staticAccountReferences = new LinkedHashMap<>();
         for (final var accountReference : allAccountReferences)
         {
-            if (!accountsInLookup.contains(accountReference.account()))
-            {
                 if (staticAccountReferences.containsKey(accountReference.account()))
                 {
                     staticAccountReferences.merge(accountReference.account(), accountReference, SolanaAccounts::merge);
@@ -136,13 +135,12 @@ final class SolanaAccounts implements Accounts
                 {
                     staticAccountReferences.put(accountReference.account(), accountReference);
                 }
-            }
         }
 
         return new ArrayList<>(staticAccountReferences.values());
     }
 
-    private static List<TransactionInstruction.AccountReference> mergeAccountReferences(
+    private static List<TransactionInstruction.AccountReference> concatAccountReferences(
             final List<TransactionInstruction> instructions,
             final TransactionInstruction.AccountReference payerReference)
     {
