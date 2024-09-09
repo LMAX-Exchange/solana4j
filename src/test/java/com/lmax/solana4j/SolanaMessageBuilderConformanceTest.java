@@ -1129,8 +1129,8 @@ class SolanaMessageBuilderConformanceTest
                 .expect("program index", indexOfAccount(buffer, PROGRAM1, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
                 .expect("number of accounts", (byte) 4)
                 .expect("first account index", indexOfAccount(buffer, ACCOUNT4, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
-                .expect("first account index", indexOfAccount(buffer, ACCOUNT1, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
-                .expect("second account index", indexOfAccount(buffer, ACCOUNT2, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
+                .expect("second account index", indexOfAccount(buffer, ACCOUNT1, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
+                .expect("third account index", indexOfAccount(buffer, ACCOUNT2, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
                 .expect("fourth account index", indexOfAccount(buffer, ACCOUNT3, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)));
 
         fromInstruction(buffer, 1)

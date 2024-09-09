@@ -121,7 +121,7 @@ public class Solana4jTestHelper
         return sigs;
     }
 
-    static void writeSimpleUnsignedLegacyMessage(final ByteBuffer buffer)
+    public static void writeSimpleUnsignedLegacyMessage(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
                 .legacy()
@@ -141,7 +141,7 @@ public class Solana4jTestHelper
                 .build();
     }
 
-    static void writeSimpleUnsignedV0Message(final ByteBuffer buffer)
+    public static void writeSimpleUnsignedV0Message(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
                 .v0()
@@ -162,7 +162,7 @@ public class Solana4jTestHelper
                 .build();
     }
 
-    static void writeSimpleUnsignedLegacyMessageWithBigData(final ByteBuffer buffer)
+    public static void writeSimpleUnsignedLegacyMessageWithBigData(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
                 .legacy()
@@ -177,7 +177,7 @@ public class Solana4jTestHelper
                 .build();
     }
 
-    static void writeSimpleUnsignedV0MessageWithBigData(final ByteBuffer buffer)
+    public static void writeSimpleUnsignedV0MessageWithBigData(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
                 .v0()
@@ -193,7 +193,7 @@ public class Solana4jTestHelper
                 .build();
     }
 
-    static void writeSimpleSignedLegacyMessageWithNoSignatures(final ByteBuffer buffer)
+    public static void writeSimpleSignedLegacyMessageWithNoSignatures(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
                 .legacy()
@@ -212,7 +212,7 @@ public class Solana4jTestHelper
                 .build();
     }
 
-    static void writeSimpleSignedV0MessageWithNoSignatures(final ByteBuffer buffer)
+    public static void writeSimpleSignedV0MessageWithNoSignatures(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
                 .v0()
@@ -232,7 +232,7 @@ public class Solana4jTestHelper
                 .build();
     }
 
-    static void writeSimpleFullySignedLegacyMessage(final ByteBuffer buffer)
+    public static void writeSimpleFullySignedLegacyMessage(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
                 .legacy()
@@ -254,7 +254,7 @@ public class Solana4jTestHelper
                 .build();
     }
 
-    static void writeSimpleFullySignedV0Message(final ByteBuffer buffer)
+    public static void writeSimpleFullySignedV0Message(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
                 .v0()
@@ -268,6 +268,7 @@ public class Solana4jTestHelper
                                 .account(Solana.account(ACCOUNT2), true, false)
                                 .account(Solana.account(ACCOUNT3), false, true)
                                 .data(DATA1.length, w -> w.put(DATA1))))
+                // account3 and account4 should end up in lookup accounts section
                 .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
                 .seal()
                 .signed()
@@ -277,7 +278,7 @@ public class Solana4jTestHelper
                 .build();
     }
 
-    static void writeComplexUnsignedLegacyMessage(final ByteBuffer buffer)
+    public static void writeComplexUnsignedLegacyMessage(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
                 .legacy()
@@ -312,7 +313,7 @@ public class Solana4jTestHelper
                 .build();
     }
 
-    static void writeComplexUnsignedV0Message(final ByteBuffer buffer)
+    public static void writeComplexUnsignedV0Message(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
                 .v0()
@@ -349,7 +350,7 @@ public class Solana4jTestHelper
                 .build();
     }
 
-    static void writeComplexSignedLegacyMessageWithNoSignatures(final ByteBuffer buffer)
+    public static void writeComplexSignedLegacyMessageWithNoSignatures(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
                 .legacy()
@@ -384,7 +385,7 @@ public class Solana4jTestHelper
                 .build();
     }
 
-    static void writeComplexSignedV0MessageWithNoSignatures(final ByteBuffer buffer)
+    public static void writeComplexSignedV0MessageWithNoSignatures(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
                 .v0()
@@ -420,7 +421,7 @@ public class Solana4jTestHelper
                 .build();
     }
 
-    static void writeComplexPartiallySignedLegacyMessage(final ByteBuffer buffer)
+    public static void writeComplexPartiallySignedLegacyMessage(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
                 .legacy()
@@ -459,7 +460,7 @@ public class Solana4jTestHelper
                 .build();
     }
 
-    static void writeComplexPartiallySignedV0Message(final ByteBuffer buffer)
+    public static void writeComplexPartiallySignedV0Message(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
                 .v0()
@@ -652,6 +653,15 @@ public class Solana4jTestHelper
         buffer.rewind();
         final byte signatures = buffer.get();
         buffer.position(buffer.position() + (signatures * SIGNATURE_LENGTH));
+    }
+
+    public static ByteBuffer getTransaction(final ByteBuffer buffer)
+    {
+        final var view = buffer.duplicate(); // don't move the buffer position
+
+        jumpToTransactionHeader(view);
+
+        return view.slice();
     }
 
     public static AssertingMessageReader fromTransactionHeader(final ByteBuffer buffer)

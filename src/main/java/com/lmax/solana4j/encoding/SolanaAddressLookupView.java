@@ -5,19 +5,18 @@ import com.lmax.solana4j.api.PublicKey;
 
 import java.util.List;
 
-final class SolanaAccountLookupTableView implements MessageVisitor.AccountLookupTableView
+final class SolanaAddressLookupView implements MessageVisitor.AddressLookupView
 {
     private final PublicKey lookupAccount;
     private final List<Integer> readWriteTableIndexes;
     private final List<Integer> readOnlyTableIndexes;
 
-    SolanaAccountLookupTableView(final PublicKey lookupAccount, final List<Integer> readWriteTableIndexes, final List<Integer> readOnlyTableIndexes)
+    SolanaAddressLookupView(final PublicKey lookupAccount, final List<Integer> readWriteTableIndexes, final List<Integer> readOnlyTableIndexes)
     {
         this.lookupAccount = lookupAccount;
         this.readWriteTableIndexes = readWriteTableIndexes;
         this.readOnlyTableIndexes = readOnlyTableIndexes;
     }
-
 
     @Override
     public PublicKey lookupAccount()

@@ -1,13 +1,11 @@
 package com.lmax.solana4j.encoding;
 
 import com.lmax.solana4j.api.MessageVisitor.InstructionView;
-import com.lmax.solana4j.api.PublicKey;
 
 import java.nio.ByteBuffer;
 import java.util.List;
-import java.util.stream.Collectors;
 
-final class SolanaInstructionView implements InstructionView
+class SolanaInstructionView implements InstructionView
 {
     private final int program;
     private final List<Integer> accountIndexes;
@@ -28,21 +26,9 @@ final class SolanaInstructionView implements InstructionView
     }
 
     @Override
-    public PublicKey program(final List<PublicKey> transactionAccounts)
-    {
-        return transactionAccounts.get(program);
-    }
-
-    @Override
     public List<Integer> accountIndexes()
     {
         return accountIndexes;
-    }
-
-    @Override
-    public List<PublicKey> accounts(final List<PublicKey> transactionAccounts)
-    {
-        return accountIndexes.stream().map(transactionAccounts::get).collect(Collectors.toList());
     }
 
     @Override

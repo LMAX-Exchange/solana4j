@@ -51,11 +51,11 @@ public interface MessageVisitor<T>
         int countAccountsUnsignedReadOnly();
 
         /**
-         * Returns the accounts view of the message.
+         * Returns the list of static accounts in the message.
          *
-         * @return the {@link AccountsView} of the message
+         * @return a list of {@link PublicKey} objects representing the static accounts
          */
-        AccountsView accounts();
+        List<PublicKey> staticAccounts();
 
         /**
          * Returns the transaction data as a byte buffer.
@@ -95,27 +95,12 @@ public interface MessageVisitor<T>
         Blockhash recentBlockHash();
 
         /**
-         * Returns the list of instructions in the message.
-         *
-         * @return a list of {@link InstructionView} objects representing the instructions
-         */
-        List<InstructionView> instructions();
-
-        /**
          * Checks if the given account is a signer.
          *
          * @param account the account to check
          * @return {@code true} if the account is a signer, {@code false} otherwise
          */
         boolean isSigner(PublicKey account);
-
-        /**
-         * Checks if the given account is a writer.
-         *
-         * @param account the account to check
-         * @return {@code true} if the account is a writer, {@code false} otherwise
-         */
-        boolean isWriter(PublicKey account);
 
         /**
          * Returns the list of signer public keys for the transaction.
@@ -126,37 +111,88 @@ public interface MessageVisitor<T>
     }
 
     /**
-     * Interface representing a legacy message view in the Solana blockchain.
+     * Interface representing a view of a legacy message in the Solana blockchain.
      * <p>
-     * This interface extends {@link MessageView} and provides methods specific to legacy messages.
+     * This interface provides methods to inspect and interact with legacy messages,
+     * which are message formats used in earlier versions of the Solana protocol.
      * </p>
      */
     interface LegacyMessageView extends MessageView
     {
+
+        /**
+         * Checks if the specified account is marked as a writer in this legacy message.
+         *
+         * @param account the public key of the account to check
+         * @return {@code true} if the account is marked as a writer, {@code false} otherwise
+         */
+        boolean isWriter(PublicKey account);
+
+        /**
+         * Retrieves the list of instructions included in this legacy message.
+         *
+         * @return a list of {@link LegacyInstructionView} objects representing the instructions
+         * within the legacy message
+         */
+        List<LegacyInstructionView> instructions();
     }
 
     /**
-     * Interface representing a version 0 message view in the Solana blockchain.
+     * Interface representing a view of a version 0 message in the Solana blockchain.
      * <p>
-     * This interface extends {@link LegacyMessageView} and provides methods specific to version 0 messages.
+     * This interface extends the {@link LegacyMessageView} and provides additional methods
+     * specific to version 0 messages, which include advanced features such as account lookup tables.
      * </p>
      */
-    interface Version0MessageView extends LegacyMessageView
+    interface Version0MessageView extends MessageView
     {
 
         /**
-         * Returns the version of the message.
+         * Retrieves the version number of this message.
          *
-         * @return the version of the message
+         * @return the version number of the message, expected to be 0 for version 0 messages
          */
         int version();
 
         /**
-         * Returns the list of account lookup tables used in the message.
+         * Retrieves the list of account lookup tables referenced by this version 0 message.
+         * <p>
+         * Account lookup tables help optimize the transaction by referencing accounts indirectly,
+         * allowing for more efficient and flexible transaction structures.
+         * </p>
          *
-         * @return a list of {@link AccountLookupTableView} objects representing the lookup tables
+         * @return a list of {@link AddressLookupView} objects representing the account lookup tables
          */
-        List<AccountLookupTableView> lookupTables();
+        List<AddressLookupView> addressLookups();
+
+        /**
+         * Retrieves the list of instructions included in this version 0 message.
+         *
+         * @return a list of {@link V0InstructionView} objects representing the instructions
+         * in the version 0 message
+         */
+        List<MessageVisitor.V0InstructionView> instructions();
+
+        /**
+         * Checks if the specified account is designated as a writer in this version 0 message.
+         * <p>
+         * This method checks both static accounts and accounts referenced via the provided
+         * address lookup tables to determine if the account has write access.
+         * </p>
+         *
+         * @param account             the public key of the account to check
+         * @param addressLookupTables the list of address lookup tables to consult when determining if the account is a writer
+         * @return {@code true} if the account is a writer, {@code false} otherwise
+         */
+        boolean isWriter(PublicKey account, List<AddressLookupTable> addressLookupTables);
+
+        /**
+         * Retrieves the list of all accounts, including both static and lookup accounts.
+         *
+         * @param addressLookupTables the list of address lookup tables to include
+         * @return a list of {@link PublicKey} objects representing all accounts
+         */
+        List<PublicKey> allAccounts(List<AddressLookupTable> addressLookupTables);
     }
 
     /**
@@ -173,27 +209,11 @@ public interface MessageVisitor<T>
         int programIndex();
 
         /**
-         * Returns the public key of the program for the instruction.
-         *
-         * @param transactionAccounts the list of transaction accounts
-         * @return the {@link PublicKey} of the program
-         */
-        PublicKey program(List<PublicKey> transactionAccounts);
-
-        /**
          * Returns the list of account indexes for the instruction.
          *
          * @return a list of integers representing the account indexes
          */
         List<Integer> accountIndexes();
-
-        /**
-         * Returns the list of accounts for the instruction.
-         *
-         * @param transactionAccounts the list of transaction accounts
-         * @return a list of {@link PublicKey} objects representing the accounts
-         */
-        List<PublicKey> accounts(List<PublicKey> transactionAccounts);
 
         /**
          * Returns the instruction data as a byte buffer.
@@ -208,9 +228,53 @@ public interface MessageVisitor<T>
     }
 
     /**
+     * Interface representing a legacy instruction view in the Solana blockchain.
+     */
+    interface LegacyInstructionView extends InstructionView
+    {
+
+        /**
+         * Returns the list of accounts for the instruction.
+         *
+         * @return a list of {@link PublicKey} objects representing the accounts
+         */
+        List<PublicKey> accounts();
+
+        /**
+         * Returns the public key of the program for the instruction.
+         *
+         * @return the {@link PublicKey} of the program
+         */
+        PublicKey program();
+    }
+
+    /**
+     * Interface representing a version 0 instruction view in the Solana blockchain.
+     */
+    interface V0InstructionView extends InstructionView
+    {
+
+        /**
+         * Returns the list of accounts for the instruction, considering the address lookup tables.
+         *
+         * @param addressLookupTables the list of address lookup tables
+         * @return a list of {@link PublicKey} objects representing the accounts
+         */
+        List<PublicKey> accounts(List<AddressLookupTable> addressLookupTables);
+
+        /**
+         * Returns the public key of the program for the instruction, considering the address lookup tables.
+         *
+         * @param addressLookupTables the list of address lookup tables
+         * @return the {@link PublicKey} of the program
+         */
+        PublicKey program(List<AddressLookupTable> addressLookupTables);
+    }
+
+    /**
      * Interface representing an account lookup table view in the Solana blockchain.
      */
-    interface AccountLookupTableView
+    interface AddressLookupView
     {
 
         /**
@@ -247,12 +311,33 @@ public interface MessageVisitor<T>
          * @return a list of {@link PublicKey} objects representing the static accounts
          */
         List<PublicKey> staticAccounts();
+    }
+
+    /**
+     * Interface representing a view of legacy accounts in the Solana blockchain.
+     * <p>
+     * Extends the {@link AccountsView} interface to represent legacy account views.
+     * </p>
+     */
+    interface LegacyAccountsView extends AccountsView
+    {
+    }
+
+    /**
+     * Interface representing a view of version 0 accounts in the Solana blockchain.
+     * <p>
+     * Extends the {@link AccountsView} interface and provides methods specific to version 0 accounts.
+     * </p>
+     */
+    interface V0AccountsView extends AccountsView
+    {
 
         /**
-         * Returns the list of all accounts, static accounts and lookup accounts.
+         * Returns the list of all accounts, including those referenced by address lookup tables.
          *
+         * @param addressLookupTables the list of address lookup tables to include
          * @return a list of {@link PublicKey} objects representing all accounts
          */
-        List<PublicKey> allAccounts();
+        List<PublicKey> accounts(List<AddressLookupTable> addressLookupTables);
     }
 }

@@ -11,16 +11,14 @@ import java.util.NoSuchElementException;
 
 abstract class SolanaMessageView implements MessageView
 {
-    private final List<ByteBuffer> signatures;
-
     private final int countAccountsSigned;
     private final int countAccountsSignedReadOnly;
     private final int countAccountsUnsignedReadOnly;
 
-    private final MessageVisitor.AccountsView accounts;
+    private final MessageVisitor.AccountsView accountsView;
+    private final List<ByteBuffer> signatures;
     private final PublicKey feePayer;
     private final Blockhash recentBlockHash;
-    private final List<MessageVisitor.InstructionView> instructions;
 
     private final ByteBuffer transaction;
 
@@ -28,22 +26,20 @@ abstract class SolanaMessageView implements MessageView
             final int countAccountsSigned,
             final int countAccountsSignedReadOnly,
             final int countAccountsUnsignedReadOnly,
-            final MessageVisitor.AccountsView accounts,
+            final MessageVisitor.AccountsView accountsView,
             final ByteBuffer transaction,
             final List<ByteBuffer> signatures,
             final PublicKey feePayer,
-            final Blockhash recentBlockHash,
-            final List<MessageVisitor.InstructionView> instructions)
+            final Blockhash recentBlockHash)
     {
-        this.signatures = signatures;
         this.countAccountsSigned = countAccountsSigned;
         this.countAccountsSignedReadOnly = countAccountsSignedReadOnly;
         this.countAccountsUnsignedReadOnly = countAccountsUnsignedReadOnly;
-        this.accounts = accounts;
+        this.accountsView = accountsView;
+        this.transaction = transaction;
+        this.signatures = signatures;
         this.feePayer = feePayer;
         this.recentBlockHash = recentBlockHash;
-        this.instructions = instructions;
-        this.transaction = transaction;
     }
 
     static MessageView fromBuffer(final ByteBuffer buffer)
@@ -93,7 +89,7 @@ abstract class SolanaMessageView implements MessageView
                     countAccountsSigned,
                     countAccountsSignedReadOnly,
                     countAccountsUnsignedReadOnly,
-                    new SolanaAccountsView(staticAccounts),
+                    new SolanaLegacyAccountsView(staticAccounts),
                     transaction,
                     signatures,
                     staticAccounts.get(0),
@@ -108,7 +104,7 @@ abstract class SolanaMessageView implements MessageView
                     countAccountsSigned,
                     countAccountsSignedReadOnly,
                     countAccountsUnsignedReadOnly,
-                    new SolanaAccountsView(staticAccounts, lookupAccounts),
+                    new SolanaV0AccountsView(staticAccounts, lookupAccounts),
                     transaction,
                     signatures,
                     staticAccounts.get(0),
@@ -141,12 +137,6 @@ abstract class SolanaMessageView implements MessageView
     }
 
     @Override
-    public MessageVisitor.AccountsView accounts()
-    {
-        return accounts;
-    }
-
-    @Override
     public ByteBuffer transaction()
     {
         return transaction.duplicate();
@@ -158,7 +148,7 @@ abstract class SolanaMessageView implements MessageView
         int index = 0;
         for (final var signature : signatures)
         {
-            if (accounts.staticAccounts().get(index).equals(account))
+            if (accountsView.staticAccounts().get(index).equals(account))
             {
                 return signature;
             }
@@ -180,15 +170,9 @@ abstract class SolanaMessageView implements MessageView
     }
 
     @Override
-    public List<MessageVisitor.InstructionView> instructions()
-    {
-        return instructions;
-    }
-
-    @Override
     public boolean isSigner(final PublicKey account)
     {
-        final var index = accounts.staticAccounts().indexOf(account);
+        final var index = accountsView.staticAccounts().indexOf(account);
 
         if (index == -1)
         {
@@ -199,26 +183,15 @@ abstract class SolanaMessageView implements MessageView
     }
 
     @Override
-    public boolean isWriter(final PublicKey account)
+    public List<PublicKey> signers()
     {
-        final var index = accounts.allAccounts().indexOf(account);
-        if (index == -1)
-        {
-            return false;
-        }
-
-        final var isSignerWriter = index < countAccountsSigned - countAccountsSignedReadOnly;
-        final boolean isNonSigner = index >= countAccountsSigned;
-        final boolean isNonSignerReadonly = index >= accounts.allAccounts().size() - countAccountsUnsignedReadOnly;
-        final var isNonSignerWriter = isNonSigner && !isNonSignerReadonly;
-
-        return isSignerWriter || isNonSignerWriter;
+        return accountsView.staticAccounts().subList(0, countAccountsSigned);
     }
 
     @Override
-    public List<PublicKey> signers()
+    public List<PublicKey> staticAccounts()
     {
-        return accounts.staticAccounts().subList(0, countAccountsSigned);
+        return accountsView.staticAccounts();
     }
 
 }

@@ -69,6 +69,7 @@ final class SolanaTransactionBuilder implements TransactionBuilder
         @Override
         public MessageBuilder build()
         {
+            // TODO: can we order these in terms of signer-writer-readonly ? if not - why no?
             instructions.add(new SolanaTransactionInstruction(references, program, datasize, data));
             return messageBuilder;
         }

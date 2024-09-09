@@ -15,16 +15,16 @@ import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT4;
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT5;
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT6;
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT7;
-import static com.lmax.solana4j.Solana4jTestHelper.LOOKUP_TABLE_ADDRESS1;
-import static com.lmax.solana4j.Solana4jTestHelper.LOOKUP_TABLE_ADDRESS2;
 import static com.lmax.solana4j.Solana4jTestHelper.BLOCKHASH;
 import static com.lmax.solana4j.Solana4jTestHelper.DATA1;
 import static com.lmax.solana4j.Solana4jTestHelper.DATA2;
+import static com.lmax.solana4j.Solana4jTestHelper.LOOKUP_TABLE_ADDRESS1;
+import static com.lmax.solana4j.Solana4jTestHelper.LOOKUP_TABLE_ADDRESS2;
 import static com.lmax.solana4j.Solana4jTestHelper.PROGRAM1;
 import static com.lmax.solana4j.Solana4jTestHelper.PROGRAM2;
 import static com.lmax.solana4j.Solana4jTestHelper.SIGNATURE1;
 import static com.lmax.solana4j.Solana4jTestHelper.SIGNATURE2;
-import static com.lmax.solana4j.api.MessageVisitor.AccountLookupTableView;
+import static com.lmax.solana4j.api.MessageVisitor.AddressLookupView;
 import static com.lmax.solana4j.api.MessageVisitor.InstructionView;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -113,10 +113,10 @@ class SolanaMessageFormattingCommonTest
         // flip underlying buffer for reading
         buffer.flip();
 
-        final List<AccountLookupTableView> accountLookupTableViews = solanaMessageFormattingCommon.readLookupAccounts();
+        final List<AddressLookupView> addressLookupViews = solanaMessageFormattingCommon.readLookupAccounts();
 
         // lookup table 1 address
-        final AccountLookupTableView accountLookupTable1 = accountLookupTableViews.get(0);
+        final AddressLookupView accountLookupTable1 = addressLookupViews.get(0);
         assertThat(accountLookupTable1.lookupAccount()).isEqualTo(new SolanaAccount(LOOKUP_TABLE_ADDRESS1));
 
         assertThat(accountLookupTable1.readOnlyTableIndexes().size()).isEqualTo(1);
@@ -126,7 +126,7 @@ class SolanaMessageFormattingCommonTest
         assertThat(accountLookupTable1.readWriteTableIndexes().get(1)).isEqualTo(3);
 
         // lookup table 2 address
-        final AccountLookupTableView accountLookupTable2 = accountLookupTableViews.get(1);
+        final AddressLookupView accountLookupTable2 = addressLookupViews.get(1);
         assertThat(accountLookupTable2.lookupAccount()).isEqualTo(new SolanaAccount(LOOKUP_TABLE_ADDRESS2));
 
         assertThat(accountLookupTable2.readOnlyTableIndexes().size()).isEqualTo(1);

@@ -156,10 +156,10 @@ final class SolanaMessageFormattingCommon
         account.write(buffer);
     }
 
-    List<MessageVisitor.AccountLookupTableView> readLookupAccounts()
+    List<MessageVisitor.AddressLookupView> readLookupAccounts()
     {
         final var count = SolanaShortVec.readInt(buffer);
-        final List<MessageVisitor.AccountLookupTableView> entries = new ArrayList<>();
+        final List<MessageVisitor.AddressLookupView> entries = new ArrayList<>();
 
         for (int i = 0; i < count; i++)
         {
@@ -178,7 +178,7 @@ final class SolanaMessageFormattingCommon
             {
                 readOnlyIndexes.add(SolanaShortVec.readInt(buffer));
             }
-            entries.add(new SolanaAccountLookupTableView(lookupAccount, readWriteIndexes, readOnlyIndexes));
+            entries.add(new SolanaAddressLookupView(lookupAccount, readWriteIndexes, readOnlyIndexes));
         }
 
         return entries;

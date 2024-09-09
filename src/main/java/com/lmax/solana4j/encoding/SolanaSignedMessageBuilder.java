@@ -48,7 +48,7 @@ final class SolanaSignedMessageBuilder implements SignedMessageBuilder
 
         final var info = message.accept(
                 message1 -> new SigningInfo(
-                        message1.accounts().staticAccounts().subList(0, message1.countAccountsSigned()),
+                        message1.staticAccounts().subList(0, message1.countAccountsSigned()),
                         message1.transaction()));
         final ByteBuffer signingBufferView = this.buffer.duplicate();
         final SolanaMessageFormattingCommon formatter = new SolanaMessageFormattingCommon(signingBufferView);
