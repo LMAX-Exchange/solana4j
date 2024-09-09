@@ -17,6 +17,10 @@ final class SolanaAssociatedTokenAddress extends SolanaProgramDerivedAddress imp
 
     static SolanaAssociatedTokenAddress deriveAssociatedTokenAddress(final PublicKey owner, final PublicKey mint, final PublicKey tokenProgramAccount)
     {
+        requireNonNull(owner, "The owner public key must be specified, but was null");
+        requireNonNull(mint, "The mint public key must be specified, but was null");
+        requireNonNull(owner, "The owner public key must be specified, but was null");
+
         final ProgramDerivedAddress programDerivedAddress = SolanaProgramDerivedAddress.deriveProgramAddress(
                 List.of(owner.bytes(), tokenProgramAccount.bytes(), mint.bytes()),
                 ASSOCIATED_TOKEN_PROGRAM_ACCOUNT
@@ -34,8 +38,8 @@ final class SolanaAssociatedTokenAddress extends SolanaProgramDerivedAddress imp
     private SolanaAssociatedTokenAddress(final PublicKey address, final PublicKey owner, final PublicKey mint, final PublicKey programAccount, final int nonce)
     {
         super(address, programAccount, nonce);
-        this.mint = requireNonNull(mint, "The mint public key must be specified, but was null");
-        this.owner = requireNonNull(owner, "The owner public key must be specified, but was null");
+        this.mint = mint;
+        this.owner = owner;
     }
 
     @Override
@@ -48,31 +52,6 @@ final class SolanaAssociatedTokenAddress extends SolanaProgramDerivedAddress imp
     public PublicKey owner()
     {
         return owner;
-    }
-
-    @Override
-    public boolean equals(final Object o)
-    {
-        if (this == o)
-        {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass())
-        {
-            return false;
-        }
-        if (!super.equals(o))
-        {
-            return false;
-        }
-        final SolanaAssociatedTokenAddress that = (SolanaAssociatedTokenAddress) o;
-        return Objects.equals(mint, that.mint) && Objects.equals(owner, that.owner);
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return Objects.hash(super.hashCode(), mint, owner);
     }
 
     @Override
