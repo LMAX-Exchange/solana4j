@@ -12,6 +12,7 @@ import com.lmax.solana4j.api.TransactionInstruction;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -92,7 +93,9 @@ class SolanaInnerTransactionBuilder implements InnerTransactionBuilder
             @Override
             public void addInstruction()
             {
-                innerInstructions.add(new SolanaTransactionInstruction(references, program, datasize, data));
+                // the order of these references matters
+                final List<SolanaAccountReference> unmodifiableReferences = Collections.unmodifiableList(references);
+                innerInstructions.add(new SolanaTransactionInstruction(unmodifiableReferences, program, datasize, data));
             }
         };
     }

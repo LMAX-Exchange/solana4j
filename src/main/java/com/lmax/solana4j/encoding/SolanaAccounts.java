@@ -82,7 +82,7 @@ final class SolanaAccounts implements Accounts
             final List<AddressLookupTable> addressLookupTables)
     {
         final var payerReference = new SolanaAccountReference(payer, true, true, false);
-        final var allAccountReferences = mergeAccountReferences(instructions, payerReference);
+        final var allAccountReferences = mergeAccountReferences(payerReference, instructions);
 
         final var lookupAccounts = LookupAccounts.create(allAccountReferences, addressLookupTables);
 
@@ -122,10 +122,10 @@ final class SolanaAccounts implements Accounts
     }
 
     private static List<TransactionInstruction.AccountReference> mergeAccountReferences(
-            final List<TransactionInstruction> instructions,
-            final TransactionInstruction.AccountReference payerReference)
+            final TransactionInstruction.AccountReference payerReference,
+            final List<TransactionInstruction> instructions)
     {
-        final List<TransactionInstruction.AccountReference> allAccountReferences = concatAccountReferences(instructions, payerReference);
+        final List<TransactionInstruction.AccountReference> allAccountReferences = concatAccountReferences(payerReference, instructions);
 
         final LinkedHashMap<PublicKey, TransactionInstruction.AccountReference> staticAccountReferences = new LinkedHashMap<>();
         for (final var accountReference : allAccountReferences)
@@ -144,8 +144,8 @@ final class SolanaAccounts implements Accounts
     }
 
     private static List<TransactionInstruction.AccountReference> concatAccountReferences(
-            final List<TransactionInstruction> instructions,
-            final TransactionInstruction.AccountReference payerReference)
+            final TransactionInstruction.AccountReference payerReference,
+            final List<TransactionInstruction> instructions)
     {
         final var cmp = Comparator
                 .<TransactionInstruction.AccountReference, Integer>comparing(r1 -> r1.isSigner() ? -1 : 1)

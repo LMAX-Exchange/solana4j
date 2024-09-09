@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT1;
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT2;
+import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT3;
+import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT4;
 import static com.lmax.solana4j.Solana4jTestHelper.DATA1;
 import static com.lmax.solana4j.Solana4jTestHelper.DATA2;
 import static com.lmax.solana4j.Solana4jTestHelper.PAYER;
@@ -36,6 +38,7 @@ class SolanaInnerTransactionBuilderTest
         builder.instructions(ib ->
         {
             ib.append(b -> b
+                    .account(new SolanaAccount(ACCOUNT2), false, false)
                     .account(new SolanaAccount(ACCOUNT1), true, true)
                     .program(new SolanaAccount(PROGRAM1))
                     .data(10, w -> w.put(DATA1))
@@ -49,7 +52,7 @@ class SolanaInnerTransactionBuilderTest
 
         assertTransactionInstruction(
                 innerInstructions.getInstructions().get(0),
-                List.of(new SolanaAccount(ACCOUNT1)),
+                List.of(new SolanaAccount(ACCOUNT2), new SolanaAccount(ACCOUNT1)),
                 new SolanaAccount(PROGRAM1),
                 DATA1
         );
@@ -62,6 +65,7 @@ class SolanaInnerTransactionBuilderTest
         builder.instructions(ib ->
         {
             ib.append(b -> b
+                    .account(new SolanaAccount(ACCOUNT2), false, false)
                     .account(new SolanaAccount(ACCOUNT1), true, true)
                     .program(new SolanaAccount(PROGRAM1))
                     .data(10, w -> w.put(DATA1))
@@ -83,7 +87,7 @@ class SolanaInnerTransactionBuilderTest
 
         assertTransactionInstruction(
                 innerInstructions.getInstructions().get(0),
-                List.of(new SolanaAccount(ACCOUNT1)),
+                List.of(new SolanaAccount(ACCOUNT2), new SolanaAccount(ACCOUNT1)),
                 new SolanaAccount(PROGRAM1),
                 DATA1
         );
@@ -93,6 +97,37 @@ class SolanaInnerTransactionBuilderTest
                 List.of(new SolanaAccount(ACCOUNT2)),
                 new SolanaAccount(PROGRAM2),
                 DATA2
+        );
+    }
+
+    @Test
+    void shouldReadAccountReferencesInTheOrderTheyAreWritten()
+    {
+        builder.payer(new SolanaAccount(PAYER));
+        builder.instructions(ib ->
+        {
+            ib.append(b -> b
+                    .account(new SolanaAccount(ACCOUNT4), false, false)
+                    .account(new SolanaAccount(ACCOUNT3), false, true)
+                    .account(new SolanaAccount(ACCOUNT2), true, false)
+                    .account(new SolanaAccount(ACCOUNT1), true, true)
+                    .program(new SolanaAccount(PROGRAM1))
+                    .data(10, w -> w.put(DATA1))
+            );
+        });
+
+        final InnerInstructions innerInstructions = builder.build();
+
+        assertThat(innerInstructions.getInstructions().size()).isEqualTo(1);
+        assertThat(innerInstructions.getInnerTransactionBytes().length).isGreaterThan(0);
+
+        // it was tempting to me to reorder these internal account references in terms of signer-writer-readonly
+        // sorted-ness in other areas, however the order they are stated really does matter
+        assertTransactionInstruction(
+                innerInstructions.getInstructions().get(0),
+                List.of(new SolanaAccount(ACCOUNT4), new SolanaAccount(ACCOUNT3), new SolanaAccount(ACCOUNT2), new SolanaAccount(ACCOUNT1)),
+                new SolanaAccount(PROGRAM1),
+                DATA1
         );
     }
 

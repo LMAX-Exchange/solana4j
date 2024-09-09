@@ -9,6 +9,7 @@ import com.lmax.solana4j.api.TransactionInstruction;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -34,14 +35,13 @@ final class SolanaTransactionBuilder implements TransactionBuilder
         return this;
     }
 
-    private class SolanaInstructionBuilderBase implements InstructionBuilder
+    final class SolanaInstructionBuilderBase implements InstructionBuilder
     {
         private final List<SolanaAccountReference> references = new ArrayList<>();
         private SolanaAccount program;
 
         private int datasize;
         private Consumer<ByteBuffer> data;
-        private SolanaAccountReference programReference;
 
         @Override
         public InstructionBuilderBase account(final PublicKey account, final boolean signs, final boolean writes)
@@ -69,8 +69,9 @@ final class SolanaTransactionBuilder implements TransactionBuilder
         @Override
         public MessageBuilder build()
         {
-            // TODO: can we order these in terms of signer-writer-readonly ? if not - why no?
-            instructions.add(new SolanaTransactionInstruction(references, program, datasize, data));
+            // the order of these references matters
+            final List<SolanaAccountReference> unmodifiableReferences = Collections.unmodifiableList(references);
+            instructions.add(new SolanaTransactionInstruction(unmodifiableReferences, program, datasize, data));
             return messageBuilder;
         }
     }
