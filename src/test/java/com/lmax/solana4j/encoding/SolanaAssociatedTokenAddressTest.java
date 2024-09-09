@@ -3,10 +3,6 @@ package com.lmax.solana4j.encoding;
 import com.lmax.solana4j.Solana;
 import org.junit.jupiter.api.Test;
 
-import java.nio.BufferOverflowException;
-import java.nio.ByteBuffer;
-import java.util.Arrays;
-
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT1;
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT2;
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT3;
@@ -42,7 +38,10 @@ class SolanaAssociatedTokenAddressTest
    @Test
    void shouldCreateAssociatedTokenAddress()
    {
-       final SolanaAssociatedTokenAddress associatedTokenAddress = SolanaAssociatedTokenAddress.deriveAssociatedTokenAddress(Solana.account(ACCOUNT1), Solana.account(ACCOUNT2), Solana.account(ACCOUNT3));
+       final SolanaAssociatedTokenAddress associatedTokenAddress = SolanaAssociatedTokenAddress.deriveAssociatedTokenAddress(
+               Solana.account(ACCOUNT1),
+               Solana.account(ACCOUNT2),
+               Solana.account(ACCOUNT3));
 
        assertThat(associatedTokenAddress.owner()).isEqualTo(Solana.account(ACCOUNT1));
        assertThat(associatedTokenAddress.mint()).isEqualTo(Solana.account(ACCOUNT2));
