@@ -162,7 +162,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns the public key of the lookup table address.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">MessageVisitor.AccountLookupTableView.</span><code><a href="../MessageVisitor.AccountLookupTableView.html#lookupAccount()" class="member-name-link">lookupAccount</a>()</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">MessageVisitor.AddressLookupView.</span><code><a href="../MessageVisitor.AddressLookupView.html#lookupAccount()" class="member-name-link">lookupAccount</a>()</code></div>
 <div class="col-last odd-row-color">
 <div class="block">Returns the public key of the lookup account.</div>
 </div>
@@ -177,18 +177,23 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns the public key of the owner associated with this token address.</div>
 </div>
 <div class="col-first even-row-color"><code><a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></div>
-<div class="col-second even-row-color"><span class="type-name-label">MessageVisitor.InstructionView.</span><code><a href="../MessageVisitor.InstructionView.html#program(java.util.List)" class="member-name-link">program</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;transactionAccounts)</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">MessageVisitor.LegacyInstructionView.</span><code><a href="../MessageVisitor.LegacyInstructionView.html#program()" class="member-name-link">program</a>()</code></div>
 <div class="col-last even-row-color">
 <div class="block">Returns the public key of the program for the instruction.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">TransactionInstruction.</span><code><a href="../TransactionInstruction.html#program()" class="member-name-link">program</a>()</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">MessageVisitor.V0InstructionView.</span><code><a href="../MessageVisitor.V0InstructionView.html#program(java.util.List)" class="member-name-link">program</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Returns the public key of the program to be executed.</div>
+<div class="block">Returns the public key of the program for the instruction, considering the address lookup tables.</div>
 </div>
 <div class="col-first even-row-color"><code><a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></div>
-<div class="col-second even-row-color"><span class="type-name-label">ProgramDerivedAddress.</span><code><a href="../ProgramDerivedAddress.html#programId()" class="member-name-link">programId</a>()</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">TransactionInstruction.</span><code><a href="../TransactionInstruction.html#program()" class="member-name-link">program</a>()</code></div>
 <div class="col-last even-row-color">
+<div class="block">Returns the public key of the program to be executed.</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">ProgramDerivedAddress.</span><code><a href="../ProgramDerivedAddress.html#programId()" class="member-name-link">programId</a>()</code></div>
+<div class="col-last odd-row-color">
 <div class="block">Returns the public key of the program ID used to derive the address.</div>
 </div>
 </div>
@@ -198,14 +203,24 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">MessageVisitor.InstructionView.</span><code><a href="../MessageVisitor.InstructionView.html#accounts(java.util.List)" class="member-name-link">accounts</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;transactionAccounts)</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">MessageVisitor.LegacyInstructionView.</span><code><a href="../MessageVisitor.LegacyInstructionView.html#accounts()" class="member-name-link">accounts</a>()</code></div>
 <div class="col-last even-row-color">
 <div class="block">Returns the list of accounts for the instruction.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">MessageVisitor.AccountsView.</span><code><a href="../MessageVisitor.AccountsView.html#allAccounts()" class="member-name-link">allAccounts</a>()</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">MessageVisitor.V0AccountsView.</span><code><a href="../MessageVisitor.V0AccountsView.html#accounts(java.util.List)" class="member-name-link">accounts</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Returns the list of all accounts, static accounts and lookup accounts.</div>
+<div class="block">Returns the list of all accounts, including those referenced by address lookup tables.</div>
+</div>
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">MessageVisitor.V0InstructionView.</span><code><a href="../MessageVisitor.V0InstructionView.html#accounts(java.util.List)" class="member-name-link">accounts</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Returns the list of accounts for the instruction, considering the address lookup tables.</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">MessageVisitor.Version0MessageView.</span><code><a href="../MessageVisitor.Version0MessageView.html#allAccounts(java.util.List)" class="member-name-link">allAccounts</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Retrieves the list of all accounts, including both static and lookup accounts.</div>
 </div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
 <div class="col-second even-row-color"><span class="type-name-label">AddressLookupTable.</span><code><a href="../AddressLookupTable.html#getAddresses()" class="member-name-link">getAddresses</a>()</code></div>
@@ -236,6 +251,11 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color"><span class="type-name-label">MessageVisitor.AccountsView.</span><code><a href="../MessageVisitor.AccountsView.html#staticAccounts()" class="member-name-link">staticAccounts</a>()</code></div>
 <div class="col-last odd-row-color">
 <div class="block">Returns the list of static accounts.</div>
+</div>
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">MessageVisitor.MessageView.</span><code><a href="../MessageVisitor.MessageView.html#staticAccounts()" class="member-name-link">staticAccounts</a>()</code></div>
+<div class="col-last even-row-color">
+<div class="block">Returns the list of static accounts in the message.</div>
 </div>
 </div>
 <div class="caption"><span>Methods in <a href="../package-summary.html">com.lmax.solana4j.api</a> with parameters of type <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></span></div>
@@ -279,33 +299,39 @@ loadScripts(document, 'script');</script>
 <div class="block">Checks if the given account is a signer.</div>
 </div>
 <div class="col-first even-row-color"><code>boolean</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">MessageVisitor.MessageView.</span><code><a href="../MessageVisitor.MessageView.html#isWriter(com.lmax.solana4j.api.PublicKey)" class="member-name-link">isWriter</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">MessageVisitor.LegacyMessageView.</span><code><a href="../MessageVisitor.LegacyMessageView.html#isWriter(com.lmax.solana4j.api.PublicKey)" class="member-name-link">isWriter</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Checks if the given account is a writer.</div>
+<div class="block">Checks if the specified account is marked as a writer in this legacy message.</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="../InnerTransactionBuilder.html" title="interface in com.lmax.solana4j.api">InnerTransactionBuilder</a></code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">InnerTransactionBuilder.</span><code><a href="../InnerTransactionBuilder.html#payer(com.lmax.solana4j.api.PublicKey)" class="member-name-link">payer</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;payer)</code></div>
+<div class="col-first odd-row-color"><code>boolean</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">MessageVisitor.Version0MessageView.</span><code><a href="../MessageVisitor.Version0MessageView.html#isWriter(com.lmax.solana4j.api.PublicKey,java.util.List)" class="member-name-link">isWriter</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</code></div>
 <div class="col-last odd-row-color">
+<div class="block">Checks if the specified account is designated as a writer in this version 0 message.</div>
+</div>
+<div class="col-first even-row-color"><code><a href="../InnerTransactionBuilder.html" title="interface in com.lmax.solana4j.api">InnerTransactionBuilder</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">InnerTransactionBuilder.</span><code><a href="../InnerTransactionBuilder.html#payer(com.lmax.solana4j.api.PublicKey)" class="member-name-link">payer</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;payer)</code></div>
+<div class="col-last even-row-color">
 <div class="block">Sets the payer for the inner transaction.</div>
 </div>
-<div class="col-first even-row-color"><code><a href="../MessageBuilderLegacy.html" title="interface in com.lmax.solana4j.api">MessageBuilderLegacy</a></code></div>
-<div class="col-second even-row-color"><span class="type-name-label">MessageBuilderLegacy.</span><code><a href="../MessageBuilderLegacy.html#payer(com.lmax.solana4j.api.PublicKey)" class="member-name-link">payer</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code><a href="../MessageBuilderLegacy.html" title="interface in com.lmax.solana4j.api">MessageBuilderLegacy</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">MessageBuilderLegacy.</span><code><a href="../MessageBuilderLegacy.html#payer(com.lmax.solana4j.api.PublicKey)" class="member-name-link">payer</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</code></div>
+<div class="col-last odd-row-color">
 <div class="block">Sets the payer for the legacy message.</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="../MessageBuilderV0.html" title="interface in com.lmax.solana4j.api">MessageBuilderV0</a></code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">MessageBuilderV0.</span><code><a href="../MessageBuilderV0.html#payer(com.lmax.solana4j.api.PublicKey)" class="member-name-link">payer</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code><a href="../MessageBuilderV0.html" title="interface in com.lmax.solana4j.api">MessageBuilderV0</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">MessageBuilderV0.</span><code><a href="../MessageBuilderV0.html#payer(com.lmax.solana4j.api.PublicKey)" class="member-name-link">payer</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</code></div>
+<div class="col-last even-row-color">
 <div class="block">Sets the payer for the version 0 message.</div>
 </div>
-<div class="col-first even-row-color"><code><a href="../InstructionBuilderBase.html" title="interface in com.lmax.solana4j.api">InstructionBuilderBase</a></code></div>
-<div class="col-second even-row-color"><span class="type-name-label">InstructionBuilderBase.</span><code><a href="../InstructionBuilderBase.html#program(com.lmax.solana4j.api.PublicKey)" class="member-name-link">program</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code><a href="../InstructionBuilderBase.html" title="interface in com.lmax.solana4j.api">InstructionBuilderBase</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">InstructionBuilderBase.</span><code><a href="../InstructionBuilderBase.html#program(com.lmax.solana4j.api.PublicKey)" class="member-name-link">program</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</code></div>
+<div class="col-last odd-row-color">
 <div class="block">Specifies the program to be executed by the instruction.</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link">ByteBuffer</a></code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">MessageVisitor.MessageView.</span><code><a href="../MessageVisitor.MessageView.html#signature(com.lmax.solana4j.api.PublicKey)" class="member-name-link">signature</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link">ByteBuffer</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">MessageVisitor.MessageView.</span><code><a href="../MessageVisitor.MessageView.html#signature(com.lmax.solana4j.api.PublicKey)" class="member-name-link">signature</a><wbr>(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</code></div>
+<div class="col-last even-row-color">
 <div class="block">Returns the signature for the given account as a byte buffer.</div>
 </div>
 </div>
@@ -314,16 +340,6 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">MessageVisitor.InstructionView.</span><code><a href="../MessageVisitor.InstructionView.html#accounts(java.util.List)" class="member-name-link">accounts</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;transactionAccounts)</code></div>
-<div class="col-last even-row-color">
-<div class="block">Returns the list of accounts for the instruction.</div>
-</div>
-<div class="col-first odd-row-color"><code><a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">MessageVisitor.InstructionView.</span><code><a href="../MessageVisitor.InstructionView.html#program(java.util.List)" class="member-name-link">program</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;transactionAccounts)</code></div>
-<div class="col-last odd-row-color">
-<div class="block">Returns the public key of the program for the instruction.</div>
-</div>
 <div class="col-first even-row-color"><code>void</code></div>
 <div class="col-second even-row-color"><span class="type-name-label">AddressesFromLookup.</span><code><a href="../AddressesFromLookup.html#write(java.util.List)" class="member-name-link">write</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;addresses)</code></div>
 <div class="col-last even-row-color">
@@ -361,6 +377,24 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">Creates a new public key from the given byte array.</div>
 </div>
+<div class="col-first odd-row-color"><code><a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">SolanaLegacyInstructionView.</span><code><a href="../../encoding/SolanaLegacyInstructionView.html#program()" class="member-name-link">program</a>()</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code><a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">SolanaV0InstructionView.</span><code><a href="../../encoding/SolanaV0InstructionView.html#program(java.util.List)" class="member-name-link">program</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+</div>
+<div class="caption"><span>Methods in <a href="../../encoding/package-summary.html">com.lmax.solana4j.encoding</a> that return types with arguments of type <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Method</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">SolanaLegacyInstructionView.</span><code><a href="../../encoding/SolanaLegacyInstructionView.html#accounts()" class="member-name-link">accounts</a>()</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">SolanaV0InstructionView.</span><code><a href="../../encoding/SolanaV0InstructionView.html#accounts(java.util.List)" class="member-name-link">accounts</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 <div class="caption"><span>Methods in <a href="../../encoding/package-summary.html">com.lmax.solana4j.encoding</a> with parameters of type <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></span></div>
 <div class="summary-table three-column-summary">

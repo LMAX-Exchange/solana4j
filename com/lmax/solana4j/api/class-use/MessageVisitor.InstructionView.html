@@ -56,22 +56,46 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="#com.lmax.solana4j.api">com.lmax.solana4j.api</a></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><a href="#com.lmax.solana4j.encoding">com.lmax.solana4j.encoding</a></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 <section class="class-uses">
 <ul class="block-list">
 <li>
 <section class="detail" id="com.lmax.solana4j.api">
 <h2>Uses of <a href="../MessageVisitor.InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.InstructionView</a> in <a href="../package-summary.html">com.lmax.solana4j.api</a></h2>
-<div class="caption"><span>Methods in <a href="../package-summary.html">com.lmax.solana4j.api</a> that return types with arguments of type <a href="../MessageVisitor.InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.InstructionView</a></span></div>
+<div class="caption"><span>Subinterfaces of <a href="../MessageVisitor.InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.InstructionView</a> in <a href="../package-summary.html">com.lmax.solana4j.api</a></span></div>
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
-<div class="table-header col-second">Method</div>
+<div class="table-header col-second">Interface</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../MessageVisitor.InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.InstructionView</a>&gt;</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">MessageVisitor.MessageView.</span><code><a href="../MessageVisitor.MessageView.html#instructions()" class="member-name-link">instructions</a>()</code></div>
+<div class="col-first even-row-color"><code>static interface&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../MessageVisitor.LegacyInstructionView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyInstructionView</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Returns the list of instructions in the message.</div>
+<div class="block">Interface representing a legacy instruction view in the Solana blockchain.</div>
 </div>
+<div class="col-first odd-row-color"><code>static interface&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../MessageVisitor.V0InstructionView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.V0InstructionView</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">Interface representing a version 0 instruction view in the Solana blockchain.</div>
+</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="com.lmax.solana4j.encoding">
+<h2>Uses of <a href="../MessageVisitor.InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.InstructionView</a> in <a href="../../encoding/package-summary.html">com.lmax.solana4j.encoding</a></h2>
+<div class="caption"><span>Classes in <a href="../../encoding/package-summary.html">com.lmax.solana4j.encoding</a> that implement <a href="../MessageVisitor.InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.InstructionView</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Class</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../encoding/SolanaLegacyInstructionView.html" class="type-name-link" title="class in com.lmax.solana4j.encoding">SolanaLegacyInstructionView</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../encoding/SolanaV0InstructionView.html" class="type-name-link" title="class in com.lmax.solana4j.encoding">SolanaV0InstructionView</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>

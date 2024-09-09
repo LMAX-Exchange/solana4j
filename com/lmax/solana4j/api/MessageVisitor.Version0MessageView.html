@@ -74,7 +74,7 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Superinterfaces:</dt>
-<dd><code><a href="MessageVisitor.LegacyMessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyMessageView</a></code>, <code><a href="MessageVisitor.MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.MessageView</a></code></dd>
+<dd><code><a href="MessageVisitor.MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.MessageView</a></code></dd>
 </dl>
 <dl class="notes">
 <dt>Enclosing interface:</dt>
@@ -82,10 +82,11 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public static interface </span><span class="element-name type-name-label">MessageVisitor.Version0MessageView</span><span class="extends-implements">
-extends <a href="MessageVisitor.LegacyMessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyMessageView</a></span></div>
-<div class="block">Interface representing a version 0 message view in the Solana blockchain.
+extends <a href="MessageVisitor.MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.MessageView</a></span></div>
+<div class="block">Interface representing a view of a version 0 message in the Solana blockchain.
  <p>
- This interface extends <a href="MessageVisitor.LegacyMessageView.html" title="interface in com.lmax.solana4j.api"><code>MessageVisitor.LegacyMessageView</code></a> and provides methods specific to version 0 messages.
+ This interface extends the <a href="MessageVisitor.LegacyMessageView.html" title="interface in com.lmax.solana4j.api"><code>MessageVisitor.LegacyMessageView</code></a> and provides additional methods
+ specific to version 0 messages, which include advanced features such as account lookup tables.
  </p></div>
 </section>
 <section class="summary">
@@ -101,22 +102,38 @@ extends <a href="MessageVisitor.LegacyMessageView.html" title="interface in com.
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="MessageVisitor.AccountLookupTableView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountLookupTableView</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#lookupTables()" class="member-name-link">lookupTables</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="MessageVisitor.AddressLookupView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AddressLookupView</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#addressLookups()" class="member-name-link">addressLookups</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Returns the list of account lookup tables used in the message.</div>
+<div class="block">Retrieves the list of account lookup tables referenced by this version 0 message.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#version()" class="member-name-link">version</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#allAccounts(java.util.List)" class="member-name-link">allAccounts</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Returns the version of the message.</div>
+<div class="block">Retrieves the list of all accounts, including both static and lookup accounts.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="MessageVisitor.V0InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.V0InstructionView</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#instructions()" class="member-name-link">instructions</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Retrieves the list of instructions included in this version 0 message.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#isWriter(com.lmax.solana4j.api.PublicKey,java.util.List)" class="member-name-link">isWriter</a><wbr>(<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Checks if the specified account is designated as a writer in this version 0 message.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#version()" class="member-name-link">version</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Retrieves the version number of this message.</div>
 </div>
 </div>
 </div>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.lmax.solana4j.api.MessageVisitor.MessageView">Methods inherited from interface&nbsp;com.lmax.solana4j.api.<a href="MessageVisitor.MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.MessageView</a></h3>
-<code><a href="MessageVisitor.MessageView.html#accounts()">accounts</a>, <a href="MessageVisitor.MessageView.html#countAccountsSigned()">countAccountsSigned</a>, <a href="MessageVisitor.MessageView.html#countAccountsSignedReadOnly()">countAccountsSignedReadOnly</a>, <a href="MessageVisitor.MessageView.html#countAccountsUnsignedReadOnly()">countAccountsUnsignedReadOnly</a>, <a href="MessageVisitor.MessageView.html#feePayer()">feePayer</a>, <a href="MessageVisitor.MessageView.html#instructions()">instructions</a>, <a href="MessageVisitor.MessageView.html#isSigner(com.lmax.solana4j.api.PublicKey)">isSigner</a>, <a href="MessageVisitor.MessageView.html#isWriter(com.lmax.solana4j.api.PublicKey)">isWriter</a>, <a href="MessageVisitor.MessageView.html#recentBlockHash()">recentBlockHash</a>, <a href="MessageVisitor.MessageView.html#signature(com.lmax.solana4j.api.PublicKey)">signature</a>, <a href="MessageVisitor.MessageView.html#signers()">signers</a>, <a href="MessageVisitor.MessageView.html#transaction()">transaction</a></code></div>
+<code><a href="MessageVisitor.MessageView.html#countAccountsSigned()">countAccountsSigned</a>, <a href="MessageVisitor.MessageView.html#countAccountsSignedReadOnly()">countAccountsSignedReadOnly</a>, <a href="MessageVisitor.MessageView.html#countAccountsUnsignedReadOnly()">countAccountsUnsignedReadOnly</a>, <a href="MessageVisitor.MessageView.html#feePayer()">feePayer</a>, <a href="MessageVisitor.MessageView.html#isSigner(com.lmax.solana4j.api.PublicKey)">isSigner</a>, <a href="MessageVisitor.MessageView.html#recentBlockHash()">recentBlockHash</a>, <a href="MessageVisitor.MessageView.html#signature(com.lmax.solana4j.api.PublicKey)">signature</a>, <a href="MessageVisitor.MessageView.html#signers()">signers</a>, <a href="MessageVisitor.MessageView.html#staticAccounts()">staticAccounts</a>, <a href="MessageVisitor.MessageView.html#transaction()">transaction</a></code></div>
 </section>
 </li>
 </ul>
@@ -132,21 +149,69 @@ extends <a href="MessageVisitor.LegacyMessageView.html" title="interface in com.
 <section class="detail" id="version()">
 <h3>version</h3>
 <div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">version</span>()</div>
-<div class="block">Returns the version of the message.</div>
+<div class="block">Retrieves the version number of this message.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the version of the message</dd>
+<dd>the version number of the message, expected to be 0 for version 0 messages</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="lookupTables()">
-<h3>lookupTables</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="MessageVisitor.AccountLookupTableView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountLookupTableView</a>&gt;</span>&nbsp;<span class="element-name">lookupTables</span>()</div>
-<div class="block">Returns the list of account lookup tables used in the message.</div>
+<section class="detail" id="addressLookups()">
+<h3>addressLookups</h3>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="MessageVisitor.AddressLookupView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AddressLookupView</a>&gt;</span>&nbsp;<span class="element-name">addressLookups</span>()</div>
+<div class="block">Retrieves the list of account lookup tables referenced by this version 0 message.
+ <p>
+ Account lookup tables help optimize the transaction by referencing accounts indirectly,
+ allowing for more efficient and flexible transaction structures.
+ </p></div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>a list of <a href="MessageVisitor.AccountLookupTableView.html" title="interface in com.lmax.solana4j.api"><code>MessageVisitor.AccountLookupTableView</code></a> objects representing the lookup tables</dd>
+<dd>a list of <a href="MessageVisitor.AddressLookupView.html" title="interface in com.lmax.solana4j.api"><code>MessageVisitor.AddressLookupView</code></a> objects representing the account lookup tables</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="instructions()">
+<h3>instructions</h3>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="MessageVisitor.V0InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.V0InstructionView</a>&gt;</span>&nbsp;<span class="element-name">instructions</span>()</div>
+<div class="block">Retrieves the list of instructions included in this version 0 message.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>a list of <a href="MessageVisitor.V0InstructionView.html" title="interface in com.lmax.solana4j.api"><code>MessageVisitor.V0InstructionView</code></a> objects representing the instructions
+ in the version 0 message</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="isWriter(com.lmax.solana4j.api.PublicKey,java.util.List)">
+<h3>isWriter</h3>
+<div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">isWriter</span><wbr><span class="parameters">(<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</span></div>
+<div class="block">Checks if the specified account is designated as a writer in this version 0 message.
+ <p>
+ This method checks both static accounts and accounts referenced via the provided
+ address lookup tables to determine if the account has write access.
+ </p></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>account</code> - the public key of the account to check</dd>
+<dd><code>addressLookupTables</code> - the list of address lookup tables to consult when determining if the account is a writer</dd>
+<dt>Returns:</dt>
+<dd><code>true</code> if the account is a writer, <code>false</code> otherwise</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="allAccounts(java.util.List)">
+<h3>allAccounts</h3>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</span>&nbsp;<span class="element-name">allAccounts</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</span></div>
+<div class="block">Retrieves the list of all accounts, including both static and lookup accounts.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>addressLookupTables</code> - the list of address lookup tables to include</dd>
+<dt>Returns:</dt>
+<dd>a list of <a href="PublicKey.html" title="interface in com.lmax.solana4j.api"><code>PublicKey</code></a> objects representing all accounts</dd>
 </dl>
 </section>
 </li>

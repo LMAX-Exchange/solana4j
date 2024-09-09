@@ -73,6 +73,14 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
+<dt>All Known Subinterfaces:</dt>
+<dd><code><a href="MessageVisitor.LegacyInstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyInstructionView</a></code>, <code><a href="MessageVisitor.V0InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.V0InstructionView</a></code></dd>
+</dl>
+<dl class="notes">
+<dt>All Known Implementing Classes:</dt>
+<dd><code><a href="../encoding/SolanaLegacyInstructionView.html" title="class in com.lmax.solana4j.encoding">SolanaLegacyInstructionView</a></code>, <code><a href="../encoding/SolanaV0InstructionView.html" title="class in com.lmax.solana4j.encoding">SolanaV0InstructionView</a></code></dd>
+</dl>
+<dl class="notes">
 <dt>Enclosing interface:</dt>
 <dd><a href="MessageVisitor.html" title="interface in com.lmax.solana4j.api">MessageVisitor</a>&lt;<a href="MessageVisitor.html" title="type parameter in MessageVisitor">T</a>&gt;</dd>
 </dl>
@@ -98,20 +106,10 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Returns the list of account indexes for the instruction.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#accounts(java.util.List)" class="member-name-link">accounts</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;transactionAccounts)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link">ByteBuffer</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#data()" class="member-name-link">data</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Returns the list of accounts for the instruction.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link">ByteBuffer</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#data()" class="member-name-link">data</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Returns the instruction data as a byte buffer.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#program(java.util.List)" class="member-name-link">program</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;transactionAccounts)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Returns the public key of the program for the instruction.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#programIndex()" class="member-name-link">programIndex</a>()</code></div>
@@ -144,19 +142,6 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="program(java.util.List)">
-<h3>program</h3>
-<div class="member-signature"><span class="return-type"><a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></span>&nbsp;<span class="element-name">program</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;transactionAccounts)</span></div>
-<div class="block">Returns the public key of the program for the instruction.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>transactionAccounts</code> - the list of transaction accounts</dd>
-<dt>Returns:</dt>
-<dd>the <a href="PublicKey.html" title="interface in com.lmax.solana4j.api"><code>PublicKey</code></a> of the program</dd>
-</dl>
-</section>
-</li>
-<li>
 <section class="detail" id="accountIndexes()">
 <h3>accountIndexes</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">accountIndexes</span>()</div>
@@ -164,19 +149,6 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>a list of integers representing the account indexes</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="accounts(java.util.List)">
-<h3>accounts</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</span>&nbsp;<span class="element-name">accounts</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;transactionAccounts)</span></div>
-<div class="block">Returns the list of accounts for the instruction.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>transactionAccounts</code> - the list of transaction accounts</dd>
-<dt>Returns:</dt>
-<dd>a list of <a href="PublicKey.html" title="interface in com.lmax.solana4j.api"><code>PublicKey</code></a> objects representing the accounts</dd>
 </dl>
 </section>
 </li>

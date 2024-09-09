@@ -69,6 +69,8 @@ loadScripts(document, 'script');</script>
 <li class="circle">com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html" class="type-name-link" title="class in com.lmax.solana4j.programs">ComputeBudgetProgram</a></li>
 <li class="circle">com.lmax.solana4j.<a href="com/lmax/solana4j/Solana.html" class="type-name-link" title="class in com.lmax.solana4j">Solana</a></li>
 <li class="circle">com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaEncoding.html" class="type-name-link" title="class in com.lmax.solana4j.encoding">SolanaEncoding</a></li>
+<li class="circle">com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaLegacyInstructionView.html" class="type-name-link" title="class in com.lmax.solana4j.encoding">SolanaLegacyInstructionView</a> (implements com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.LegacyInstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyInstructionView</a>)</li>
+<li class="circle">com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html" class="type-name-link" title="class in com.lmax.solana4j.encoding">SolanaV0InstructionView</a> (implements com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.V0InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.V0InstructionView</a>)</li>
 <li class="circle">com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.html" class="type-name-link" title="class in com.lmax.solana4j.programs">SystemProgram</a></li>
 <li class="circle">com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SysVar.html" class="type-name-link" title="class in com.lmax.solana4j.encoding">SysVar</a></li>
 <li class="circle">com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" class="type-name-link" title="class in com.lmax.solana4j.programs">TokenProgram</a>&lt;T&gt;
@@ -105,16 +107,23 @@ loadScripts(document, 'script');</script>
 <li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageBuilderLegacy.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageBuilderLegacy</a></li>
 <li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageBuilderV0.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageBuilderV0</a></li>
 <li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor</a>&lt;T&gt;</li>
-<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupTableView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountLookupTableView</a></li>
-<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AccountsView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountsView</a></li>
-<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.InstructionView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.InstructionView</a></li>
-<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.MessageView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.MessageView</a>
+<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AccountsView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountsView</a>
 <ul>
-<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.LegacyMessageView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyMessageView</a>
-<ul>
-<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.Version0MessageView</a></li>
+<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.LegacyAccountsView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyAccountsView</a></li>
+<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.V0AccountsView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.V0AccountsView</a></li>
 </ul>
 </li>
+<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AddressLookupView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.AddressLookupView</a></li>
+<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.InstructionView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.InstructionView</a>
+<ul>
+<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.LegacyInstructionView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyInstructionView</a></li>
+<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.V0InstructionView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.V0InstructionView</a></li>
+</ul>
+</li>
+<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.MessageView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.MessageView</a>
+<ul>
+<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.LegacyMessageView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyMessageView</a></li>
+<li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.Version0MessageView</a></li>
 </ul>
 </li>
 <li class="circle">com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/ProgramDerivedAddress.html" class="type-name-link" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a>

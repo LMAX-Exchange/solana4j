@@ -85,18 +85,28 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the list of account indexes for the instruction.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html#accountIndexes()" class="member-name-link">accountIndexes()</a> - Method in class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html" title="class in com.lmax.solana4j.encoding">SolanaV0InstructionView</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/lmax/solana4j/api/TransactionInstruction.html#accountReferences()" class="member-name-link">accountReferences()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></dt>
 <dd>
 <div class="block">Returns a list of account references involved in this instruction.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.MessageView.html#accounts()" class="member-name-link">accounts()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.MessageView</a></dt>
-<dd>
-<div class="block">Returns the accounts view of the message.</div>
-</dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.InstructionView.html#accounts(java.util.List)" class="member-name-link">accounts(List&lt;PublicKey&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.InstructionView</a></dt>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.LegacyInstructionView.html#accounts()" class="member-name-link">accounts()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.LegacyInstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyInstructionView</a></dt>
 <dd>
 <div class="block">Returns the list of accounts for the instruction.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/encoding/SolanaLegacyInstructionView.html#accounts()" class="member-name-link">accounts()</a> - Method in class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaLegacyInstructionView.html" title="class in com.lmax.solana4j.encoding">SolanaLegacyInstructionView</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.V0AccountsView.html#accounts(java.util.List)" class="member-name-link">accounts(List&lt;AddressLookupTable&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.V0AccountsView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.V0AccountsView</a></dt>
+<dd>
+<div class="block">Returns the list of all accounts, including those referenced by address lookup tables.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.V0InstructionView.html#accounts(java.util.List)" class="member-name-link">accounts(List&lt;AddressLookupTable&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.V0InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.V0InstructionView</a></dt>
+<dd>
+<div class="block">Returns the list of accounts for the instruction, considering the address lookup tables.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html#accounts(java.util.List)" class="member-name-link">accounts(List&lt;AddressLookupTable&gt;)</a> - Method in class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html" title="class in com.lmax.solana4j.encoding">SolanaV0InstructionView</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/lmax/solana4j/api/Accounts.html" class="type-name-link" title="interface in com.lmax.solana4j.api">Accounts</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
 <div class="block">Interface representing a collection of accounts in the Solana blockchain.</div>
@@ -120,6 +130,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/lmax/solana4j/api/AddressesFromLookup.html" class="type-name-link" title="interface in com.lmax.solana4j.api">AddressesFromLookup</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
 <div class="block">Interface representing a collection of addresses obtained from a lookup table in the Solana blockchain.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html#addressLookups()" class="member-name-link">addressLookups()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.Version0MessageView</a></dt>
+<dd>
+<div class="block">Retrieves the list of account lookup tables referenced by this version 0 message.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/encoding/SolanaEncoding.html#addressLookupTable(com.lmax.solana4j.api.PublicKey,java.util.List)" class="member-name-link">addressLookupTable(PublicKey, List&lt;PublicKey&gt;)</a> - Static method in class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaEncoding.html" title="class in com.lmax.solana4j.encoding">SolanaEncoding</a></dt>
 <dd>
@@ -149,9 +163,9 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The instruction code for advancing a nonce.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.AccountsView.html#allAccounts()" class="member-name-link">allAccounts()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AccountsView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountsView</a></dt>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html#allAccounts(java.util.List)" class="member-name-link">allAccounts(List&lt;AddressLookupTable&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.Version0MessageView</a></dt>
 <dd>
-<div class="block">Returns the list of all accounts, static accounts and lookup accounts.</div>
+<div class="block">Retrieves the list of all accounts, including both static and lookup accounts.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/api/TransactionBuilder.html#append(java.util.function.Consumer)" class="member-name-link">append(Consumer&lt;InstructionBuilderBase&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/TransactionBuilder.html" title="interface in com.lmax.solana4j.api">TransactionBuilder</a></dt>
 <dd>
@@ -346,6 +360,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a consumer that writes the data for this instruction to a byte buffer.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html#data()" class="member-name-link">data()</a> - Method in class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html" title="class in com.lmax.solana4j.encoding">SolanaV0InstructionView</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/lmax/solana4j/api/InstructionBuilderBase.html#data(int,java.util.function.Consumer)" class="member-name-link">data(int, Consumer&lt;ByteBuffer&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/InstructionBuilderBase.html" title="interface in com.lmax.solana4j.api">InstructionBuilderBase</a></dt>
 <dd>
 <div class="block">Sets the data for the instruction.</div>
@@ -582,9 +598,13 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Base interface for building instructions in a Solana blockchain transaction.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.MessageView.html#instructions()" class="member-name-link">instructions()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.MessageView</a></dt>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.LegacyMessageView.html#instructions()" class="member-name-link">instructions()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.LegacyMessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyMessageView</a></dt>
 <dd>
-<div class="block">Returns the list of instructions in the message.</div>
+<div class="block">Retrieves the list of instructions included in this legacy message.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html#instructions()" class="member-name-link">instructions()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.Version0MessageView</a></dt>
+<dd>
+<div class="block">Retrieves the list of instructions included in this version 0 message.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/api/InnerTransactionBuilder.html#instructions(java.util.function.Consumer)" class="member-name-link">instructions(Consumer&lt;TransactionBuilder&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/InnerTransactionBuilder.html" title="interface in com.lmax.solana4j.api">InnerTransactionBuilder</a></dt>
 <dd>
@@ -618,9 +638,13 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Indicates whether this account is a writer.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.MessageView.html#isWriter(com.lmax.solana4j.api.PublicKey)" class="member-name-link">isWriter(PublicKey)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.MessageView</a></dt>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.LegacyMessageView.html#isWriter(com.lmax.solana4j.api.PublicKey)" class="member-name-link">isWriter(PublicKey)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.LegacyMessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyMessageView</a></dt>
 <dd>
-<div class="block">Checks if the given account is a writer.</div>
+<div class="block">Checks if the specified account is marked as a writer in this legacy message.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html#isWriter(com.lmax.solana4j.api.PublicKey,java.util.List)" class="member-name-link">isWriter(PublicKey, List&lt;AddressLookupTable&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.Version0MessageView</a></dt>
+<dd>
+<div class="block">Checks if the specified account is designated as a writer in this version 0 message.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:L">L</h2>
@@ -633,17 +657,13 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The size of the lookup table metadata in bytes.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupTableView.html#lookupAccount()" class="member-name-link">lookupAccount()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupTableView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountLookupTableView</a></dt>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.AddressLookupView.html#lookupAccount()" class="member-name-link">lookupAccount()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AddressLookupView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AddressLookupView</a></dt>
 <dd>
 <div class="block">Returns the public key of the lookup account.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/api/MessageBuilderV0.html#lookups(java.util.List)" class="member-name-link">lookups(List&lt;AddressLookupTable&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageBuilderV0.html" title="interface in com.lmax.solana4j.api">MessageBuilderV0</a></dt>
 <dd>
 <div class="block">Sets the account lookups for the version 0 message.</div>
-</dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html#lookupTables()" class="member-name-link">lookupTables()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.Version0MessageView</a></dt>
-<dd>
-<div class="block">Returns the list of account lookup tables used in the message.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:M">M</h2>
@@ -676,29 +696,45 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Interface representing a visitor for messages in the Solana blockchain.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupTableView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountLookupTableView</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
-<dd>
-<div class="block">Interface representing an account lookup table view in the Solana blockchain.</div>
-</dd>
 <dt><a href="com/lmax/solana4j/api/MessageVisitor.AccountsView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountsView</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
 <div class="block">Interface representing a view of accounts in the Solana blockchain.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.AddressLookupView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.AddressLookupView</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
+<dd>
+<div class="block">Interface representing an account lookup table view in the Solana blockchain.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/api/MessageVisitor.InstructionView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.InstructionView</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
 <div class="block">Interface representing an instruction view in the Solana blockchain.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.LegacyAccountsView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyAccountsView</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
+<dd>
+<div class="block">Interface representing a view of legacy accounts in the Solana blockchain.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.LegacyInstructionView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyInstructionView</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
+<dd>
+<div class="block">Interface representing a legacy instruction view in the Solana blockchain.</div>
+</dd>
 <dt><a href="com/lmax/solana4j/api/MessageVisitor.LegacyMessageView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyMessageView</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a legacy message view in the Solana blockchain.</div>
+<div class="block">Interface representing a view of a legacy message in the Solana blockchain.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/api/MessageVisitor.MessageView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.MessageView</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
 <div class="block">Interface representing a view of a message in the Solana blockchain.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.V0AccountsView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.V0AccountsView</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
+<dd>
+<div class="block">Interface representing a view of version 0 accounts in the Solana blockchain.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.V0InstructionView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.V0InstructionView</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
+<dd>
+<div class="block">Interface representing a version 0 instruction view in the Solana blockchain.</div>
+</dd>
 <dt><a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.Version0MessageView</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a version 0 message view in the Solana blockchain.</div>
+<div class="block">Interface representing a view of a version 0 message in the Solana blockchain.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#METADATA_POINTER" class="member-name-link">METADATA_POINTER</a> - Enum constant in enum class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum class in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
 <dd>
@@ -773,18 +809,26 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Authority type for setting a permanent delegate.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.LegacyInstructionView.html#program()" class="member-name-link">program()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.LegacyInstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyInstructionView</a></dt>
+<dd>
+<div class="block">Returns the public key of the program for the instruction.</div>
+</dd>
 <dt><a href="com/lmax/solana4j/api/TransactionInstruction.html#program()" class="member-name-link">program()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></dt>
 <dd>
 <div class="block">Returns the public key of the program to be executed.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/encoding/SolanaLegacyInstructionView.html#program()" class="member-name-link">program()</a> - Method in class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaLegacyInstructionView.html" title="class in com.lmax.solana4j.encoding">SolanaLegacyInstructionView</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/lmax/solana4j/api/InstructionBuilderBase.html#program(com.lmax.solana4j.api.PublicKey)" class="member-name-link">program(PublicKey)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/InstructionBuilderBase.html" title="interface in com.lmax.solana4j.api">InstructionBuilderBase</a></dt>
 <dd>
 <div class="block">Specifies the program to be executed by the instruction.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.InstructionView.html#program(java.util.List)" class="member-name-link">program(List&lt;PublicKey&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.InstructionView</a></dt>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.V0InstructionView.html#program(java.util.List)" class="member-name-link">program(List&lt;AddressLookupTable&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.V0InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.V0InstructionView</a></dt>
 <dd>
-<div class="block">Returns the public key of the program for the instruction.</div>
+<div class="block">Returns the public key of the program for the instruction, considering the address lookup tables.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html#program(java.util.List)" class="member-name-link">program(List&lt;AddressLookupTable&gt;)</a> - Method in class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html" title="class in com.lmax.solana4j.encoding">SolanaV0InstructionView</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html#PROGRAM_ACCOUNT" class="member-name-link">PROGRAM_ACCOUNT</a> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html" title="class in com.lmax.solana4j.programs">AddressLookupTableProgram</a></dt>
 <dd>
 <div class="block">The public key for the address lookup table program account.</div>
@@ -813,6 +857,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the index of the program in the instruction.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html#programIndex()" class="member-name-link">programIndex()</a> - Method in class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html" title="class in com.lmax.solana4j.encoding">SolanaV0InstructionView</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/lmax/solana4j/api/PublicKey.html#PUBLIC_KEY_LENGTH" class="member-name-link">PUBLIC_KEY_LENGTH</a> - Static variable in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></dt>
 <dd>
 <div class="block">The length of a public key in bytes.</div>
@@ -832,11 +878,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Reads a message from the given buffer.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupTableView.html#readOnlyTableIndexes()" class="member-name-link">readOnlyTableIndexes()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupTableView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountLookupTableView</a></dt>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.AddressLookupView.html#readOnlyTableIndexes()" class="member-name-link">readOnlyTableIndexes()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AddressLookupView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AddressLookupView</a></dt>
 <dd>
 <div class="block">Returns the list of read-only table indexes.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupTableView.html#readWriteTableIndexes()" class="member-name-link">readWriteTableIndexes()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupTableView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountLookupTableView</a></dt>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.AddressLookupView.html#readWriteTableIndexes()" class="member-name-link">readWriteTableIndexes()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AddressLookupView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AddressLookupView</a></dt>
 <dd>
 <div class="block">Returns the list of read-write table indexes.</div>
 </dd>
@@ -945,9 +991,19 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/lmax/solana4j/encoding/SolanaEncoding.html#%3Cinit%3E()" class="member-name-link">SolanaEncoding()</a> - Constructor for class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaEncoding.html" title="class in com.lmax.solana4j.encoding">SolanaEncoding</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/lmax/solana4j/encoding/SolanaLegacyInstructionView.html" class="type-name-link" title="class in com.lmax.solana4j.encoding">SolanaLegacyInstructionView</a> - Class in <a href="com/lmax/solana4j/encoding/package-summary.html">com.lmax.solana4j.encoding</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/lmax/solana4j/encoding/SolanaLegacyInstructionView.html#%3Cinit%3E(int,java.util.List,java.nio.ByteBuffer,com.lmax.solana4j.api.MessageVisitor.LegacyAccountsView)" class="member-name-link">SolanaLegacyInstructionView(int, List&lt;Integer&gt;, ByteBuffer, MessageVisitor.LegacyAccountsView)</a> - Constructor for class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaLegacyInstructionView.html" title="class in com.lmax.solana4j.encoding">SolanaLegacyInstructionView</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html" class="type-name-link" title="class in com.lmax.solana4j.encoding">SolanaV0InstructionView</a> - Class in <a href="com/lmax/solana4j/encoding/package-summary.html">com.lmax.solana4j.encoding</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/lmax/solana4j/api/MessageVisitor.AccountsView.html#staticAccounts()" class="member-name-link">staticAccounts()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AccountsView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountsView</a></dt>
 <dd>
 <div class="block">Returns the list of static accounts.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.MessageView.html#staticAccounts()" class="member-name-link">staticAccounts()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.MessageView</a></dt>
+<dd>
+<div class="block">Returns the list of static accounts in the message.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/programs/SystemProgram.html#SYSTEM_PROGRAM_ACCOUNT" class="member-name-link">SYSTEM_PROGRAM_ACCOUNT</a> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.html" title="class in com.lmax.solana4j.programs">SystemProgram</a></dt>
 <dd>
@@ -1051,7 +1107,7 @@ the order they are declared.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html#version()" class="member-name-link">version()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.Version0MessageView</a></dt>
 <dd>
-<div class="block">Returns the version of the message.</div>
+<div class="block">Retrieves the version number of this message.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/api/MessageVisitor.html#visit(com.lmax.solana4j.api.MessageVisitor.MessageView)" class="member-name-link">visit(MessageVisitor.MessageView)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.html" title="interface in com.lmax.solana4j.api">MessageVisitor</a></dt>
 <dd>

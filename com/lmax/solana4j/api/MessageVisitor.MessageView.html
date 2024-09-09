@@ -97,60 +97,50 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="MessageVisitor.AccountsView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountsView</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#accounts()" class="member-name-link">accounts</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#countAccountsSigned()" class="member-name-link">countAccountsSigned</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Returns the accounts view of the message.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#countAccountsSigned()" class="member-name-link">countAccountsSigned</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Returns the count of signed accounts in the message.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#countAccountsSignedReadOnly()" class="member-name-link">countAccountsSignedReadOnly</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#countAccountsSignedReadOnly()" class="member-name-link">countAccountsSignedReadOnly</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Returns the count of read-only signed accounts in the message.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#countAccountsUnsignedReadOnly()" class="member-name-link">countAccountsUnsignedReadOnly</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#countAccountsUnsignedReadOnly()" class="member-name-link">countAccountsUnsignedReadOnly</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Returns the count of read-only unsigned accounts in the message.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#feePayer()" class="member-name-link">feePayer</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Returns the public key of the fee payer for the transaction.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="MessageVisitor.InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.InstructionView</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#instructions()" class="member-name-link">instructions</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#feePayer()" class="member-name-link">feePayer</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Returns the list of instructions in the message.</div>
+<div class="block">Returns the public key of the fee payer for the transaction.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#isSigner(com.lmax.solana4j.api.PublicKey)" class="member-name-link">isSigner</a><wbr>(<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Checks if the given account is a signer.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#isWriter(com.lmax.solana4j.api.PublicKey)" class="member-name-link">isWriter</a><wbr>(<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Blockhash.html" title="interface in com.lmax.solana4j.api">Blockhash</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#recentBlockHash()" class="member-name-link">recentBlockHash</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Checks if the given account is a writer.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Blockhash.html" title="interface in com.lmax.solana4j.api">Blockhash</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#recentBlockHash()" class="member-name-link">recentBlockHash</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Returns the recent blockhash for the transaction.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link">ByteBuffer</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#signature(com.lmax.solana4j.api.PublicKey)" class="member-name-link">signature</a><wbr>(<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link">ByteBuffer</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#signature(com.lmax.solana4j.api.PublicKey)" class="member-name-link">signature</a><wbr>(<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Returns the signature for the given account as a byte buffer.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#signers()" class="member-name-link">signers</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#signers()" class="member-name-link">signers</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Returns the list of signer public keys for the transaction.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#staticAccounts()" class="member-name-link">staticAccounts</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Returns the list of static accounts in the message.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link">ByteBuffer</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#transaction()" class="member-name-link">transaction</a>()</code></div>
@@ -205,13 +195,13 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="accounts()">
-<h3>accounts</h3>
-<div class="member-signature"><span class="return-type"><a href="MessageVisitor.AccountsView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountsView</a></span>&nbsp;<span class="element-name">accounts</span>()</div>
-<div class="block">Returns the accounts view of the message.</div>
+<section class="detail" id="staticAccounts()">
+<h3>staticAccounts</h3>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</span>&nbsp;<span class="element-name">staticAccounts</span>()</div>
+<div class="block">Returns the list of static accounts in the message.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the <a href="MessageVisitor.AccountsView.html" title="interface in com.lmax.solana4j.api"><code>MessageVisitor.AccountsView</code></a> of the message</dd>
+<dd>a list of <a href="PublicKey.html" title="interface in com.lmax.solana4j.api"><code>PublicKey</code></a> objects representing the static accounts</dd>
 </dl>
 </section>
 </li>
@@ -270,17 +260,6 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="instructions()">
-<h3>instructions</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="MessageVisitor.InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.InstructionView</a>&gt;</span>&nbsp;<span class="element-name">instructions</span>()</div>
-<div class="block">Returns the list of instructions in the message.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>a list of <a href="MessageVisitor.InstructionView.html" title="interface in com.lmax.solana4j.api"><code>MessageVisitor.InstructionView</code></a> objects representing the instructions</dd>
-</dl>
-</section>
-</li>
-<li>
 <section class="detail" id="isSigner(com.lmax.solana4j.api.PublicKey)">
 <h3>isSigner</h3>
 <div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">isSigner</span><wbr><span class="parameters">(<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</span></div>
@@ -290,19 +269,6 @@ loadScripts(document, 'script');</script>
 <dd><code>account</code> - the account to check</dd>
 <dt>Returns:</dt>
 <dd><code>true</code> if the account is a signer, <code>false</code> otherwise</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="isWriter(com.lmax.solana4j.api.PublicKey)">
-<h3>isWriter</h3>
-<div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">isWriter</span><wbr><span class="parameters">(<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</span></div>
-<div class="block">Checks if the given account is a writer.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>account</code> - the account to check</dd>
-<dt>Returns:</dt>
-<dd><code>true</code> if the account is a writer, <code>false</code> otherwise</dd>
 </dl>
 </section>
 </li>
