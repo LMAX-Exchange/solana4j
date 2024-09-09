@@ -60,6 +60,11 @@ public class Solana4jTestHelper
             Solana.account(LOOKUP_TABLE_ADDRESS2),
             List.of(Solana.account(ACCOUNT1), Solana.account(ACCOUNT4))
     );
+    public static final AddressLookupTable ADDRESS_LOOK_TABLE3 = Solana.addressLookupTable(
+            Solana.account(LOOKUP_TABLE_ADDRESS2),
+            List.of(Solana.account(ACCOUNT7))
+    );
+
 
     public static final Map<PublicKey, byte[]> SIGNINGS = Map.of(
             Solana.account(PAYER), SIGNATURE_PAYER,
