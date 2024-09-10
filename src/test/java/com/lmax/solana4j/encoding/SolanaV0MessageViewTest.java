@@ -11,6 +11,7 @@ import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT1;
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT2;
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT3;
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT4;
+import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT5;
 import static com.lmax.solana4j.Solana4jTestHelper.ADDRESS_LOOK_TABLE1;
 import static com.lmax.solana4j.Solana4jTestHelper.ADDRESS_LOOK_TABLE2;
 import static com.lmax.solana4j.Solana4jTestHelper.ADDRESS_LOOK_TABLE3;
@@ -27,22 +28,10 @@ import static com.lmax.solana4j.Solana4jTestHelper.writeSimpleFullySignedV0Messa
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class SolanaMessageViewTest
+class SolanaV0MessageViewTest
 {
     @Test
-    void correctFeePayerWrittenLegacyMessage()
-    {
-        final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
-
-        writeSimpleFullySignedLegacyMessage(buffer);
-
-        final SolanaLegacyMessageView messageView = (SolanaLegacyMessageView) SolanaLegacyMessageView.fromBuffer(buffer);
-
-        assertThat(messageView.feePayer()).isEqualTo(Solana.account(PAYER));
-    }
-
-    @Test
-    void correctFeePayerWrittenV0Message()
+    void correctFeePayerWritten()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -54,7 +43,7 @@ class SolanaMessageViewTest
     }
 
     @Test
-    void version0HeaderWrittenV0Message()
+    void version0HeaderWritten()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -66,19 +55,7 @@ class SolanaMessageViewTest
     }
 
     @Test
-    void correctBlockhashWrittenLegacyMessage()
-    {
-        final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
-
-        writeSimpleFullySignedLegacyMessage(buffer);
-
-        final SolanaLegacyMessageView messageView = (SolanaLegacyMessageView) SolanaLegacyMessageView.fromBuffer(buffer);
-
-        assertThat(messageView.recentBlockHash()).isEqualTo(Solana.blockhash(BLOCKHASH));
-    }
-
-    @Test
-    void correctBlockhashWrittenV0Message()
+    void correctBlockhashWritten()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -90,21 +67,7 @@ class SolanaMessageViewTest
     }
 
     @Test
-    void correctlyReportCountsLegacyMessage()
-    {
-        final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
-
-        writeSimpleFullySignedLegacyMessage(buffer);
-
-        final SolanaLegacyMessageView messageView = (SolanaLegacyMessageView) SolanaLegacyMessageView.fromBuffer(buffer);
-
-        assertThat(messageView.countAccountsSigned()).isEqualTo(3);
-        assertThat(messageView.countAccountsSignedReadOnly()).isEqualTo(1);
-        assertThat(messageView.countAccountsUnsignedReadOnly()).isEqualTo(2);
-    }
-
-    @Test
-    void correctlyReportCountsV0Message()
+    void correctlyReportCounts()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -118,24 +81,7 @@ class SolanaMessageViewTest
     }
 
     @Test
-    void correctlyReportSignersLegacyMessage()
-    {
-        final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
-
-        writeSimpleFullySignedLegacyMessage(buffer);
-
-        final SolanaLegacyMessageView messageView = (SolanaLegacyMessageView) SolanaLegacyMessageView.fromBuffer(buffer);
-
-        assertThat(messageView.isSigner(Solana.account(PAYER))).isTrue();
-        assertThat(messageView.isSigner(Solana.account(ACCOUNT1))).isTrue();
-        assertThat(messageView.isSigner(Solana.account(ACCOUNT2))).isTrue();
-        assertThat(messageView.isSigner(Solana.account(ACCOUNT3))).isFalse();
-        assertThat(messageView.isSigner(Solana.account(ACCOUNT4))).isFalse();
-        assertThat(messageView.isSigner(Solana.account(PROGRAM1))).isFalse();
-    }
-
-    @Test
-    void correctlyReportSignersV0Message()
+    void correctlyReportSigners()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -152,24 +98,7 @@ class SolanaMessageViewTest
     }
 
     @Test
-    void correctlyReportWritersLegacyMessage()
-    {
-        final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
-
-        writeSimpleFullySignedLegacyMessage(buffer);
-
-        final SolanaLegacyMessageView messageView = (SolanaLegacyMessageView) SolanaLegacyMessageView.fromBuffer(buffer);
-
-        assertThat(messageView.isWriter(Solana.account(PAYER))).isTrue();
-        assertThat(messageView.isWriter(Solana.account(ACCOUNT1))).isTrue();
-        assertThat(messageView.isWriter(Solana.account(ACCOUNT2))).isFalse();
-        assertThat(messageView.isWriter(Solana.account(ACCOUNT3))).isTrue();
-        assertThat(messageView.isWriter(Solana.account(ACCOUNT4))).isFalse();
-        assertThat(messageView.isWriter(Solana.account(PROGRAM1))).isFalse();
-    }
-
-    @Test
-    void correctlyReportsWriterForV0MessageForWriterInLookupAccounts()
+    void correctlyReportWriterForWriterInLookupAccounts()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -191,10 +120,12 @@ class SolanaMessageViewTest
         final SolanaV0MessageView messageView = (SolanaV0MessageView) SolanaV0MessageView.fromBuffer(buffer);
 
         assertThat(messageView.isWriter(Solana.account(ACCOUNT3), List.of(ADDRESS_LOOK_TABLE1))).isTrue();
+        assertThat(messageView.isWriter(Solana.account(ACCOUNT1), List.of(ADDRESS_LOOK_TABLE1))).isTrue();
+        assertThat(messageView.isWriter(Solana.account(PROGRAM1), List.of(ADDRESS_LOOK_TABLE1))).isFalse();
     }
 
     @Test
-    void correctlyReportsWriterForV0MessageForWriterNonSignerInStaticAccounts()
+    void correctlyReportWriterForWriterNonSignerInStaticAccounts()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -207,6 +138,7 @@ class SolanaMessageViewTest
                                 .program(Solana.account(PROGRAM1))
                                 .account(Solana.account(ACCOUNT3), false, true)
                                 .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT5), false, false)
                                 .data(DATA1.length, w -> w.put(DATA1))))
                 .lookups(List.of(ADDRESS_LOOK_TABLE2))
                 .seal()
@@ -215,11 +147,14 @@ class SolanaMessageViewTest
 
         final SolanaV0MessageView messageView = (SolanaV0MessageView) SolanaV0MessageView.fromBuffer(buffer);
 
+        assertThat(messageView.isWriter(Solana.account(ACCOUNT1), List.of(ADDRESS_LOOK_TABLE1))).isTrue();
         assertThat(messageView.isWriter(Solana.account(ACCOUNT3), List.of(ADDRESS_LOOK_TABLE1))).isTrue();
+        assertThat(messageView.isWriter(Solana.account(ACCOUNT5), List.of(ADDRESS_LOOK_TABLE1))).isFalse();
+        assertThat(messageView.isWriter(Solana.account(PROGRAM1), List.of(ADDRESS_LOOK_TABLE1))).isFalse();
     }
 
     @Test
-    void correctlyReportsWriterForV0MessageForWriterSignerInStaticAccounts()
+    void correctlyReportWriterForWriterSignerInStaticAccounts()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -241,22 +176,12 @@ class SolanaMessageViewTest
         final SolanaV0MessageView messageView = (SolanaV0MessageView) SolanaV0MessageView.fromBuffer(buffer);
 
         assertThat(messageView.isWriter(Solana.account(ACCOUNT3), List.of(ADDRESS_LOOK_TABLE1))).isTrue();
+        assertThat(messageView.isWriter(Solana.account(ACCOUNT1), List.of(ADDRESS_LOOK_TABLE1))).isTrue();
+        assertThat(messageView.isWriter(Solana.account(PROGRAM1), List.of(ADDRESS_LOOK_TABLE1))).isFalse();
     }
 
     @Test
-    void correctlyWriteTransactionBytesLegacyMessage()
-    {
-        final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
-
-        writeSimpleFullySignedLegacyMessage(buffer);
-
-        final SolanaLegacyMessageView messageView = (SolanaLegacyMessageView) SolanaLegacyMessageView.fromBuffer(buffer);
-
-        assertThat(messageView.transaction()).isEqualTo(getTransaction(buffer));
-    }
-
-    @Test
-    void correctlyWriteTransactionBytesV0Message()
+    void correctlyWriteTransactionBytes()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -268,25 +193,7 @@ class SolanaMessageViewTest
     }
 
     @Test
-    void correctlyWriteSignaturesLegacyMessage()
-    {
-        final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
-
-        writeSimpleFullySignedLegacyMessage(buffer);
-
-        final SolanaLegacyMessageView messageView = (SolanaLegacyMessageView) SolanaLegacyMessageView.fromBuffer(buffer);
-
-        assertThat(messageView.signature(Solana.account(PAYER)).array()).isEqualTo(SIGNATURE_PAYER);
-        assertThat(messageView.signature(Solana.account(ACCOUNT1)).array()).isEqualTo(SIGNATURE1);
-        assertThat(messageView.signature(Solana.account(ACCOUNT2)).array()).isEqualTo(SIGNATURE2);
-
-        assertThatThrownBy(() -> messageView.signature(Solana.account(ACCOUNT3))).isInstanceOf(NoSuchElementException.class);
-        assertThatThrownBy(() -> messageView.signature(Solana.account(ACCOUNT4))).isInstanceOf(NoSuchElementException.class);
-        assertThatThrownBy(() -> messageView.signature(Solana.account(PROGRAM1))).isInstanceOf(NoSuchElementException.class);
-    }
-
-    @Test
-    void correctlyWriteSignaturesV0Message()
+    void correctlyWriteSignatures()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -304,7 +211,7 @@ class SolanaMessageViewTest
     }
 
     @Test
-    void correctlyReportAllAccountsAsStaticOrderedBySignersThenWritersV0Message()
+    void correctlyReportAllAccountsAsStaticOrderedBySignersThenWriters()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -325,7 +232,7 @@ class SolanaMessageViewTest
     }
 
     @Test
-    void staticAccountsInV0MessageAreSubsetOfAllAccountsWhenAccountsAppearInLookupTables()
+    void staticAccountsInAreSubsetOfAllAccountsWhenAccountsAppearInLookupTables()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -355,21 +262,7 @@ class SolanaMessageViewTest
     }
 
     @Test
-    void correctlyWriteProgramAndProgramIndexWithinAccountsTableLegacyMessage()
-    {
-        final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
-
-        writeSimpleFullySignedLegacyMessage(buffer);
-
-        final SolanaLegacyMessageView messageView = (SolanaLegacyMessageView) SolanaLegacyMessageView.fromBuffer(buffer);
-
-        assertThat(messageView.instructions().size()).isEqualTo(1);
-        assertThat(messageView.instructions().get(0).program()).isEqualTo(Solana.account(PROGRAM1));
-        assertThat(messageView.instructions().get(0).programIndex()).isEqualTo(4);
-    }
-
-    @Test
-    void correctlyWriteProgramAndProgramIndexWithinAccountsTableV0Message()
+    void correctlyWriteProgramAndProgramIndexWithinAccountsTable()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -384,28 +277,7 @@ class SolanaMessageViewTest
     }
 
     @Test
-    void orderOfWritingAndReadingInstructionAccountReferencesPreservedLegacyMessage()
-    {
-        final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
-
-        writeSimpleFullySignedLegacyMessage(buffer);
-
-        final SolanaLegacyMessageView messageView = (SolanaLegacyMessageView) SolanaLegacyMessageView.fromBuffer(buffer);
-
-        assertThat(messageView.instructions().size()).isEqualTo(1);
-        assertThat(messageView.instructions().get(0).accounts())
-                .usingRecursiveAssertion()
-                .isEqualTo(List.of(
-                        Solana.account(ACCOUNT4),
-                        Solana.account(ACCOUNT1),
-                        Solana.account(ACCOUNT2),
-                        Solana.account(ACCOUNT3)
-                ));
-        assertThat(messageView.instructions().get(0).accountIndexes()).usingRecursiveAssertion().isEqualTo(List.of(5, 1, 2, 3));
-    }
-
-    @Test
-    void orderOfWritingAndReadingInstructionAccountReferencesPreservedV0Message()
+    void orderOfWritingAndReadingInstructionAccountReferencesPreserved()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -426,7 +298,7 @@ class SolanaMessageViewTest
     }
 
     @Test
-    void willThrowIllegalArgumentExceptionWhenReadingAccountsOfV0MessageWithIncorrectLookupTablesSupplied()
+    void willThrowIllegalArgumentExceptionWhenReadingAccountsWithIncorrectLookupTablesSupplied()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -441,7 +313,7 @@ class SolanaMessageViewTest
     }
 
     @Test
-    void willThrowIllegalArgumentExceptionWhenReadingProgramOfV0MessageWithIncorrectLookupTablesSupplied()
+    void willThrowIllegalArgumentExceptionWhenReadingProgramWithIncorrectLookupTablesSupplied()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
