@@ -46,6 +46,6 @@ final class SolanaMessageWriterV0
         formatter.writeInstructions(instructions, accounts.getFlattenedAccountList()::indexOf);
 
         // write lookup accounts
-        formatter.writeLookupAccounts(accounts.getLookupAccounts());
+        formatter.writeAccountLookups(accounts.getAccountLookups());
     }
 }

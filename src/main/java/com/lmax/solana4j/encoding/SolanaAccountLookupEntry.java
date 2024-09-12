@@ -1,6 +1,6 @@
 package com.lmax.solana4j.encoding;
 
-import com.lmax.solana4j.api.AddressLookupTableEntrys;
+import com.lmax.solana4j.api.AccountLookupEntry;
 import com.lmax.solana4j.api.PublicKey;
 
 import java.util.ArrayList;
@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-final class SolanaAddressLookupTableEntrys implements AddressLookupTableEntrys
+final class SolanaAccountLookupEntry implements AccountLookupEntry
 {
     private final PublicKey addressLookupTable;
-    private final List<LookupTableEntry> readWriteEntrys;
-    private final List<LookupTableEntry> readOnlyEntrys;
+    private final List<LookupEntry> readWriteEntrys;
+    private final List<LookupEntry> readOnlyEntrys;
 
-    SolanaAddressLookupTableEntrys(final PublicKey addressLookupTable)
+    SolanaAccountLookupEntry(final PublicKey addressLookupTable)
     {
         this.addressLookupTable = addressLookupTable;
         this.readWriteEntrys = new ArrayList<>();
@@ -24,19 +24,19 @@ final class SolanaAddressLookupTableEntrys implements AddressLookupTableEntrys
     @Override
     public void addReadOnlyEntry(final PublicKey address, final int readOnlyIndex)
     {
-        readOnlyEntrys.add(new SolanaAddressLookupTableEntry(address, readOnlyIndex));
+        readOnlyEntrys.add(new SolanaLookupEntry(address, readOnlyIndex));
     }
 
     @Override
     public void addReadWriteEntry(final PublicKey address, final int readWriteIndex)
     {
-        readWriteEntrys.add(new SolanaAddressLookupTableEntry(address, readWriteIndex));
+        readWriteEntrys.add(new SolanaLookupEntry(address, readWriteIndex));
     }
 
     @Override
     public List<PublicKey> getAddresses()
     {
-        return Stream.concat(readWriteEntrys.stream().map(LookupTableEntry::getAddress), readOnlyEntrys.stream().map(LookupTableEntry::getAddress)).collect(Collectors.toList());
+        return Stream.concat(readWriteEntrys.stream().map(LookupEntry::getAddress), readOnlyEntrys.stream().map(LookupEntry::getAddress)).collect(Collectors.toList());
     }
 
     @Override
@@ -46,13 +46,13 @@ final class SolanaAddressLookupTableEntrys implements AddressLookupTableEntrys
     }
 
     @Override
-    public List<LookupTableEntry> getReadWriteAddressEntrys()
+    public List<LookupEntry> getReadWriteLookupEntrys()
     {
         return readWriteEntrys;
     }
 
     @Override
-    public List<LookupTableEntry> getReadOnlyAddressEntrys()
+    public List<LookupEntry> getReadOnlyLookupEntrys()
     {
         return readOnlyEntrys;
     }

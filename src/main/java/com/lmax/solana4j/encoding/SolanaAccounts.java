@@ -2,7 +2,7 @@ package com.lmax.solana4j.encoding;
 
 import com.lmax.solana4j.api.Accounts;
 import com.lmax.solana4j.api.AddressLookupTable;
-import com.lmax.solana4j.api.AddressLookupTableEntrys;
+import com.lmax.solana4j.api.AccountLookupEntry;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionInstruction;
 
@@ -16,20 +16,20 @@ import java.util.stream.Stream;
 final class SolanaAccounts implements Accounts
 {
     private final List<PublicKey> staticAccounts;
-    private final List<AddressLookupTableEntrys> lookupAccounts;
+    private final List<AccountLookupEntry> accountLookups;
     private final int countSigned;
     private final int countSignedReadOnly;
     private final int countUnsignedReadOnly;
 
     private SolanaAccounts(
             final List<PublicKey> staticAccounts,
-            final List<AddressLookupTableEntrys> lookupAccounts,
+            final List<AccountLookupEntry> accountLookups,
             final int countSigned,
             final int countSignedReadOnly,
             final int countUnsignedReadOnly)
     {
         this.staticAccounts = staticAccounts;
-        this.lookupAccounts = lookupAccounts;
+        this.accountLookups = accountLookups;
         this.countSigned = countSigned;
         this.countSignedReadOnly = countSignedReadOnly;
         this.countUnsignedReadOnly = countUnsignedReadOnly;
@@ -38,7 +38,7 @@ final class SolanaAccounts implements Accounts
     @Override
     public List<PublicKey> getFlattenedAccountList()
     {
-        return Stream.concat(staticAccounts.stream(), lookupAccounts.stream().flatMap(lookupTable -> lookupTable.getAddresses().stream())).collect(Collectors.toList());
+        return Stream.concat(staticAccounts.stream(), accountLookups.stream().flatMap(lookupTable -> lookupTable.getAddresses().stream())).collect(Collectors.toList());
     }
 
     @Override
@@ -48,9 +48,9 @@ final class SolanaAccounts implements Accounts
     }
 
     @Override
-    public List<AddressLookupTableEntrys> getLookupAccounts()
+    public List<AccountLookupEntry> getAccountLookups()
     {
-        return lookupAccounts;
+        return accountLookups;
     }
 
     @Override
@@ -84,11 +84,11 @@ final class SolanaAccounts implements Accounts
         final var payerReference = new SolanaAccountReference(payer, true, true, false);
         final var allAccountReferences = mergeAccountReferences(payerReference, instructions);
 
-        final var lookupAccounts = LookupAccounts.create(allAccountReferences, addressLookupTables);
+        final var accountLookups = AccountLookups.create(allAccountReferences, addressLookupTables);
 
         final var staticAccountReferences = allAccountReferences
                 .stream()
-                .filter(accountReference -> !lookupAccounts.getAccountsInLookupTables().contains(accountReference.account()))
+                .filter(accountReference -> !accountLookups.getAccountsInLookupTables().contains(accountReference.account()))
                 .toList();
 
         int countSigned = 0;
@@ -110,11 +110,11 @@ final class SolanaAccounts implements Accounts
             }
         }
 
-        countUnsignedReadOnly += lookupAccounts.countUnsignedReadOnly();
+        countUnsignedReadOnly += accountLookups.countUnsignedReadOnly();
 
         return new SolanaAccounts(
                 staticAccountReferences.stream().map(TransactionInstruction.AccountReference::account).collect(Collectors.toList()),
-                lookupAccounts.getLookupTableEntrys(),
+                accountLookups.getAccountLookupEntrys(),
                 countSigned,
                 countSignedReadOnly,
                 countUnsignedReadOnly

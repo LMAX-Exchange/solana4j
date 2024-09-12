@@ -1,7 +1,7 @@
 package com.lmax.solana4j.encoding;
 
 import com.lmax.solana4j.api.AddressLookupTable;
-import com.lmax.solana4j.api.AddressLookupTableEntrys;
+import com.lmax.solana4j.api.AccountLookupEntry;
 import com.lmax.solana4j.api.PublicKey;
 
 import java.util.ArrayList;
@@ -13,24 +13,24 @@ import java.util.Set;
 
 import static com.lmax.solana4j.api.TransactionInstruction.AccountReference;
 
-final class LookupAccounts
+final class AccountLookups
 {
-    private final List<AddressLookupTableEntrys> lookupTableEntrys;
+    private final List<AccountLookupEntry> accountLookupEntries;
     private final Set<PublicKey> accountsInLookupTables;
 
-    LookupAccounts(
-            final List<AddressLookupTableEntrys> lookupTableEntrys,
+    AccountLookups(
+            final List<AccountLookupEntry> accountLookupEntries,
             final Set<PublicKey> accountsInLookupTables)
     {
-        this.lookupTableEntrys = lookupTableEntrys;
+        this.accountLookupEntries = accountLookupEntries;
         this.accountsInLookupTables = accountsInLookupTables;
     }
 
-    public static LookupAccounts create(
+    public static AccountLookups create(
             final List<AccountReference> accountReferences,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Map<PublicKey, AddressLookupTableEntrys> accountLookupTableEntrys = new HashMap<>();
+        final Map<PublicKey, AccountLookupEntry> addressLookupTableEntrys = new HashMap<>();
         final Set<PublicKey> addressesFoundInLookupTables = new HashSet<>();
 
         for (final AccountReference accountReference : accountReferences)
@@ -51,9 +51,9 @@ final class LookupAccounts
 
                         addressesFoundInLookupTables.add(addressInLookupTable);
 
-                        final AddressLookupTableEntrys accountLookupTableIndex = accountLookupTableEntrys.computeIfAbsent(
+                        final AccountLookupEntry accountLookupTableIndex = addressLookupTableEntrys.computeIfAbsent(
                                 addressLookupTable.getLookupTableAddress(),
-                                SolanaAddressLookupTableEntrys::new);
+                                SolanaAccountLookupEntry::new);
 
                         if (accountReference.isWriter())
                         {
@@ -68,12 +68,12 @@ final class LookupAccounts
                 }
             }
         }
-        return new LookupAccounts(new ArrayList<>(accountLookupTableEntrys.values()), addressesFoundInLookupTables);
+        return new AccountLookups(new ArrayList<>(addressLookupTableEntrys.values()), addressesFoundInLookupTables);
     }
 
-    public List<AddressLookupTableEntrys> getLookupTableEntrys()
+    public List<AccountLookupEntry> getAccountLookupEntrys()
     {
-        return lookupTableEntrys;
+        return accountLookupEntries;
     }
 
     public Set<PublicKey> getAccountsInLookupTables()
@@ -83,6 +83,6 @@ final class LookupAccounts
 
     public int countUnsignedReadOnly()
     {
-        return lookupTableEntrys.stream().map(x -> x.getReadOnlyAddressEntrys().size()).mapToInt(Integer::intValue).sum();
+        return accountLookupEntries.stream().map(x -> x.getReadOnlyLookupEntrys().size()).mapToInt(Integer::intValue).sum();
     }
 }

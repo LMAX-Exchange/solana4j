@@ -3,9 +3,10 @@ package com.lmax.solana4j.api;
 import java.util.List;
 
 /**
- * Interface representing entrys for an address lookup table in the Solana blockchain.
+ * Interface representing an account lookup entry which stores the read only and read write indexes of
+ * addresses in an address lookup table on the Solana blockchain
  */
-public interface AddressLookupTableEntrys
+public interface AccountLookupEntry
 {
 
     /**
@@ -41,21 +42,21 @@ public interface AddressLookupTableEntrys
     /**
      * Returns a list of read-write address indexes.
      *
-     * @return a list of {@link LookupTableEntry} objects representing read-write address indexes
+     * @return a list of {@link LookupEntry} objects representing read-write address indexes
      */
-    List<LookupTableEntry> getReadWriteAddressEntrys();
+    List<LookupEntry> getReadWriteLookupEntrys();
 
     /**
      * Returns a list of read-only address indexes.
      *
-     * @return a list of {@link LookupTableEntry} objects representing read-only address indexes
+     * @return a list of {@link LookupEntry} objects representing read-only address indexes
      */
-    List<LookupTableEntry> getReadOnlyAddressEntrys();
+    List<LookupEntry> getReadOnlyLookupEntrys();
 
     /**
      * Interface representing an address lookup index in the Solana blockchain.
      */
-    interface LookupTableEntry
+    interface LookupEntry
     {
 
         /**

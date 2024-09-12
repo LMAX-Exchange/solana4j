@@ -98,19 +98,19 @@ abstract class SolanaMessageView implements MessageView
         }
         else if (v0Format)
         {
-            final var lookupAccounts = formatter.readLookupAccounts();
+            final var accountLookups = formatter.readAccountLookups();
 
             return new SolanaV0MessageView(
                     countAccountsSigned,
                     countAccountsSignedReadOnly,
                     countAccountsUnsignedReadOnly,
-                    new SolanaV0AccountsView(staticAccounts, lookupAccounts),
+                    new SolanaV0AccountsView(staticAccounts, accountLookups),
                     transaction,
                     signatures,
                     staticAccounts.get(0),
                     blockhash,
                     instructions,
-                    lookupAccounts);
+                    accountLookups);
         }
         else
         {

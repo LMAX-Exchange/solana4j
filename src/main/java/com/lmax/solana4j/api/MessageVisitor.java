@@ -2,6 +2,7 @@ package com.lmax.solana4j.api;
 
 import java.nio.ByteBuffer;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Interface representing a visitor for messages in the Solana blockchain.
@@ -155,15 +156,15 @@ public interface MessageVisitor<T>
         int version();
 
         /**
-         * Retrieves the list of account lookup tables referenced by this version 0 message.
+         * Retrieves the list of account lookups in the message.
          * <p>
          * Account lookup tables help optimize the transaction by referencing accounts indirectly,
          * allowing for more efficient and flexible transaction structures.
          * </p>
          *
-         * @return a list of {@link AddressLookupView} objects representing the account lookup tables
+         * @return a list of {@link AccountLookupView} objects representing the account lookups in the message
          */
-        List<AddressLookupView> addressLookups();
+        List<AccountLookupView> accountLookups();
 
         /**
          * Retrieves the list of instructions included in this version 0 message.
@@ -171,7 +172,7 @@ public interface MessageVisitor<T>
          * @return a list of {@link V0InstructionView} objects representing the instructions
          * in the version 0 message
          */
-        List<MessageVisitor.V0InstructionView> instructions();
+        List<V0InstructionView> instructions();
 
         /**
          * Checks if the specified account is designated as a writer in this version 0 message.
@@ -183,16 +184,20 @@ public interface MessageVisitor<T>
          * @param account             the public key of the account to check
          * @param addressLookupTables the list of address lookup tables to consult when determining if the account is a writer
          * @return {@code true} if the account is a writer, {@code false} otherwise
+         * @throws IllegalArgumentException if the address lookup tables provided do not map to
+         * any of the lookup accounts in the message
          */
-        boolean isWriter(PublicKey account, List<AddressLookupTable> addressLookupTables);
+        boolean isWriter(PublicKey account, List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException;
 
         /**
          * Retrieves the list of all accounts, including both static and lookup accounts.
          *
          * @param addressLookupTables the list of address lookup tables to include
          * @return a list of {@link PublicKey} objects representing all accounts
+         * @throws IllegalArgumentException if the address lookup tables provided do not map to
+         * any of the lookup accounts in the message
          */
-        List<PublicKey> allAccounts(List<AddressLookupTable> addressLookupTables);
+        List<PublicKey> allAccounts(List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException;
     }
 
     /**
@@ -255,26 +260,31 @@ public interface MessageVisitor<T>
     {
 
         /**
-         * Returns the list of accounts for the instruction, considering the address lookup tables.
+         * Returns the list of accounts for the instruction, using the address lookup tables to map
+         * the indexes stored in the message to actual addresses
          *
          * @param addressLookupTables the list of address lookup tables
          * @return a list of {@link PublicKey} objects representing the accounts
+         * @throws IllegalArgumentException if the address lookup tables provided do not map to
+         * any of the lookup accounts in the message
          */
-        List<PublicKey> accounts(List<AddressLookupTable> addressLookupTables);
+        List<PublicKey> accounts(List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException;
 
         /**
-         * Returns the public key of the program for the instruction, considering the address lookup tables.
-         *
+         * Returns the public key of the program for the instruction, using the address lookup tables to map
+         * the indexes stored in the message to actual addresses
          * @param addressLookupTables the list of address lookup tables
          * @return the {@link PublicKey} of the program
+         * @throws IllegalArgumentException if the address lookup tables provided do not map to
+         * any of the lookup accounts in the message
          */
-        PublicKey program(List<AddressLookupTable> addressLookupTables);
+        PublicKey program(List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException;
     }
 
     /**
-     * Interface representing an account lookup table view in the Solana blockchain.
+     * Interface representing an account lookup view in the Solana blockchain.
      */
-    interface AddressLookupView
+    interface AccountLookupView
     {
 
         /**
@@ -282,7 +292,7 @@ public interface MessageVisitor<T>
          *
          * @return the {@link PublicKey} of the lookup account
          */
-        PublicKey lookupAccount();
+        PublicKey accountLookup();
 
         /**
          * Returns the list of read-write table indexes.
@@ -297,6 +307,15 @@ public interface MessageVisitor<T>
          * @return a list of integers representing the read-only table indexes
          */
         List<Integer> readOnlyTableIndexes();
+
+        /**
+         * Finds the address lookup table, using the address lookup tables to map
+         * the indexes stored in the message to actual addresses
+         *
+         * @param addressLookupTables the list of address lookup tables
+         * @return an {@link Optional} containing the matching {@link AddressLookupTable}, if found
+         */
+        Optional<AddressLookupTable> findAddressLookupTable(List<AddressLookupTable> addressLookupTables);
     }
 
     /**
@@ -333,11 +352,14 @@ public interface MessageVisitor<T>
     {
 
         /**
-         * Returns the list of all accounts, including those referenced by address lookup tables.
+         * Returns the list of all accounts, using the address lookup tables to map
+         *  the indexes stored in the message to actual addresses
          *
          * @param addressLookupTables the list of address lookup tables to include
          * @return a list of {@link PublicKey} objects representing all accounts
+         * @throws IllegalArgumentException if the address lookup tables provided do not map to
+         * any of the lookup accounts in the message
          */
-        List<PublicKey> accounts(List<AddressLookupTable> addressLookupTables);
+        List<PublicKey> accounts(List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException;
     }
 }

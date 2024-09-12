@@ -23,7 +23,7 @@ public class SolanaV0InstructionView extends SolanaInstructionView implements Me
     }
 
     @Override
-    public List<PublicKey> accounts(final List<AddressLookupTable> addressLookupTables)
+    public List<PublicKey> accounts(final List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException
     {
         return accountIndexes()
                 .stream()
@@ -32,7 +32,7 @@ public class SolanaV0InstructionView extends SolanaInstructionView implements Me
     }
 
     @Override
-    public PublicKey program(final List<AddressLookupTable> addressLookupTables)
+    public PublicKey program(final List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException
     {
         return accountsView.accounts(addressLookupTables).get(programIndex());
     }

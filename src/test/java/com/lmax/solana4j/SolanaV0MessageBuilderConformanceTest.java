@@ -40,7 +40,7 @@ import static com.lmax.solana4j.Solana4jTestHelper.fromAccountsTable;
 import static com.lmax.solana4j.Solana4jTestHelper.fromBlockhash;
 import static com.lmax.solana4j.Solana4jTestHelper.fromInstruction;
 import static com.lmax.solana4j.Solana4jTestHelper.fromInstructions;
-import static com.lmax.solana4j.Solana4jTestHelper.fromLookupAccountsTable;
+import static com.lmax.solana4j.Solana4jTestHelper.fromAccountLookups;
 import static com.lmax.solana4j.Solana4jTestHelper.fromSignatures;
 import static com.lmax.solana4j.Solana4jTestHelper.fromTransactionHeader;
 import static com.lmax.solana4j.Solana4jTestHelper.indexOfAccount;
@@ -352,7 +352,7 @@ class SolanaV0MessageBuilderConformanceTest
         assertThat(unsignedReadOnlyAccounts)
                 .containsExactlyInAnyOrder(account(PROGRAM1));
 
-        fromLookupAccountsTable(buffer)
+        fromAccountLookups(buffer)
                 // number of lookup accounts
                 .expectShortVecInteger("number of account lookups", 2)
                 // the order of lookup accounts is defined simply by the order they appear in the following
@@ -410,7 +410,7 @@ class SolanaV0MessageBuilderConformanceTest
                 .containsExactlyInAnyOrder(
                         account(PROGRAM1), account(PROGRAM2), account(ACCOUNT5));
 
-        fromLookupAccountsTable(buffer)
+        fromAccountLookups(buffer)
                 // number of lookup accounts
                 .expectShortVecInteger("number of account lookups", 2)
                 // the order of lookup accounts is defined simply by the order they appear in the following
@@ -660,7 +660,7 @@ class SolanaV0MessageBuilderConformanceTest
                 .unsigned()
                 .build();
 
-        fromLookupAccountsTable(buffer)
+        fromAccountLookups(buffer)
                 .expect("number of account lookups", (byte) 1)
                 .expect("address lookup table", LOOKUP_TABLE_ADDRESS1)
                 .expect("number of writable account keys", (byte) 0)

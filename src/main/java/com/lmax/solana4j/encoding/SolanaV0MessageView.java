@@ -7,13 +7,14 @@ import com.lmax.solana4j.api.PublicKey;
 
 import java.nio.ByteBuffer;
 import java.util.List;
+import java.util.Optional;
 
 final class SolanaV0MessageView extends SolanaMessageView implements MessageVisitor.Version0MessageView
 {
     private final int version = 0;
     private final MessageVisitor.V0AccountsView accountsView;
     private final List<MessageVisitor.InstructionView> instructions;
-    private final List<MessageVisitor.AddressLookupView> addressLookups;
+    private final List<MessageVisitor.AccountLookupView> accountLookups;
 
     SolanaV0MessageView(
             final int countAccountsSigned,
@@ -25,12 +26,12 @@ final class SolanaV0MessageView extends SolanaMessageView implements MessageVisi
             final PublicKey feePayer,
             final Blockhash recentBlockHash,
             final List<MessageVisitor.InstructionView> instructions,
-            final List<MessageVisitor.AddressLookupView> addressLookups)
+            final List<MessageVisitor.AccountLookupView> accountLookups)
     {
         super(countAccountsSigned, countAccountsSignedReadOnly, countAccountsUnsignedReadOnly, accountsView, transaction, signatures, feePayer, recentBlockHash);
         this.accountsView = accountsView;
         this.instructions = instructions;
-        this.addressLookups = addressLookups;
+        this.accountLookups = accountLookups;
     }
 
     @Override
@@ -40,19 +41,19 @@ final class SolanaV0MessageView extends SolanaMessageView implements MessageVisi
     }
 
     @Override
-    public List<MessageVisitor.AddressLookupView> addressLookups()
+    public List<MessageVisitor.AccountLookupView> accountLookups()
     {
-        return addressLookups;
+        return accountLookups;
     }
 
     @Override
-    public List<PublicKey> allAccounts(final List<AddressLookupTable> addressLookupTables)
+    public List<PublicKey> allAccounts(final List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException
     {
         return accountsView.accounts(addressLookupTables);
     }
 
     @Override
-    public boolean isWriter(final PublicKey account, final List<AddressLookupTable> addressLookupTables)
+    public boolean isWriter(final PublicKey account, final List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException
     {
         final var index = accountsView.accounts(addressLookupTables).indexOf(account);
         if (index == -1)
@@ -84,7 +85,7 @@ final class SolanaV0MessageView extends SolanaMessageView implements MessageVisi
 
     private boolean isWriterStaticAccount(final int index)
     {
-        final var unsignedReadOnlyLookupAccountsCount = addressLookups
+        final var unsignedReadOnlyLookupAccountsCount = accountLookups
                 .stream()
                 .map(x -> x.readOnlyTableIndexes().size())
                 .mapToInt(Integer::intValue)
@@ -98,15 +99,21 @@ final class SolanaV0MessageView extends SolanaMessageView implements MessageVisi
         return isSignerWriter || isNonSignerWriter;
     }
 
-    private boolean isWriterLookupAccount(final PublicKey account, final List<AddressLookupTable> addressLookupTables)
+    private boolean isWriterLookupAccount(final PublicKey account, final List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException
     {
-        for (final MessageVisitor.AddressLookupView addressLookup : addressLookups)
+        for (final MessageVisitor.AccountLookupView accountLookup : accountLookups)
         {
-            final AddressLookupTable addressLookupTable = findAddressLookupTable(addressLookup, addressLookupTables);
+            final Optional<AddressLookupTable> maybeAddressLookupTable = accountLookup.findAddressLookupTable(addressLookupTables);
 
-            for (final int readWriteIndex : addressLookup.readWriteTableIndexes())
+            if (maybeAddressLookupTable.isEmpty())
             {
-                final PublicKey lookupAccount = addressLookupTable.getAddresses().get(readWriteIndex);
+                throw new IllegalArgumentException(
+                        "The address lookup tables provided do not contain an address" +
+                        "lookup table present in the message.");
+            }
+            for (final int readWriteIndex : accountLookup.readWriteTableIndexes())
+            {
+                final PublicKey lookupAccount = maybeAddressLookupTable.get().getAddresses().get(readWriteIndex);
                 if (lookupAccount.equals(account))
                 {
                     return true;
@@ -114,17 +121,5 @@ final class SolanaV0MessageView extends SolanaMessageView implements MessageVisi
             }
         }
         return false;
-    }
-
-    private AddressLookupTable findAddressLookupTable(
-            final MessageVisitor.AddressLookupView addressLookup,
-            final List<AddressLookupTable> addressLookupTables)
-    {
-        return addressLookupTables
-                .stream()
-                .filter(addressLookupTable -> addressLookupTable.getLookupTableAddress().equals(addressLookup.lookupAccount()))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("The address lookup tables provided do not contain an address" +
-                        "lookup table present in the message."));
     }
 }

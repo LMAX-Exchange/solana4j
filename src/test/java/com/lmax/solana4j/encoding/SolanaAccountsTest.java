@@ -2,7 +2,7 @@ package com.lmax.solana4j.encoding;
 
 import com.lmax.solana4j.api.Accounts;
 import com.lmax.solana4j.api.AddressLookupTable;
-import com.lmax.solana4j.api.AddressLookupTableEntrys;
+import com.lmax.solana4j.api.AccountLookupEntry;
 import com.lmax.solana4j.api.PublicKey;
 import org.junit.jupiter.api.Test;
 
@@ -487,8 +487,8 @@ class SolanaAccountsTest
         // acount1 is a static account because it's a signer - there was a bug before that was finding account1's first occurrence as a
         // non signer, adding that to the lookup table and then dropping subsequent mentions on the floor
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, rwSAccount3, account1, RO_U_PROGRAM1_ACCOUNT));
-        lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress1, List.of(roUAccount2));
-        lookupAccountReadOnlyIndexEquals(accounts.getLookupAccounts(), lookupTableAddress1, roUAccount2, 1);
+        lookupAccountsEqual(accounts.getAccountLookups(), lookupTableAddress1, List.of(roUAccount2));
+        accountLookupReadOnlyIndexEquals(accounts.getAccountLookups(), lookupTableAddress1, roUAccount2, 1);
         flattenedAccountListEquals(accounts.getFlattenedAccountList(), List.of(
                 RW_S_PAYER_ACCOUNT,
                 rwSAccount3,
@@ -518,7 +518,7 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT));
-        lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress, List.of());
+        lookupAccountsEqual(accounts.getAccountLookups(), lookupTableAddress, List.of());
     }
 
     @Test
@@ -541,7 +541,7 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT));
-        lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress, List.of(RO_U_PROGRAM1_ACCOUNT));
+        lookupAccountsEqual(accounts.getAccountLookups(), lookupTableAddress, List.of(RO_U_PROGRAM1_ACCOUNT));
     }
 
     @Test
@@ -565,8 +565,8 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT));
-        lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress, List.of(roUAccount));
-        lookupAccountReadOnlyIndexEquals(accounts.getLookupAccounts(), lookupTableAddress, roUAccount, 0);
+        lookupAccountsEqual(accounts.getAccountLookups(), lookupTableAddress, List.of(roUAccount));
+        accountLookupReadOnlyIndexEquals(accounts.getAccountLookups(), lookupTableAddress, roUAccount, 0);
         flattenedAccountListEquals(accounts.getFlattenedAccountList(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT, roUAccount));
         countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 2);
         countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 0);
@@ -594,8 +594,8 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT));
-        lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress, List.of(roUAccount));
-        lookupAccountReadWriteIndexEquals(accounts.getLookupAccounts(), lookupTableAddress, roUAccount, 0);
+        lookupAccountsEqual(accounts.getAccountLookups(), lookupTableAddress, List.of(roUAccount));
+        accountLookupReadWriteIndexEquals(accounts.getAccountLookups(), lookupTableAddress, roUAccount, 0);
         flattenedAccountListEquals(accounts.getFlattenedAccountList(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT, roUAccount));
         countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 1);
         countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 0);
@@ -628,13 +628,13 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT));
-        lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress1, List.of(roUAccount1));
-        lookupAccountReadOnlyIndexEquals(accounts.getLookupAccounts(), lookupTableAddress1, roUAccount1, 2);
+        lookupAccountsEqual(accounts.getAccountLookups(), lookupTableAddress1, List.of(roUAccount1));
+        accountLookupReadOnlyIndexEquals(accounts.getAccountLookups(), lookupTableAddress1, roUAccount1, 2);
         flattenedAccountListEquals(accounts.getFlattenedAccountList(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT, roUAccount1));
     }
 
     @Test
-    void lookupAccountsSortedInOrderOfLookupTablesProvided()
+    void accountLookupsSortedInOrderOfLookupTablesProvided()
     {
         final SolanaAccount roUAccount1 = new SolanaAccount(ACCOUNT1);
         final SolanaAccount roUAccount2 = new SolanaAccount(ACCOUNT2);
@@ -661,10 +661,10 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT));
-        lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress1, List.of(roUAccount2));
-        lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress2, List.of(roUAccount1));
-        lookupAccountReadOnlyIndexEquals(accounts.getLookupAccounts(), lookupTableAddress1, roUAccount2, 0);
-        lookupAccountReadOnlyIndexEquals(accounts.getLookupAccounts(), lookupTableAddress2, roUAccount1, 0);
+        lookupAccountsEqual(accounts.getAccountLookups(), lookupTableAddress1, List.of(roUAccount2));
+        lookupAccountsEqual(accounts.getAccountLookups(), lookupTableAddress2, List.of(roUAccount1));
+        accountLookupReadOnlyIndexEquals(accounts.getAccountLookups(), lookupTableAddress1, roUAccount2, 0);
+        accountLookupReadOnlyIndexEquals(accounts.getAccountLookups(), lookupTableAddress2, roUAccount1, 0);
         flattenedAccountListEquals(accounts.getFlattenedAccountList(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT, roUAccount2, roUAccount1));
     }
 
@@ -707,10 +707,10 @@ class SolanaAccountsTest
         );
 
         staticAccountsEqual(accounts.getStaticAccounts(), List.of(RW_S_PAYER_ACCOUNT, rwSAccount3, rwUAccount4, RO_U_PROGRAM1_ACCOUNT));
-        lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress1, List.of(roUAccount2));
-        lookupAccountsEqual(accounts.getLookupAccounts(), lookupTableAddress2, List.of(roUAccount1));
-        lookupAccountReadOnlyIndexEquals(accounts.getLookupAccounts(), lookupTableAddress1, roUAccount2, 1);
-        lookupAccountReadWriteIndexEquals(accounts.getLookupAccounts(), lookupTableAddress2, roUAccount1, 0);
+        lookupAccountsEqual(accounts.getAccountLookups(), lookupTableAddress1, List.of(roUAccount2));
+        lookupAccountsEqual(accounts.getAccountLookups(), lookupTableAddress2, List.of(roUAccount1));
+        accountLookupReadOnlyIndexEquals(accounts.getAccountLookups(), lookupTableAddress1, roUAccount2, 1);
+        accountLookupReadWriteIndexEquals(accounts.getAccountLookups(), lookupTableAddress2, roUAccount1, 0);
         flattenedAccountListEquals(accounts.getFlattenedAccountList(), List.of(
                 RW_S_PAYER_ACCOUNT,
                 rwSAccount3,
@@ -727,16 +727,16 @@ class SolanaAccountsTest
     }
 
     private void lookupAccountsEqual(
-            final List<AddressLookupTableEntrys> lookupAccounts,
+            final List<AccountLookupEntry> accountLookups,
             final PublicKey lookupTableAddress,
             final List<PublicKey> expectedAccounts)
     {
-        final Optional<AddressLookupTableEntrys> maybeAddressLookups = lookupAccounts
+        final Optional<AccountLookupEntry> maybeAccountLookups = accountLookups
                 .stream()
                 .filter(x -> x.getLookupTableAddress().equals(lookupTableAddress))
                 .findFirst();
 
-        if (maybeAddressLookups.isPresent())
+        if (maybeAccountLookups.isPresent())
         {
             if (expectedAccounts.isEmpty())
             {
@@ -744,8 +744,8 @@ class SolanaAccountsTest
             }
             else
             {
-                final AddressLookupTableEntrys addressLookups = maybeAddressLookups.get();
-                assertThat(addressLookups.getAddresses()).usingRecursiveComparison().isEqualTo(expectedAccounts);
+                final AccountLookupEntry accountLookup = maybeAccountLookups.get();
+                assertThat(accountLookup.getAddresses()).usingRecursiveComparison().isEqualTo(expectedAccounts);
             }
         }
         else
@@ -757,21 +757,21 @@ class SolanaAccountsTest
         }
     }
 
-    private void lookupAccountReadOnlyIndexEquals(
-            final List<AddressLookupTableEntrys> lookupAccounts,
+    private void accountLookupReadOnlyIndexEquals(
+            final List<AccountLookupEntry> accountLookups,
             final SolanaAccount lookupTableAddress,
-            final SolanaAccount lookupAccount,
+            final SolanaAccount account,
             final int readOnlyIndex)
     {
-        final AddressLookupTableEntrys addressLookups = lookupAccounts
+        final AccountLookupEntry accountLookup = accountLookups
                 .stream()
                 .filter(x -> x.getLookupTableAddress().equals(lookupTableAddress))
                 .findFirst()
                 .orElseThrow();
 
-        for (final AddressLookupTableEntrys.LookupTableEntry entry : addressLookups.getReadOnlyAddressEntrys())
+        for (final AccountLookupEntry.LookupEntry entry : accountLookup.getReadOnlyLookupEntrys())
         {
-            if (entry.getAddress().equals(lookupAccount))
+            if (entry.getAddress().equals(account))
             {
                 assertThat(entry.getIndex()).isEqualTo(readOnlyIndex);
                 return;
@@ -780,21 +780,21 @@ class SolanaAccountsTest
         fail();
     }
 
-    private void lookupAccountReadWriteIndexEquals(
-            final List<AddressLookupTableEntrys> lookupAccounts,
+    private void accountLookupReadWriteIndexEquals(
+            final List<AccountLookupEntry> accountLookups,
             final SolanaAccount lookupTableAddress,
-            final SolanaAccount lookupAccount,
+            final SolanaAccount account,
             final int readWriteIndex)
     {
-        final AddressLookupTableEntrys addressLookups = lookupAccounts
+        final AccountLookupEntry accountLookup = accountLookups
                 .stream()
                 .filter(x -> x.getLookupTableAddress().equals(lookupTableAddress))
                 .findFirst()
                 .orElseThrow();
 
-        for (final AddressLookupTableEntrys.LookupTableEntry entry : addressLookups.getReadWriteAddressEntrys())
+        for (final AccountLookupEntry.LookupEntry entry : accountLookup.getReadWriteLookupEntrys())
         {
-            if (entry.getAddress().equals(lookupAccount))
+            if (entry.getAddress().equals(account))
             {
                 assertThat(entry.getIndex()).isEqualTo(readWriteIndex);
                 return;

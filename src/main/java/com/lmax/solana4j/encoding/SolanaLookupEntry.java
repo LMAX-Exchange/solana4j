@@ -1,14 +1,14 @@
 package com.lmax.solana4j.encoding;
 
-import com.lmax.solana4j.api.AddressLookupTableEntrys;
+import com.lmax.solana4j.api.AccountLookupEntry;
 import com.lmax.solana4j.api.PublicKey;
 
-final class SolanaAddressLookupTableEntry implements AddressLookupTableEntrys.LookupTableEntry
+final class SolanaLookupEntry implements AccountLookupEntry.LookupEntry
 {
     private final PublicKey account;
     private final int index;
 
-    SolanaAddressLookupTableEntry(final PublicKey account, final int index)
+    SolanaLookupEntry(final PublicKey account, final int index)
     {
         this.account = account;
         this.index = index;

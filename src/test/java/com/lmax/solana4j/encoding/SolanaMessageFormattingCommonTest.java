@@ -1,5 +1,6 @@
 package com.lmax.solana4j.encoding;
 
+import com.lmax.solana4j.api.AccountLookupEntry;
 import com.lmax.solana4j.api.PublicKey;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ import static com.lmax.solana4j.Solana4jTestHelper.PROGRAM1;
 import static com.lmax.solana4j.Solana4jTestHelper.PROGRAM2;
 import static com.lmax.solana4j.Solana4jTestHelper.SIGNATURE1;
 import static com.lmax.solana4j.Solana4jTestHelper.SIGNATURE2;
-import static com.lmax.solana4j.api.MessageVisitor.AddressLookupView;
+import static com.lmax.solana4j.api.MessageVisitor.AccountLookupView;
 import static com.lmax.solana4j.api.MessageVisitor.InstructionView;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -91,48 +92,48 @@ class SolanaMessageFormattingCommonTest
     }
 
     @Test
-    void writesLookupAccounts()
+    void writesAccountLookups()
     {
         // ACCOUNT_LOOKUP_TABLE1 is the lookup table address
-        final SolanaAddressLookupTableEntrys lookupTable1 = new SolanaAddressLookupTableEntrys(new SolanaAccount(LOOKUP_TABLE_ADDRESS1));
+        final AccountLookupEntry accountLookup1 = new SolanaAccountLookupEntry(new SolanaAccount(LOOKUP_TABLE_ADDRESS1));
         // ACCOUNT3 is the address referenced at the lookup table index 1
-        lookupTable1.addReadOnlyEntry(new SolanaAccount(ACCOUNT3), 1);
+        accountLookup1.addReadOnlyEntry(new SolanaAccount(ACCOUNT3), 1);
         // ACCOUNT4 is the address referenced at the lookup table index 2
-        lookupTable1.addReadWriteEntry(new SolanaAccount(ACCOUNT4), 2);
-        lookupTable1.addReadWriteEntry(new SolanaAccount(ACCOUNT5), 3);
+        accountLookup1.addReadWriteEntry(new SolanaAccount(ACCOUNT4), 2);
+        accountLookup1.addReadWriteEntry(new SolanaAccount(ACCOUNT5), 3);
 
-        // ACCOUNT_LOOKUP_TABLE1 is the lookup table address
-        final SolanaAddressLookupTableEntrys lookupTable2 = new SolanaAddressLookupTableEntrys(new SolanaAccount(LOOKUP_TABLE_ADDRESS2));
-        // ACCOUNT5 is the address referenced at the lookup table index 1
-        lookupTable2.addReadOnlyEntry(new SolanaAccount(ACCOUNT6), 4);
-        // ACCOUNT6 is the address referenced at the lookup table index 2
-        lookupTable2.addReadWriteEntry(new SolanaAccount(ACCOUNT7), 5);
+        // ACCOUNT_LOOKUP_TABLE2 is the lookup table address
+        final AccountLookupEntry accountLookup2 = new SolanaAccountLookupEntry(new SolanaAccount(LOOKUP_TABLE_ADDRESS2));
+        // ACCOUNT6 is the address referenced at the lookup table index 4
+        accountLookup2.addReadOnlyEntry(new SolanaAccount(ACCOUNT6), 4);
+        // ACCOUNT7 is the address referenced at the lookup table index 5
+        accountLookup2.addReadWriteEntry(new SolanaAccount(ACCOUNT7), 5);
 
-        solanaMessageFormattingCommon.writeLookupAccounts(List.of(lookupTable1, lookupTable2));
+        solanaMessageFormattingCommon.writeAccountLookups(List.of(accountLookup1, accountLookup2));
 
         // flip underlying buffer for reading
         buffer.flip();
 
-        final List<AddressLookupView> addressLookupViews = solanaMessageFormattingCommon.readLookupAccounts();
+        final List<AccountLookupView> accountLookupViews = solanaMessageFormattingCommon.readAccountLookups();
 
         // lookup table 1 address
-        final AddressLookupView accountLookupTable1 = addressLookupViews.get(0);
-        assertThat(accountLookupTable1.lookupAccount()).isEqualTo(new SolanaAccount(LOOKUP_TABLE_ADDRESS1));
+        final AccountLookupView accountLookupView1 = accountLookupViews.get(0);
+        assertThat(accountLookupView1.accountLookup()).isEqualTo(new SolanaAccount(LOOKUP_TABLE_ADDRESS1));
 
-        assertThat(accountLookupTable1.readOnlyTableIndexes().size()).isEqualTo(1);
-        assertThat(accountLookupTable1.readOnlyTableIndexes().get(0)).isEqualTo(1);
-        assertThat(accountLookupTable1.readWriteTableIndexes().size()).isEqualTo(2);
-        assertThat(accountLookupTable1.readWriteTableIndexes().get(0)).isEqualTo(2);
-        assertThat(accountLookupTable1.readWriteTableIndexes().get(1)).isEqualTo(3);
+        assertThat(accountLookupView1.readOnlyTableIndexes().size()).isEqualTo(1);
+        assertThat(accountLookupView1.readOnlyTableIndexes().get(0)).isEqualTo(1);
+        assertThat(accountLookupView1.readWriteTableIndexes().size()).isEqualTo(2);
+        assertThat(accountLookupView1.readWriteTableIndexes().get(0)).isEqualTo(2);
+        assertThat(accountLookupView1.readWriteTableIndexes().get(1)).isEqualTo(3);
 
         // lookup table 2 address
-        final AddressLookupView accountLookupTable2 = addressLookupViews.get(1);
-        assertThat(accountLookupTable2.lookupAccount()).isEqualTo(new SolanaAccount(LOOKUP_TABLE_ADDRESS2));
+        final AccountLookupView accountLookupView2 = accountLookupViews.get(1);
+        assertThat(accountLookupView2.accountLookup()).isEqualTo(new SolanaAccount(LOOKUP_TABLE_ADDRESS2));
 
-        assertThat(accountLookupTable2.readOnlyTableIndexes().size()).isEqualTo(1);
-        assertThat(accountLookupTable2.readOnlyTableIndexes().get(0)).isEqualTo(4);
-        assertThat(accountLookupTable2.readWriteTableIndexes().size()).isEqualTo(1);
-        assertThat(accountLookupTable2.readWriteTableIndexes().get(0)).isEqualTo(5);
+        assertThat(accountLookupView2.readOnlyTableIndexes().size()).isEqualTo(1);
+        assertThat(accountLookupView2.readOnlyTableIndexes().get(0)).isEqualTo(4);
+        assertThat(accountLookupView2.readWriteTableIndexes().size()).isEqualTo(1);
+        assertThat(accountLookupView2.readWriteTableIndexes().get(0)).isEqualTo(5);
     }
 
     @Test

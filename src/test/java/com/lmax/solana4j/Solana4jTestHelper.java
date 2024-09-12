@@ -586,7 +586,7 @@ public class Solana4jTestHelper
         }
     }
 
-    public static void jumpToLookupAccountsTable(final ByteBuffer buffer)
+    public static void jumpToAccountLookups(final ByteBuffer buffer)
     {
         jumpToInstructions(buffer);
 
@@ -597,9 +597,9 @@ public class Solana4jTestHelper
         }
     }
 
-    public static AssertingMessageReader fromLookupAccountsTable(final ByteBuffer buffer)
+    public static AssertingMessageReader fromAccountLookups(final ByteBuffer buffer)
     {
-        jumpToLookupAccountsTable(buffer);
+        jumpToAccountLookups(buffer);
 
         return new AssertingMessageReader(buffer);
     }
@@ -787,7 +787,7 @@ public class Solana4jTestHelper
         throw new NoSuchElementException("account " + Arrays.toString(account));
     }
 
-    static byte indexOfAccount(final ByteBuffer buffer, final byte[] account, final List<AddressLookupTable> lookupTables)
+    static byte indexOfAccount(final ByteBuffer buffer, final byte[] account, final List<AddressLookupTable> addressLookupTables)
     {
         requireNonNull(buffer);
         requireNonNull(account);
@@ -814,22 +814,22 @@ public class Solana4jTestHelper
             }
         }
 
-        // if haven't found it in the static accounts table, look for it in the lookup accounts table
-        jumpToLookupAccountsTable(view);
+        // if haven't found it in the static accounts table, look for it in the account lookups
+        jumpToAccountLookups(view);
 
-        final var numberOfLookupAccounts = readShortVecInt(view);
+        final var numberOfAccountLookups = readShortVecInt(view);
         var lookupTableIndex = -1;
-        for (byte i = 0; i < numberOfLookupAccounts; i++)
+        for (byte i = 0; i < numberOfAccountLookups; i++)
         {
             final var lookupTableAddress = new byte[ACCOUNT_LENGTH];
             view.get(lookupTableAddress);
 
-            final var lookupTable = lookupTables
+            final var addressLookupTable = addressLookupTables
                     .stream()
                     .filter(x -> Arrays.equals(x.getLookupTableAddress().bytes(), lookupTableAddress))
                     .findFirst()
                     .orElseThrow(() -> new RuntimeException(
-                            "Could not find the address lookup table in the supplied lookup tables."));
+                            "Could not find the address lookup table in the supplied address lookup tables."));
 
             final var numberOfWritableIndexes = readShortVecInt(view);
             for (int j = 0; j < numberOfWritableIndexes; j++)
@@ -837,7 +837,7 @@ public class Solana4jTestHelper
                 lookupTableIndex += 1;
                 final var index = readShortVecInt(view);
 
-                if (Arrays.equals(lookupTable.getAddresses().get(index).bytes(), account))
+                if (Arrays.equals(addressLookupTable.getAddresses().get(index).bytes(), account))
                 {
 
                     return (byte) (staticAccountsCount + lookupTableIndex);
@@ -850,7 +850,7 @@ public class Solana4jTestHelper
                 lookupTableIndex += 1;
                 final var  index = readShortVecInt(view);
 
-                if (Arrays.equals(lookupTable.getAddresses().get(index).bytes(), account))
+                if (Arrays.equals(addressLookupTable.getAddresses().get(index).bytes(), account))
                 {
                     return (byte) (staticAccountsCount + lookupTableIndex);
                 }

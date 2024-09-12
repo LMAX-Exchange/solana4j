@@ -16,18 +16,18 @@ public interface Accounts
     List<PublicKey> getFlattenedAccountList();
 
     /**
-     * Returns a list of static public keys that do not change.
+     * Returns a list of the static public keys.
      *
      * @return a list of {@link PublicKey} objects representing static accounts
      */
     List<PublicKey> getStaticAccounts();
 
     /**
-     * Returns a list of address lookup table indexes.
+     * Returns a list of address lookup entrys.
      *
-     * @return a list of {@link AddressLookupTableEntrys} objects representing lookup accounts
+     * @return a list of {@link AccountLookupEntry} objects representing lookup accounts
      */
-    List<AddressLookupTableEntrys> getLookupAccounts();
+    List<AccountLookupEntry> getAccountLookups();
 
     /**
      * Returns the count of signed accounts.

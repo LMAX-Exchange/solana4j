@@ -1,6 +1,6 @@
 package com.lmax.solana4j.encoding;
 
-import com.lmax.solana4j.api.AddressLookupTableEntrys;
+import com.lmax.solana4j.api.AccountLookupEntry;
 import com.lmax.solana4j.api.Blockhash;
 import com.lmax.solana4j.api.MessageVisitor;
 import com.lmax.solana4j.api.MessageVisitor.InstructionView;
@@ -125,29 +125,29 @@ final class SolanaMessageFormattingCommon
         return new SolanaBlockhash(bytes);
     }
 
-    void writeLookupAccounts(final List<AddressLookupTableEntrys> tables)
+    void writeAccountLookups(final List<AccountLookupEntry> accountLookups)
     {
-        SolanaShortVec.write(tables.size(), buffer);
-        for (final var table : tables)
+        SolanaShortVec.write(accountLookups.size(), buffer);
+        for (final var accountLookup : accountLookups)
         {
-            writeLookupAccount(table);
+            writeAccountLookup(accountLookup);
         }
     }
 
-    private void writeLookupAccount(final AddressLookupTableEntrys table)
+    private void writeAccountLookup(final AccountLookupEntry accountLookup)
     {
-        writeAccount(table.getLookupTableAddress());
+        writeAccount(accountLookup.getLookupTableAddress());
 
-        SolanaShortVec.write(table.getReadWriteAddressEntrys().size(), buffer);
-        for (int i = 0; i < table.getReadWriteAddressEntrys().size(); i++)
+        SolanaShortVec.write(accountLookup.getReadWriteLookupEntrys().size(), buffer);
+        for (int i = 0; i < accountLookup.getReadWriteLookupEntrys().size(); i++)
         {
-            SolanaShortVec.write(table.getReadWriteAddressEntrys().get(i).getIndex(), buffer);
+            SolanaShortVec.write(accountLookup.getReadWriteLookupEntrys().get(i).getIndex(), buffer);
         }
 
-        SolanaShortVec.write(table.getReadOnlyAddressEntrys().size(), buffer);
-        for (int i = 0; i < table.getReadOnlyAddressEntrys().size(); i++)
+        SolanaShortVec.write(accountLookup.getReadOnlyLookupEntrys().size(), buffer);
+        for (int i = 0; i < accountLookup.getReadOnlyLookupEntrys().size(); i++)
         {
-            SolanaShortVec.write(table.getReadOnlyAddressEntrys().get(i).getIndex(), buffer);
+            SolanaShortVec.write(accountLookup.getReadOnlyLookupEntrys().get(i).getIndex(), buffer);
         }
     }
 
@@ -156,16 +156,16 @@ final class SolanaMessageFormattingCommon
         account.write(buffer);
     }
 
-    List<MessageVisitor.AddressLookupView> readLookupAccounts()
+    List<MessageVisitor.AccountLookupView> readAccountLookups()
     {
         final var count = SolanaShortVec.readInt(buffer);
-        final List<MessageVisitor.AddressLookupView> entries = new ArrayList<>();
+        final List<MessageVisitor.AccountLookupView> entries = new ArrayList<>();
 
         for (int i = 0; i < count; i++)
         {
             final byte[] bytes = new byte[32];
             buffer.get(bytes);
-            final SolanaAccount lookupAccount = new SolanaAccount(bytes);
+            final SolanaAccount accountLookup = new SolanaAccount(bytes);
             final var countReadWrite = SolanaShortVec.readInt(buffer);
             final List<Integer> readWriteIndexes = new ArrayList<>();
             for (int j = 0; j < countReadWrite; j++)
@@ -178,7 +178,7 @@ final class SolanaMessageFormattingCommon
             {
                 readOnlyIndexes.add(SolanaShortVec.readInt(buffer));
             }
-            entries.add(new SolanaAddressLookupView(lookupAccount, readWriteIndexes, readOnlyIndexes));
+            entries.add(new SolanaAccountLookupView(accountLookup, readWriteIndexes, readOnlyIndexes));
         }
 
         return entries;
