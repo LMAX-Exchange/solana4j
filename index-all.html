@@ -87,6 +87,23 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html#accountIndexes()" class="member-name-link">accountIndexes()</a> - Method in class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html" title="class in com.lmax.solana4j.encoding">SolanaV0InstructionView</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupView.html#accountLookup()" class="member-name-link">accountLookup()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountLookupView</a></dt>
+<dd>
+<div class="block">Returns the public key of the lookup account.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/api/AccountLookupEntry.html" class="type-name-link" title="interface in com.lmax.solana4j.api">AccountLookupEntry</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
+<dd>
+<div class="block">Interface representing an account lookup entry which stores the read only and read write indexes of
+ addresses in an address lookup table on the Solana blockchain</div>
+</dd>
+<dt><a href="com/lmax/solana4j/api/AccountLookupEntry.LookupEntry.html" class="type-name-link" title="interface in com.lmax.solana4j.api">AccountLookupEntry.LookupEntry</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
+<dd>
+<div class="block">Interface representing an address lookup index in the Solana blockchain.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html#accountLookups()" class="member-name-link">accountLookups()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.Version0MessageView</a></dt>
+<dd>
+<div class="block">Retrieves the list of account lookups in the message.</div>
+</dd>
 <dt><a href="com/lmax/solana4j/api/TransactionInstruction.html#accountReferences()" class="member-name-link">accountReferences()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></dt>
 <dd>
 <div class="block">Returns a list of account references involved in this instruction.</div>
@@ -99,11 +116,13 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/lmax/solana4j/api/MessageVisitor.V0AccountsView.html#accounts(java.util.List)" class="member-name-link">accounts(List&lt;AddressLookupTable&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.V0AccountsView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.V0AccountsView</a></dt>
 <dd>
-<div class="block">Returns the list of all accounts, including those referenced by address lookup tables.</div>
+<div class="block">Returns the list of all accounts, using the address lookup tables to map
+  the indexes stored in the message to actual addresses</div>
 </dd>
 <dt><a href="com/lmax/solana4j/api/MessageVisitor.V0InstructionView.html#accounts(java.util.List)" class="member-name-link">accounts(List&lt;AddressLookupTable&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.V0InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.V0InstructionView</a></dt>
 <dd>
-<div class="block">Returns the list of accounts for the instruction, considering the address lookup tables.</div>
+<div class="block">Returns the list of accounts for the instruction, using the address lookup tables to map
+ the indexes stored in the message to actual addresses</div>
 </dd>
 <dt><a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html#accounts(java.util.List)" class="member-name-link">accounts(List&lt;AddressLookupTable&gt;)</a> - Method in class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html" title="class in com.lmax.solana4j.encoding">SolanaV0InstructionView</a></dt>
 <dd>&nbsp;</dd>
@@ -115,21 +134,17 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Adds an inner instruction to the transaction.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/AddressLookupTableEntrys.html#addReadOnlyEntry(com.lmax.solana4j.api.PublicKey,int)" class="member-name-link">addReadOnlyEntry(PublicKey, int)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AddressLookupTableEntrys.html" title="interface in com.lmax.solana4j.api">AddressLookupTableEntrys</a></dt>
+<dt><a href="com/lmax/solana4j/api/AccountLookupEntry.html#addReadOnlyEntry(com.lmax.solana4j.api.PublicKey,int)" class="member-name-link">addReadOnlyEntry(PublicKey, int)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AccountLookupEntry.html" title="interface in com.lmax.solana4j.api">AccountLookupEntry</a></dt>
 <dd>
 <div class="block">Adds a read-only entry for the given address.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/AddressLookupTableEntrys.html#addReadWriteEntry(com.lmax.solana4j.api.PublicKey,int)" class="member-name-link">addReadWriteEntry(PublicKey, int)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AddressLookupTableEntrys.html" title="interface in com.lmax.solana4j.api">AddressLookupTableEntrys</a></dt>
+<dt><a href="com/lmax/solana4j/api/AccountLookupEntry.html#addReadWriteEntry(com.lmax.solana4j.api.PublicKey,int)" class="member-name-link">addReadWriteEntry(PublicKey, int)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AccountLookupEntry.html" title="interface in com.lmax.solana4j.api">AccountLookupEntry</a></dt>
 <dd>
 <div class="block">Adds a read-write entry for the given address.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/api/ProgramDerivedAddress.html#address()" class="member-name-link">address()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a></dt>
 <dd>
 <div class="block">Returns the public key of the derived address.</div>
-</dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html#addressLookups()" class="member-name-link">addressLookups()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.Version0MessageView</a></dt>
-<dd>
-<div class="block">Retrieves the list of account lookup tables referenced by this version 0 message.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/encoding/SolanaEncoding.html#addressLookupTable(com.lmax.solana4j.api.PublicKey,java.util.List)" class="member-name-link">addressLookupTable(PublicKey, List&lt;PublicKey&gt;)</a> - Static method in class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaEncoding.html" title="class in com.lmax.solana4j.encoding">SolanaEncoding</a></dt>
 <dd>
@@ -142,14 +157,6 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/lmax/solana4j/api/AddressLookupTable.html" class="type-name-link" title="interface in com.lmax.solana4j.api">AddressLookupTable</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
 <div class="block">Interface representing an address lookup table in the Solana blockchain.</div>
-</dd>
-<dt><a href="com/lmax/solana4j/api/AddressLookupTableEntrys.html" class="type-name-link" title="interface in com.lmax.solana4j.api">AddressLookupTableEntrys</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
-<dd>
-<div class="block">Interface representing entrys for an address lookup table in the Solana blockchain.</div>
-</dd>
-<dt><a href="com/lmax/solana4j/api/AddressLookupTableEntrys.LookupTableEntry.html" class="type-name-link" title="interface in com.lmax.solana4j.api">AddressLookupTableEntrys.LookupTableEntry</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
-<dd>
-<div class="block">Interface representing an address lookup index in the Solana blockchain.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html" class="type-name-link" title="class in com.lmax.solana4j.programs">AddressLookupTableProgram</a> - Class in <a href="com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
 <dd>
@@ -432,6 +439,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the public key of the fee payer for the transaction.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupView.html#findAddressLookupTable(java.util.List)" class="member-name-link">findAddressLookupTable(List&lt;AddressLookupTable&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountLookupView</a></dt>
+<dd>
+<div class="block">Finds the address lookup table, using the address lookup tables to map
+ the indexes stored in the message to actual addresses</div>
+</dd>
 <dt><a href="com/lmax/solana4j/encoding/SolanaEncoding.html#forSigning(java.nio.ByteBuffer)" class="member-name-link">forSigning(ByteBuffer)</a> - Static method in class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaEncoding.html" title="class in com.lmax.solana4j.encoding">SolanaEncoding</a></dt>
 <dd>
 <div class="block">Creates a new signed message builder for the given message buffer.</div>
@@ -447,17 +459,21 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
-<dt><a href="com/lmax/solana4j/api/AddressLookupTableEntrys.LookupTableEntry.html#getAddress()" class="member-name-link">getAddress()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AddressLookupTableEntrys.LookupTableEntry.html" title="interface in com.lmax.solana4j.api">AddressLookupTableEntrys.LookupTableEntry</a></dt>
+<dt><a href="com/lmax/solana4j/api/Accounts.html#getAccountLookups()" class="member-name-link">getAccountLookups()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/Accounts.html" title="interface in com.lmax.solana4j.api">Accounts</a></dt>
+<dd>
+<div class="block">Returns a list of address lookup entrys.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/api/AccountLookupEntry.LookupEntry.html#getAddress()" class="member-name-link">getAddress()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AccountLookupEntry.LookupEntry.html" title="interface in com.lmax.solana4j.api">AccountLookupEntry.LookupEntry</a></dt>
 <dd>
 <div class="block">Returns the public key of the address.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/api/AccountLookupEntry.html#getAddresses()" class="member-name-link">getAddresses()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AccountLookupEntry.html" title="interface in com.lmax.solana4j.api">AccountLookupEntry</a></dt>
+<dd>
+<div class="block">Returns a list of all public keys in the address lookup table.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/api/AddressLookupTable.html#getAddresses()" class="member-name-link">getAddresses()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a></dt>
 <dd>
 <div class="block">Returns a list of public keys that are part of the address lookups.</div>
-</dd>
-<dt><a href="com/lmax/solana4j/api/AddressLookupTableEntrys.html#getAddresses()" class="member-name-link">getAddresses()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AddressLookupTableEntrys.html" title="interface in com.lmax.solana4j.api">AddressLookupTableEntrys</a></dt>
-<dd>
-<div class="block">Returns a list of all public keys in the address lookup table.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/api/Destination.html#getAmount()" class="member-name-link">getAmount()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/Destination.html" title="interface in com.lmax.solana4j.api">Destination</a></dt>
 <dd>
@@ -483,7 +499,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a flattened list of all public keys in the account collection.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/AddressLookupTableEntrys.LookupTableEntry.html#getIndex()" class="member-name-link">getIndex()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AddressLookupTableEntrys.LookupTableEntry.html" title="interface in com.lmax.solana4j.api">AddressLookupTableEntrys.LookupTableEntry</a></dt>
+<dt><a href="com/lmax/solana4j/api/AccountLookupEntry.LookupEntry.html#getIndex()" class="member-name-link">getIndex()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AccountLookupEntry.LookupEntry.html" title="interface in com.lmax.solana4j.api">AccountLookupEntry.LookupEntry</a></dt>
 <dd>
 <div class="block">Returns the index of the address in the lookup table.</div>
 </dd>
@@ -495,15 +511,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the list of transaction instructions.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/Accounts.html#getLookupAccounts()" class="member-name-link">getLookupAccounts()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/Accounts.html" title="interface in com.lmax.solana4j.api">Accounts</a></dt>
-<dd>
-<div class="block">Returns a list of address lookup table indexes.</div>
-</dd>
-<dt><a href="com/lmax/solana4j/api/AddressLookupTable.html#getLookupTableAddress()" class="member-name-link">getLookupTableAddress()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a></dt>
+<dt><a href="com/lmax/solana4j/api/AccountLookupEntry.html#getLookupTableAddress()" class="member-name-link">getLookupTableAddress()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AccountLookupEntry.html" title="interface in com.lmax.solana4j.api">AccountLookupEntry</a></dt>
 <dd>
 <div class="block">Returns the public key of the lookup table address.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/AddressLookupTableEntrys.html#getLookupTableAddress()" class="member-name-link">getLookupTableAddress()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AddressLookupTableEntrys.html" title="interface in com.lmax.solana4j.api">AddressLookupTableEntrys</a></dt>
+<dt><a href="com/lmax/solana4j/api/AddressLookupTable.html#getLookupTableAddress()" class="member-name-link">getLookupTableAddress()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a></dt>
 <dd>
 <div class="block">Returns the public key of the lookup table address.</div>
 </dd>
@@ -511,17 +523,17 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Gets the nonce value from a nonce account's data.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/AddressLookupTableEntrys.html#getReadOnlyAddressEntrys()" class="member-name-link">getReadOnlyAddressEntrys()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AddressLookupTableEntrys.html" title="interface in com.lmax.solana4j.api">AddressLookupTableEntrys</a></dt>
+<dt><a href="com/lmax/solana4j/api/AccountLookupEntry.html#getReadOnlyLookupEntrys()" class="member-name-link">getReadOnlyLookupEntrys()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AccountLookupEntry.html" title="interface in com.lmax.solana4j.api">AccountLookupEntry</a></dt>
 <dd>
 <div class="block">Returns a list of read-only address indexes.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/AddressLookupTableEntrys.html#getReadWriteAddressEntrys()" class="member-name-link">getReadWriteAddressEntrys()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AddressLookupTableEntrys.html" title="interface in com.lmax.solana4j.api">AddressLookupTableEntrys</a></dt>
+<dt><a href="com/lmax/solana4j/api/AccountLookupEntry.html#getReadWriteLookupEntrys()" class="member-name-link">getReadWriteLookupEntrys()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AccountLookupEntry.html" title="interface in com.lmax.solana4j.api">AccountLookupEntry</a></dt>
 <dd>
 <div class="block">Returns a list of read-write address indexes.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/api/Accounts.html#getStaticAccounts()" class="member-name-link">getStaticAccounts()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/Accounts.html" title="interface in com.lmax.solana4j.api">Accounts</a></dt>
 <dd>
-<div class="block">Returns a list of static public keys that do not change.</div>
+<div class="block">Returns a list of the static public keys.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:I">I</h2>
@@ -645,10 +657,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The size of the lookup table metadata in bytes.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.AddressLookupView.html#lookupAccount()" class="member-name-link">lookupAccount()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AddressLookupView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AddressLookupView</a></dt>
-<dd>
-<div class="block">Returns the public key of the lookup account.</div>
-</dd>
 <dt><a href="com/lmax/solana4j/api/MessageBuilderV0.html#lookups(java.util.List)" class="member-name-link">lookups(List&lt;AddressLookupTable&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageBuilderV0.html" title="interface in com.lmax.solana4j.api">MessageBuilderV0</a></dt>
 <dd>
 <div class="block">Sets the account lookups for the version 0 message.</div>
@@ -684,13 +692,13 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Interface representing a visitor for messages in the Solana blockchain.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountLookupView</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
+<dd>
+<div class="block">Interface representing an account lookup view in the Solana blockchain.</div>
+</dd>
 <dt><a href="com/lmax/solana4j/api/MessageVisitor.AccountsView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountsView</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
 <div class="block">Interface representing a view of accounts in the Solana blockchain.</div>
-</dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.AddressLookupView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.AddressLookupView</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
-<dd>
-<div class="block">Interface representing an account lookup table view in the Solana blockchain.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/api/MessageVisitor.InstructionView.html" class="type-name-link" title="interface in com.lmax.solana4j.api">MessageVisitor.InstructionView</a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
@@ -813,7 +821,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/lmax/solana4j/api/MessageVisitor.V0InstructionView.html#program(java.util.List)" class="member-name-link">program(List&lt;AddressLookupTable&gt;)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.V0InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.V0InstructionView</a></dt>
 <dd>
-<div class="block">Returns the public key of the program for the instruction, considering the address lookup tables.</div>
+<div class="block">Returns the public key of the program for the instruction, using the address lookup tables to map
+ the indexes stored in the message to actual addresses</div>
 </dd>
 <dt><a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html#program(java.util.List)" class="member-name-link">program(List&lt;AddressLookupTable&gt;)</a> - Method in class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaV0InstructionView.html" title="class in com.lmax.solana4j.encoding">SolanaV0InstructionView</a></dt>
 <dd>&nbsp;</dd>
@@ -866,11 +875,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Reads a message from the given buffer.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.AddressLookupView.html#readOnlyTableIndexes()" class="member-name-link">readOnlyTableIndexes()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AddressLookupView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AddressLookupView</a></dt>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupView.html#readOnlyTableIndexes()" class="member-name-link">readOnlyTableIndexes()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountLookupView</a></dt>
 <dd>
 <div class="block">Returns the list of read-only table indexes.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/MessageVisitor.AddressLookupView.html#readWriteTableIndexes()" class="member-name-link">readWriteTableIndexes()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AddressLookupView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AddressLookupView</a></dt>
+<dt><a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupView.html#readWriteTableIndexes()" class="member-name-link">readWriteTableIndexes()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.AccountLookupView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountLookupView</a></dt>
 <dd>
 <div class="block">Returns the list of read-write table indexes.</div>
 </dd>

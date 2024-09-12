@@ -105,7 +105,8 @@ implements <a href="../api/MessageVisitor.V0InstructionView.html" title="interfa
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#accounts(java.util.List)" class="member-name-link">accounts</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../api/AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the list of accounts for the instruction, considering the address lookup tables.</div>
+<div class="block">Returns the list of accounts for the instruction, using the address lookup tables to map
+ the indexes stored in the message to actual addresses</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/ByteBuffer.html" title="class or interface in java.nio" class="external-link">ByteBuffer</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#data()" class="member-name-link">data</a>()</code></div>
@@ -115,7 +116,8 @@ implements <a href="../api/MessageVisitor.V0InstructionView.html" title="interfa
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#program(java.util.List)" class="member-name-link">program</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../api/AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the public key of the program for the instruction, considering the address lookup tables.</div>
+<div class="block">Returns the public key of the program for the instruction, using the address lookup tables to map
+ the indexes stored in the message to actual addresses</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#programIndex()" class="member-name-link">programIndex</a>()</code></div>
@@ -145,9 +147,11 @@ implements <a href="../api/MessageVisitor.V0InstructionView.html" title="interfa
 <li>
 <section class="detail" id="accounts(java.util.List)">
 <h3>accounts</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</span>&nbsp;<span class="element-name">accounts</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../api/AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</span>&nbsp;<span class="element-name">accounts</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../api/AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</span>
+                         throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../api/MessageVisitor.V0InstructionView.html#accounts(java.util.List)">MessageVisitor.V0InstructionView</a></code></span></div>
-<div class="block">Returns the list of accounts for the instruction, considering the address lookup tables.</div>
+<div class="block">Returns the list of accounts for the instruction, using the address lookup tables to map
+ the indexes stored in the message to actual addresses</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../api/MessageVisitor.V0InstructionView.html#accounts(java.util.List)">accounts</a></code>&nbsp;in interface&nbsp;<code><a href="../api/MessageVisitor.V0InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.V0InstructionView</a></code></dd>
@@ -155,15 +159,20 @@ implements <a href="../api/MessageVisitor.V0InstructionView.html" title="interfa
 <dd><code>addressLookupTables</code> - the list of address lookup tables</dd>
 <dt>Returns:</dt>
 <dd>a list of <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api"><code>PublicKey</code></a> objects representing the accounts</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the address lookup tables provided do not map to
+ any of the lookup accounts in the message</dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="program(java.util.List)">
 <h3>program</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></span>&nbsp;<span class="element-name">program</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../api/AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></span>&nbsp;<span class="element-name">program</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../api/AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</span>
+                  throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../api/MessageVisitor.V0InstructionView.html#program(java.util.List)">MessageVisitor.V0InstructionView</a></code></span></div>
-<div class="block">Returns the public key of the program for the instruction, considering the address lookup tables.</div>
+<div class="block">Returns the public key of the program for the instruction, using the address lookup tables to map
+ the indexes stored in the message to actual addresses</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../api/MessageVisitor.V0InstructionView.html#program(java.util.List)">program</a></code>&nbsp;in interface&nbsp;<code><a href="../api/MessageVisitor.V0InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.V0InstructionView</a></code></dd>
@@ -171,6 +180,9 @@ implements <a href="../api/MessageVisitor.V0InstructionView.html" title="interfa
 <dd><code>addressLookupTables</code> - the list of address lookup tables</dd>
 <dt>Returns:</dt>
 <dd>the <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api"><code>PublicKey</code></a> of the program</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the address lookup tables provided do not map to
+ any of the lookup accounts in the message</dd>
 </dl>
 </section>
 </li>

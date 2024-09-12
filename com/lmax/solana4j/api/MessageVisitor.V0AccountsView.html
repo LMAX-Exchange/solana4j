@@ -104,7 +104,8 @@ extends <a href="MessageVisitor.AccountsView.html" title="interface in com.lmax.
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#accounts(java.util.List)" class="member-name-link">accounts</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Returns the list of all accounts, including those referenced by address lookup tables.</div>
+<div class="block">Returns the list of all accounts, using the address lookup tables to map
+  the indexes stored in the message to actual addresses</div>
 </div>
 </div>
 </div>
@@ -126,13 +127,18 @@ extends <a href="MessageVisitor.AccountsView.html" title="interface in com.lmax.
 <li>
 <section class="detail" id="accounts(java.util.List)">
 <h3>accounts</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</span>&nbsp;<span class="element-name">accounts</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</span></div>
-<div class="block">Returns the list of all accounts, including those referenced by address lookup tables.</div>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;</span>&nbsp;<span class="element-name">accounts</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a>&gt;&nbsp;addressLookupTables)</span>
+                  throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></span></div>
+<div class="block">Returns the list of all accounts, using the address lookup tables to map
+  the indexes stored in the message to actual addresses</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>addressLookupTables</code> - the list of address lookup tables to include</dd>
 <dt>Returns:</dt>
 <dd>a list of <a href="PublicKey.html" title="interface in com.lmax.solana4j.api"><code>PublicKey</code></a> objects representing all accounts</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the address lookup tables provided do not map to
+ any of the lookup accounts in the message</dd>
 </dl>
 </section>
 </li>
