@@ -2,6 +2,8 @@ package com.lmax.solana4j;
 
 import com.lmax.simpledsl.api.DslParams;
 import com.lmax.simpledsl.api.OptionalArg;
+import com.lmax.simpledsl.api.RepeatingArgGroup;
+import com.lmax.simpledsl.api.RepeatingGroup;
 import com.lmax.simpledsl.api.RequiredArg;
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.AssociatedTokenAddress;
@@ -461,24 +463,30 @@ public class SolanaNodeDsl
         Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
     }
 
-    public void maybeCreateAndExtendAddressLookupTable(final String... args)
+    public void maybeCreateAndExtendAddressLookupTables(final String... args)
     {
         final DslParams params = DslParams.create(
                 args,
                 new RequiredArg("messageEncoding").setAllowedValues("Legacy", "V0"),
-                new RequiredArg("lookupTableAddress"),
                 new RequiredArg("payer"),
-                new RequiredArg("addresses").setAllowMultipleValues()
+                new RepeatingArgGroup(
+                        new RequiredArg("lookupTableAddress"),
+                        new RequiredArg("addresses").setAllowMultipleValues()
+                )
         );
 
         final String messageEncoding = params.value("messageEncoding");
+        final String payer = params.value("payer");
+        createKeyPair("lookupAuthority");
 
         if (messageEncoding.equals("V0"))
         {
-            createKeyPair("lookupAuthority");
-            createAddressLookupTable(params.valueAsParam("lookupTableAddress"), "authority: lookupAuthority", params.valueAsParam("payer"));
-            final String addresses = String.join(", ", params.valuesAsList("addresses"));
-            extendAddressLookupTable(params.value("lookupTableAddress"), "authority: lookupAuthority", params.valueAsParam("payer"), "addresses: " + addresses);
+            for (final RepeatingGroup group : params.valuesAsGroup("lookupTableAddress"))
+            {
+                createAddressLookupTable(group.valueAsParam("lookupTableAddress"), "authority: lookupAuthority", payer);
+                final String addresses = String.join(", ", group.valuesAsList("addresses"));
+                extendAddressLookupTable(group.value("lookupTableAddress"), "authority: lookupAuthority", payer, "addresses: " + addresses);
+            }
         }
     }
 
