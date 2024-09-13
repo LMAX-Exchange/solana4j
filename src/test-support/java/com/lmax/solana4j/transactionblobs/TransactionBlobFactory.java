@@ -57,6 +57,19 @@ public interface TransactionBlobFactory
             List<TestKeyPair> signers,
             List<AddressLookupTable> addressLookupTables);
 
+    String createMultiSigAccount(
+            TokenProgram tokenProgram,
+            PublicKey account,
+            List<PublicKey> multiSigSigners,
+            int requiredSigners,
+            long rentExemption,
+            int accountSpan,
+            Blockhash blockhash,
+            PublicKey payer,
+            List<TestKeyPair> signers,
+            List<AddressLookupTable> addressLookupTables
+    );
+
     String createNonce(
             PublicKey nonce,
             PublicKey authority,
@@ -67,22 +80,13 @@ public interface TransactionBlobFactory
             List<TestKeyPair> signers,
             List<AddressLookupTable> addressLookupTables);
 
-    String initializeTokenAccount(
+    String createTokenAccount(
             TokenProgram tokenProgram,
             long rentExemption,
             int accountSpan,
             PublicKey account,
             PublicKey owner,
             PublicKey mint,
-            Blockhash blockhash,
-            PublicKey payer,
-            List<TestKeyPair> signers,
-            List<AddressLookupTable> addressLookupTables);
-
-    String initializeMultiSig(
-            TokenProgramFactory tokenProgramFactory,
-            PublicKey multisig,
-            int requiredSignatures,
             Blockhash blockhash,
             PublicKey payer,
             List<TestKeyPair> signers,

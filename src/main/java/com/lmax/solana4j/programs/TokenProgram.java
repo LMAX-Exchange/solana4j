@@ -41,6 +41,15 @@ public class TokenProgram<T extends TokenProgram<? extends TokenProgram<T>>>
      * </p>
      */
     public static final int ACCOUNT_LAYOUT_SPAN = 165; // https://spl.solana.com/token
+
+    /**
+     * The span (size) of the multi sig account layout in bytes.
+     * <p>
+     * This constant defines the fixed size of a multi sig account layout for a Solana token account.
+     * For more details, see the <a href="https://spl.solana.com/token">Solana Token Program documentation</a>.
+     * </p>
+     */
+    public static final int MULTI_SIG_LAYOUT_SPAN = 355; // https://spl.solana.com/token
     /**
      * The instruction code for initializing a mint.
      * <p>

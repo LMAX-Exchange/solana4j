@@ -37,6 +37,7 @@ import static com.lmax.solana4j.encoding.SolanaEncoding.deriveAssociatedTokenAdd
 import static com.lmax.solana4j.programs.SystemProgram.MINT_ACCOUNT_LENGTH;
 import static com.lmax.solana4j.programs.SystemProgram.NONCE_ACCOUNT_LENGTH;
 import static com.lmax.solana4j.programs.TokenProgram.ACCOUNT_LAYOUT_SPAN;
+import static com.lmax.solana4j.programs.TokenProgram.MULTI_SIG_LAYOUT_SPAN;
 import static java.util.Arrays.stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -300,6 +301,7 @@ public class SolanaNodeDsl
                 new RequiredArg("owner"),
                 new RequiredArg("amount"),
                 new RequiredArg("payer"),
+                new OptionalArg("signers").setAllowMultipleValues(),
                 new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token"),
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
@@ -309,13 +311,19 @@ public class SolanaNodeDsl
         final TestKeyPair owner = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("owner"));
         final long amount = params.valueAsLong("amount");
         final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+
+        final List<TestKeyPair> signers = params.valuesAsList("signers").stream()
+                .map(testContext.data(TestDataType.TEST_KEY_PAIR)::lookup)
+                .filter(Objects::nonNull)
+                .toList();
+
         final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
                 .toList();
 
-        final String transactionSignature = solanaDriver.tokenTransfer(tokenProgram, from, to, owner, amount, payer, addressLookupTables);
+        final String transactionSignature = solanaDriver.tokenTransfer(tokenProgram, from, to, owner, amount, payer, signers, addressLookupTables);
 
         Waiter.waitFor(transactionFinalized(transactionSignature));
     }
@@ -341,6 +349,45 @@ public class SolanaNodeDsl
         final String transactionSignature = solanaDriver.createNonceAccount(account, authority, payer, NONCE_ACCOUNT_LENGTH, addressLookupTables);
 
         Waiter.waitFor(transactionFinalized(transactionSignature));
+    }
+
+    public void createMultiSigAccount(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("multiSig"),
+                new RequiredArg("multiSigSigners").setAllowMultipleValues(),
+                new RequiredArg("requiredSigners"),
+                new RequiredArg("payer"),
+                new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token"),
+                new OptionalArg("addressLookupTables").setAllowMultipleValues()
+        );
+
+        final TestKeyPair multiSig = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("multiSig"));
+        final List<PublicKey> multiSigSigners = params.valuesAsList("multiSigSigners")
+                .stream()
+                .map(pk -> testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(pk).getSolana4jPublicKey())
+                .toList();
+        final int requiredSigners = params.valueAsInt("requiredSigners");
+        final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
+
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
+                .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
+                .filter(Objects::nonNull)
+                .toList();
+
+        final String transactionSignature = solanaDriver.createMultiSigAccount(
+                tokenProgram,
+                multiSig,
+                multiSigSigners,
+                requiredSigners,
+                MULTI_SIG_LAYOUT_SPAN,
+                payer,
+                addressLookupTables
+        );
+
+        Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
     }
 
     public void advanceNonce(final String... args)
@@ -407,6 +454,7 @@ public class SolanaNodeDsl
         final TestPublicKey to = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("to"));
         final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
         final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
@@ -432,9 +480,9 @@ public class SolanaNodeDsl
                 new RequiredArg("owner"),
                 new RequiredArg("tokenMint"),
                 new RequiredArg("payer"),
-                new OptionalArg("addressLookupTables").setAllowMultipleValues(),
                 new OptionalArg("idempotent").setAllowedValues("true", "false").setDefault("true"),
-                new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token")
+                new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token"),
+                new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
         final TestPublicKey tokenMint = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("tokenMint"));
@@ -489,7 +537,6 @@ public class SolanaNodeDsl
             }
         }
     }
-
 
     private void waitForSlot(final long slot)
     {

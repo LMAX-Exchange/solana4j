@@ -160,7 +160,7 @@ public class SolanaDriver
         final Long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
         final Blockhash blockhash = solanaApi.getRecentBlockHash();
 
-        final String transactionBlob = getTransactionFactory().initializeTokenAccount(
+        final String transactionBlob = getTransactionFactory().createTokenAccount(
                 tokenProgram,
                 rentExemption,
                 accountSpan,
@@ -208,6 +208,33 @@ public class SolanaDriver
         return solanaApi.sendTransaction(transactionBlob);
     }
 
+    public String createMultiSigAccount(
+            final TokenProgram tokenProgram,
+            final TestKeyPair account,
+            final List<PublicKey> multiSigSigners,
+            final int requiredSigners,
+            final int accountSpan,
+            final TestKeyPair payer,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final Long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
+        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+
+        final String transactionBlob = getTransactionFactory().createMultiSigAccount(
+                tokenProgram,
+                account.getSolana4jPublicKey(),
+                multiSigSigners,
+                requiredSigners,
+                rentExemption,
+                accountSpan,
+                Solana.blockhash(blockhash.getBytes()),
+                payer.getSolana4jPublicKey(),
+                List.of(payer, account),
+                addressLookupTables);
+
+        return solanaApi.sendTransaction(transactionBlob);
+    }
+
     public String advanceNonce(
             final TestKeyPair account,
             final TestKeyPair authority,
@@ -234,6 +261,7 @@ public class SolanaDriver
             final TestKeyPair owner,
             final long amount,
             final TestKeyPair payer,
+            final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
     {
         final Blockhash blockhash = solanaApi.getRecentBlockHash();
@@ -246,7 +274,7 @@ public class SolanaDriver
                 amount,
                 Solana.blockhash(blockhash.getBytes()),
                 payer.getSolana4jPublicKey(),
-                List.of(payer, owner),
+                signers,
                 addressLookupTables);
 
         return solanaApi.sendTransaction(transactionBlob);

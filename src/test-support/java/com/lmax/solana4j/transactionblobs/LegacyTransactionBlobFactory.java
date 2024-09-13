@@ -190,6 +190,50 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
     }
 
     @Override
+    public String createMultiSigAccount(
+            final TokenProgram tokenProgram,
+            final PublicKey account,
+            final List<PublicKey> multiSigSigners,
+            final int requiredSigners,
+            final long rentExemption,
+            final int accountSpan,
+            final Blockhash blockhash,
+            final PublicKey payer,
+            final List<TestKeyPair> signers,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+        Solana.builder(buffer)
+                .legacy()
+                .recent(blockhash)
+                .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder)
+                        .createAccount(
+                                payer,
+                                account,
+                                rentExemption,
+                                accountSpan,
+                                tokenProgram.getProgram()))
+                .instructions(builder -> tokenProgram.getFactory().factory(builder)
+                        .initializeMultisig(
+                                account,
+                                multiSigSigners,
+                                requiredSigners))
+                .payer(payer)
+                .seal()
+                .unsigned()
+                .build();
+
+        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
+        for (final TestKeyPair signer : signers)
+        {
+            signedMessageBuilder.by(signer.getSolana4jPublicKey(), new BouncyCastleSigner(signer.getPrivateKeyBytes()));
+        }
+        signedMessageBuilder.build();
+
+        return base58encode(buffer);
+    }
+
+    @Override
     public String createNonce(
             final PublicKey nonce,
             final PublicKey authority,
@@ -228,7 +272,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
     }
 
     @Override
-    public String initializeTokenAccount(
+    public String createTokenAccount(
             final TokenProgram tokenProgram,
             final long rentExemption,
             final int accountSpan,
@@ -269,19 +313,6 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         signedMessageBuilder.build();
 
         return base58encode(buffer);
-    }
-
-    @Override
-    public String initializeMultiSig(
-            final TokenProgramFactory tokenProgramFactory,
-            final PublicKey multisig,
-            final int requiredSignatures,
-            final Blockhash blockhash,
-            final PublicKey payer,
-            final List<TestKeyPair> signers,
-            final List<AddressLookupTable> addressLookupTables)
-    {
-        throw new UnsupportedOperationException("This hasn't been implemented yet!!");
     }
 
     @Override

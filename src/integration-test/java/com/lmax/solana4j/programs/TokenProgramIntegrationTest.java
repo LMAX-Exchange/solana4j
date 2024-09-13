@@ -79,16 +79,72 @@ class TokenProgramIntegrationTest extends IntegrationTestBase
 
         solana.createTokenAccount("tokenAccountReceiver", "tokenAccountOwner", "tokenMint", "payer", tokenProgram, "addressLookupTable1", "addressLookupTable2");
 
-        solana.tokenTransfer("tokenAccountSender", "tokenAccountReceiver", "tokenAccountOwner", "10", "payer", tokenProgram, "addressLookupTable1", "addressLookupTable2");
+        solana.tokenTransfer(
+                "tokenAccountSender",
+                "tokenAccountReceiver",
+                "tokenAccountOwner",
+                "10",
+                "payer",
+                "signers: payer, tokenAccountOwner",
+                "tokenProgram: " + tokenProgram,
+                "addressLookupTables: addressLookupTable1, addressLookupTable2");
+
         solana.tokenBalance("tokenAccountSender", "0.00000000000000009");
         solana.tokenBalance("tokenAccountReceiver", "0.00000000000000001");
     }
 
-    @Disabled
     @ParameterizedTokenTest
-    void shouldCreateMultisig(final String messageEncoding, final String tokenProgram)
+    void shouldCreateMultiSig(final String messageEncoding, final String tokenProgram)
     {
-        fail();
+        solana.setMessageEncoding(messageEncoding);
+
+        solana.createKeyPair("multiSig");
+        solana.createKeyPair("signer1");
+        solana.createKeyPair("signer2");
+        solana.createKeyPair("signer3");
+        solana.createKeyPair("signer4");
+        solana.createKeyPair("signer5");
+
+        solana.maybeCreateAndExtendAddressLookupTables(
+                messageEncoding, "payer: payer",
+                "lookupTableAddress: addressLookupTable", "addresses: signer1, signer2, signer3, signer4, signer5");
+
+        solana.createMultiSigAccount(
+                "multiSig: multiSig",
+                "multiSigSigners: signer1, signer2, signer3, signer4, signer5",
+                "requiredSigners: 3",
+                "payer: payer",
+                "tokenProgram: " + tokenProgram,
+                "addressLookupTables: addressLookupTable"
+        );
+
+        solana.createKeyPair("tokenMint");
+        solana.createKeyPair("mintAuthority");
+        solana.createKeyPair("freezeAuthority");
+        solana.createKeyPair("tokenAccountSender");
+        solana.createKeyPair("tokenAccountReceiver");
+
+        solana.createMintAccount("tokenMint", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram, "addressLookupTable");
+        solana.createTokenAccount("tokenAccountSender", "multiSig", "tokenMint", "payer", tokenProgram, "addressLookupTable");
+
+        solana.mintTo("tokenMint", "tokenAccountSender", "mintAuthority", "payer", "100", tokenProgram, "addressLookupTable");
+        solana.tokenBalance("tokenAccountSender", "0.0000000000000001");
+
+        solana.createTokenAccount("tokenAccountReceiver", "multiSig", "tokenMint", "payer", tokenProgram, "addressLookupTable");
+
+        solana.tokenTransfer(
+                "tokenAccountSender",
+                "tokenAccountReceiver",
+                "multiSig",
+                "10",
+                "payer",
+                "tokenProgram: " + tokenProgram,
+                "signers: payer, signer1, signer2, signer3"
+        );
+
+        solana.tokenBalance("tokenAccountSender", "0.00000000000000009");
+        solana.tokenBalance("tokenAccountReceiver", "0.00000000000000001");
+
     }
 
     @Disabled
