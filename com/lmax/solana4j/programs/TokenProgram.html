@@ -141,19 +141,24 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">The instruction code for minting new tokens to an account.</div>
 </div>
-<div class="col-first odd-row-color"><code>static final <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#PROGRAM_ACCOUNT" class="member-name-link">PROGRAM_ACCOUNT</a></code></div>
+<div class="col-first odd-row-color"><code>static final int</code></div>
+<div class="col-second odd-row-color"><code><a href="#MULTI_SIG_LAYOUT_SPAN" class="member-name-link">MULTI_SIG_LAYOUT_SPAN</a></code></div>
 <div class="col-last odd-row-color">
+<div class="block">The span (size) of the multi sig account layout in bytes.</div>
+</div>
+<div class="col-first even-row-color"><code>static final <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></div>
+<div class="col-second even-row-color"><code><a href="#PROGRAM_ACCOUNT" class="member-name-link">PROGRAM_ACCOUNT</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">The public key for the token program account.</div>
 </div>
-<div class="col-first even-row-color"><code>static final int</code></div>
-<div class="col-second even-row-color"><code><a href="#SET_AUTHORITY_INSTRUCTION" class="member-name-link">SET_AUTHORITY_INSTRUCTION</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>static final int</code></div>
+<div class="col-second odd-row-color"><code><a href="#SET_AUTHORITY_INSTRUCTION" class="member-name-link">SET_AUTHORITY_INSTRUCTION</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">The instruction code for setting an authority.</div>
 </div>
-<div class="col-first odd-row-color"><code>static final int</code></div>
-<div class="col-second odd-row-color"><code><a href="#TRANSFER_INSTRUCTION" class="member-name-link">TRANSFER_INSTRUCTION</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code>static final int</code></div>
+<div class="col-second even-row-color"><code><a href="#TRANSFER_INSTRUCTION" class="member-name-link">TRANSFER_INSTRUCTION</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">The instruction code for transferring tokens.</div>
 </div>
 </div>
@@ -264,6 +269,25 @@ loadScripts(document, 'script');</script>
 <dd>
 <ul class="see-list">
 <li><a href="../../../../constant-values.html#com.lmax.solana4j.programs.TokenProgram.ACCOUNT_LAYOUT_SPAN">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="MULTI_SIG_LAYOUT_SPAN">
+<h3>MULTI_SIG_LAYOUT_SPAN</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">MULTI_SIG_LAYOUT_SPAN</span></div>
+<div class="block">The span (size) of the multi sig account layout in bytes.
+ <p>
+ This constant defines the fixed size of a multi sig account layout for a Solana token account.
+ For more details, see the <a href="https://spl.solana.com/token">Solana Token Program documentation</a>.
+ </p></div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="../../../../constant-values.html#com.lmax.solana4j.programs.TokenProgram.MULTI_SIG_LAYOUT_SPAN">Constant Field Values</a></li>
 </ul>
 </dd>
 </dl>
