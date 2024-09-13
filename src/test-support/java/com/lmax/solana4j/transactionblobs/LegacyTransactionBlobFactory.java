@@ -11,7 +11,7 @@ import com.lmax.solana4j.api.SignedMessageBuilder;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TokenProgram;
-import com.lmax.solana4j.domain.TokenProgramFactory;
+import com.lmax.solana4j.domain.TokenProgramInstructionFactory;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
 import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
@@ -68,7 +68,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
 
     @Override
     public String tokenTransfer(
-            final TokenProgramFactory tokenProgramFactory,
+            final TokenProgramInstructionFactory tokenProgramInstructionFactory,
             final PublicKey from,
             final PublicKey to,
             final PublicKey owner,
@@ -83,8 +83,8 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(builder -> tokenProgramFactory.factory(builder)
-                        .transfer(
+                .instructions(builder -> tokenProgramInstructionFactory.factory(builder)
+                                                                       .transfer(
                                 from,
                                 to,
                                 owner,
@@ -109,7 +109,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
 
     @Override
     public String mintTo(
-            final TokenProgramFactory tokenProgramFactory,
+            final TokenProgramInstructionFactory tokenProgramInstructionFactory,
             final PublicKey mint,
             final PublicKey authority,
             final Destination destination,
@@ -122,8 +122,8 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(builder -> tokenProgramFactory.factory(builder)
-                        .mintTo(
+                .instructions(builder -> tokenProgramInstructionFactory.factory(builder)
+                                                                       .mintTo(
                                 mint,
                                 authority,
                                 List.of(destination)

@@ -39,7 +39,7 @@ import static com.lmax.solana4j.assertion.Condition.isTrue;
 import static com.lmax.solana4j.encoding.SolanaEncoding.deriveAssociatedTokenAddress;
 import static com.lmax.solana4j.programs.SystemProgram.MINT_ACCOUNT_LENGTH;
 import static com.lmax.solana4j.programs.SystemProgram.NONCE_ACCOUNT_LENGTH;
-import static com.lmax.solana4j.programs.TokenProgram.ACCOUNT_LAYOUT_SPAN;
+import static com.lmax.solana4j.programs.token.TokenProgram.ACCOUNT_LAYOUT_SPAN;
 import static com.lmax.solana4j.programs.TokenProgram.MULTI_SIG_LAYOUT_SPAN;
 import static java.util.Arrays.stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

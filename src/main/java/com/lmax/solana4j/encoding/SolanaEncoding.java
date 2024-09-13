@@ -6,16 +6,19 @@ import com.lmax.solana4j.api.AssociatedTokenAddress;
 import com.lmax.solana4j.api.Blockhash;
 import com.lmax.solana4j.api.Destination;
 import com.lmax.solana4j.api.InnerTransactionBuilder;
+import com.lmax.solana4j.api.InstructionBuilderBase;
 import com.lmax.solana4j.api.Message;
 import com.lmax.solana4j.api.MessageBuilder;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.SignedMessageBuilder;
 import com.lmax.solana4j.api.Slot;
+import com.lmax.solana4j.api.TransactionInstruction;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Utility class for Solana encoding and decoding operations.
@@ -51,6 +54,19 @@ public final class SolanaEncoding
     public static InnerTransactionBuilder innerTxBuilder()
     {
         return new SolanaInnerTransactionBuilder();
+    }
+
+    /**
+     * Creates a new transaction instructions using the builder provided.
+     *
+     * @param instructionBuilder the builder of the required instruction
+     * @return a new instance of {@link TransactionInstruction}
+     */
+    public static TransactionInstruction instruction(final Consumer<InstructionBuilderBase> instructionBuilder)
+    {
+        final SolanaTransactionBuilder.SolanaInstructionBuilderBase builder = new SolanaTransactionBuilder.SolanaInstructionBuilderBase();
+        instructionBuilder.accept(builder);
+        return builder.build();
     }
 
     /**

@@ -6,6 +6,7 @@ import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.api.TransactionBuilder;
+import com.lmax.solana4j.api.TransactionInstruction;
 import com.lmax.solana4j.encoding.SolanaEncoding;
 import org.bitcoinj.core.Base58;
 
@@ -55,22 +56,58 @@ public final class AddressLookupTableProgram
      */
     public static final int LOOKUP_TABLE_META_SIZE = 56;
 
-    private final TransactionBuilder tb;
 
     /**
-     * Factory method for creating a new instance of {@code AddressLookupTableProgram}.
+     * Factory method for creating a new instance of {@code AddressLookupTableProgramFactory}.
      *
      * @param tb the transaction builder
-     * @return a new instance of {@code AddressLookupTableProgram}
+     * @return a new instance of {@code AddressLookupTableProgramFactory}
      */
-    public static AddressLookupTableProgram factory(final TransactionBuilder tb)
+    public static AddressLookupTableProgramFactory factory(final TransactionBuilder tb)
     {
-        return new AddressLookupTableProgram(tb);
+        return new AddressLookupTableProgramFactory(tb);
     }
 
-    private AddressLookupTableProgram(final TransactionBuilder tb)
+    public static final class AddressLookupTableProgramFactory
     {
-        this.tb = tb;
+
+        private final TransactionBuilder tb;
+
+        private AddressLookupTableProgramFactory(final TransactionBuilder tb)
+        {
+            this.tb = tb;
+        }
+
+
+        /**
+         * Creates a new address lookup table.
+         *
+         * @param programDerivedAddress the program derived address
+         * @param authority             the authority public key
+         * @param payer                 the payer public key
+         * @param recentSlot            the recent slot
+         * @return this {@code AddressLookupTableProgramFactory} instance
+         */
+        public AddressLookupTableProgramFactory createLookupTable(final ProgramDerivedAddress programDerivedAddress, final PublicKey authority, final PublicKey payer, final Slot recentSlot)
+        {
+            tb.append(AddressLookupTableProgram.createLookupTable(programDerivedAddress, authority, payer, recentSlot));
+            return this;
+        }
+
+        /**
+         * Extends an existing address lookup table with new addresses.
+         *
+         * @param lookupTable the lookup table public key
+         * @param authority   the authority public key
+         * @param payer       the payer public key
+         * @param addresses   the list of new addresses to add
+         * @return this {@code AddressLookupTableProgramFactory} instance
+         */
+        public AddressLookupTableProgramFactory extendLookupTable(final PublicKey lookupTable, final PublicKey authority, final PublicKey payer, final List<PublicKey> addresses)
+        {
+            tb.append(AddressLookupTableProgram.extendLookupTable(lookupTable, authority, payer, addresses));
+            return this;
+        }
     }
 
     /**
@@ -80,11 +117,11 @@ public final class AddressLookupTableProgram
      * @param authority             the authority public key
      * @param payer                 the payer public key
      * @param recentSlot            the recent slot
-     * @return this {@code AddressLookupTableProgram} instance
+     * @return this {@code TransactionInstruction} instance
      */
-    public AddressLookupTableProgram createLookupTable(final ProgramDerivedAddress programDerivedAddress, final PublicKey authority, final PublicKey payer, final Slot recentSlot)
+    public static TransactionInstruction createLookupTable(final ProgramDerivedAddress programDerivedAddress, final PublicKey authority, final PublicKey payer, final Slot recentSlot)
     {
-        tb.append(ib -> ib
+        return Solana.instruction(ib -> ib
                 .program(PROGRAM_ACCOUNT)
                 .account(programDerivedAddress.address(), false, true)
                 .account(authority, true, false)
@@ -98,7 +135,6 @@ public final class AddressLookupTableProgram
                 })
         );
 
-        return this;
     }
 
     /**
@@ -108,11 +144,11 @@ public final class AddressLookupTableProgram
      * @param authority   the authority public key
      * @param payer       the payer public key
      * @param addresses   the list of new addresses to add
-     * @return this {@code AddressLookupTableProgram} instance
+     * @return this {@code TransactionInstruction} instance
      */
-    public AddressLookupTableProgram extendLookupTable(final PublicKey lookupTable, final PublicKey authority, final PublicKey payer, final List<PublicKey> addresses)
+    public static TransactionInstruction extendLookupTable(final PublicKey lookupTable, final PublicKey authority, final PublicKey payer, final List<PublicKey> addresses)
     {
-        tb.append(ib -> ib
+        return Solana.instruction(ib -> ib
                 .program(PROGRAM_ACCOUNT)
                 .account(lookupTable, false, true)
                 .account(authority, true, false)
@@ -125,8 +161,6 @@ public final class AddressLookupTableProgram
                     addresses.forEach(address -> address.write(bb));
                 })
         );
-
-        return this;
     }
 
     /**
@@ -172,4 +206,5 @@ public final class AddressLookupTableProgram
 
         return SolanaEncoding.addressLookupTable(lookupTableAddress, addresses);
     }
+
 }

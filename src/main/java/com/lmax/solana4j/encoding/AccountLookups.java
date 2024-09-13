@@ -1,7 +1,7 @@
 package com.lmax.solana4j.encoding;
 
-import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.AccountLookupEntry;
+import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.PublicKey;
 
 import java.util.ArrayList;
@@ -83,6 +83,7 @@ final class AccountLookups
 
     public int countUnsignedReadOnly()
     {
-        return accountLookupEntries.stream().map(x -> x.getReadOnlyLookupEntrys().size()).mapToInt(Integer::intValue).sum();
+        return accountLookupEntries.stream().map(x -> x.getReadOnlyLookupEntrys().size()).mapToInt(Integer::intValue)
+                                   .sum();
     }
 }

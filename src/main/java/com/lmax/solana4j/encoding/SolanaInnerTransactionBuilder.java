@@ -60,6 +60,13 @@ class SolanaInnerTransactionBuilder implements InnerTransactionBuilder
             return this;
         }
 
+        @Override
+        public TransactionBuilder append(final TransactionInstruction instruction)
+        {
+            innerInstructions.add(instruction);
+            return this;
+        }
+
         private final InnerInstructionBuilder innerInstructionBuilder = new InnerInstructionBuilder()
         {
             private final List<SolanaAccountReference> references = new ArrayList<>();

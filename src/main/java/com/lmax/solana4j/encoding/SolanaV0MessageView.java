@@ -75,12 +75,13 @@ final class SolanaV0MessageView extends SolanaMessageView implements MessageVisi
     public List<MessageVisitor.V0InstructionView> instructions()
     {
         return instructions.stream()
-                .map(instructionView -> (MessageVisitor.V0InstructionView) new SolanaV0InstructionView(
-                        instructionView.programIndex(),
-                        instructionView.accountIndexes(),
-                        instructionView.data(),
-                        accountsView)
-                ).collect(Collectors.toList());
+                           .map(instructionView -> (MessageVisitor.V0InstructionView) new SolanaV0InstructionView(
+                                   instructionView.programIndex(),
+                                   instructionView.accountIndexes(),
+                                   instructionView.data(),
+                                   accountsView)
+                           )
+                           .collect(Collectors.toList());
     }
 
     private boolean isWriterStaticAccount(final int index)
@@ -94,7 +95,8 @@ final class SolanaV0MessageView extends SolanaMessageView implements MessageVisi
         final var unsignedReadOnlyStaticAccountsCount = countAccountsUnsignedReadOnly() - unsignedReadOnlyLookupAccountsCount;
         final var signedWriterStaticAccountsCount = countAccountsSigned() - countAccountsSignedReadOnly();
         final var isSignerWriter = index < signedWriterStaticAccountsCount;
-        final var isNonSignerWriter = (index > (countAccountsSigned() - 1) && (index < (accountsView.staticAccounts().size() - unsignedReadOnlyStaticAccountsCount)));
+        final var isNonSignerWriter = (index > (countAccountsSigned() - 1) && (index < (accountsView.staticAccounts()
+                                                                                                    .size() - unsignedReadOnlyStaticAccountsCount)));
 
         return isSignerWriter || isNonSignerWriter;
     }
@@ -109,7 +111,7 @@ final class SolanaV0MessageView extends SolanaMessageView implements MessageVisi
             {
                 throw new IllegalArgumentException(
                         "The address lookup tables provided do not contain an address" +
-                        "lookup table present in the message.");
+                                "lookup table present in the message.");
             }
             for (final int readWriteIndex : accountLookup.readWriteTableIndexes())
             {

@@ -3,6 +3,7 @@ package com.lmax.solana4j.programs;
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionBuilder;
+import com.lmax.solana4j.api.TransactionInstruction;
 import org.bitcoinj.core.Base58;
 
 import java.nio.ByteOrder;
@@ -36,59 +37,83 @@ public class ComputeBudgetProgram
      */
     public static final int SET_COMPUTE_UNIT_PRICE_INSTRUCTION = 3;
 
-    private final TransactionBuilder tb;
-
     /**
-     * Factory method for creating a new instance of {@code ComputeBudgetProgram}.
+     * Factory method for creating a new instance of {@code ComputeBudgetProgramFactory}.
      *
      * @param tb the transaction builder
-     * @return a new instance of {@code ComputeBudgetProgram}
+     * @return a new instance of {@code ComputeBudgetProgramFactory}
      */
-    public static ComputeBudgetProgram factory(final TransactionBuilder tb)
+    public static ComputeBudgetProgramFactory factory(final TransactionBuilder tb)
     {
-        return new ComputeBudgetProgram(tb);
+        return new ComputeBudgetProgramFactory(tb);
     }
 
-    ComputeBudgetProgram(final TransactionBuilder tb)
+    public static class ComputeBudgetProgramFactory
     {
-        this.tb = tb;
+
+        private final TransactionBuilder tb;
+
+        ComputeBudgetProgramFactory(final TransactionBuilder tb)
+        {
+            this.tb = tb;
+        }
+
+        /**
+         * Sets the compute unit limit.
+         *
+         * @param computeUnits the number of compute units to set as the limit
+         * @return this {@code ComputeBudgetProgramFactory} instance
+         */
+        public ComputeBudgetProgramFactory setComputeUnitLimit(final int computeUnits)
+        {
+            tb.append(ComputeBudgetProgram.setComputeUnitLimit(computeUnits));
+            return this;
+        }
+
+        /**
+         * Sets the compute unit price.
+         *
+         * @param microLamports the price in microLamports per compute unit
+         * @return this {@code ComputeBudgetProgramFactory} instance
+         */
+        public ComputeBudgetProgramFactory setComputeUnitPrice(final long microLamports)
+        {
+            tb.append(ComputeBudgetProgram.setComputeUnitPrice(microLamports));
+            return this;
+        }
     }
 
     /**
      * Sets the compute unit limit.
      *
      * @param computeUnits the number of compute units to set as the limit
-     * @return this {@code ComputeBudgetProgram} instance
+     * @return this {@code com.lmax.solana4j.api.TransactionInstruction} instance
      */
-    public ComputeBudgetProgram setComputeUnitLimit(final int computeUnits)
+    public static TransactionInstruction setComputeUnitLimit(final int computeUnits)
     {
-        tb.append(ib -> ib
+        return Solana.instruction(ib -> ib
                 .program(COMPUTE_BUDGET_PROGRAM_ACCOUNT)
                 .data(5, bb -> bb
                         .order(ByteOrder.LITTLE_ENDIAN)
                         .put((byte) SET_COMPUTE_UNIT_LIMIT_INSTRUCTION)
                         .putInt(computeUnits))
         );
-
-        return this;
     }
 
     /**
      * Sets the compute unit price.
      *
      * @param microLamports the price in microLamports per compute unit
-     * @return this {@code ComputeBudgetProgram} instance
+     * @return this {@code TransactionInstruction} instance
      */
-    public ComputeBudgetProgram setComputeUnitPrice(final long microLamports)
+    public static TransactionInstruction setComputeUnitPrice(final long microLamports)
     {
-        tb.append(ib -> ib
+        return Solana.instruction(ib -> ib
                 .program(COMPUTE_BUDGET_PROGRAM_ACCOUNT)
                 .data(9, bb -> bb
                         .order(ByteOrder.LITTLE_ENDIAN)
                         .put((byte) SET_COMPUTE_UNIT_PRICE_INSTRUCTION)
                         .putLong(microLamports))
         );
-
-        return this;
     }
 }

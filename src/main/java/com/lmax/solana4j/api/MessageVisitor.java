@@ -185,7 +185,7 @@ public interface MessageVisitor<T>
          * @param addressLookupTables the list of address lookup tables to consult when determining if the account is a writer
          * @return {@code true} if the account is a writer, {@code false} otherwise
          * @throws IllegalArgumentException if the address lookup tables provided do not map to
-         * any of the lookup accounts in the message
+         *                                  any of the lookup accounts in the message
          */
         boolean isWriter(PublicKey account, List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException;
 
@@ -195,7 +195,7 @@ public interface MessageVisitor<T>
          * @param addressLookupTables the list of address lookup tables to include
          * @return a list of {@link PublicKey} objects representing all accounts
          * @throws IllegalArgumentException if the address lookup tables provided do not map to
-         * any of the lookup accounts in the message
+         *                                  any of the lookup accounts in the message
          */
         List<PublicKey> allAccounts(List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException;
     }
@@ -266,17 +266,18 @@ public interface MessageVisitor<T>
          * @param addressLookupTables the list of address lookup tables
          * @return a list of {@link PublicKey} objects representing the accounts
          * @throws IllegalArgumentException if the address lookup tables provided do not map to
-         * any of the lookup accounts in the message
+         *                                  any of the lookup accounts in the message
          */
         List<PublicKey> accounts(List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException;
 
         /**
          * Returns the public key of the program for the instruction, using the address lookup tables to map
          * the indexes stored in the message to actual addresses
+         *
          * @param addressLookupTables the list of address lookup tables
          * @return the {@link PublicKey} of the program
          * @throws IllegalArgumentException if the address lookup tables provided do not map to
-         * any of the lookup accounts in the message
+         *                                  any of the lookup accounts in the message
          */
         PublicKey program(List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException;
     }
@@ -353,12 +354,12 @@ public interface MessageVisitor<T>
 
         /**
          * Returns the list of all accounts, using the address lookup tables to map
-         *  the indexes stored in the message to actual addresses
+         * the indexes stored in the message to actual addresses
          *
          * @param addressLookupTables the list of address lookup tables to include
          * @return a list of {@link PublicKey} objects representing all accounts
          * @throws IllegalArgumentException if the address lookup tables provided do not map to
-         * any of the lookup accounts in the message
+         *                                  any of the lookup accounts in the message
          */
         List<PublicKey> accounts(List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException;
     }
