@@ -138,4 +138,11 @@ public interface TransactionBlobFactory
             TestKeyPair payer,
             List<TestKeyPair> signers,
             List<AddressLookupTable> addressLookupTables);
+
+    String setComputeUnits(
+            int computeUnitLimit,
+            long computeUnitPrice,
+            Blockhash blockhash,
+            PublicKey payer,
+            List<TestKeyPair> signers);
 }

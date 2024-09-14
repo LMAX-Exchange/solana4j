@@ -2,9 +2,8 @@ package com.lmax.solana4j.programs;
 
 import com.lmax.solana4j.parameterization.ParameterizedMessageEncodingTest;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.Assert.assertThrows;
 
 public class ComputeBudgetProgramIntegrationTest extends IntegrationTestBase
 {
@@ -15,18 +14,27 @@ public class ComputeBudgetProgramIntegrationTest extends IntegrationTestBase
         solana.airdrop("payer", "0.01");
     }
 
-    @Disabled
     @ParameterizedMessageEncodingTest
-    void shouldSetComputeUnitLimit(final String messageEncoding)
+    void shouldSetComputeUnitLimitAndPrice(final String messageEncoding)
     {
-        fail();
+        solana.setMessageEncoding(messageEncoding);
+
+        solana.setComputeUnits("100000", "10", "payer", "tx");
     }
 
-
-    @Disabled
     @ParameterizedMessageEncodingTest
-    void shouldSetComputeUnitPrice(final String messageEncoding)
+    void shouldFailIfComputeUnitLimitSetBelowComputeUnitsOfTransaction(final String messageEncoding)
     {
-        fail();
+        solana.setMessageEncoding(messageEncoding);
+
+        assertThrows(RuntimeException.class, () -> solana.setComputeUnits("1", "10", "payer", "tx"));
+    }
+
+    @ParameterizedMessageEncodingTest
+    void shouldFailIfComputeUnitPriceSetTooHighForAvailableFundsToPayer(final String messageEncoding)
+    {
+        solana.setMessageEncoding(messageEncoding);
+
+        assertThrows(RuntimeException.class, () -> solana.setComputeUnits("100000", "1000000000", "payer", "tx"));
     }
 }

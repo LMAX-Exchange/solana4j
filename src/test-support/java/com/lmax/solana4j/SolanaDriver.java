@@ -352,6 +352,20 @@ public class SolanaDriver
         return solanaApi.sendTransaction(transactionBlob);
     }
 
+    public String setComputeUnits(final int computeUnitLimit, final long computeUnitPrice, final TestKeyPair payer)
+    {
+        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+
+        final String transactionBlob = getTransactionFactory().setComputeUnits(
+                computeUnitLimit,
+                computeUnitPrice,
+                Solana.blockhash(blockhash.getBytes()),
+                payer.getSolana4jPublicKey(),
+                List.of(payer));
+
+        return solanaApi.sendTransaction(transactionBlob);
+    }
+
     public void setMessageEncoding(final String messageEncoding)
     {
         if (messageEncoding.equals("V0"))

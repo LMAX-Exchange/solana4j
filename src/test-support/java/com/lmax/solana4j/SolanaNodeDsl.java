@@ -582,6 +582,24 @@ public class SolanaNodeDsl
         Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
     }
 
+    public void setComputeUnits(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("computeUnitLimit"),
+                new RequiredArg("computeUnitPrice"),
+                new RequiredArg("payer")
+        );
+
+        final int computeUnitLimit = params.valueAsInt("computeUnitLimit");
+        final int computeUnitPrice = params.valueAsInt("computeUnitPrice");
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+
+        final String transactionSignature = solanaDriver.setComputeUnits(computeUnitLimit, computeUnitPrice, payer);
+
+        Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+    }
+
     private void waitForSlot(final long slot)
     {
         Waiter.waitFor(isTrue(() -> solanaDriver.getSlot() > slot));

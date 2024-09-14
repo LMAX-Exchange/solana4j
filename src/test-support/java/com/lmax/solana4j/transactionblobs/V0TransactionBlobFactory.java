@@ -14,6 +14,7 @@ import com.lmax.solana4j.domain.TokenProgram;
 import com.lmax.solana4j.domain.TokenProgramFactory;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
 import com.lmax.solana4j.programs.AssociatedTokenProgram;
+import com.lmax.solana4j.programs.ComputeBudgetProgram;
 import com.lmax.solana4j.util.BouncyCastleSigner;
 import org.bitcoinj.core.Base58;
 
@@ -483,6 +484,36 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                                 authorityType))
                 .lookups(addressLookupTables)
                 .payer(payer.getSolana4jPublicKey())
+                .seal()
+                .unsigned()
+                .build();
+
+        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
+        for (final TestKeyPair signer : signers)
+        {
+            signedMessageBuilder.by(signer.getSolana4jPublicKey(), new BouncyCastleSigner(signer.getPrivateKeyBytes()));
+        }
+        signedMessageBuilder.build();
+
+        return base58encode(buffer);
+    }
+
+    @Override
+    public String setComputeUnits(
+            final int computeUnitLimit,
+            final long computeUnitPrice,
+            final Blockhash blockhash,
+            final PublicKey payer,
+            final List<TestKeyPair> signers)
+    {
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+        Solana.builder(buffer)
+                .v0()
+                .recent(blockhash)
+                .instructions(versionedTransactionBuilder -> ComputeBudgetProgram.factory(versionedTransactionBuilder)
+                        .setComputeUnitLimit(computeUnitLimit)
+                        .setComputeUnitPrice(computeUnitPrice))
+                .payer(payer)
                 .seal()
                 .unsigned()
                 .build();
