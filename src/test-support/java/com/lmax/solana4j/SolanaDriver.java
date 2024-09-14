@@ -302,25 +302,51 @@ public class SolanaDriver
     }
 
     public String createAssociatedTokenAddress(
+            final TokenProgram tokenProgram,
             final ProgramDerivedAddress associatedTokenAddress,
             final PublicKey mint,
             final PublicKey owner,
             final boolean idempotent,
-            final PublicKey tokenProgramId,
             final TestKeyPair payer,
             final List<AddressLookupTable> addressLookupTables)
     {
         final Blockhash blockhash = solanaApi.getRecentBlockHash();
 
         final String transactionBlob = getTransactionFactory().createAssociatedTokenAddress(
+                tokenProgram,
                 owner,
                 associatedTokenAddress,
                 Solana.blockhash(blockhash.getBytes()),
                 mint,
                 idempotent,
-                tokenProgramId,
                 payer.getSolana4jPublicKey(),
                 List.of(payer),
+                addressLookupTables);
+
+        return solanaApi.sendTransaction(transactionBlob);
+    }
+
+    public String setAuthority(
+            final TokenProgram tokenProgram,
+            final PublicKey account,
+            final PublicKey oldAuthority,
+            final PublicKey newAuthority,
+            final com.lmax.solana4j.programs.TokenProgram.AuthorityType authorityType,
+            final TestKeyPair payer,
+            final List<TestKeyPair> signers,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+
+        final String transactionBlob = getTransactionFactory().setAuthority(
+                tokenProgram,
+                account,
+                oldAuthority,
+                newAuthority,
+                authorityType,
+                Solana.blockhash(blockhash.getBytes()),
+                payer,
+                signers,
                 addressLookupTables);
 
         return solanaApi.sendTransaction(transactionBlob);

@@ -118,13 +118,24 @@ public interface TransactionBlobFactory
             List<AddressLookupTable> addressLookupTables);
 
     String createAssociatedTokenAddress(
+            TokenProgram tokenProgram,
             PublicKey owner,
             ProgramDerivedAddress associatedTokenAddress,
             Blockhash blockhash,
             PublicKey mint,
             boolean idempotent,
-            PublicKey tokenProgramId,
             PublicKey payer,
+            List<TestKeyPair> signers,
+            List<AddressLookupTable> addressLookupTables);
+
+    String setAuthority(
+            TokenProgram tokenProgram,
+            PublicKey account,
+            PublicKey oldAuthority,
+            PublicKey newAuthority,
+            com.lmax.solana4j.programs.TokenProgram.AuthorityType authorityType,
+            Blockhash blockhash,
+            TestKeyPair payer,
             List<TestKeyPair> signers,
             List<AddressLookupTable> addressLookupTables);
 }

@@ -147,11 +147,68 @@ class TokenProgramIntegrationTest extends IntegrationTestBase
 
     }
 
-    @Disabled
     @ParameterizedTokenTest
     void shouldSetAuthority(final String messageEncoding, final String tokenProgram)
     {
-        fail();
+        solana.setMessageEncoding(messageEncoding);
+
+        solana.createKeyPair("tokenMint");
+        solana.createKeyPair("mintAuthority");
+        solana.createKeyPair("freezeAuthority");
+        solana.createKeyPair("tokenAccountSender");
+        solana.createKeyPair("tokenAccountReceiver");
+        solana.createKeyPair("tokenAccountOwner");
+        solana.createKeyPair("tokenAccountNewOwner");
+
+        solana.maybeCreateAndExtendAddressLookupTables(
+                messageEncoding, "payer: payer",
+                "lookupTableAddress: addressLookupTable1", "addresses: tokenMint, mintAuthority, freezeAuthority",
+                "lookupTableAddress: addressLookupTable2", "addresses: tokenAccountSender, tokenAccountReceiver, tokenAccountOwner");
+
+        solana.createMintAccount("tokenMint", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram, "addressLookupTable1", "addressLookupTable2");
+        solana.createTokenAccount("tokenAccountSender", "tokenAccountOwner", "tokenMint", "payer", tokenProgram, "addressLookupTable1", "addressLookupTable2");
+
+        solana.mintTo("tokenMint", "tokenAccountSender", "mintAuthority", "payer", "100", tokenProgram, "addressLookupTable1", "addressLookupTable2");
+        solana.tokenBalance("tokenAccountSender", "0.0000000000000001");
+
+        solana.createTokenAccount("tokenAccountReceiver", "tokenAccountOwner", "tokenMint", "payer", tokenProgram, "addressLookupTable1", "addressLookupTable2");
+
+        solana.tokenTransfer(
+                "tokenAccountSender",
+                "tokenAccountReceiver",
+                "tokenAccountOwner",
+                "10",
+                "payer",
+                "signers: payer, tokenAccountOwner",
+                "tokenProgram: " + tokenProgram,
+                "addressLookupTables: addressLookupTable1, addressLookupTable2");
+
+        solana.tokenBalance("tokenAccountSender", "0.00000000000000009");
+        solana.tokenBalance("tokenAccountReceiver", "0.00000000000000001");
+
+        solana.setAuthority(
+                "tokenAccountSender",
+                "tokenAccountOwner",
+                "tokenAccountNewOwner",
+                "ACCOUNT_OWNER",
+                "payer",
+                "signers: payer, tokenAccountOwner",
+                "tokenProgram: " + tokenProgram);
+
+        // now try a transfer with the new owner
+        solana.tokenTransfer(
+                "tokenAccountSender",
+                "tokenAccountReceiver",
+                "tokenAccountNewOwner",
+                "10",
+                "payer",
+                "signers: payer, tokenAccountNewOwner",
+                "tokenProgram: " + tokenProgram,
+                "addressLookupTables: addressLookupTable1, addressLookupTable2");
+
+        solana.tokenBalance("tokenAccountSender", "0.00000000000000008");
+        solana.tokenBalance("tokenAccountReceiver", "0.00000000000000002");
+
     }
 
 }

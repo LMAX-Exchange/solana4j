@@ -423,12 +423,12 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
 
     @Override
     public String createAssociatedTokenAddress(
+            final TokenProgram tokenProgram,
             final PublicKey owner,
             final ProgramDerivedAddress associatedTokenAddress,
             final Blockhash blockhash,
             final PublicKey mint,
             final boolean idempotent,
-            final PublicKey tokenProgramId,
             final PublicKey payer,
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
@@ -440,7 +440,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .instructions(tb -> AssociatedTokenProgram.factory(tb)
                         .createAssociatedToken(
                                 associatedTokenAddress, mint, owner, payer,
-                                tokenProgramId,
+                                tokenProgram.getProgram(),
                                 idempotent))
                 .payer(payer)
                 .lookups(addressLookupTables)
@@ -455,6 +455,45 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         }
 
         signedMessageBuilder.build();
+        return base58encode(buffer);
+    }
+
+    @Override
+    public String setAuthority(
+            final TokenProgram tokenProgram,
+            final PublicKey account,
+            final PublicKey oldAuthority,
+            final PublicKey newAuthority,
+            final com.lmax.solana4j.programs.TokenProgram.AuthorityType authorityType,
+            final Blockhash blockhash,
+            final TestKeyPair payer,
+            final List<TestKeyPair> signers,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+        Solana.builder(buffer)
+                .v0()
+                .recent(blockhash)
+                .instructions(versionedTransactionBuilder -> tokenProgram.getFactory().factory(versionedTransactionBuilder)
+                        .setAuthority(
+                                account,
+                                newAuthority,
+                                oldAuthority,
+                                signers.stream().map(TestKeyPair::getSolana4jPublicKey).toList(),
+                                authorityType))
+                .lookups(addressLookupTables)
+                .payer(payer.getSolana4jPublicKey())
+                .seal()
+                .unsigned()
+                .build();
+
+        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
+        for (final TestKeyPair signer : signers)
+        {
+            signedMessageBuilder.by(signer.getSolana4jPublicKey(), new BouncyCastleSigner(signer.getPrivateKeyBytes()));
+        }
+        signedMessageBuilder.build();
+
         return base58encode(buffer);
     }
 

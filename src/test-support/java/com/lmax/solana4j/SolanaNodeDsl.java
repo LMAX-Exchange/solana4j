@@ -499,11 +499,11 @@ public class SolanaNodeDsl
                 .toList();
 
         final String transactionSignature = solanaDriver.createAssociatedTokenAddress(
+                tokenProgram,
                 associatedTokenAddress,
                 tokenMint.getSolana4jPublicKey(),
                 owner.getSolana4jPublicKey(),
                 params.valueAsBoolean("idempotent"),
-                tokenProgram.getProgram(),
                 payer,
                 addressLookupTables
         );
@@ -536,6 +536,50 @@ public class SolanaNodeDsl
                 extendAddressLookupTable(group.value("lookupTableAddress"), "authority: lookupAuthority", payer, "addresses: " + addresses);
             }
         }
+    }
+
+    public void setAuthority(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("account"),
+                new RequiredArg("oldAuthority"),
+                new RequiredArg("newAuthority"),
+                new RequiredArg("authorityType").setAllowedValues(com.lmax.solana4j.programs.TokenProgram.AuthorityType.class),
+                new RequiredArg("payer"),
+                new RequiredArg("signers").setAllowMultipleValues(),
+                new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token"),
+                new OptionalArg("addressLookupTables").setAllowMultipleValues()
+        );
+
+        final TestPublicKey account = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("account"));
+        final TestPublicKey oldAuthority = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("oldAuthority"));
+        final TestPublicKey newAuthority = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("newAuthority"));
+        final com.lmax.solana4j.programs.TokenProgram.AuthorityType authorityType = com.lmax.solana4j.programs.TokenProgram.AuthorityType.valueOf(params.value("authorityType"));
+        final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+
+        final List<TestKeyPair> signers = params.valuesAsList("signers").stream()
+                .map(testContext.data(TestDataType.TEST_KEY_PAIR)::lookup)
+                .filter(Objects::nonNull)
+                .toList();
+
+        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
+                .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
+                .filter(Objects::nonNull)
+                .toList();
+
+        final String transactionSignature = solanaDriver.setAuthority(
+                tokenProgram,
+                account.getSolana4jPublicKey(),
+                oldAuthority.getSolana4jPublicKey(),
+                newAuthority.getSolana4jPublicKey(),
+                authorityType,
+                payer,
+                signers,
+                addressLookupTables);
+
+        Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
     }
 
     private void waitForSlot(final long slot)
