@@ -27,7 +27,7 @@ public class ComputeBudgetProgramIntegrationTest extends IntegrationTestBase
     {
         solana.setMessageEncoding(messageEncoding);
 
-        assertThrows(RuntimeException.class, () -> solana.setComputeUnits("1", "10", "payer", "tx"));
+        assertThrows(RuntimeException.class, () -> solana.setComputeUnits("1", "10", "payer"));
     }
 
     @ParameterizedMessageEncodingTest
@@ -35,6 +35,6 @@ public class ComputeBudgetProgramIntegrationTest extends IntegrationTestBase
     {
         solana.setMessageEncoding(messageEncoding);
 
-        assertThrows(RuntimeException.class, () -> solana.setComputeUnits("100000", "1000000000", "payer", "tx"));
+        assertThrows(RuntimeException.class, () -> solana.setComputeUnits("100000", "1000000000", "payer"));
     }
 }
