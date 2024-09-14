@@ -19,7 +19,7 @@ public class ComputeBudgetProgramIntegrationTest extends IntegrationTestBase
     {
         solana.setMessageEncoding(messageEncoding);
 
-        solana.setComputeUnits("100000", "10", "payer", "tx");
+        solana.setComputeUnits("100000", "10", "payer");
     }
 
     @ParameterizedMessageEncodingTest
