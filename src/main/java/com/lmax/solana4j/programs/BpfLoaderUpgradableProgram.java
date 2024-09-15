@@ -14,13 +14,7 @@ final class BpfLoaderUpgradableProgram
     private static final byte[] PROGRAM_ID = Base58.decode("BPFLoaderUpgradeab1e11111111111111111111111");
     public static final PublicKey PROGRAM_ACCOUNT = Solana.account(PROGRAM_ID);
 
-    private static final int INITIALIZE_BUFFER_INSTRUCTION = 0;
-    private static final int WRITE_INSTRUCTION = 1;
-    private static final int DEPLOY_WITH_MAX_DATA_LEN_INSTRUCTION = 2;
-    private static final int UPGRADE_INSTRUCTION = 3;
     private static final int SET_AUTHORITY_INSTRUCTION = 4;
-    private static final int CLOSE_INSTRUCTION = 5;
-    private static final int SET_AUTHORITY_CHECKED_INSTRUCTION = 7;
 
     private final TransactionBuilder tb;
 
