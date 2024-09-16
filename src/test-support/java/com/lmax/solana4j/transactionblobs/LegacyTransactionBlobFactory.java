@@ -466,7 +466,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
             final PublicKey tokenAccount,
             final PublicKey tokenAccountOldAuthority,
             final PublicKey tokenAccountNewAuthority,
-            final com.lmax.solana4j.programs.TokenProgram.AuthorityType authorityType,
+            final com.lmax.solana4j.programs.token.TokenProgram.AuthorityType authorityType,
             final Blockhash blockhash,
             final TestKeyPair payer,
             final List<TestKeyPair> signers,

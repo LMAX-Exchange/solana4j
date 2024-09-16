@@ -331,7 +331,7 @@ public class SolanaDriver
             final PublicKey tokenAccount,
             final PublicKey tokenAccountOldAuthority,
             final PublicKey tokenAccountNewAuthority,
-            final com.lmax.solana4j.programs.TokenProgram.AuthorityType authorityType,
+            final com.lmax.solana4j.programs.token.TokenProgram.AuthorityType authorityType,
             final TestKeyPair payer,
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)

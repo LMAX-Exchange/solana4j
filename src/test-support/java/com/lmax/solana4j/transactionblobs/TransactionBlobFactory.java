@@ -133,7 +133,7 @@ public interface TransactionBlobFactory
             PublicKey tokenAccount,
             PublicKey tokenAccountOldAuthority,
             PublicKey tokenAccountNewAuthority,
-            com.lmax.solana4j.programs.TokenProgram.AuthorityType authorityType,
+            com.lmax.solana4j.programs.token.TokenProgram.AuthorityType authorityType,
             Blockhash blockhash,
             TestKeyPair payer,
             List<TestKeyPair> signers,
