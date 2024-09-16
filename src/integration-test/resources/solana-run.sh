@@ -90,32 +90,18 @@ fi
 
 abort() {
   set +e
-  kill "$faucet" "$validator"
+  kill "$validator"
   wait "$validator"
 }
 trap abort INT TERM EXIT
 
-solana-faucet &
-faucet=$!
-
 args=(
-  --identity "$validator_identity"
-  --vote-account "$validator_vote_account"
   --ledger "$ledgerDir"
   --gossip-port 8001
-  --full-rpc-api
   --rpc-port 8899
-  --rpc-faucet-address 127.0.0.1:9900
-  --log -
-  --enable-rpc-transaction-history
-  --init-complete-file "$dataDir"/init-completed
-  --require-tower
-  --no-snapshot-fetch
-  --no-wait-for-vote-to-start-leader
-  --no-os-network-limits-test
 )
 # shellcheck disable=SC2086
-solana-validator "${args[@]}" $SOLANA_RUN_SH_VALIDATOR_ARGS &
+solana-test-validator "${args[@]}" $SOLANA_RUN_SH_VALIDATOR_ARGS &
 validator=$!
 
 wait "$validator"
