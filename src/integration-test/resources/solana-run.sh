@@ -88,20 +88,36 @@ else
     $SOLANA_RUN_SH_GENESIS_ARGS
 fi
 
-abort() {
-  set +e
-  kill "$validator"
-  wait "$validator"
-}
-trap abort INT TERM EXIT
-
 args=(
   --ledger "$ledgerDir"
   --gossip-port 8001
   --rpc-port 8899
 )
+
 # shellcheck disable=SC2086
 solana-test-validator "${args[@]}" $SOLANA_RUN_SH_VALIDATOR_ARGS &
 validator=$!
 
+
+solana config set --url "http://localhost:8899"
+
+set +e
+while true; do
+
+  solana ping --count 1 > /dev/null 2>&1
+
+  if [ $? -eq 0 ]; then
+    echo "Solana RPC is responsive!"
+    break
+  else
+    echo "Waiting for Solana RPC to become responsive..."
+  fi
+  sleep 0.5
+done
+set -e
+
+solana program deploy /lmax_multisig.so --program-id /bpf_program.json --upgrade-authority /upgrade_authority.json
+#solana program show CxmAHzszTVSWmtBnCXda7eUTemd8DGyax88yYk54A2PT
+
 wait "$validator"
+
