@@ -28,7 +28,7 @@ public abstract class IntegrationTestBase
                     .withCopyFileToContainer(MountableFile.forClasspathResource("upgrade_authority.json"), "/upgrade_authority.json")
                     .withCopyFileToContainer(MountableFile.forClasspathResource("bpf_program.json"), "/bpf_program.json")
                     .withExposedPorts(SOLANA_HTTP_PORT, SOLANA_WS_PORT)
-                    .withEnv("SOLANA_RUN_SH_VALIDATOR_ARGS", "--ticks-per-slot=8")
+                    .withEnv("SOLANA_RUN_SH_VALIDATOR_ARGS", "--ticks-per-slot=64")
                     .withNetwork(NETWORK);
 
             SOLANA_VALIDATOR.start();
