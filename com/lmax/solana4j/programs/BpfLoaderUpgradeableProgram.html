@@ -123,8 +123,8 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="BpfLoaderUpgradeableProgram.html" title="class in com.lmax.solana4j.programs">BpfLoaderUpgradeableProgram</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setUpgradeAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.Optional)" class="member-name-link">setUpgradeAuthority</a><wbr>(<a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;programAddress,
- <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;currentAuthorityAddress,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;maybeNewAuthorityAddress)</code></div>
+ <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;currentUpgradeAuthorityAddress,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;maybeNewUpgradeAuthorityAddress)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets the upgrade authority for a given program address.</div>
 </div>
@@ -177,14 +177,14 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="setUpgradeAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.Optional)">
 <h3>setUpgradeAuthority</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="BpfLoaderUpgradeableProgram.html" title="class in com.lmax.solana4j.programs">BpfLoaderUpgradeableProgram</a></span>&nbsp;<span class="element-name">setUpgradeAuthority</span><wbr><span class="parameters">(<a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;programAddress,
- <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;currentAuthorityAddress,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;maybeNewAuthorityAddress)</span></div>
+ <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;currentUpgradeAuthorityAddress,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;maybeNewUpgradeAuthorityAddress)</span></div>
 <div class="block">Sets the upgrade authority for a given program address.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>programAddress</code> - The public key of the program whose upgrade authority is being changed.</dd>
-<dd><code>currentAuthorityAddress</code> - The current authority's public key.</dd>
-<dd><code>maybeNewAuthorityAddress</code> - An optional public key for the new authority. If not present, no new authority is set.</dd>
+<dd><code>currentUpgradeAuthorityAddress</code> - The current upgrade authority's public key.</dd>
+<dd><code>maybeNewUpgradeAuthorityAddress</code> - An optional public key for the new upgrade authority. If not present, no new upgrade authority is set.</dd>
 <dt>Returns:</dt>
 <dd>The current instance of <code>BpfLoaderUpgradeableProgram</code> to allow method chaining.</dd>
 </dl>
