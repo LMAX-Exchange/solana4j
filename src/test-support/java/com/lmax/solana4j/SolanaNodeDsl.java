@@ -608,16 +608,16 @@ public class SolanaNodeDsl
         final DslParams params = DslParams.create(
                 args,
                 new RequiredArg("program"),
-                new RequiredArg("oldAuthorityPublicKey"),
-                new RequiredArg("oldAuthorityPrivateKey"),
-                new RequiredArg("newAuthority"),
+                new RequiredArg("oldUpgradeAuthorityPublicKey"),
+                new RequiredArg("oldUpgradeAuthorityPrivateKey"),
+                new RequiredArg("newUpgradeAuthority"),
                 new RequiredArg("payer"),
                 new OptionalArg("addressLookupTables")
         );
 
         final String program = testContext.lookupOrLiteral(params.value("program"), TestDataType.TEST_PUBLIC_KEY);
-        final String oldAuthorityPublicKey = testContext.lookupOrLiteral(params.value("oldAuthorityPublicKey"), TestDataType.TEST_PUBLIC_KEY);
-        final String oldAuthorityPrivateKey = testContext.lookupOrLiteral(params.value("oldAuthorityPrivateKey"), TestDataType.TEST_KEY_PAIR);
+        final String oldUpgradeAuthorityPublicKey = testContext.lookupOrLiteral(params.value("oldUpgradeAuthorityPublicKey"), TestDataType.TEST_PUBLIC_KEY);
+        final String oldUpgradeAuthorityPrivateKey = testContext.lookupOrLiteral(params.value("oldUpgradeAuthorityPrivateKey"), TestDataType.TEST_KEY_PAIR);
 
         final String newAuthority = testContext.lookupOrLiteral(params.value("newAuthority"), TestDataType.TEST_PUBLIC_KEY);
 
@@ -630,10 +630,10 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.setUpgradeAuthority(
                 Solana.account(Base58.decode(program)),
-                Solana.account(Base58.decode(oldAuthorityPublicKey)),
+                Solana.account(Base58.decode(oldUpgradeAuthorityPublicKey)),
                 Solana.account(Base58.decode(newAuthority)),
                 payer.getSolana4jPublicKey(),
-                List.of(payer, new TestKeyPair(oldAuthorityPublicKey, oldAuthorityPrivateKey)),
+                List.of(payer, new TestKeyPair(oldUpgradeAuthorityPublicKey, oldUpgradeAuthorityPrivateKey)),
                 addressLookupTables);
 
         Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
@@ -644,11 +644,11 @@ public class SolanaNodeDsl
         final DslParams params = DslParams.create(
                 args,
                 new RequiredArg("address"),
-                new OptionalArg("authority")
+                new OptionalArg("upgradeAuthority")
         );
 
         final String address = testContext.lookupOrLiteral(params.value("address"), TestDataType.TEST_PUBLIC_KEY);
-        final String authority = testContext.lookupOrLiteral(params.value("authority"), TestDataType.TEST_PUBLIC_KEY);
+        final String upgradeAuthority = testContext.lookupOrLiteral(params.value("upgradeAuthority"), TestDataType.TEST_PUBLIC_KEY);
 
         final ProgramDerivedAddress programDataAddress = BpfLoaderUpgradeableProgram.deriveAddress(Solana.account(Base58.decode(address)));
 
@@ -656,7 +656,7 @@ public class SolanaNodeDsl
 
         final byte[] accountInfoBytes = Base64.decode(accountInfo.getData().get(0));
 
-        assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, 13, 45))).isEqualTo(authority);
+        assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, 13, 45))).isEqualTo(upgradeAuthority);
     }
 
     private void waitForSlot(final long slot)

@@ -529,8 +529,8 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
     @Override
     public String setUpgradeAuthority(
             final PublicKey program,
-            final PublicKey oldAuthority,
-            final PublicKey newAuthority,
+            final PublicKey oldUpgradeAuthority,
+            final PublicKey newUpgradeAuthority,
             final Blockhash blockhash,
             final PublicKey payer,
             final List<TestKeyPair> signers,
@@ -544,8 +544,8 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
                 .instructions(legacyTransactionBuilder -> BpfLoaderUpgradeableProgram.factory(legacyTransactionBuilder)
                         .setUpgradeAuthority(
                                 program,
-                                oldAuthority,
-                                Optional.of(newAuthority))
+                                oldUpgradeAuthority,
+                                Optional.of(newUpgradeAuthority))
                 )
                 .payer(payer)
                 .seal()

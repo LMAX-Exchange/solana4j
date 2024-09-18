@@ -368,8 +368,8 @@ public class SolanaDriver
 
     public String setUpgradeAuthority(
             final PublicKey program,
-            final PublicKey oldAuthority,
-            final PublicKey newAuthority,
+            final PublicKey oldUpgradeAuthority,
+            final PublicKey newUpgradeAuthority,
             final PublicKey payer,
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
@@ -378,8 +378,8 @@ public class SolanaDriver
 
         final String transactionBlob = getTransactionFactory().setUpgradeAuthority(
                 program,
-                oldAuthority,
-                newAuthority,
+                oldUpgradeAuthority,
+                newUpgradeAuthority,
                 Solana.blockhash(blockhash.getBytes()),
                 payer,
                 signers,

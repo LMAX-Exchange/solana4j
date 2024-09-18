@@ -61,22 +61,22 @@ public final class BpfLoaderUpgradeableProgram
     /**
      * Sets the upgrade authority for a given program address.
      *
-     * @param programAddress           The public key of the program whose upgrade authority is being changed.
-     * @param currentAuthorityAddress  The current authority's public key.
-     * @param maybeNewAuthorityAddress An optional public key for the new authority. If not present, no new authority is set.
+     * @param programAddress                  The public key of the program whose upgrade authority is being changed.
+     * @param currentUpgradeAuthorityAddress  The current upgrade authority's public key.
+     * @param maybeNewUpgradeAuthorityAddress An optional public key for the new upgrade authority. If not present, no new upgrade authority is set.
      * @return The current instance of {@code BpfLoaderUpgradeableProgram} to allow method chaining.
      */
     public BpfLoaderUpgradeableProgram setUpgradeAuthority(
             final PublicKey programAddress,
-            final PublicKey currentAuthorityAddress,
-            final Optional<PublicKey> maybeNewAuthorityAddress)
+            final PublicKey currentUpgradeAuthorityAddress,
+            final Optional<PublicKey> maybeNewUpgradeAuthorityAddress)
     {
         tb.append(ib ->
         {
             ib.program(PROGRAM_ACCOUNT)
                     .account(deriveAddress(programAddress).programId(), false, true)
-                    .account(currentAuthorityAddress, true, false);
-            maybeNewAuthorityAddress.ifPresent(newAuthorityAddress -> ib.account(newAuthorityAddress, false, false));
+                    .account(currentUpgradeAuthorityAddress, true, false);
+            maybeNewUpgradeAuthorityAddress.ifPresent(newUpgradeAuthorityAddress -> ib.account(newUpgradeAuthorityAddress, false, false));
             ib.data(4, bb -> bb.order(ByteOrder.LITTLE_ENDIAN).putInt(SET_AUTHORITY_INSTRUCTION));
         });
 

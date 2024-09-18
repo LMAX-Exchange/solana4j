@@ -531,8 +531,8 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
     @Override
     public String setUpgradeAuthority(
             final PublicKey program,
-            final PublicKey oldAuthority,
-            final PublicKey newAuthority,
+            final PublicKey oldUpgradeAuthority,
+            final PublicKey newUpgradeAuthority,
             final Blockhash blockhash,
             final PublicKey payer,
             final List<TestKeyPair> signers,
@@ -546,8 +546,8 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .instructions(versionedTransactionBuilder -> BpfLoaderUpgradeableProgram.factory(versionedTransactionBuilder)
                         .setUpgradeAuthority(
                                 program,
-                                oldAuthority,
-                                Optional.of(newAuthority))
+                                oldUpgradeAuthority,
+                                Optional.of(newUpgradeAuthority))
                 )
                 .payer(payer)
                 .lookups(addressLookupTables)

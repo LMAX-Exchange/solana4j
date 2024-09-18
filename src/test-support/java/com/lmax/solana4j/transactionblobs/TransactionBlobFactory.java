@@ -148,8 +148,8 @@ public interface TransactionBlobFactory
 
     String setUpgradeAuthority(
             PublicKey program,
-            PublicKey oldAuthority,
-            PublicKey newAuthority,
+            PublicKey oldUpgradeAuthority,
+            PublicKey newUpgradeAuthority,
             Blockhash blockhash,
             PublicKey payer,
             List<TestKeyPair> signers,
