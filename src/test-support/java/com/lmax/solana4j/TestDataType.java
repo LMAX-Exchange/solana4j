@@ -13,7 +13,7 @@ public final class TestDataType<T>
     public static final TestDataType<TestKeyPair> TEST_KEY_PAIR = new TestDataType<>(x -> Base58.encode(x.getPrivateKeyBytes()));
     public static final TestDataType<AddressLookupTable> ADDRESS_LOOKUP_TABLE = new TestDataType<>(x -> x.getLookupTableAddress().base58());
 
-    private Function<T, String> transform;
+    private final Function<T, String> transform;
 
     public TestDataType(final Function<T, String> transform)
     {
