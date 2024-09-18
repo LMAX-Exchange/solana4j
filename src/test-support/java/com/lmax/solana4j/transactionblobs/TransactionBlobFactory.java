@@ -145,4 +145,13 @@ public interface TransactionBlobFactory
             Blockhash blockhash,
             PublicKey payer,
             List<TestKeyPair> signers);
+
+    String setUpgradeAuthority(
+            PublicKey program,
+            PublicKey oldUpgradeAuthority,
+            PublicKey newUpgradeAuthority,
+            Blockhash blockhash,
+            PublicKey payer,
+            List<TestKeyPair> signers,
+            List<AddressLookupTable> addressLookupTables);
 }

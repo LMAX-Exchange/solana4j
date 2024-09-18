@@ -18,5 +18,6 @@ class AddressLookupTableProgramTest
 
         assertThat(Base58.encode(programDerivedAddress.address().bytes())).isEqualTo("DmTtM8rQMcqR56ksBkayLd9KuYiFaGYZEAPnh5iUtgVV");
         assertThat(programDerivedAddress.nonce()).isEqualTo(255);
+        assertThat(programDerivedAddress.programId().base58()).isEqualTo("AddressLookupTab1e1111111111111111111111111");
     }
 }

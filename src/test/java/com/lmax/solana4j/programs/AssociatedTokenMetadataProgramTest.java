@@ -16,7 +16,10 @@ class AssociatedTokenMetadataProgramTest
     {
         final PublicKey mint = Solana.account(Base58.decode("HDLRMKW1FDz2q5Zg778CZx26UgrtnqpUDkNNJHhmVUFr"));
         final ProgramDerivedAddress metadataAddress = AssociatedTokenMetadataProgram.deriveAddress(mint);
+
         assertArrayEquals(Base58.decode("Ff68e9DL9p1GUBkhRXxdv61wiYd8X6iFWTS6XWgsDptP"), metadataAddress.address().bytes());
+        assertThat(metadataAddress.nonce()).isEqualTo(253);
+        assertThat(metadataAddress.programId().base58()).isEqualTo("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
     }
 
     @Test
