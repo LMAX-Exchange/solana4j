@@ -619,7 +619,7 @@ public class SolanaNodeDsl
         final String oldUpgradeAuthorityPublicKey = testContext.lookupOrLiteral(params.value("oldUpgradeAuthorityPublicKey"), TestDataType.TEST_PUBLIC_KEY);
         final String oldUpgradeAuthorityPrivateKey = testContext.lookupOrLiteral(params.value("oldUpgradeAuthorityPrivateKey"), TestDataType.TEST_KEY_PAIR);
 
-        final String newAuthority = testContext.lookupOrLiteral(params.value("newAuthority"), TestDataType.TEST_PUBLIC_KEY);
+        final String newAuthority = testContext.lookupOrLiteral(params.value("newUpgradeAuthority"), TestDataType.TEST_PUBLIC_KEY);
 
         final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
 
