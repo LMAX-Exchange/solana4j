@@ -14,6 +14,7 @@ import com.lmax.solana4j.domain.TokenProgram;
 import com.lmax.solana4j.domain.TokenProgramFactory;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
 import com.lmax.solana4j.programs.AssociatedTokenProgram;
+import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
 import com.lmax.solana4j.programs.ComputeBudgetProgram;
 import com.lmax.solana4j.util.BouncyCastleSigner;
 import org.bitcoinj.core.Base58;
@@ -399,6 +400,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
             final List<AddressLookupTable> addressLookupTables)
     {
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
@@ -432,6 +434,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
             final List<AddressLookupTable> addressLookupTables)
     {
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
@@ -471,6 +474,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
             final List<AddressLookupTable> addressLookupTables)
     {
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
@@ -500,12 +504,49 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
     public String setComputeUnits(final int computeUnitLimit, final long computeUnitPrice, final Blockhash blockhash, final PublicKey payer, final List<TestKeyPair> signers)
     {
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
                 .instructions(legacyTransactionBuilder -> ComputeBudgetProgram.factory(legacyTransactionBuilder)
                         .setComputeUnitLimit(computeUnitLimit)
                         .setComputeUnitPrice(computeUnitPrice))
+                .payer(payer)
+                .seal()
+                .unsigned()
+                .build();
+
+        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
+        for (final TestKeyPair signer : signers)
+        {
+            signedMessageBuilder.by(signer.getSolana4jPublicKey(), new BouncyCastleSigner(signer.getPrivateKeyBytes()));
+        }
+        signedMessageBuilder.build();
+
+        return base58encode(buffer);
+    }
+
+    @Override
+    public String setUpgradeAuthority(
+            final PublicKey program,
+            final PublicKey oldAuthority,
+            final PublicKey newAuthority,
+            final Blockhash blockhash,
+            final PublicKey payer,
+            final List<TestKeyPair> signers,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
+        Solana.builder(buffer)
+                .legacy()
+                .recent(blockhash)
+                .instructions(legacyTransactionBuilder -> BpfLoaderUpgradeableProgram.factory(legacyTransactionBuilder)
+                        .setUpgradeAuthority(
+                                program,
+                                oldAuthority,
+                                Optional.of(newAuthority))
+                )
                 .payer(payer)
                 .seal()
                 .unsigned()

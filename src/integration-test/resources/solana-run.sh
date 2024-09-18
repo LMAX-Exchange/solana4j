@@ -116,6 +116,8 @@ while true; do
 done
 set -e
 
+# bpf_program: CxmAHzszTVSWmtBnCXda7eUTemd8DGyax88yYk54A2PT (public key) 5A7mHgUWzqpb9sbyHMzn7dLvdfHGswk5PHxfUu2PTEKR (private key)
+# upgrade_authority: 13jT1jL8jpTFzFcZATPq9W4gmRB5uZbEYjXxJJbugB1d (public key) Ed4gbZARwspMoyVRPU3GvCCARFtRSPSw2TqtHvH6vvj8 (private key)
 solana program deploy /lmax_multisig.so --program-id /bpf_program.json --upgrade-authority /upgrade_authority.json
 #solana program show CxmAHzszTVSWmtBnCXda7eUTemd8DGyax88yYk54A2PT
 

@@ -366,6 +366,28 @@ public class SolanaDriver
         return solanaApi.sendTransaction(transactionBlob);
     }
 
+    public String setUpgradeAuthority(
+            final PublicKey program,
+            final PublicKey oldAuthority,
+            final PublicKey newAuthority,
+            final PublicKey payer,
+            final List<TestKeyPair> signers,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+
+        final String transactionBlob = getTransactionFactory().setUpgradeAuthority(
+                program,
+                oldAuthority,
+                newAuthority,
+                Solana.blockhash(blockhash.getBytes()),
+                payer,
+                signers,
+                addressLookupTables);
+
+        return solanaApi.sendTransaction(transactionBlob);
+    }
+
     public void setMessageEncoding(final String messageEncoding)
     {
         if (messageEncoding.equals("V0"))
