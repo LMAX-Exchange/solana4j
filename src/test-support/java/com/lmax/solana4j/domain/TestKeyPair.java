@@ -9,16 +9,10 @@ public class TestKeyPair
     private final byte[] publicKey;
     private final byte[] privateKey;
 
-    public TestKeyPair(final byte[] publicKeyBytes, final byte[] privateKeyBytes)
+    public TestKeyPair(final byte[] publicKey, final byte[] privateKey)
     {
-        this.publicKey = publicKeyBytes;
-        this.privateKey = privateKeyBytes;
-    }
-
-    public TestKeyPair(final String publicKey, final String privateKey)
-    {
-        this.publicKey = Base58.decode(publicKey);
-        this.privateKey = Base58.decode(privateKey);
+        this.publicKey = publicKey;
+        this.privateKey = privateKey;
     }
 
     public String getPublicKeyBase58()

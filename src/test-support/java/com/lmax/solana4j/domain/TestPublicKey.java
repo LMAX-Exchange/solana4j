@@ -7,9 +7,9 @@ public class TestPublicKey
 {
     private final byte[] publicKey;
 
-    public TestPublicKey(final byte[] publicKeyBytes)
+    public TestPublicKey(final byte[] publicKey)
     {
-        this.publicKey = publicKeyBytes;
+        this.publicKey = publicKey;
     }
 
     public String getPublicKeyBase58()
