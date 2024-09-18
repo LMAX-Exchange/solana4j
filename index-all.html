@@ -219,6 +219,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Interface representing a blockhash in the Solana blockchain.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html" class="type-name-link" title="class in com.lmax.solana4j.programs">BpfLoaderUpgradeableProgram</a> - Class in <a href="com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
+<dd>
+<div class="block">Represents a program for interacting with the BPF Loader Upgradeable program on the Solana blockchain.</div>
+</dd>
 <dt><a href="com/lmax/solana4j/api/InnerTransactionBuilder.html#build()" class="member-name-link">build()</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/InnerTransactionBuilder.html" title="interface in com.lmax.solana4j.api">InnerTransactionBuilder</a></dt>
 <dd>
 <div class="block">Builds and returns the inner instructions.</div>
@@ -369,6 +373,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Derives the program address for the given mint.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html#deriveAddress(com.lmax.solana4j.api.PublicKey)" class="member-name-link">deriveAddress(PublicKey)</a> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html" title="class in com.lmax.solana4j.programs">BpfLoaderUpgradeableProgram</a></dt>
+<dd>
+<div class="block">Derives a program-derived address for the specified program public key.</div>
+</dd>
 <dt><a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html#deriveAddress(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.Slot)" class="member-name-link">deriveAddress(PublicKey, Slot)</a> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html" title="class in com.lmax.solana4j.programs">AddressLookupTableProgram</a></dt>
 <dd>
 <div class="block">Derives a program address for the given authority and slot.</div>
@@ -418,6 +426,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/lmax/solana4j/programs/AssociatedTokenProgram.html#factory(com.lmax.solana4j.api.TransactionBuilder)" class="member-name-link">factory(TransactionBuilder)</a> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AssociatedTokenProgram.html" title="class in com.lmax.solana4j.programs">AssociatedTokenProgram</a></dt>
 <dd>
 <div class="block">Factory method for creating a new instance of <code>AssociatedTokenProgram</code>.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html#factory(com.lmax.solana4j.api.TransactionBuilder)" class="member-name-link">factory(TransactionBuilder)</a> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html" title="class in com.lmax.solana4j.programs">BpfLoaderUpgradeableProgram</a></dt>
+<dd>
+<div class="block">Factory method to create an instance of <code>BpfLoaderUpgradeableProgram</code> with a specified transaction builder.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html#factory(com.lmax.solana4j.api.TransactionBuilder)" class="member-name-link">factory(TransactionBuilder)</a> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html" title="class in com.lmax.solana4j.programs">ComputeBudgetProgram</a></dt>
 <dd>
@@ -834,6 +846,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The public key for the address lookup table program account.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html#PROGRAM_ACCOUNT" class="member-name-link">PROGRAM_ACCOUNT</a> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html" title="class in com.lmax.solana4j.programs">BpfLoaderUpgradeableProgram</a></dt>
+<dd>
+<div class="block">The public key associated with the BPF Loader Upgradeable program.</div>
+</dd>
 <dt><a href="com/lmax/solana4j/programs/Token2022Program.html#PROGRAM_ACCOUNT" class="member-name-link">PROGRAM_ACCOUNT</a> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/Token2022Program.html" title="class in com.lmax.solana4j.programs">Token2022Program</a></dt>
 <dd>
 <div class="block">The public key for the Token 2022 program account.</div>
@@ -949,6 +965,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html#setComputeUnitPrice(long)" class="member-name-link">setComputeUnitPrice(long)</a> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html" title="class in com.lmax.solana4j.programs">ComputeBudgetProgram</a></dt>
 <dd>
 <div class="block">Sets the compute unit price.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html#setUpgradeAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.Optional)" class="member-name-link">setUpgradeAuthority(PublicKey, PublicKey, Optional&lt;PublicKey&gt;)</a> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html" title="class in com.lmax.solana4j.programs">BpfLoaderUpgradeableProgram</a></dt>
+<dd>
+<div class="block">Sets the upgrade authority for a given program address.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/api/ByteBufferSigner.html#sign(java.nio.ByteBuffer,java.nio.ByteBuffer)" class="member-name-link">sign(ByteBuffer, ByteBuffer)</a> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/ByteBufferSigner.html" title="interface in com.lmax.solana4j.api">ByteBufferSigner</a></dt>
 <dd>
