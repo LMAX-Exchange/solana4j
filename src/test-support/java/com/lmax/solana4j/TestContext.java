@@ -1,7 +1,5 @@
 package com.lmax.solana4j;
 
-import com.lmax.solana4j.domain.TestPublicKey;
-
 import java.util.HashMap;
 import java.util.Map;
 

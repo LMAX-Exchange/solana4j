@@ -15,7 +15,7 @@ public final class TestDataType<T>
 
     private Function<T, String> transform;
 
-    public TestDataType(Function<T, String> transform)
+    public TestDataType(final Function<T, String> transform)
     {
         this.transform = transform;
     }
