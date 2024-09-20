@@ -44,11 +44,10 @@ public class TokenProgram<T extends TokenProgram<T>> extends TokenProgramBase<T>
     public static final int MULTI_SIG_LAYOUT_SPAN = 355; // https://spl.solana.com/token
 
     /**
-     * Factory method for creating a new instance of {@code TokenProgram}.
+     * Constructs a new {@code TokenProgram} instance.
      *
-     * @return a new instance of {@code TokenProgram}
      */
-    protected TokenProgram()
+    public TokenProgram()
     {
         super(PROGRAM_ACCOUNT);
     }

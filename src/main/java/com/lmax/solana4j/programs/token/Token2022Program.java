@@ -25,9 +25,8 @@ public final class Token2022Program<T extends Token2022Program<T>> extends Token
     /**
      * Constructs a new {@code Token2022Program} instance.
      *
-     * @return a new instance of {@code Token2022Program}
      */
-    protected Token2022Program()
+    public Token2022Program()
     {
         super(PROGRAM_ACCOUNT);
     }
