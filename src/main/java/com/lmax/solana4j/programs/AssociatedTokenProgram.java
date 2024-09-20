@@ -78,7 +78,7 @@ public final class AssociatedTokenProgram
          * @param idempotent            whether the creation should be idempotent
          * @return this {@code AssociatedTokenProgramFactory} instance
          */
-        public AssociatedTokenProgramFactory createAssociatedToken(
+        public AssociatedTokenProgramFactory createAssociatedTokenAccount(
                 final ProgramDerivedAddress programDerivedAddress,
                 final PublicKey mint,
                 final PublicKey owner,
@@ -86,7 +86,7 @@ public final class AssociatedTokenProgram
                 final PublicKey programId,
                 final boolean idempotent)
         {
-            tb.append(AssociatedTokenProgram.createAssociatedToken(programDerivedAddress, mint, owner, payer, programId, idempotent));
+            tb.append(AssociatedTokenProgram.createAssociatedTokenAccount(programDerivedAddress, mint, owner, payer, programId, idempotent));
             return this;
         }
     }
@@ -102,7 +102,7 @@ public final class AssociatedTokenProgram
      * @param idempotent            whether the creation should be idempotent
      * @return A {@code TransactionInstruction} of the created instruction
      */
-    public static TransactionInstruction createAssociatedToken(
+    public static TransactionInstruction createAssociatedTokenAccount(
             final ProgramDerivedAddress programDerivedAddress,
             final PublicKey mint,
             final PublicKey owner,

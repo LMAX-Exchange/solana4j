@@ -438,7 +438,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
                 .legacy()
                 .recent(blockhash)
                 .instructions(tb -> AssociatedTokenProgram.factory(tb)
-                        .createAssociatedToken(
+                        .createAssociatedTokenAccount(
                                 associatedTokenAddress,
                                 mint,
                                 owner,

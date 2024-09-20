@@ -439,7 +439,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .v0()
                 .recent(blockhash)
                 .instructions(tb -> AssociatedTokenProgram.factory(tb)
-                        .createAssociatedToken(
+                        .createAssociatedTokenAccount(
                                 associatedTokenAddress, mint, owner, payer,
                                 tokenProgram.getProgram(),
                                 idempotent))
