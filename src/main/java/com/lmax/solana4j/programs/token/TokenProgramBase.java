@@ -65,6 +65,121 @@ public abstract class TokenProgramBase<T extends TokenProgramBase<? extends Toke
      */
     public static final int MINT_TO_INSTRUCTION = 7;
 
+    private final PublicKey programId;
+
+    protected TokenProgramBase(final PublicKey programId)
+    {
+        this.programId = programId;
+    }
+
+    /**
+     * Initializes a new token account.
+     *
+     * @param account the public key of the new account
+     * @param mint    the public key of the mint
+     * @param owner   the public key of the account owner
+     * @return {@code TransactionInstruction} of the created instruction
+     */
+    public TransactionInstruction initializeAccount(final PublicKey account, final PublicKey mint, final PublicKey owner)
+    {
+        return TokenProgramBase.initializeAccount(programId, account, mint, owner);
+    }
+
+    /**
+     * Initializes a new mint.
+     *
+     * @param tokenMintAddress the public key of the token mint address
+     * @param decimals         the number of decimals for the new mint
+     * @param mintAuthority    the public key of the mint authority
+     * @param freezeAuthority  the public key of the freeze authority (optional)
+     * @return {@code TransactionInstruction} of the created instruction
+     */
+    public TransactionInstruction initializeMint(
+            final PublicKey tokenMintAddress,
+            final byte decimals,
+            final PublicKey mintAuthority,
+            final Optional<PublicKey> freezeAuthority)
+    {
+        return TokenProgramBase.initializeMint(programId, tokenMintAddress, decimals, mintAuthority, freezeAuthority);
+    }
+
+    /**
+     * Mints new tokens to a list of destinations.
+     *
+     * @param mint         the public key of the mint
+     * @param authority    the public key of the authority
+     * @param destination  the destination to mint to
+     * @return {@code TransactionInstruction} of the created instruction
+     */
+    public TransactionInstruction mintTo(
+            final PublicKey mint,
+            final PublicKey authority,
+            final Destination destination)
+    {
+
+        return TokenProgramBase.mintTo(programId, mint, authority, destination);
+
+
+    }
+
+    /**
+     * Transfers tokens between accounts.
+     *
+     * @param source      the public key of the source account
+     * @param destination the public key of the destination account
+     * @param owner       the public key of the owner account
+     * @param amount      the amount of tokens to transfer
+     * @param signers     the list of public keys of the signers
+     * @return {@code TransactionInstruction} of the created instruction
+     */
+    public TransactionInstruction transfer(
+            final PublicKey source,
+            final PublicKey destination,
+            final PublicKey owner,
+            final long amount,
+            final List<PublicKey> signers)
+    {
+        return TokenProgramBase.transfer(programId, source, destination, owner, amount, signers);
+    }
+
+    /**
+     * Initializes a new multisig account.
+     *
+     * @param multisigPublicKey  the public key of the multisig account
+     * @param signers            the list of public keys of the signers
+     * @param requiredSignatures the number of required signatures
+     * @return {@code TransactionInstruction} of the created instruction
+     */
+    public TransactionInstruction initializeMultisig(
+            final PublicKey multisigPublicKey,
+            final List<PublicKey> signers,
+            final int requiredSignatures)
+    {
+        return TokenProgramBase.initializeMultisig(programId, multisigPublicKey, signers, requiredSignatures);
+    }
+
+    /**
+     * Sets a new authority for a token account.
+     *
+     * @param tokenAccount  the public key of the token account
+     * @param newAuthority  the public key of the new authority
+     * @param oldAuthority  the public key of the old authority
+     * @param signers       the list of public keys of the signers
+     * @param authorityType the type of authority to set
+     * @return {@code TransactionInstruction} of the created instruction
+     */
+    public TransactionInstruction setAuthority(
+            final PublicKey tokenAccount,
+            final PublicKey newAuthority,
+            final PublicKey oldAuthority,
+            final List<PublicKey> signers,
+            final AuthorityType authorityType
+    )
+    {
+        return TokenProgramBase.setAuthority(programId, tokenAccount, newAuthority, oldAuthority, signers, authorityType);
+    }
+
+
     public static class TokenProgramBaseFactory<T extends TokenProgramBaseFactory<? extends TokenProgramBaseFactory<T>>>
     {
 
@@ -72,7 +187,14 @@ public abstract class TokenProgramBase<T extends TokenProgramBase<? extends Toke
         private final TransactionBuilder tb;
 
 
-        TokenProgramBaseFactory(final PublicKey tokenProgramId, final TransactionBuilder tb)
+        /**
+         * Factory method for creating a new instance of {@code TokenProgramBaseFactory}.
+         *
+         * @param tokenProgramId the program id of the token program
+         * @param tb the transaction builder
+         * @return a new instance of {@code TokenProgramBaseFactory}
+         */
+        protected TokenProgramBaseFactory(final PublicKey tokenProgramId, final TransactionBuilder tb)
         {
             this.programId = tokenProgramId;
             this.tb = tb;
@@ -199,7 +321,7 @@ public abstract class TokenProgramBase<T extends TokenProgramBase<? extends Toke
      * @param account   the public key of the new account
      * @param mint      the public key of the mint
      * @param owner     the public key of the account owner
-     * @return this {@code TransactionInstruction} instance
+     * @return {@code TransactionInstruction} of the created instruction
      */
     protected static TransactionInstruction initializeAccount(
             final PublicKey programId,
@@ -226,7 +348,7 @@ public abstract class TokenProgramBase<T extends TokenProgramBase<? extends Toke
      * @param decimals         the number of decimals for the new mint
      * @param mintAuthority    the public key of the mint authority
      * @param freezeAuthority  the public key of the freeze authority (optional)
-     * @return this {@code TransactionInstruction} instance
+     * @return {@code TransactionInstruction} of the created instruction
      */
     protected static TransactionInstruction initializeMint(
             final PublicKey programId,
@@ -269,7 +391,7 @@ public abstract class TokenProgramBase<T extends TokenProgramBase<? extends Toke
      * @param mint        the public key of the mint
      * @param authority   the public key of the authority
      * @param destination the list of destinations to mint to
-     * @return this {@code TransactionInstruction} instance
+     * @return {@code TransactionInstruction} of the created instruction
      */
     protected static TransactionInstruction mintTo(
             final PublicKey programId,
@@ -297,7 +419,7 @@ public abstract class TokenProgramBase<T extends TokenProgramBase<? extends Toke
      * @param owner       the public key of the owner account
      * @param amount      the amount of tokens to transfer
      * @param signers     the list of public keys of the signers
-     * @return this {@code TransactionInstruction} instance
+     * @return {@code TransactionInstruction} of the created instruction
      */
     protected static TransactionInstruction transfer(
             final PublicKey programId,
@@ -329,7 +451,7 @@ public abstract class TokenProgramBase<T extends TokenProgramBase<? extends Toke
      * @param multisigPublicKey  the public key of the multisig account
      * @param signers            the list of public keys of the signers
      * @param requiredSignatures the number of required signatures
-     * @return this {@code TransactionInstruction} instance
+     * @return {@code TransactionInstruction} of the created instruction
      */
     protected static TransactionInstruction initializeMultisig(
             final PublicKey programId,
@@ -360,7 +482,7 @@ public abstract class TokenProgramBase<T extends TokenProgramBase<? extends Toke
      * @param oldAuthority  the public key of the old authority
      * @param signers       the list of public keys of the signers
      * @param authorityType the type of authority to set
-     * @return this {@code TransactionInstruction} instance
+     * @return {@code TransactionInstruction} of the created instruction
      */
     protected static TransactionInstruction setAuthority(
             final PublicKey programId,
