@@ -42,6 +42,13 @@ final class SolanaMessageBuilderV0 implements MessageBuilderV0
     }
 
     @Override
+    public MessageBuilderV0 instructions(final List<TransactionInstruction> instructions)
+    {
+        this.instructions.addAll(instructions);
+        return this;
+    }
+
+    @Override
     public MessageBuilderV0 payer(final PublicKey account)
     {
         payer = (SolanaAccount) account;

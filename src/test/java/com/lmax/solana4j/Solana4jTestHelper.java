@@ -4,6 +4,7 @@ import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.Blockhash;
 import com.lmax.solana4j.api.ByteBufferSigner;
 import com.lmax.solana4j.api.PublicKey;
+import com.lmax.solana4j.api.TransactionInstruction;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.Fail;
 
@@ -129,380 +130,454 @@ public class Solana4jTestHelper
     public static void writeSimpleUnsignedLegacyMessage(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
-                .legacy()
-                .payer(Solana.account(PAYER))
-                .recent(Solana.blockhash(BLOCKHASH))
-                .instructions(tb -> tb
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT4), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .data(DATA1.length, w -> w.put(DATA1))))
+              .legacy()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT4), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .data(DATA1.length, w -> w.put(DATA1))))
 
-                .seal()
-                .unsigned()
-                .build();
+              .seal()
+              .unsigned()
+              .build();
     }
 
     public static void writeSimpleUnsignedV0Message(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
-                .v0()
-                .payer(Solana.account(PAYER))
-                .recent(Solana.blockhash(BLOCKHASH))
-                .instructions(tb -> tb
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT4), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .data(DATA1.length, w -> w.put(DATA1))))
-                // account3 and account4 should appear in lookup table accounts and be omitted from the accounts section
-                .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
-                .seal()
-                .unsigned()
-                .build();
+              .v0()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT4), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .data(DATA1.length, w -> w.put(DATA1))))
+              // account3 and account4 should appear in lookup table accounts and be omitted from the accounts section
+              .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
+              .seal()
+              .unsigned()
+              .build();
     }
 
     public static void writeSimpleUnsignedLegacyMessageWithBigData(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
-                .legacy()
-                .payer(Solana.account(PAYER))
-                .recent(Solana.blockhash(BLOCKHASH))
-                .instructions(tb -> tb
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM1))
-                                .data(DATA3.length, w -> w.put(DATA3))))
-                .seal()
-                .unsigned()
-                .build();
+              .legacy()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .data(DATA3.length, w -> w.put(DATA3))))
+              .seal()
+              .unsigned()
+              .build();
     }
 
     public static void writeSimpleUnsignedV0MessageWithBigData(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
-                .v0()
-                .payer(Solana.account(PAYER))
-                .recent(Solana.blockhash(BLOCKHASH))
-                .instructions(tb -> tb
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM1))
-                                .data(DATA3.length, w -> w.put(DATA3))))
-                .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
-                .seal()
-                .unsigned()
-                .build();
+              .v0()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .data(DATA3.length, w -> w.put(DATA3))))
+              .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
+              .seal()
+              .unsigned()
+              .build();
     }
 
     public static void writeSimpleSignedLegacyMessageWithNoSignatures(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
-                .legacy()
-                .payer(Solana.account(PAYER))
-                .recent(Solana.blockhash(BLOCKHASH))
-                .instructions(tb -> tb
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT4), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .data(DATA1.length, w -> w.put(DATA1))))
-                .seal()
-                .signed()
-                .build();
+              .legacy()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT4), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .data(DATA1.length, w -> w.put(DATA1))))
+              .seal()
+              .signed()
+              .build();
     }
 
     public static void writeSimpleSignedV0MessageWithNoSignatures(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
-                .v0()
-                .payer(Solana.account(PAYER))
-                .recent(Solana.blockhash(BLOCKHASH))
-                .instructions(tb -> tb
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT4), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .data(DATA1.length, w -> w.put(DATA1))))
-                .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
-                .seal()
-                .signed()
-                .build();
+              .v0()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT4), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .data(DATA1.length, w -> w.put(DATA1))))
+              .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
+              .seal()
+              .signed()
+              .build();
     }
 
     public static void writeSimpleFullySignedLegacyMessage(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
-                .legacy()
-                .payer(Solana.account(PAYER))
-                .recent(Solana.blockhash(BLOCKHASH))
-                .instructions(tb -> tb
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT4), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .data(DATA1.length, w -> w.put(DATA1))))
-                .seal()
-                .signed()
-                        .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
-                        .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
-                        .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
-                .build();
+              .legacy()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT4), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .data(DATA1.length, w -> w.put(DATA1))))
+              .seal()
+              .signed()
+              .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
+              .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
+              .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
+              .build();
     }
 
     public static void writeSimpleFullySignedV0Message(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
-                .v0()
-                .payer(Solana.account(PAYER))
-                .recent(Solana.blockhash(BLOCKHASH))
-                .instructions(tb -> tb
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT4), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .data(DATA1.length, w -> w.put(DATA1))))
-                // account3 and account4 should end up in lookup accounts section
-                .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
-                .seal()
-                .signed()
-                .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
-                .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
-                .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
-                .build();
+              .v0()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT4), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .data(DATA1.length, w -> w.put(DATA1))))
+              // account3 and account4 should end up in lookup accounts section
+              .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
+              .seal()
+              .signed()
+              .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
+              .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
+              .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
+              .build();
     }
 
     public static void writeComplexUnsignedLegacyMessage(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
-                .legacy()
-                .payer(Solana.account(PAYER))
-                .recent(Solana.blockhash(BLOCKHASH))
-                .instructions(tb -> tb
-                        .append(ib -> ib
-                                // 8, program1, 4, program2
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT4), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .data(DATA1.length, w -> w.put(DATA1)))
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM2))
-                                .account(Solana.account(ACCOUNT5), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT6), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT7), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .account(Solana.account(ACCOUNT8), false, true)
-                                .data(DATA2.length, w -> w.put(DATA2)))
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT3), true, true)
-                                .data(DATA1.length, w -> w.put(DATA1)))
-                )
-                .seal()
-                .unsigned()
-                .build();
+              .legacy()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              // 8, program1, 4, program2
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT4), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .data(DATA1.length, w -> w.put(DATA1)))
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM2))
+                              .account(Solana.account(ACCOUNT5), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT6), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT7), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .account(Solana.account(ACCOUNT8), false, true)
+                              .data(DATA2.length, w -> w.put(DATA2)))
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT3), true, true)
+                              .data(DATA1.length, w -> w.put(DATA1)))
+              )
+              .seal()
+              .unsigned()
+              .build();
     }
 
     public static void writeComplexUnsignedV0Message(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
-                .v0()
-                .payer(Solana.account(PAYER))
-                .recent(Solana.blockhash(BLOCKHASH))
-                .instructions(tb -> tb
-                        .append(ib -> ib
-                                // 8, program1, 4, program2
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT4), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .data(DATA1.length, w -> w.put(DATA1)))
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM2))
-                                .account(Solana.account(ACCOUNT5), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT6), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT7), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .account(Solana.account(ACCOUNT8), false, true)
-                                .data(DATA2.length, w -> w.put(DATA2)))
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT3), true, true)
-                                .data(DATA1.length, w -> w.put(DATA1)))
-                )
-                // account4 and account8 should appear in lookup table accounts and be omitted from the accounts section
-                .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
-                .seal()
-                .unsigned()
-                .build();
+              .v0()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              // 8, program1, 4, program2
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT4), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .data(DATA1.length, w -> w.put(DATA1)))
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM2))
+                              .account(Solana.account(ACCOUNT5), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT6), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT7), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .account(Solana.account(ACCOUNT8), false, true)
+                              .data(DATA2.length, w -> w.put(DATA2)))
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT3), true, true)
+                              .data(DATA1.length, w -> w.put(DATA1)))
+              )
+              // account4 and account8 should appear in lookup table accounts and be omitted from the accounts section
+              .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
+              .seal()
+              .unsigned()
+              .build();
+    }
+
+    public static void writeComplexUnsignedLegacyMessageWithInstructionsAddedInBulk(final ByteBuffer buffer)
+    {
+        final TransactionInstruction instruction1 = Solana.instruction(ib -> ib
+                .program(Solana.account(PROGRAM1))
+                .account(Solana.account(ACCOUNT4), false, false)
+                .account(Solana.account(ACCOUNT1), true, true)
+                .account(Solana.account(ACCOUNT2), true, false)
+                .account(Solana.account(ACCOUNT3), false, true)
+                .data(DATA1.length, w -> w.put(DATA1)));
+
+        final TransactionInstruction instruction2 = Solana.instruction(ib -> ib
+                .program(Solana.account(PROGRAM2))
+                .account(Solana.account(ACCOUNT5), false, false)
+                .account(Solana.account(ACCOUNT1), true, true)
+                .account(Solana.account(ACCOUNT6), true, true)
+                .account(Solana.account(ACCOUNT2), true, false)
+                .account(Solana.account(ACCOUNT7), true, false)
+                .account(Solana.account(ACCOUNT3), false, true)
+                .account(Solana.account(ACCOUNT8), false, true)
+                .data(DATA2.length, w -> w.put(DATA2)));
+
+        final TransactionInstruction instruction3 = Solana.instruction(ib -> ib
+                .program(Solana.account(PROGRAM1))
+                .account(Solana.account(ACCOUNT3), true, true)
+                .data(DATA1.length, w -> w.put(DATA1)));
+
+        Solana.builder(buffer)
+              .legacy()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(List.of(instruction1, instruction2, instruction3))
+              .seal()
+              .unsigned()
+              .build();
+    }
+
+    public static void writeComplexUnsignedV0MessageWithInstructionsAddedInBulk(final ByteBuffer buffer)
+    {
+        final TransactionInstruction instruction1 = Solana.instruction(ib -> ib
+                .program(Solana.account(PROGRAM1))
+                .account(Solana.account(ACCOUNT4), false, false)
+                .account(Solana.account(ACCOUNT1), true, true)
+                .account(Solana.account(ACCOUNT2), true, false)
+                .account(Solana.account(ACCOUNT3), false, true)
+                .data(DATA1.length, w -> w.put(DATA1)));
+
+        final TransactionInstruction instruction2 = Solana.instruction(ib -> ib
+                .program(Solana.account(PROGRAM2))
+                .account(Solana.account(ACCOUNT5), false, false)
+                .account(Solana.account(ACCOUNT1), true, true)
+                .account(Solana.account(ACCOUNT6), true, true)
+                .account(Solana.account(ACCOUNT2), true, false)
+                .account(Solana.account(ACCOUNT7), true, false)
+                .account(Solana.account(ACCOUNT3), false, true)
+                .account(Solana.account(ACCOUNT8), false, true)
+                .data(DATA2.length, w -> w.put(DATA2)));
+
+        final TransactionInstruction instruction3 = Solana.instruction(ib -> ib
+                .program(Solana.account(PROGRAM1))
+                .account(Solana.account(ACCOUNT3), true, true)
+                .data(DATA1.length, w -> w.put(DATA1)));
+
+        Solana.builder(buffer)
+              .v0()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(List.of(instruction1, instruction2, instruction3))
+              // account4 and account8 should appear in lookup table accounts and be omitted from the accounts section
+              .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
+              .seal()
+              .unsigned()
+              .build();
     }
 
     public static void writeComplexSignedLegacyMessageWithNoSignatures(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
-                .legacy()
-                .payer(Solana.account(PAYER))
-                .recent(Solana.blockhash(BLOCKHASH))
-                .instructions(tb -> tb
-                        .append(ib -> ib
-                                // 8, program1, 4, program2
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT4), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .data(DATA1.length, w -> w.put(DATA1)))
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM2))
-                                .account(Solana.account(ACCOUNT5), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT6), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT7), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .account(Solana.account(ACCOUNT8), false, true)
-                                .data(DATA2.length, w -> w.put(DATA2)))
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT3), true, true)
-                                .data(DATA2.length, w -> w.put(DATA2)))
-                )
-                .seal()
-                .signed()
-                .build();
+              .legacy()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              // 8, program1, 4, program2
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT4), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .data(DATA1.length, w -> w.put(DATA1)))
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM2))
+                              .account(Solana.account(ACCOUNT5), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT6), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT7), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .account(Solana.account(ACCOUNT8), false, true)
+                              .data(DATA2.length, w -> w.put(DATA2)))
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT3), true, true)
+                              .data(DATA2.length, w -> w.put(DATA2)))
+              )
+              .seal()
+              .signed()
+              .build();
     }
 
     public static void writeComplexSignedV0MessageWithNoSignatures(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
-                .v0()
-                .payer(Solana.account(PAYER))
-                .recent(Solana.blockhash(BLOCKHASH))
-                .instructions(tb -> tb
-                        .append(ib -> ib
-                                // 8, program1, 4, program2
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT4), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .data(DATA1.length, w -> w.put(DATA1)))
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM2))
-                                .account(Solana.account(ACCOUNT5), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT6), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT7), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .account(Solana.account(ACCOUNT8), false, true)
-                                .data(DATA2.length, w -> w.put(DATA2)))
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT3), true, true)
-                                .data(DATA2.length, w -> w.put(DATA2)))
-                )
-                .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
-                .seal()
-                .signed()
-                .build();
+              .v0()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              // 8, program1, 4, program2
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT4), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .data(DATA1.length, w -> w.put(DATA1)))
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM2))
+                              .account(Solana.account(ACCOUNT5), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT6), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT7), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .account(Solana.account(ACCOUNT8), false, true)
+                              .data(DATA2.length, w -> w.put(DATA2)))
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT3), true, true)
+                              .data(DATA2.length, w -> w.put(DATA2)))
+              )
+              .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
+              .seal()
+              .signed()
+              .build();
     }
 
     public static void writeComplexPartiallySignedLegacyMessage(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
-                .legacy()
-                .payer(Solana.account(PAYER))
-                .recent(Solana.blockhash(BLOCKHASH))
-                .instructions(tb -> tb
-                        .append(ib -> ib
-                                // 8, program1, 4, program2
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT4), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .data(DATA1.length, w -> w.put(DATA1)))
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM2))
-                                .account(Solana.account(ACCOUNT5), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT6), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT7), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .account(Solana.account(ACCOUNT8), false, true)
-                                .data(DATA2.length, w -> w.put(DATA2)))
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT3), true, true)
-                                .data(DATA2.length, w -> w.put(DATA2)))
-                )
-                .seal()
-                .signed()
-                        .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
-                        .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
-                        .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
-                        .by(Solana.account(ACCOUNT7), getByteBufferSignerFor(ACCOUNT7))
-                .build();
+              .legacy()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              // 8, program1, 4, program2
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT4), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .data(DATA1.length, w -> w.put(DATA1)))
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM2))
+                              .account(Solana.account(ACCOUNT5), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT6), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT7), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .account(Solana.account(ACCOUNT8), false, true)
+                              .data(DATA2.length, w -> w.put(DATA2)))
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT3), true, true)
+                              .data(DATA2.length, w -> w.put(DATA2)))
+              )
+              .seal()
+              .signed()
+              .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
+              .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
+              .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
+              .by(Solana.account(ACCOUNT7), getByteBufferSignerFor(ACCOUNT7))
+              .build();
     }
 
     public static void writeComplexPartiallySignedV0Message(final ByteBuffer buffer)
     {
         Solana.builder(buffer)
-                .v0()
-                .payer(Solana.account(PAYER))
-                .recent(Solana.blockhash(BLOCKHASH))
-                .instructions(tb -> tb
-                        .append(ib -> ib
-                                // 8, program1, 4, program2
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT4), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .data(DATA1.length, w -> w.put(DATA1)))
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM2))
-                                .account(Solana.account(ACCOUNT5), false, false)
-                                .account(Solana.account(ACCOUNT1), true, true)
-                                .account(Solana.account(ACCOUNT6), true, true)
-                                .account(Solana.account(ACCOUNT2), true, false)
-                                .account(Solana.account(ACCOUNT7), true, false)
-                                .account(Solana.account(ACCOUNT3), false, true)
-                                .account(Solana.account(ACCOUNT8), false, true)
-                                .data(DATA2.length, w -> w.put(DATA2)))
-                        .append(ib -> ib
-                                .program(Solana.account(PROGRAM1))
-                                .account(Solana.account(ACCOUNT3), true, true)
-                                .data(DATA2.length, w -> w.put(DATA2)))
-                )
-                .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
-                .seal()
-                .signed()
-                .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
-                .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
-                .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
-                .by(Solana.account(ACCOUNT7), getByteBufferSignerFor(ACCOUNT7))
-                .build();
+              .v0()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              // 8, program1, 4, program2
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT4), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .data(DATA1.length, w -> w.put(DATA1)))
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM2))
+                              .account(Solana.account(ACCOUNT5), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT6), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT7), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .account(Solana.account(ACCOUNT8), false, true)
+                              .data(DATA2.length, w -> w.put(DATA2)))
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT3), true, true)
+                              .data(DATA2.length, w -> w.put(DATA2)))
+              )
+              .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
+              .seal()
+              .signed()
+              .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
+              .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
+              .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
+              .by(Solana.account(ACCOUNT7), getByteBufferSignerFor(ACCOUNT7))
+              .build();
     }
 
     public static void jumpToInstruction(final ByteBuffer buffer, final int index)
@@ -848,7 +923,7 @@ public class Solana4jTestHelper
             for (int j = 0; j < numberOfReadableIndexes; j++)
             {
                 lookupTableIndex += 1;
-                final var  index = readShortVecInt(view);
+                final var index = readShortVecInt(view);
 
                 if (Arrays.equals(addressLookupTable.getAddresses().get(index).bytes(), account))
                 {

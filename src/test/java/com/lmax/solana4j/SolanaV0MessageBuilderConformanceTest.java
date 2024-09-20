@@ -52,6 +52,7 @@ import static com.lmax.solana4j.Solana4jTestHelper.reader;
 import static com.lmax.solana4j.Solana4jTestHelper.writeComplexPartiallySignedV0Message;
 import static com.lmax.solana4j.Solana4jTestHelper.writeComplexSignedV0MessageWithNoSignatures;
 import static com.lmax.solana4j.Solana4jTestHelper.writeComplexUnsignedV0Message;
+import static com.lmax.solana4j.Solana4jTestHelper.writeComplexUnsignedV0MessageWithInstructionsAddedInBulk;
 import static com.lmax.solana4j.Solana4jTestHelper.writeSimpleFullySignedV0Message;
 import static com.lmax.solana4j.Solana4jTestHelper.writeSimpleSignedV0MessageWithNoSignatures;
 import static com.lmax.solana4j.Solana4jTestHelper.writeSimpleUnsignedV0Message;
@@ -118,6 +119,16 @@ class SolanaV0MessageBuilderConformanceTest
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
         writeComplexUnsignedV0Message(buffer);
+
+        reader(buffer).expect("number of signers", (byte) 6);
+    }
+
+    @Test
+    void checkComplexUnsignedMessageHasSixSignersWhenInstructionsAddedInBulk()
+    {
+        final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
+        writeComplexUnsignedV0MessageWithInstructionsAddedInBulk(buffer);
 
         reader(buffer).expect("number of signers", (byte) 6);
     }
@@ -434,6 +445,64 @@ class SolanaV0MessageBuilderConformanceTest
     }
 
     @Test
+    void checkComplexUnsignedMessageAccountsTableWhenInstructionsAddedInBulk()
+    {
+        final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
+        writeComplexUnsignedV0MessageWithInstructionsAddedInBulk(buffer);
+
+        // (There does not appear to be a defined sequence for accounts within
+        //  the same subsection of the accounts table.
+        //  Some TypeScript client code sorts the account keys Base58 encoded
+        //  lexicographically within the same subsection. (?!))
+
+        fromAccountsTable(buffer)
+                .expectShortVecInteger("count accounts", 9)
+                // signed read-write
+                .expect("payer account", PAYER) // (payer must be first account)
+                .expect("second account", ACCOUNT1)
+                .expect("third account", ACCOUNT6)
+                .expect("fourth account", ACCOUNT3)
+                // signed read-only
+                .expect("fifth account", ACCOUNT2)
+                .expect("sixth account", ACCOUNT7);
+
+        // unsigned read-only
+        final var unsignedReadOnlyAccounts = new HashSet<>();
+
+        reader(buffer)
+                .expectOneOf("seventh account", actual -> unsignedReadOnlyAccounts.add(account(actual)), PROGRAM1, PROGRAM2, ACCOUNT5)
+                .expectOneOf("eigth account", actual -> unsignedReadOnlyAccounts.add(account(actual)), PROGRAM1, PROGRAM2, ACCOUNT5)
+                .expectOneOf("ninth account", actual -> unsignedReadOnlyAccounts.add(account(actual)), PROGRAM1, PROGRAM2, ACCOUNT5);
+
+        assertThat(unsignedReadOnlyAccounts)
+                .containsExactlyInAnyOrder(
+                        account(PROGRAM1), account(PROGRAM2), account(ACCOUNT5));
+
+        fromAccountLookups(buffer)
+                // number of lookup accounts
+                .expectShortVecInteger("number of account lookups", 2)
+                // the order of lookup accounts is defined simply by the order they appear in the following
+                // final var allAccountReferences = mergeAccountReferences(instructions, payerReference);
+                // first look up account is account8 which is in lookup_table_address_1
+                .expect("lookup table address relating to table containing account 8", LOOKUP_TABLE_ADDRESS1)
+                // only account8 appears in this lookup table and is writable
+                .expectShortVecInteger("number of writable accounts referenced in lookup table", 1)
+                // index of the account in the table
+                .expectShortVecInteger("the index of account8 in the table", 0)
+                // only account8 appears in this lookup table but is writable so not readable only
+                .expectShortVecInteger("number of readable accounts referenced in lookup table", 0)
+                // second look up account is account4 which is in lookup_table_address_2
+                .expect("lookup table address relating to table containing account 4", LOOKUP_TABLE_ADDRESS2)
+                // only account4 appears in this lookup table but it is not writable
+                .expectShortVecInteger("number of writable accounts referenced in lookup table", 0)
+                // only account4 appears in this lookup table and is readable only
+                .expectShortVecInteger("number of readable accounts referenced in lookup table", 1)
+                // index of the account in the table
+                .expectShortVecInteger("the index of account4 in the table", 1);
+    }
+
+    @Test
     void checkSimpleUnsignedMessageBlockhash()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
@@ -615,6 +684,38 @@ class SolanaV0MessageBuilderConformanceTest
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
         writeComplexUnsignedV0Message(buffer);
+
+        fromInstruction(buffer, 0)
+                .expect("program index", indexOfAccount(buffer, PROGRAM1, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
+                .expect("number of accounts", (byte) 4)
+                .expect("first account index", indexOfAccount(buffer, ACCOUNT4, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
+                .expect("second account index", indexOfAccount(buffer, ACCOUNT1, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
+                .expect("third account index", indexOfAccount(buffer, ACCOUNT2, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
+                .expect("fourth account index", indexOfAccount(buffer, ACCOUNT3, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)));
+
+        fromInstruction(buffer, 1)
+                .expect("program index", indexOfAccount(buffer, PROGRAM2, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
+                .expect("number of accounts", (byte) 7)
+                .expect("first account index", indexOfAccount(buffer, ACCOUNT5, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
+                .expect("second account index", indexOfAccount(buffer, ACCOUNT1, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
+                .expect("third account index", indexOfAccount(buffer, ACCOUNT6, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
+                .expect("fourth account index", indexOfAccount(buffer, ACCOUNT2, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
+                .expect("fifth account index", indexOfAccount(buffer, ACCOUNT7, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
+                .expect("sixth account index", indexOfAccount(buffer, ACCOUNT3, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
+                .expect("seventh account index", indexOfAccount(buffer, ACCOUNT8, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)));
+
+        fromInstruction(buffer, 2)
+                .expect("program index", indexOfAccount(buffer, PROGRAM1, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
+                .expect("number of accounts", (byte) 1)
+                .expect("fourth account index", indexOfAccount(buffer, ACCOUNT3, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)));
+    }
+
+    @Test
+    void checkComplexMessageInstructionAccountReferencesWhenInstructionsAddedInBulk()
+    {
+        final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
+        writeComplexUnsignedV0MessageWithInstructionsAddedInBulk(buffer);
 
         fromInstruction(buffer, 0)
                 .expect("program index", indexOfAccount(buffer, PROGRAM1, List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))

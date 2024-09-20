@@ -1,6 +1,7 @@
 package com.lmax.solana4j.api;
 
 import java.nio.BufferOverflowException;
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -20,6 +21,14 @@ public interface MessageBuilderLegacy
      * @return this {@code MessageBuilderLegacy} instance for method chaining
      */
     MessageBuilderLegacy instructions(Consumer<TransactionBuilder> builder);
+
+    /**
+     * Sets the instructions for the legacy message.
+     *
+     * @param instructions a list of {@link TransactionInstruction} of prebuilt instructions
+     * @return this {@code MessageBuilderLegacy} instance for method chaining
+     */
+    MessageBuilderLegacy instructions(List<TransactionInstruction> instructions);
 
     /**
      * Sets the payer for the legacy message.

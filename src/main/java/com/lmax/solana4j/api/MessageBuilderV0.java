@@ -23,6 +23,14 @@ public interface MessageBuilderV0
     MessageBuilderV0 instructions(Consumer<TransactionBuilder> builder);
 
     /**
+     * Sets the instructions for the legacy message.
+     *
+     * @param instructions a list of {@link TransactionInstruction} of prebuilt instructions
+     * @return this {@code MessageBuilderV0} instance for method chaining
+     */
+    MessageBuilderV0 instructions(List<TransactionInstruction> instructions);
+
+    /**
      * Sets the payer for the version 0 message.
      *
      * @param account the {@link PublicKey} of the payer

@@ -51,6 +51,13 @@ final class SolanaMessageBuilderLegacy implements MessageBuilderLegacy
         return this;
     }
 
+    @Override
+    public MessageBuilderLegacy instructions(final List<TransactionInstruction> instructions)
+    {
+        this.instructions.addAll(instructions);
+        return this;
+    }
+
     /**
      * Writes the ordered accounts and instructions into {@link this.buffer}, then flips the buffer (i.e, prepares it for reading).
      * Normally, flipping the buffer is the responsibility of the caller that passed it in, we decided to do it in here for convenience.
