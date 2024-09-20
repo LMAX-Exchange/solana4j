@@ -117,7 +117,7 @@ public final class AddressLookupTableProgram
      * @param authority             the authority public key
      * @param payer                 the payer public key
      * @param recentSlot            the recent slot
-     * @return this {@code TransactionInstruction} instance
+     * @return A {@code TransactionInstruction} of the created instruction
      */
     public static TransactionInstruction createLookupTable(final ProgramDerivedAddress programDerivedAddress, final PublicKey authority, final PublicKey payer, final Slot recentSlot)
     {
@@ -144,7 +144,7 @@ public final class AddressLookupTableProgram
      * @param authority   the authority public key
      * @param payer       the payer public key
      * @param addresses   the list of new addresses to add
-     * @return this {@code TransactionInstruction} instance
+     * @return A {@code TransactionInstruction} of the created instruction
      */
     public static TransactionInstruction extendLookupTable(final PublicKey lookupTable, final PublicKey authority, final PublicKey payer, final List<PublicKey> addresses)
     {

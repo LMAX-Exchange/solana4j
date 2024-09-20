@@ -104,7 +104,7 @@ public class ComputeBudgetProgram
      * Sets the compute unit price.
      *
      * @param microLamports the price in microLamports per compute unit
-     * @return this {@code TransactionInstruction} instance
+     * @return A {@code TransactionInstruction} of the created instruction
      */
     public static TransactionInstruction setComputeUnitPrice(final long microLamports)
     {

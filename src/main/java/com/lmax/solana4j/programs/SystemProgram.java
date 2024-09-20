@@ -173,7 +173,7 @@ public final class SystemProgram
      * @param lamports   the number of lamports to transfer to the new account
      * @param space      the amount of space to allocate for the new account
      * @param program    the public key of the program to associate with the new account
-     * @return this {@code TransactionInstruction} instance
+     * @return A {@code TransactionInstruction} of the created instruction
      */
     public static TransactionInstruction createAccount(final PublicKey payer, final PublicKey newAccount, final long lamports, final long space, final PublicKey program)
     {
@@ -198,7 +198,7 @@ public final class SystemProgram
      *
      * @param nonce      the public key of the nonce account
      * @param authorized the public key of the authorized account
-     * @return this {@code TransactionInstruction} instance
+     * @return A {@code TransactionInstruction} of the created instruction
      */
     public static TransactionInstruction nonceInitialize(final PublicKey nonce, final PublicKey authorized)
     {
@@ -221,7 +221,7 @@ public final class SystemProgram
      *
      * @param nonce      the public key of the nonce account
      * @param authorized the public key of the authorized account
-     * @return this {@code TransactionInstruction} instance
+     * @return A {@code TransactionInstruction} of the created instruction
      */
     public static TransactionInstruction nonceAdvance(final PublicKey nonce, final PublicKey authorized)
     {
@@ -241,7 +241,7 @@ public final class SystemProgram
      * @param from     the public key of the account to transfer funds from
      * @param to       the public key of the account to transfer funds to
      * @param lamports the amount of lamports to transfer
-     * @return this {@code TransactionInstruction} instance
+     * @return A {@code TransactionInstruction} of the created instruction
      */
     public static TransactionInstruction transfer(final PublicKey from, final PublicKey to, final long lamports)
     {

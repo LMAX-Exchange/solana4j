@@ -100,7 +100,7 @@ public final class AssociatedTokenProgram
      * @param payer                 the public key of the payer
      * @param programId             the public key of the token program used to create the programDerivedAddress
      * @param idempotent            whether the creation should be idempotent
-     * @return this {@code TransactionInstruction} instance
+     * @return A {@code TransactionInstruction} of the created instruction
      */
     public static TransactionInstruction createAssociatedToken(
             final ProgramDerivedAddress programDerivedAddress,
