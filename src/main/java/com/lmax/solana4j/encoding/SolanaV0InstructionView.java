@@ -8,7 +8,7 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SolanaV0InstructionView extends SolanaInstructionView implements MessageVisitor.V0InstructionView
+class SolanaV0InstructionView extends SolanaInstructionView implements MessageVisitor.V0InstructionView
 {
     private final MessageVisitor.V0AccountsView accountsView;
 

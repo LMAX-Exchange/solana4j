@@ -7,11 +7,11 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SolanaLegacyInstructionView extends SolanaInstructionView implements MessageVisitor.LegacyInstructionView
+class SolanaLegacyInstructionView extends SolanaInstructionView implements MessageVisitor.LegacyInstructionView
 {
     private final MessageVisitor.LegacyAccountsView accountsView;
 
-    public SolanaLegacyInstructionView(
+    SolanaLegacyInstructionView(
             final int program,
             final List<Integer> accounts,
             final ByteBuffer data,
