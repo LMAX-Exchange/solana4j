@@ -24,7 +24,9 @@ public class BpfLoaderUpgradeableProgramIntegrationTest extends IntegrationTestB
         solana.createKeyPair("newAuthority");
 
         // see solana-run.sh for where these values come from
-        solana.upgradeAuthority("<CxmAHzszTVSWmtBnCXda7eUTemd8DGyax88yYk54A2PT>", "<13jT1jL8jpTFzFcZATPq9W4gmRB5uZbEYjXxJJbugB1d>");
+        solana.verifyBpfUpgradeableAccount(
+                "<CxmAHzszTVSWmtBnCXda7eUTemd8DGyax88yYk54A2PT>",
+                "<13jT1jL8jpTFzFcZATPq9W4gmRB5uZbEYjXxJJbugB1d>");
 
         solana.setUpgradeAuthority(
                 "<CxmAHzszTVSWmtBnCXda7eUTemd8DGyax88yYk54A2PT>",
@@ -33,7 +35,10 @@ public class BpfLoaderUpgradeableProgramIntegrationTest extends IntegrationTestB
                 "newAuthority",
                 "payer");
 
-        solana.upgradeAuthority("<CxmAHzszTVSWmtBnCXda7eUTemd8DGyax88yYk54A2PT>", "newAuthority");
+
+        solana.verifyBpfUpgradeableAccount(
+                "<CxmAHzszTVSWmtBnCXda7eUTemd8DGyax88yYk54A2PT>",
+                "newAuthority");
     }
 
     @AfterEach

@@ -248,14 +248,14 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder)
+                .instructions(versionedTransactionBuilder -> factory(versionedTransactionBuilder)
                         .createAccount(
                                 payer,
                                 nonce,
                                 rentExemption,
                                 accountSpan,
                                 SYSTEM_PROGRAM_ACCOUNT))
-                .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder).nonceInitialize(nonce, authority))
+                .instructions(vesionedTransactionBuilder -> factory(vesionedTransactionBuilder).nonceInitialize(nonce, authority))
                 .payer(payer)
                 .lookups(addressLookupTables)
                 .seal()
@@ -289,14 +289,14 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder)
+                .instructions(versionedTransactionBuilder -> factory(versionedTransactionBuilder)
                         .createAccount(
                                 payer,
                                 account,
                                 rentExemption,
                                 accountSpan,
                                 tokenProgram.getProgram()))
-                .instructions(legacyTransactionBuilder -> tokenProgram.getFactory().factory(legacyTransactionBuilder)
+                .instructions(versionedTransactionBuilder -> tokenProgram.getFactory().factory(versionedTransactionBuilder)
                         .initializeAccount(
                                 account,
                                 mint,
@@ -423,7 +423,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
     }
 
     @Override
-    public String createAssociatedTokenAddress(
+    public String createAssociatedTokenAccount(
             final TokenProgram tokenProgram,
             final PublicKey owner,
             final ProgramDerivedAddress associatedTokenAddress,
@@ -460,11 +460,11 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
     }
 
     @Override
-    public String setAuthority(
+    public String setTokenAccountAuthority(
             final TokenProgram tokenProgram,
-            final PublicKey account,
-            final PublicKey oldAuthority,
-            final PublicKey newAuthority,
+            final PublicKey tokenAccount,
+            final PublicKey tokenAccountOldAuthority,
+            final PublicKey tokenAccountNewAuthority,
             final com.lmax.solana4j.programs.TokenProgram.AuthorityType authorityType,
             final Blockhash blockhash,
             final TestKeyPair payer,
@@ -477,9 +477,9 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .recent(blockhash)
                 .instructions(versionedTransactionBuilder -> tokenProgram.getFactory().factory(versionedTransactionBuilder)
                         .setAuthority(
-                                account,
-                                newAuthority,
-                                oldAuthority,
+                                tokenAccount,
+                                tokenAccountNewAuthority,
+                                tokenAccountOldAuthority,
                                 signers.stream().map(TestKeyPair::getSolana4jPublicKey).toList(),
                                 authorityType))
                 .lookups(addressLookupTables)

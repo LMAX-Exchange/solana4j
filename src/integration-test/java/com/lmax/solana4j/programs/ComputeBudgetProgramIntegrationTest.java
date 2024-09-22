@@ -19,6 +19,7 @@ public class ComputeBudgetProgramIntegrationTest extends IntegrationTestBase
     {
         solana.setMessageEncoding(messageEncoding);
 
+        // TODO: can we check the logs ? - apparently we can
         solana.setComputeUnits("100000", "10", "payer");
     }
 
@@ -27,6 +28,7 @@ public class ComputeBudgetProgramIntegrationTest extends IntegrationTestBase
     {
         solana.setMessageEncoding(messageEncoding);
 
+        // TODO: can we check the logs ? - apparently we can
         assertThrows(RuntimeException.class, () -> solana.setComputeUnits("1", "10", "payer"));
     }
 
@@ -35,6 +37,7 @@ public class ComputeBudgetProgramIntegrationTest extends IntegrationTestBase
     {
         solana.setMessageEncoding(messageEncoding);
 
+        // TODO: can we check the logs ? - apparently we can
         assertThrows(RuntimeException.class, () -> solana.setComputeUnits("100000", "1000000000", "payer"));
     }
 }

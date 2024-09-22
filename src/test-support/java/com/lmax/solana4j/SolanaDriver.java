@@ -95,7 +95,7 @@ public class SolanaDriver
 
     public String createMintAccount(
             final TokenProgram tokenProgram,
-            final TestKeyPair account,
+            final TestKeyPair tokenMint,
             final int decimals,
             final TestKeyPair mintAuthority,
             final TestKeyPair freezeAuthority,
@@ -108,7 +108,7 @@ public class SolanaDriver
 
         final String transactionBlob = getTransactionFactory().createMintAccount(
                 tokenProgram,
-                account.getSolana4jPublicKey(),
+                tokenMint.getSolana4jPublicKey(),
                 decimals,
                 mintAuthority.getSolana4jPublicKey(),
                 freezeAuthority.getSolana4jPublicKey(),
@@ -116,7 +116,7 @@ public class SolanaDriver
                 accountSpan,
                 Solana.blockhash(recentBlockhash.getBytes()),
                 payer.getSolana4jPublicKey(),
-                List.of(payer, account),
+                List.of(payer, tokenMint),
                 addressLookupTables
         );
 
@@ -186,8 +186,8 @@ public class SolanaDriver
     }
 
     public String createNonceAccount(
-            final TestKeyPair account,
-            final TestKeyPair authority,
+            final TestKeyPair nonceAccount,
+            final TestKeyPair nonceAuthority,
             final TestKeyPair payer,
             final int accountSpan,
             final List<AddressLookupTable> addressLookupTables)
@@ -196,13 +196,13 @@ public class SolanaDriver
         final Blockhash blockhash = solanaApi.getRecentBlockHash();
 
         final String transactionBlob = getTransactionFactory().createNonce(
-                account.getSolana4jPublicKey(),
-                authority.getSolana4jPublicKey(),
+                nonceAccount.getSolana4jPublicKey(),
+                nonceAuthority.getSolana4jPublicKey(),
                 Solana.blockhash(blockhash.getBytes()),
                 rentExemption,
                 accountSpan,
                 payer.getSolana4jPublicKey(),
-                List.of(payer, account, authority),
+                List.of(payer, nonceAccount, nonceAuthority),
                 addressLookupTables);
 
         return solanaApi.sendTransaction(transactionBlob);
@@ -301,7 +301,7 @@ public class SolanaDriver
         return solanaApi.sendTransaction(transactionBlob);
     }
 
-    public String createAssociatedTokenAddress(
+    public String createAssociatedTokenAccount(
             final TokenProgram tokenProgram,
             final ProgramDerivedAddress associatedTokenAddress,
             final PublicKey mint,
@@ -312,7 +312,7 @@ public class SolanaDriver
     {
         final Blockhash blockhash = solanaApi.getRecentBlockHash();
 
-        final String transactionBlob = getTransactionFactory().createAssociatedTokenAddress(
+        final String transactionBlob = getTransactionFactory().createAssociatedTokenAccount(
                 tokenProgram,
                 owner,
                 associatedTokenAddress,
@@ -326,11 +326,11 @@ public class SolanaDriver
         return solanaApi.sendTransaction(transactionBlob);
     }
 
-    public String setAuthority(
+    public String setTokenAccountAuthority(
             final TokenProgram tokenProgram,
-            final PublicKey account,
-            final PublicKey oldAuthority,
-            final PublicKey newAuthority,
+            final PublicKey tokenAccount,
+            final PublicKey tokenAccountOldAuthority,
+            final PublicKey tokenAccountNewAuthority,
             final com.lmax.solana4j.programs.TokenProgram.AuthorityType authorityType,
             final TestKeyPair payer,
             final List<TestKeyPair> signers,
@@ -338,11 +338,11 @@ public class SolanaDriver
     {
         final Blockhash blockhash = solanaApi.getRecentBlockHash();
 
-        final String transactionBlob = getTransactionFactory().setAuthority(
+        final String transactionBlob = getTransactionFactory().setTokenAccountAuthority(
                 tokenProgram,
-                account,
-                oldAuthority,
-                newAuthority,
+                tokenAccount,
+                tokenAccountOldAuthority,
+                tokenAccountNewAuthority,
                 authorityType,
                 Solana.blockhash(blockhash.getBytes()),
                 payer,

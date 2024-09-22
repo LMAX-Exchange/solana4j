@@ -14,30 +14,30 @@ public class AssociatedTokenProgramIntegrationTest extends IntegrationTestBase
         solana.createKeyPair("owner");
         solana.airdrop("owner", "0.01");
 
-        solana.createKeyPair("mintAddress");
+        solana.createKeyPair("tokenMint");
         solana.createKeyPair("mintAuthority");
         solana.createKeyPair("freezeAuthority");
     }
 
     @ParameterizedTokenTest
-    void shouldCreateAssociatedTokenAddress(final String messageEncoding, final String tokenProgram)
+    void shouldCreateAssociatedTokenAccount(final String messageEncoding, final String tokenProgram)
     {
         solana.setMessageEncoding(messageEncoding);
 
         solana.maybeCreateAndExtendAddressLookupTables(messageEncoding, "payer: payer",
-                "lookupTableAddress: addressLookupTable", "addresses: mintAddress, mintAuthority, freezeAuthority"
+                "lookupTableAddress: addressLookupTable", "addresses: tokenMint, mintAuthority, freezeAuthority"
         );
 
-        solana.createMintAccount("mintAddress", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram, "addressLookupTable");
+        solana.createMintAccount("tokenMint", "18", "mintAuthority", "freezeAuthority", "payer", tokenProgram, "addressLookupTable");
 
-        solana.createAssociatedTokenAddress(
-                "associatedTokenAddress: tokenAddress",
+        solana.createAssociatedTokenAccount(
+                "associatedTokenAddress: associatedTokenAddress",
                 "owner: owner",
-                "tokenMint: mintAddress",
+                "tokenMint: tokenMint",
                 "payer: payer",
                 "tokenProgram: " + tokenProgram,
                 "addressLookupTables: addressLookupTable");
 
-        solana.tokenBalance("address: tokenAddress", "amount: 0");
+        solana.verifyAssociatedTokenAccount("associatedTokenAddress", "tokenMint", "owner", "tokenProgram: " + tokenProgram);
     }
 }

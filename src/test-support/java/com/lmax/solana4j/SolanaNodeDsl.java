@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.lmax.solana4j.assertion.Condition.isEqualTo;
@@ -178,7 +177,7 @@ public class SolanaNodeDsl
     {
         final DslParams params = DslParams.create(
                 args,
-                new RequiredArg("account"),
+                new RequiredArg("tokenMint"),
                 new RequiredArg("decimals"),
                 new RequiredArg("mintAuthority"),
                 new RequiredArg("freezeAuthority"),
@@ -187,7 +186,7 @@ public class SolanaNodeDsl
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
-        final TestKeyPair account = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("account"));
+        final TestKeyPair tokenMint = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("tokenMint"));
         final int decimals = params.valueAsInt("decimals");
         final TestKeyPair mintAuthority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("mintAuthority"));
         final TestKeyPair freezeAuthority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("freezeAuthority"));
@@ -198,7 +197,15 @@ public class SolanaNodeDsl
                 .filter(Objects::nonNull)
                 .toList();
 
-        final String transactionSignature = solanaDriver.createMintAccount(tokenProgram, account, decimals, mintAuthority, freezeAuthority, payer, MINT_ACCOUNT_LENGTH, addressLookupTables);
+        final String transactionSignature = solanaDriver.createMintAccount(
+                tokenProgram,
+                tokenMint,
+                decimals,
+                mintAuthority,
+                freezeAuthority,
+                payer,
+                MINT_ACCOUNT_LENGTH,
+                addressLookupTables);
 
         final long recentBlockHeight = solanaDriver.getBlockHeight();
         waitForBlockHeight(recentBlockHeight + 1);
@@ -233,6 +240,31 @@ public class SolanaNodeDsl
         final String transactionSignature = solanaDriver.mintTo(tokenProgram.getFactory(), tokenMint, to, amount, authority, payer, addressLookupTables);
 
         Waiter.waitFor(transactionFinalized(transactionSignature));
+    }
+
+    public void verifyMintAccount(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("tokenMint"),
+                new RequiredArg("mintAuthority"),
+                new RequiredArg("freezeAuthority"),
+                new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token")
+        );
+
+        final TestPublicKey tokenMint = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("tokenMint"));
+        final TestPublicKey mintAuthority = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("mintAuthority"));
+        final TestPublicKey freezeAuthority = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("freezeAuthority"));
+
+        final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
+
+        final AccountInfo accountInfo = solanaDriver.getAccountInfo(tokenMint);
+
+        byte[] accountInfoBytes = Base64.decode(accountInfo.getData().get(0));
+
+        assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, 4, 36))).isEqualTo(mintAuthority.getPublicKeyBase58());
+        assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, 50, 82))).isEqualTo(freezeAuthority.getPublicKeyBase58());
+        assertThat(accountInfo.getOwner()).isEqualTo(tokenProgram.getProgram().base58());
     }
 
     public void createTokenAccount(final String... args)
@@ -314,12 +346,10 @@ public class SolanaNodeDsl
         final TestKeyPair owner = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("owner"));
         final long amount = params.valueAsLong("amount");
         final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
-
         final List<TestKeyPair> signers = params.valuesAsList("signers").stream()
                 .map(testContext.data(TestDataType.TEST_KEY_PAIR)::lookup)
                 .filter(Objects::nonNull)
                 .toList();
-
         final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
@@ -331,27 +361,29 @@ public class SolanaNodeDsl
         Waiter.waitFor(transactionFinalized(transactionSignature));
     }
 
-    public void createNonceAccount(final String... args)
+    public void verifyTokenAccount(final String... args)
     {
         final DslParams params = DslParams.create(
                 args,
-                new RequiredArg("account"),
-                new RequiredArg("authority"),
-                new RequiredArg("payer"),
-                new OptionalArg("addressLookupTables").setAllowMultipleValues()
+                new RequiredArg("tokenAccount"),
+                new RequiredArg("tokenMint"),
+                new RequiredArg("tokenAccountAuthority"),
+                new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token")
         );
 
-        final TestKeyPair account = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("account"));
-        final TestKeyPair authority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("authority"));
-        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
-        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
-                .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
-                .filter(Objects::nonNull)
-                .toList();
+        final TestPublicKey tokenAccount = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("tokenAccount"));
+        final TestPublicKey tokenMint = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("tokenMint"));
+        final TestPublicKey tokenAccountAuthority = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("tokenAccountAuthority"));
 
-        final String transactionSignature = solanaDriver.createNonceAccount(account, authority, payer, NONCE_ACCOUNT_LENGTH, addressLookupTables);
+        final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
 
-        Waiter.waitFor(transactionFinalized(transactionSignature));
+        final AccountInfo accountInfo = solanaDriver.getAccountInfo(tokenAccount);
+
+        byte[] accountInfoBytes = Base64.decode(accountInfo.getData().get(0));
+
+        assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, 0, 32))).isEqualTo(tokenMint.getPublicKeyBase58());
+        assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, 32, 64))).isEqualTo(tokenAccountAuthority.getPublicKeyBase58());
+        assertThat(accountInfo.getOwner()).isEqualTo(tokenProgram.getProgram().base58());
     }
 
     public void createMultiSigAccount(final String... args)
@@ -372,9 +404,8 @@ public class SolanaNodeDsl
                 .map(pk -> testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(pk).getSolana4jPublicKey())
                 .toList();
         final int requiredSigners = params.valueAsInt("requiredSigners");
-        final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
-
         final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+        final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
@@ -393,53 +424,121 @@ public class SolanaNodeDsl
         Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
     }
 
-    public void advanceNonce(final String... args)
+    public void verifyMultiSigAccount(final String... args)
     {
         final DslParams params = DslParams.create(
                 args,
-                new RequiredArg("account"),
-                new RequiredArg("authority"),
+                new RequiredArg("multiSigAccount"),
+                new RequiredArg("multiSigSigners").setAllowMultipleValues(),
+                new RequiredArg("requiredSigners"),
+                new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token")
+        );
+
+        final TestPublicKey multiSigAccount = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("multiSigAccount"));
+        final List<PublicKey> multiSigSigners = params.valuesAsList("multiSigSigners")
+                .stream()
+                .map(pk -> testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(pk).getSolana4jPublicKey())
+                .toList();
+        final int requiredSigners = params.valueAsInt("requiredSigners");
+        final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
+
+        final AccountInfo accountInfo = solanaDriver.getAccountInfo(multiSigAccount);
+
+        byte[] accountInfoBytes = Base64.decode(accountInfo.getData().get(0));
+
+        assertThat(accountInfoBytes[0]).isEqualTo((byte) requiredSigners);
+        assertThat(accountInfoBytes[1]).isEqualTo((byte) multiSigSigners.size());
+        assertThat(accountInfo.getOwner()).isEqualTo(tokenProgram.getProgram().base58());
+
+        for (int i = 0; i < multiSigSigners.size(); i++)
+        {
+            final int signerStartIndex = 3 + (32 * i);
+            final int signerEndIndex = signerStartIndex + 32;
+            assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, signerStartIndex, signerEndIndex))).isEqualTo(multiSigSigners.get(i).base58());
+        }
+    }
+
+    public void createNonceAccount(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("nonceAccount"),
+                new RequiredArg("nonceAuthority"),
                 new RequiredArg("payer"),
-                new OptionalArg("nonce"),
+                new RequiredArg("nonceAccountValue"),
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
-        final TestKeyPair account = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("account"));
-        final TestKeyPair authority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("authority"));
+        final TestKeyPair nonceAccount = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("nonceAccount"));
+        final TestKeyPair nonceAuthority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("nonceAuthority"));
         final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
-        final Optional<TestPublicKey> nonce = params.valueAsOptional("nonce").map(key -> testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(key));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
                 .toList();
 
-        final String transactionSignature = solanaDriver.advanceNonce(account, authority, payer, addressLookupTables);
+        final String transactionSignature = solanaDriver.createNonceAccount(nonceAccount, nonceAuthority, payer, NONCE_ACCOUNT_LENGTH, addressLookupTables);
 
         Waiter.waitFor(transactionFinalized(transactionSignature));
 
-        if (nonce.isPresent())
-        {
-            final AccountInfo accountInfo = solanaDriver.getAccountInfo(account.getPublicKey());
-            final PublicKey newNonce = SystemProgram.getNonceAccountValue(Base64.decode(accountInfo.getData().get(0)));
-            assertThat(newNonce).isNotEqualTo(nonce);
-        }
+        final PublicKey nonceAccountValue = SystemProgram.getNonceAccountValue(
+                Base64.decode(solanaDriver.getAccountInfo(nonceAccount.getPublicKey()).getData().get(0))
+        );
+
+        testContext.data(TestDataType.TEST_PUBLIC_KEY).store(params.value("nonceAccountValue"), new TestPublicKey(nonceAccountValue.bytes()));
     }
 
-    public void nonceValue(final String... args)
+    public void advanceNonce(final String... args)
     {
         final DslParams params = DslParams.create(
                 args,
-                new RequiredArg("account"),
-                new OptionalArg("rememberNonce")
+                new RequiredArg("nonceAccount"),
+                new RequiredArg("nonceAuthority"),
+                new RequiredArg("payer"),
+                new RequiredArg("newNonceAccountValue"),
+                new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
-        final TestPublicKey account = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("account"));
+        final TestKeyPair nonceAccount = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("nonceAccount"));
+        final TestKeyPair nonceAuthority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("nonceAuthority"));
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
+                .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
+                .filter(Objects::nonNull)
+                .toList();
 
-        final AccountInfo accountInfo = solanaDriver.getAccountInfo(account);
-        final PublicKey nonceAccountValue = SystemProgram.getNonceAccountValue(Base64.decode(accountInfo.getData().get(0)));
+        final String transactionSignature = solanaDriver.advanceNonce(nonceAccount, nonceAuthority, payer, addressLookupTables);
 
-        final TestPublicKey address = new TestPublicKey(nonceAccountValue.bytes());
-        testContext.data(TestDataType.TEST_PUBLIC_KEY).store("rememberNonce", address);
+        Waiter.waitFor(transactionFinalized(transactionSignature));
+
+        final PublicKey newNonceAccountValue = SystemProgram.getNonceAccountValue(
+                Base64.decode(solanaDriver.getAccountInfo(nonceAccount.getPublicKey()).getData().get(0))
+        );
+
+        testContext.data(TestDataType.TEST_PUBLIC_KEY).store("newNonceAccountValue", new TestPublicKey(newNonceAccountValue.bytes()));
+    }
+
+    public void verifyNonceAccount(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("nonceAccount"),
+                new RequiredArg("nonceAuthority"),
+                new RequiredArg("nonceAccountValue")
+        );
+
+        final TestPublicKey nonceAccount = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("nonceAccount"));
+        final TestPublicKey expectedNonceAuthority = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("nonceAuthority"));
+        final TestPublicKey expectedNonceAccountValue = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("nonceAccountValue"));
+
+        final AccountInfo accountInfo = solanaDriver.getAccountInfo(nonceAccount);
+
+        final byte[] accountInfoBytes = Base64.decode(accountInfo.getData().get(0));
+
+        final PublicKey actualNonceAccountValue = SystemProgram.getNonceAccountValue(Base64.decode(accountInfo.getData().get(0)));
+
+        assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, 8, 40))).isEqualTo(expectedNonceAuthority.getPublicKeyBase58());
+        assertThat(actualNonceAccountValue).isEqualTo((expectedNonceAccountValue.getSolana4jPublicKey()));
     }
 
     public void transfer(final String... args)
@@ -468,14 +567,7 @@ public class SolanaNodeDsl
         Waiter.waitFor(transactionFinalized(transactionSignature));
     }
 
-    private Condition<TransactionData> transactionFinalized(final String transactionSignature)
-    {
-        // intermittency caused by block height not moving on to the next block before checking the transaction response ... it's a bit weird
-        waitForBlockHeight(solanaDriver.getBlockHeight() + 1);
-        return isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction());
-    }
-
-    public void createAssociatedTokenAddress(final String... args)
+    public void createAssociatedTokenAccount(final String... args)
     {
         final DslParams params = DslParams.create(
                 args,
@@ -501,7 +593,7 @@ public class SolanaNodeDsl
                 .filter(Objects::nonNull)
                 .toList();
 
-        final String transactionSignature = solanaDriver.createAssociatedTokenAddress(
+        final String transactionSignature = solanaDriver.createAssociatedTokenAccount(
                 tokenProgram,
                 associatedTokenAddress,
                 tokenMint.getSolana4jPublicKey(),
@@ -512,6 +604,30 @@ public class SolanaNodeDsl
         );
 
         Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+    }
+
+    public void verifyAssociatedTokenAccount(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("associatedTokenAddress"),
+                new RequiredArg("tokenMint"),
+                new RequiredArg("owner"),
+                new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token")
+        );
+
+        final TestPublicKey associatedTokenAddress = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("associatedTokenAddress"));
+        final TestPublicKey tokenMint = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("tokenMint"));
+        final TestPublicKey owner = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("owner"));
+        final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
+
+        final AccountInfo accountInfo = solanaDriver.getAccountInfo(associatedTokenAddress);
+
+        final byte[] accountDataBytes = Base64.decode(accountInfo.getData().get(0));
+
+        assertThat(Base58.encode(Arrays.copyOfRange(accountDataBytes, 0, 32))).isEqualTo(tokenMint.getPublicKeyBase58());
+        assertThat(Base58.encode(Arrays.copyOfRange(accountDataBytes, 32, 64))).isEqualTo(owner.getPublicKeyBase58());
+        assertThat(accountInfo.getOwner()).isEqualTo(tokenProgram.getProgram().base58());
     }
 
     public void maybeCreateAndExtendAddressLookupTables(final String... args)
@@ -541,45 +657,39 @@ public class SolanaNodeDsl
         }
     }
 
-    public void setAuthority(final String... args)
+    public void setTokenAccountAuthority(final String... args)
     {
         final DslParams params = DslParams.create(
                 args,
-                new RequiredArg("account"),
-                new RequiredArg("oldAuthority"),
-                new RequiredArg("newAuthority"),
+                new RequiredArg("tokenAccount"),
+                new RequiredArg("tokenAccountOldAuthority"),
+                new RequiredArg("tokenAccountNewAuthority"),
                 new RequiredArg("authorityType").setAllowedValues(com.lmax.solana4j.programs.TokenProgram.AuthorityType.class),
                 new RequiredArg("payer"),
-                new RequiredArg("signers").setAllowMultipleValues(),
                 new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token"),
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
-        final TestPublicKey account = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("account"));
-        final TestPublicKey oldAuthority = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("oldAuthority"));
-        final TestPublicKey newAuthority = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("newAuthority"));
+        final TestPublicKey tokenAccount = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("tokenAccount"));
+        final TestKeyPair tokenAccountOldAuthority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("tokenAccountOldAuthority"));
+        final TestPublicKey tokenAccountNewAuthority = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("tokenAccountNewAuthority"));
         final com.lmax.solana4j.programs.TokenProgram.AuthorityType authorityType = com.lmax.solana4j.programs.TokenProgram.AuthorityType.valueOf(params.value("authorityType"));
         final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
         final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
-
-        final List<TestKeyPair> signers = params.valuesAsList("signers").stream()
-                .map(testContext.data(TestDataType.TEST_KEY_PAIR)::lookup)
-                .filter(Objects::nonNull)
-                .toList();
 
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
                 .toList();
 
-        final String transactionSignature = solanaDriver.setAuthority(
+        final String transactionSignature = solanaDriver.setTokenAccountAuthority(
                 tokenProgram,
-                account.getSolana4jPublicKey(),
-                oldAuthority.getSolana4jPublicKey(),
-                newAuthority.getSolana4jPublicKey(),
+                tokenAccount.getSolana4jPublicKey(),
+                tokenAccountOldAuthority.getSolana4jPublicKey(),
+                tokenAccountNewAuthority.getSolana4jPublicKey(),
                 authorityType,
                 payer,
-                signers,
+                List.of(payer, tokenAccountOldAuthority),
                 addressLookupTables);
 
         Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
@@ -639,7 +749,7 @@ public class SolanaNodeDsl
         Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
     }
 
-    public void upgradeAuthority(final String... args)
+    public void verifyBpfUpgradeableAccount(final String... args)
     {
         final DslParams params = DslParams.create(
                 args,
@@ -657,6 +767,7 @@ public class SolanaNodeDsl
         final byte[] accountInfoBytes = Base64.decode(accountInfo.getData().get(0));
 
         assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, 13, 45))).isEqualTo(upgradeAuthority);
+        assertThat(accountInfo.getOwner()).isEqualTo("BPFLoaderUpgradeab1e11111111111111111111111");
     }
 
     private void waitForSlot(final long slot)
@@ -667,5 +778,12 @@ public class SolanaNodeDsl
     private void waitForBlockHeight(final long blockHeight)
     {
         Waiter.waitFor(isTrue(() -> solanaDriver.getBlockHeight() > blockHeight));
+    }
+
+    private Condition<TransactionData> transactionFinalized(final String transactionSignature)
+    {
+        // intermittency caused by block height not moving on to the next block before checking the transaction response ... it's a bit weird
+        waitForBlockHeight(solanaDriver.getBlockHeight() + 1);
+        return isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction());
     }
 }

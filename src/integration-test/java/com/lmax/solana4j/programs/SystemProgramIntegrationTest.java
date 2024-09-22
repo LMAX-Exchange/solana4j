@@ -17,11 +17,14 @@ public class SystemProgramIntegrationTest extends IntegrationTestBase
     {
         solana.setMessageEncoding(messageEncoding);
 
-        solana.createKeyPair("account");
-        solana.createKeyPair("authority");
+        solana.createKeyPair("nonceAccount");
+        solana.createKeyPair("nonceAuthority");
 
-        solana.airdrop("authority", "0.01");
-        solana.createNonceAccount("account", "authority", "payer");
+        solana.airdrop("nonceAuthority", "0.01");
+
+        solana.createNonceAccount("nonceAccount", "nonceAuthority", "payer", "nonceAccountValue");
+
+        solana.verifyNonceAccount("nonceAccount", "nonceAuthority", "nonceAccountValue");
     }
 
     @ParameterizedMessageEncodingTest
@@ -29,14 +32,18 @@ public class SystemProgramIntegrationTest extends IntegrationTestBase
     {
         solana.setMessageEncoding(messageEncoding);
 
-        solana.createKeyPair("account");
-        solana.createKeyPair("authority");
+        solana.createKeyPair("nonceAccount");
+        solana.createKeyPair("nonceAuthority");
 
-        solana.airdrop("address: authority", "amountSol: 0.01");
-        solana.createNonceAccount("account", "authority", "payer");
-        solana.nonceValue("account", "nonce");
+        solana.airdrop("address: nonceAuthority", "amountSol: 0.01");
 
-        solana.advanceNonce("account", "authority", "payer", "nonce");
+        solana.createNonceAccount("nonceAccount", "nonceAuthority", "payer", "nonceAccountValue");
+
+        solana.verifyNonceAccount("nonceAccount", "nonceAuthority", "nonceAccountValue");
+
+        solana.advanceNonce("nonceAccount", "nonceAuthority", "payer", "newNonceAccountValue");
+
+        solana.verifyNonceAccount("nonceAccount", "nonceAuthority", "newNonceAccountValue");
     }
 
     @ParameterizedMessageEncodingTest

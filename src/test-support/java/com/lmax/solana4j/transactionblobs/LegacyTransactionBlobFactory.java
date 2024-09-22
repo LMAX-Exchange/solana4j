@@ -160,9 +160,9 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
     {
         final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
         Solana.builder(buffer)
-                .v0()
+                .legacy()
                 .recent(blockhash)
-                .instructions(versionedTransactionBuilder -> factory(versionedTransactionBuilder)
+                .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder)
                         .createAccount(
                                 payer,
                                 account,
@@ -176,7 +176,6 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
                                 mintAuthority,
                                 Optional.of(freezeAuthority)))
                 .payer(payer)
-                .lookups(addressLookupTables)
                 .seal()
                 .unsigned()
                 .build();
@@ -422,7 +421,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
     }
 
     @Override
-    public String createAssociatedTokenAddress(
+    public String createAssociatedTokenAccount(
             final TokenProgram tokenProgram,
             final PublicKey owner,
             final ProgramDerivedAddress associatedTokenAddress,
@@ -462,11 +461,11 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
     }
 
     @Override
-    public String setAuthority(
+    public String setTokenAccountAuthority(
             final TokenProgram tokenProgram,
-            final PublicKey account,
-            final PublicKey oldAuthority,
-            final PublicKey newAuthority,
+            final PublicKey tokenAccount,
+            final PublicKey tokenAccountOldAuthority,
+            final PublicKey tokenAccountNewAuthority,
             final com.lmax.solana4j.programs.TokenProgram.AuthorityType authorityType,
             final Blockhash blockhash,
             final TestKeyPair payer,
@@ -480,9 +479,9 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
                 .recent(blockhash)
                 .instructions(legacyTransactionBuilder -> tokenProgram.getFactory().factory(legacyTransactionBuilder)
                         .setAuthority(
-                                account,
-                                newAuthority,
-                                oldAuthority,
+                                tokenAccount,
+                                tokenAccountNewAuthority,
+                                tokenAccountOldAuthority,
                                 signers.stream().map(TestKeyPair::getSolana4jPublicKey).toList(),
                                 authorityType))
                 .payer(payer.getSolana4jPublicKey())
