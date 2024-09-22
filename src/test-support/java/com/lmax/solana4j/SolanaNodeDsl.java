@@ -21,6 +21,7 @@ import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
 import com.lmax.solana4j.programs.SystemProgram;
 import com.lmax.solana4j.solanaclient.api.AccountInfo;
 import com.lmax.solana4j.solanaclient.api.TransactionData;
+import com.lmax.solana4j.solanaclient.api.TransactionResponse;
 import com.lmax.solana4j.solanaclient.jsonrpc.SolanaClient;
 import com.lmax.solana4j.util.TestKeyPairGenerator;
 import org.bitcoinj.core.Base58;
@@ -82,9 +83,6 @@ public class SolanaNodeDsl
         final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
 
         final String transactionSignature = solanaDriver.requestAirdrop(new TestPublicKey(Base58.decode(address)), sol.lamports());
-
-        final long recentBlockHeight = solanaDriver.getBlockHeight();
-        waitForBlockHeight(recentBlockHeight + 1);
 
         Waiter.waitFor(transactionFinalized(transactionSignature));
     }
@@ -206,9 +204,6 @@ public class SolanaNodeDsl
                 payer,
                 MINT_ACCOUNT_LENGTH,
                 addressLookupTables);
-
-        final long recentBlockHeight = solanaDriver.getBlockHeight();
-        waitForBlockHeight(recentBlockHeight + 1);
 
         Waiter.waitFor(transactionFinalized(transactionSignature));
     }
@@ -701,16 +696,20 @@ public class SolanaNodeDsl
                 args,
                 new RequiredArg("computeUnitLimit"),
                 new RequiredArg("computeUnitPrice"),
-                new RequiredArg("payer")
+                new RequiredArg("payer"),
+                new OptionalArg("rememberTransactionAs")
         );
 
         final int computeUnitLimit = params.valueAsInt("computeUnitLimit");
         final int computeUnitPrice = params.valueAsInt("computeUnitPrice");
         final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+        final String rememberTransactionAs = params.value("rememberTransactionAs");
 
         final String transactionSignature = solanaDriver.setComputeUnits(computeUnitLimit, computeUnitPrice, payer);
 
         Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+
+        testContext.data(TestDataType.TRANSACTION_ID).store(rememberTransactionAs, transactionSignature);
     }
 
     public void setUpgradeAuthority(final String... args)
@@ -770,20 +769,30 @@ public class SolanaNodeDsl
         assertThat(accountInfo.getOwner()).isEqualTo("BPFLoaderUpgradeab1e11111111111111111111111");
     }
 
+
+    public void verifyTransactionMetadata(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("transaction"),
+                new OptionalArg("computeUnitsConsumed")
+        );
+
+        final String transactionId = testContext.data(TestDataType.TRANSACTION_ID).lookup(params.value("transaction"));
+        final long computeUnitsConsumed = params.valueAsLong("computeUnitsConsumed");
+
+        final TransactionResponse transactionResponse = solanaDriver.getTransactionResponse(transactionId);
+
+        assertThat(transactionResponse.getMetadata().getComputeUnitsConsumed()).isEqualTo(computeUnitsConsumed);
+    }
+
     private void waitForSlot(final long slot)
     {
         Waiter.waitFor(isTrue(() -> solanaDriver.getSlot() > slot));
     }
 
-    private void waitForBlockHeight(final long blockHeight)
-    {
-        Waiter.waitFor(isTrue(() -> solanaDriver.getBlockHeight() > blockHeight));
-    }
-
     private Condition<TransactionData> transactionFinalized(final String transactionSignature)
     {
-        // intermittency caused by block height not moving on to the next block before checking the transaction response ... it's a bit weird
-        waitForBlockHeight(solanaDriver.getBlockHeight() + 1);
         return isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction());
     }
 }

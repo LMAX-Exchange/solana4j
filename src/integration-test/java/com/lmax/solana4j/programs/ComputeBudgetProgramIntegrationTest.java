@@ -1,43 +1,29 @@
 package com.lmax.solana4j.programs;
 
 import com.lmax.solana4j.parameterization.ParameterizedMessageEncodingTest;
-import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.Assert.assertThrows;
 
 public class ComputeBudgetProgramIntegrationTest extends IntegrationTestBase
 {
-    @BeforeEach
-    void beforeEachTest()
-    {
-        solana.createKeyPair("payer");
-        solana.airdrop("payer", "0.01");
-    }
 
     @ParameterizedMessageEncodingTest
     void shouldSetComputeUnitLimitAndPrice(final String messageEncoding)
     {
         solana.setMessageEncoding(messageEncoding);
 
-        // TODO: can we check the logs ? - apparently we can
-        solana.setComputeUnits("100000", "10", "payer");
-    }
+        solana.createKeyPair("payer");
 
-    @ParameterizedMessageEncodingTest
-    void shouldFailIfComputeUnitLimitSetBelowComputeUnitsOfTransaction(final String messageEncoding)
-    {
-        solana.setMessageEncoding(messageEncoding);
+        solana.airdrop("payer", "1");
 
-        // TODO: can we check the logs ? - apparently we can
-        assertThrows(RuntimeException.class, () -> solana.setComputeUnits("1", "10", "payer"));
-    }
+        solana.setComputeUnits("300", "10000", "payer", "tx");
 
-    @ParameterizedMessageEncodingTest
-    void shouldFailIfComputeUnitPriceSetTooHighForAvailableFundsToPayer(final String messageEncoding)
-    {
-        solana.setMessageEncoding(messageEncoding);
+        solana.verifyTransactionMetadata("tx", "computeUnitsConsumed: 300");
 
-        // TODO: can we check the logs ? - apparently we can
-        assertThrows(RuntimeException.class, () -> solana.setComputeUnits("100000", "1000000000", "payer"));
+        // transaction is exactly 300 compute units so this should fail
+        assertThrows(RuntimeException.class, () -> solana.setComputeUnits("299", "10000", "payer"));
+
+        // let's set the compute unit price so high that we don't have enough sol on the payer account
+        assertThrows(RuntimeException.class, () -> solana.setComputeUnits("300", "100000000000", "payer"));
     }
 }

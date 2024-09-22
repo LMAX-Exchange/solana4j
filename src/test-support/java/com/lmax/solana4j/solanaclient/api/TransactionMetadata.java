@@ -21,4 +21,6 @@ public interface TransactionMetadata
     List<TokenBalance> getPreTokenBalances();
 
     List<Reward> getRewards();
+
+    long getComputeUnitsConsumed();
 }

@@ -23,6 +23,7 @@ final class MetaDTO implements TransactionMetadata
     public final List<Long> preBalances;
     public final List<TokenBalanceDTO> preTokenBalances;
     public final List<RewardDTO> rewards;
+    public final long computeUnitsConsumed;
 
     @JsonCreator
     MetaDTO(
@@ -34,7 +35,8 @@ final class MetaDTO implements TransactionMetadata
             final @JsonProperty("postTokenBalances") List<TokenBalanceDTO> postTokenBalances,
             final @JsonProperty("preBalances") List<Long> preBalances,
             final @JsonProperty("preTokenBalances") List<TokenBalanceDTO> preTokenBalances,
-            final @JsonProperty("rewards") List<RewardDTO> rewards)
+            final @JsonProperty("rewards") List<RewardDTO> rewards,
+            final @JsonProperty("computeUnitsConsumed") long computeUnitsConsumed)
     {
         this.err = err;
         this.fee = fee;
@@ -45,6 +47,7 @@ final class MetaDTO implements TransactionMetadata
         this.preBalances = preBalances;
         this.preTokenBalances = preTokenBalances;
         this.rewards = rewards;
+        this.computeUnitsConsumed = computeUnitsConsumed;
     }
 
     @Override
@@ -101,6 +104,12 @@ final class MetaDTO implements TransactionMetadata
     public List<Reward> getRewards()
     {
         return rewards.stream().map(x -> (Reward) x).collect(Collectors.toList());
+    }
+
+    @Override
+    public long getComputeUnitsConsumed()
+    {
+        return computeUnitsConsumed;
     }
 
     @Override

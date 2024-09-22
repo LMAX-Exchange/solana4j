@@ -12,8 +12,13 @@ public final class TestDataType<T>
     public static final TestDataType<TestPublicKey> TEST_PUBLIC_KEY = new TestDataType<>(TestPublicKey::getPublicKeyBase58);
     public static final TestDataType<TestKeyPair> TEST_KEY_PAIR = new TestDataType<>(x -> Base58.encode(x.getPrivateKeyBytes()));
     public static final TestDataType<AddressLookupTable> ADDRESS_LOOKUP_TABLE = new TestDataType<>(x -> x.getLookupTableAddress().base58());
+    public static final TestDataType<String> TRANSACTION_ID = new TestDataType<>();
 
-    private final Function<T, String> transform;
+    private Function<T, String> transform;
+
+    public TestDataType()
+    {
+    }
 
     public TestDataType(final Function<T, String> transform)
     {

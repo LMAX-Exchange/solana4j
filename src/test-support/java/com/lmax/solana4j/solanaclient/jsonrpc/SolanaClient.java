@@ -74,11 +74,15 @@ public class SolanaClient implements SolanaApi
     @Override
     public Long getBalance(final String address)
     {
-        return rpcClient.queryForObject(new TypeReference<RpcWrapperDTO<BalanceDTO>>()
-                                        {
-                                        },
+        final Long balance = rpcClient.queryForObject(new TypeReference<RpcWrapperDTO<BalanceDTO>>()
+                                                   {
+                                                   },
                 "getBalance",
                 address).getValue();
+
+        LOGGER.info("Balance retrieved for {} is {}.", address, balance);
+
+        return balance;
     }
 
     @Override
