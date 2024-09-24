@@ -14,7 +14,7 @@ public class ComputeBudgetProgramIntegrationTest extends IntegrationTestBase
 
         solana.createKeyPair("payer");
 
-        solana.airdrop("payer", "1");
+        solana.airdropSol("payer", "1");
 
         solana.setComputeUnits("300", "10000", "payer", "tx");
 

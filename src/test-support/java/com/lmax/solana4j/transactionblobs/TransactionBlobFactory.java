@@ -146,7 +146,7 @@ public interface TransactionBlobFactory
             PublicKey payer,
             List<TestKeyPair> signers);
 
-    String setUpgradeAuthority(
+    String setBpfUpgradeableProgramUpgradeAuthority(
             PublicKey program,
             PublicKey oldUpgradeAuthority,
             PublicKey newUpgradeAuthority,

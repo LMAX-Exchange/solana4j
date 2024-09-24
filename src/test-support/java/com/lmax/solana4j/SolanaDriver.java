@@ -366,7 +366,7 @@ public class SolanaDriver
         return solanaApi.sendTransaction(transactionBlob);
     }
 
-    public String setUpgradeAuthority(
+    public String setBpfUpgradeableProgramUpgradeAuthority(
             final PublicKey program,
             final PublicKey oldUpgradeAuthority,
             final PublicKey newUpgradeAuthority,
@@ -376,7 +376,7 @@ public class SolanaDriver
     {
         final Blockhash blockhash = solanaApi.getRecentBlockHash();
 
-        final String transactionBlob = getTransactionFactory().setUpgradeAuthority(
+        final String transactionBlob = getTransactionFactory().setBpfUpgradeableProgramUpgradeAuthority(
                 program,
                 oldUpgradeAuthority,
                 newUpgradeAuthority,

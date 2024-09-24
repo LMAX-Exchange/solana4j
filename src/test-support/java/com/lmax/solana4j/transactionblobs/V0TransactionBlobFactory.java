@@ -529,7 +529,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
     }
 
     @Override
-    public String setUpgradeAuthority(
+    public String setBpfUpgradeableProgramUpgradeAuthority(
             final PublicKey program,
             final PublicKey oldUpgradeAuthority,
             final PublicKey newUpgradeAuthority,

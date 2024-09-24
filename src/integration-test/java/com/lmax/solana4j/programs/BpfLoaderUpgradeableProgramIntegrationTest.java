@@ -13,7 +13,7 @@ public class BpfLoaderUpgradeableProgramIntegrationTest extends IntegrationTestB
     void beforeEachTest()
     {
         solana.createKeyPair("payer");
-        solana.airdrop("payer", "0.01");
+        solana.airdropSol("payer", "0.01");
     }
 
     @ParameterizedMessageEncodingTest
@@ -28,7 +28,7 @@ public class BpfLoaderUpgradeableProgramIntegrationTest extends IntegrationTestB
                 "<CxmAHzszTVSWmtBnCXda7eUTemd8DGyax88yYk54A2PT>",
                 "<13jT1jL8jpTFzFcZATPq9W4gmRB5uZbEYjXxJJbugB1d>");
 
-        solana.setUpgradeAuthority(
+        solana.setBpfUpgradeableProgramUpgradeAuthority(
                 "<CxmAHzszTVSWmtBnCXda7eUTemd8DGyax88yYk54A2PT>",
                 "<13jT1jL8jpTFzFcZATPq9W4gmRB5uZbEYjXxJJbugB1d>",
                 "<Ed4gbZARwspMoyVRPU3GvCCARFtRSPSw2TqtHvH6vvj8>",
@@ -44,7 +44,7 @@ public class BpfLoaderUpgradeableProgramIntegrationTest extends IntegrationTestB
     @AfterEach
     void afterEachTest()
     {
-        solana.setUpgradeAuthority(
+        solana.setBpfUpgradeableProgramUpgradeAuthority(
                 "<CxmAHzszTVSWmtBnCXda7eUTemd8DGyax88yYk54A2PT>",
                 "newAuthority",
                 "newAuthority",

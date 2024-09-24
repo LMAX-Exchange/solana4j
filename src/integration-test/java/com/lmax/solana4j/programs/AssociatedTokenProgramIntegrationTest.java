@@ -9,10 +9,10 @@ public class AssociatedTokenProgramIntegrationTest extends IntegrationTestBase
     void beforeEachTest()
     {
         solana.createKeyPair("payer");
-        solana.airdrop("payer", "0.01");
+        solana.airdropSol("payer", "0.01");
 
         solana.createKeyPair("owner");
-        solana.airdrop("owner", "0.01");
+        solana.airdropSol("owner", "0.01");
 
         solana.createKeyPair("tokenMint");
         solana.createKeyPair("mintAuthority");
