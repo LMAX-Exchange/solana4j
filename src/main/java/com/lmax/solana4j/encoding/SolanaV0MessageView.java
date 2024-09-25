@@ -8,6 +8,7 @@ import com.lmax.solana4j.api.PublicKey;
 import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 final class SolanaV0MessageView extends SolanaMessageView implements MessageVisitor.Version0MessageView
 {
@@ -79,8 +80,7 @@ final class SolanaV0MessageView extends SolanaMessageView implements MessageVisi
                         instructionView.accountIndexes(),
                         instructionView.data(),
                         accountsView)
-                )
-                .toList();
+                ).collect(Collectors.toList());
     }
 
     private boolean isWriterStaticAccount(final int index)

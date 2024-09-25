@@ -482,7 +482,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
                                 tokenAccount,
                                 tokenAccountNewAuthority,
                                 tokenAccountOldAuthority,
-                                signers.stream().map(TestKeyPair::getSolana4jPublicKey).toList(),
+                                signers.stream().map(TestKeyPair::getSolana4jPublicKey).collect(Collectors.toList()),
                                 authorityType))
                 .payer(payer.getSolana4jPublicKey())
                 .seal()

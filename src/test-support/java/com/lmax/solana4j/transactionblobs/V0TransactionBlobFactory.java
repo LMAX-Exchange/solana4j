@@ -480,7 +480,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                                 tokenAccount,
                                 tokenAccountNewAuthority,
                                 tokenAccountOldAuthority,
-                                signers.stream().map(TestKeyPair::getSolana4jPublicKey).toList(),
+                                signers.stream().map(TestKeyPair::getSolana4jPublicKey).collect(Collectors.toList()),
                                 authorityType))
                 .lookups(addressLookupTables)
                 .payer(payer.getSolana4jPublicKey())

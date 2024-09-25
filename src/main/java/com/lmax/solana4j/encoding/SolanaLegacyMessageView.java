@@ -7,6 +7,7 @@ import com.lmax.solana4j.api.PublicKey;
 
 import java.nio.ByteBuffer;
 import java.util.List;
+import java.util.stream.Collectors;
 
 class SolanaLegacyMessageView extends SolanaMessageView implements LegacyMessageView
 {
@@ -38,8 +39,7 @@ class SolanaLegacyMessageView extends SolanaMessageView implements LegacyMessage
                         instructionView.accountIndexes(),
                         instructionView.data(),
                         accountsView)
-                )
-                .toList();
+                ).collect(Collectors.toList());
     }
 
     @Override

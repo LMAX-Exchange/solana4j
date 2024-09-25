@@ -148,7 +148,7 @@ public class SolanaNodeDsl
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
 
         final List<TestPublicKey> addresses = new ArrayList<>();
         for (final String address : params.values("addresses"))
@@ -193,7 +193,7 @@ public class SolanaNodeDsl
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
 
         final String transactionSignature = solanaDriver.createMintAccount(
                 tokenProgram,
@@ -230,7 +230,7 @@ public class SolanaNodeDsl
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
 
         final String transactionSignature = solanaDriver.mintTo(tokenProgram.getFactory(), tokenMint, to, amount, authority, payer, addressLookupTables);
 
@@ -282,7 +282,7 @@ public class SolanaNodeDsl
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
 
         final String transactionSignature = solanaDriver.createTokenAccount(
                 tokenProgram,
@@ -344,12 +344,12 @@ public class SolanaNodeDsl
         final List<TestKeyPair> signers = params.valuesAsList("signers").stream()
                 .map(testContext.data(TestDataType.TEST_KEY_PAIR)::lookup)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
         final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
 
         final String transactionSignature = solanaDriver.tokenTransfer(tokenProgram, from, to, owner, amount, payer, signers, addressLookupTables);
 
@@ -397,14 +397,14 @@ public class SolanaNodeDsl
         final List<PublicKey> multiSigSigners = params.valuesAsList("multiSigSigners")
                 .stream()
                 .map(pk -> testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(pk).getSolana4jPublicKey())
-                .toList();
+                .collect(Collectors.toList());
         final int requiredSigners = params.valueAsInt("requiredSigners");
         final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
         final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
 
         final String transactionSignature = solanaDriver.createMultiSigAccount(
                 tokenProgram,
@@ -433,7 +433,7 @@ public class SolanaNodeDsl
         final List<PublicKey> multiSigSigners = params.valuesAsList("multiSigSigners")
                 .stream()
                 .map(pk -> testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(pk).getSolana4jPublicKey())
-                .toList();
+                .collect(Collectors.toList());
         final int requiredSigners = params.valueAsInt("requiredSigners");
         final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
 
@@ -470,7 +470,7 @@ public class SolanaNodeDsl
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
 
         final String transactionSignature = solanaDriver.createNonceAccount(nonceAccount, nonceAuthority, payer, NONCE_ACCOUNT_LENGTH, addressLookupTables);
 
@@ -500,7 +500,7 @@ public class SolanaNodeDsl
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
 
         final String transactionSignature = solanaDriver.advanceNonce(nonceAccount, nonceAuthority, payer, addressLookupTables);
 
@@ -555,7 +555,7 @@ public class SolanaNodeDsl
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
 
         final String transactionSignature = solanaDriver.transfer(from, to, sol.lamports(), payer, addressLookupTables);
 
@@ -586,7 +586,7 @@ public class SolanaNodeDsl
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
 
         final String transactionSignature = solanaDriver.createAssociatedTokenAccount(
                 tokenProgram,
@@ -675,7 +675,7 @@ public class SolanaNodeDsl
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
 
         final String transactionSignature = solanaDriver.setTokenAccountAuthority(
                 tokenProgram,
@@ -735,7 +735,7 @@ public class SolanaNodeDsl
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
                 .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
 
         final String transactionSignature = solanaDriver.setBpfUpgradeableProgramUpgradeAuthority(
                 Solana.account(Base58.decode(bpfUpgradeableProgram)),

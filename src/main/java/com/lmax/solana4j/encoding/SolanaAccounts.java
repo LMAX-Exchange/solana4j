@@ -89,7 +89,7 @@ final class SolanaAccounts implements Accounts
         final var staticAccountReferences = allAccountReferences
                 .stream()
                 .filter(accountReference -> !accountLookups.getAccountsInLookupTables().contains(accountReference.account()))
-                .toList();
+                .collect(Collectors.toList());
 
         int countSigned = 0;
         int countSignedReadOnly = 0;
