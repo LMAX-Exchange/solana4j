@@ -283,6 +283,30 @@ public class Solana4jTestHelper
                 .build();
     }
 
+    public static void writeSimpleFullySignedV0MessageWithoutLookupTables(final ByteBuffer buffer)
+    {
+        Solana.builder(buffer)
+                .v0()
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
+                .instructions(tb -> tb
+                        .append(ib -> ib
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT4), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .data(DATA1.length, w -> w.put(DATA1))))
+                // account3 and account4 should end up in lookup accounts section
+                .lookups(List.of())
+                .seal()
+                .signed()
+                .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
+                .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
+                .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
+                .build();
+    }
+
     public static void writeComplexUnsignedLegacyMessage(final ByteBuffer buffer)
     {
         Solana.builder(buffer)

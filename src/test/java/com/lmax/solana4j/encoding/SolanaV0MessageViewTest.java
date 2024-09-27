@@ -1,6 +1,7 @@
 package com.lmax.solana4j.encoding;
 
 import com.lmax.solana4j.Solana;
+import com.lmax.solana4j.api.MessageVisitor;
 import org.junit.jupiter.api.Test;
 
 import java.nio.ByteBuffer;
@@ -23,8 +24,8 @@ import static com.lmax.solana4j.Solana4jTestHelper.SIGNATURE1;
 import static com.lmax.solana4j.Solana4jTestHelper.SIGNATURE2;
 import static com.lmax.solana4j.Solana4jTestHelper.SIGNATURE_PAYER;
 import static com.lmax.solana4j.Solana4jTestHelper.getTransaction;
-import static com.lmax.solana4j.Solana4jTestHelper.writeSimpleFullySignedLegacyMessage;
 import static com.lmax.solana4j.Solana4jTestHelper.writeSimpleFullySignedV0Message;
+import static com.lmax.solana4j.Solana4jTestHelper.writeSimpleFullySignedV0MessageWithoutLookupTables;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -215,9 +216,9 @@ class SolanaV0MessageViewTest
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
-        writeSimpleFullySignedLegacyMessage(buffer);
+        writeSimpleFullySignedV0MessageWithoutLookupTables(buffer);
 
-        final SolanaLegacyMessageView messageView = (SolanaLegacyMessageView) SolanaLegacyMessageView.fromBuffer(buffer);
+        final SolanaV0MessageView messageView = (SolanaV0MessageView) SolanaV0MessageView.fromBuffer(buffer);
 
         assertThat(messageView.staticAccounts())
                 .usingRecursiveAssertion()
@@ -229,10 +230,25 @@ class SolanaV0MessageViewTest
                         Solana.account(PROGRAM1),
                         Solana.account(ACCOUNT4)
                 ));
+
+        assertThat(messageView.allAccounts(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2)))
+                .usingRecursiveAssertion()
+                .isEqualTo(List.of(
+                        Solana.account(PAYER),
+                        Solana.account(ACCOUNT1),
+                        Solana.account(ACCOUNT2),
+                        Solana.account(ACCOUNT3),
+                        Solana.account(PROGRAM1),
+                        Solana.account(ACCOUNT4)
+                ));
+
+        final List<MessageVisitor.AccountLookupView> accountLookups = messageView.accountLookups();
+
+        assertThat(accountLookups.size()).isEqualTo(0);
     }
 
     @Test
-    void staticAccountsInAreSubsetOfAllAccountsWhenAccountsAppearInLookupTables()
+    void staticAccountsAreSubsetOfAllAccountsWhenAccountsAppearInLookupTables()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
@@ -259,6 +275,18 @@ class SolanaV0MessageViewTest
                         Solana.account(ACCOUNT3),
                         Solana.account(ACCOUNT4)
                 ));
+
+        final List<MessageVisitor.AccountLookupView> accountLookups = messageView.accountLookups();
+
+        assertThat(accountLookups.size()).isEqualTo(2);
+
+        assertThat(accountLookups.get(0).accountLookup()).isEqualTo(ADDRESS_LOOK_TABLE1.getLookupTableAddress());
+        assertThat(accountLookups.get(0).readWriteTableIndexes()).isEqualTo(List.of(1));
+        assertThat(accountLookups.get(0).readOnlyTableIndexes()).isEqualTo(List.of());
+
+        assertThat(accountLookups.get(1).accountLookup()).isEqualTo(ADDRESS_LOOK_TABLE2.getLookupTableAddress());
+        assertThat(accountLookups.get(1).readWriteTableIndexes()).isEqualTo(List.of());
+        assertThat(accountLookups.get(1).readOnlyTableIndexes()).isEqualTo(List.of(1));
     }
 
     @Test
@@ -294,6 +322,7 @@ class SolanaV0MessageViewTest
                         Solana.account(ACCOUNT2),
                         Solana.account(ACCOUNT3)
                 ));
+
         assertThat(messageView.instructions().get(0).accountIndexes()).usingRecursiveAssertion().isEqualTo(List.of(5, 1, 2, 4));
     }
 

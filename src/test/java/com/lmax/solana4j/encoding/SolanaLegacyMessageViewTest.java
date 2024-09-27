@@ -158,6 +158,7 @@ class SolanaLegacyMessageViewTest
                         Solana.account(ACCOUNT2),
                         Solana.account(ACCOUNT3)
                 ));
+
         assertThat(messageView.instructions().get(0).accountIndexes()).usingRecursiveAssertion().isEqualTo(List.of(5, 1, 2, 3));
     }
 }
