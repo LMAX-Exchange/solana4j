@@ -96,6 +96,8 @@ class SolanaV0MessageViewTest
         assertThat(messageView.isSigner(Solana.account(ACCOUNT3))).isFalse();
         assertThat(messageView.isSigner(Solana.account(ACCOUNT4))).isFalse();
         assertThat(messageView.isSigner(Solana.account(PROGRAM1))).isFalse();
+
+        assertThat(messageView.signers()).isEqualTo(List.of(Solana.account(PAYER), Solana.account(ACCOUNT1), Solana.account(ACCOUNT2)));
     }
 
     @Test
