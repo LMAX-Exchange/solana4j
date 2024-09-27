@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6};
+var data = {"i0":6,"i1":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -151,6 +151,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code><a href="TransactionBuilder.html" title="interface in com.lmax.solana4j.api">TransactionBuilder</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#append(com.lmax.solana4j.api.TransactionInstruction)">append</a></span>&#8203;(<a href="TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a>&nbsp;instruction)</code></th>
+<td class="colLast">
+<div class="block">Appends an instruction to the transaction.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="TransactionBuilder.html" title="interface in com.lmax.solana4j.api">TransactionBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#append(java.util.function.Consumer)">append</a></span>&#8203;(java.util.function.Consumer&lt;<a href="InstructionBuilderBase.html" title="interface in com.lmax.solana4j.api">InstructionBuilderBase</a>&gt;&nbsp;builder)</code></th>
 <td class="colLast">
 <div class="block">Appends an instruction to the transaction.</div>
@@ -176,7 +183,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <a id="append(java.util.function.Consumer)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>append</h4>
 <pre class="methodSignature"><a href="TransactionBuilder.html" title="interface in com.lmax.solana4j.api">TransactionBuilder</a>&nbsp;append&#8203;(java.util.function.Consumer&lt;<a href="InstructionBuilderBase.html" title="interface in com.lmax.solana4j.api">InstructionBuilderBase</a>&gt;&nbsp;builder)</pre>
@@ -184,6 +191,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>builder</code> - a <code>Consumer</code> that accepts an <a href="InstructionBuilderBase.html" title="interface in com.lmax.solana4j.api"><code>InstructionBuilderBase</code></a> to build the instruction</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>this <code>TransactionBuilder</code> instance for method chaining</dd>
+</dl>
+</li>
+</ul>
+<a id="append(com.lmax.solana4j.api.TransactionInstruction)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>append</h4>
+<pre class="methodSignature"><a href="TransactionBuilder.html" title="interface in com.lmax.solana4j.api">TransactionBuilder</a>&nbsp;append&#8203;(<a href="TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a>&nbsp;instruction)</pre>
+<div class="block">Appends an instruction to the transaction.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>instruction</code> - a <a href="TransactionInstruction.html" title="interface in com.lmax.solana4j.api"><code>TransactionInstruction</code></a> that is a pre-built instruction to be appended to the transaction</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>this <code>TransactionBuilder</code> instance for method chaining</dd>
 </dl>

@@ -107,7 +107,23 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
+<th class="colFirst" scope="row"><a href="#com.lmax.solana4j">com.lmax.solana4j</a></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="#com.lmax.solana4j.api">com.lmax.solana4j.api</a></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="#com.lmax.solana4j.encoding">com.lmax.solana4j.encoding</a></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="#com.lmax.solana4j.programs">com.lmax.solana4j.programs</a></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="#com.lmax.solana4j.programs.token">com.lmax.solana4j.programs.token</a></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -116,12 +132,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <ul class="blockList">
 <li class="blockList">
-<section><a id="com.lmax.solana4j.api">
+<section><a id="com.lmax.solana4j">
 <!--   -->
 </a>
-<h3>Uses of <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a> in <a href="../package-summary.html">com.lmax.solana4j.api</a></h3>
+<h3>Uses of <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a> in <a href="../../package-summary.html">com.lmax.solana4j</a></h3>
 <table class="useSummary">
-<caption><span>Methods in <a href="../package-summary.html">com.lmax.solana4j.api</a> that return types with arguments of type <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span>Methods in <a href="../../package-summary.html">com.lmax.solana4j</a> that return <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -129,10 +145,283 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a>&gt;</code></td>
-<th class="colSecond" scope="row"><span class="typeNameLabel">InnerInstructions.</span><code><span class="memberNameLink"><a href="../InnerInstructions.html#getInstructions()">getInstructions</a></span>()</code></th>
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">Solana.</span><code><span class="memberNameLink"><a href="../../Solana.html#instruction(java.util.function.Consumer)">instruction</a></span>&#8203;(java.util.function.Consumer&lt;<a href="../InstructionBuilderBase.html" title="interface in com.lmax.solana4j.api">InstructionBuilderBase</a>&gt;&nbsp;instructionBuilder)</code></th>
 <td class="colLast">
-<div class="block">Returns the list of transaction instructions.</div>
+<div class="block">Creates a new transaction instructions using the builder provided.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</li>
+<li class="blockList">
+<section><a id="com.lmax.solana4j.api">
+<!--   -->
+</a>
+<h3>Uses of <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a> in <a href="../package-summary.html">com.lmax.solana4j.api</a></h3>
+<table class="useSummary">
+<caption><span>Methods in <a href="../package-summary.html">com.lmax.solana4j.api</a> that return <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">InstructionBuilder.</span><code><span class="memberNameLink"><a href="../InstructionBuilder.html#build()">build</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Builds and returns a transaction instruction.</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="useSummary">
+<caption><span>Methods in <a href="../package-summary.html">com.lmax.solana4j.api</a> with parameters of type <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../TransactionBuilder.html" title="interface in com.lmax.solana4j.api">TransactionBuilder</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TransactionBuilder.</span><code><span class="memberNameLink"><a href="../TransactionBuilder.html#append(com.lmax.solana4j.api.TransactionInstruction)">append</a></span>&#8203;(<a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a>&nbsp;instruction)</code></th>
+<td class="colLast">
+<div class="block">Appends an instruction to the transaction.</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="useSummary">
+<caption><span>Method parameters in <a href="../package-summary.html">com.lmax.solana4j.api</a> with type arguments of type <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../MessageBuilderLegacy.html" title="interface in com.lmax.solana4j.api">MessageBuilderLegacy</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">MessageBuilderLegacy.</span><code><span class="memberNameLink"><a href="../MessageBuilderLegacy.html#instructions(java.util.List)">instructions</a></span>&#8203;(java.util.List&lt;<a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a>&gt;&nbsp;instructions)</code></th>
+<td class="colLast">
+<div class="block">Sets the instructions for the legacy message.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../MessageBuilderV0.html" title="interface in com.lmax.solana4j.api">MessageBuilderV0</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">MessageBuilderV0.</span><code><span class="memberNameLink"><a href="../MessageBuilderV0.html#instructions(java.util.List)">instructions</a></span>&#8203;(java.util.List&lt;<a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a>&gt;&nbsp;instructions)</code></th>
+<td class="colLast">
+<div class="block">Sets the instructions for the legacy message.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</li>
+<li class="blockList">
+<section><a id="com.lmax.solana4j.encoding">
+<!--   -->
+</a>
+<h3>Uses of <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a> in <a href="../../encoding/package-summary.html">com.lmax.solana4j.encoding</a></h3>
+<table class="useSummary">
+<caption><span>Methods in <a href="../../encoding/package-summary.html">com.lmax.solana4j.encoding</a> that return <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">SolanaEncoding.</span><code><span class="memberNameLink"><a href="../../encoding/SolanaEncoding.html#instruction(java.util.function.Consumer)">instruction</a></span>&#8203;(java.util.function.Consumer&lt;<a href="../InstructionBuilderBase.html" title="interface in com.lmax.solana4j.api">InstructionBuilderBase</a>&gt;&nbsp;instructionBuilder)</code></th>
+<td class="colLast">
+<div class="block">Creates a new transaction instructions using the builder provided.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</li>
+<li class="blockList">
+<section><a id="com.lmax.solana4j.programs">
+<!--   -->
+</a>
+<h3>Uses of <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a> in <a href="../../programs/package-summary.html">com.lmax.solana4j.programs</a></h3>
+<table class="useSummary">
+<caption><span>Methods in <a href="../../programs/package-summary.html">com.lmax.solana4j.programs</a> that return <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">SystemProgram.</span><code><span class="memberNameLink"><a href="../../programs/SystemProgram.html#createAccount(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,long,com.lmax.solana4j.api.PublicKey)">createAccount</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;payer,
+             <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;newAccount,
+             long&nbsp;lamports,
+             long&nbsp;space,
+             <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;program)</code></th>
+<td class="colLast">
+<div class="block">Creates a new account.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">AssociatedTokenProgram.</span><code><span class="memberNameLink"><a href="../../programs/AssociatedTokenProgram.html#createAssociatedTokenAccount(com.lmax.solana4j.api.ProgramDerivedAddress,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,boolean)">createAssociatedTokenAccount</a></span>&#8203;(<a href="../ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a>&nbsp;programDerivedAddress,
+                            <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
+                            <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
+                            <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;payer,
+                            <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;programId,
+                            boolean&nbsp;idempotent)</code></th>
+<td class="colLast">
+<div class="block">Creates a new associated token account.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">AddressLookupTableProgram.</span><code><span class="memberNameLink"><a href="../../programs/AddressLookupTableProgram.html#createLookupTable(com.lmax.solana4j.api.ProgramDerivedAddress,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.Slot)">createLookupTable</a></span>&#8203;(<a href="../ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a>&nbsp;programDerivedAddress,
+                 <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authority,
+                 <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;payer,
+                 <a href="../Slot.html" title="interface in com.lmax.solana4j.api">Slot</a>&nbsp;recentSlot)</code></th>
+<td class="colLast">
+<div class="block">Creates a new address lookup table.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">AddressLookupTableProgram.</span><code><span class="memberNameLink"><a href="../../programs/AddressLookupTableProgram.html#extendLookupTable(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List)">extendLookupTable</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;lookupTable,
+                 <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authority,
+                 <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;payer,
+                 java.util.List&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;addresses)</code></th>
+<td class="colLast">
+<div class="block">Extends an existing address lookup table with new addresses.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">SystemProgram.</span><code><span class="memberNameLink"><a href="../../programs/SystemProgram.html#nonceAdvance(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">nonceAdvance</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;nonce,
+            <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authorized)</code></th>
+<td class="colLast">
+<div class="block">Advances a nonce.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">SystemProgram.</span><code><span class="memberNameLink"><a href="../../programs/SystemProgram.html#nonceInitialize(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">nonceInitialize</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;nonce,
+               <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authorized)</code></th>
+<td class="colLast">
+<div class="block">Initializes a nonce account.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">ComputeBudgetProgram.</span><code><span class="memberNameLink"><a href="../../programs/ComputeBudgetProgram.html#setComputeUnitLimit(int)">setComputeUnitLimit</a></span>&#8203;(int&nbsp;computeUnits)</code></th>
+<td class="colLast">
+<div class="block">Sets the compute unit limit.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">ComputeBudgetProgram.</span><code><span class="memberNameLink"><a href="../../programs/ComputeBudgetProgram.html#setComputeUnitPrice(long)">setComputeUnitPrice</a></span>&#8203;(long&nbsp;microLamports)</code></th>
+<td class="colLast">
+<div class="block">Sets the compute unit price.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">BpfLoaderUpgradeableProgram.</span><code><span class="memberNameLink"><a href="../../programs/BpfLoaderUpgradeableProgram.html#setUpgradeAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.Optional)">setUpgradeAuthority</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;programAddress,
+                   <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;currentUpgradeAuthorityAddress,
+                   java.util.Optional&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;maybeNewUpgradeAuthorityAddress)</code></th>
+<td class="colLast">
+<div class="block">Sets the upgrade authority for a given program address.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">SystemProgram.</span><code><span class="memberNameLink"><a href="../../programs/SystemProgram.html#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long)">transfer</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;from,
+        <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;to,
+        long&nbsp;lamports)</code></th>
+<td class="colLast">
+<div class="block">Transfers funds between accounts.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</li>
+<li class="blockList">
+<section><a id="com.lmax.solana4j.programs.token">
+<!--   -->
+</a>
+<h3>Uses of <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a> in <a href="../../programs/token/package-summary.html">com.lmax.solana4j.programs.token</a></h3>
+<table class="useSummary">
+<caption><span>Methods in <a href="../../programs/token/package-summary.html">com.lmax.solana4j.programs.token</a> that return <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#initializeAccount(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">initializeAccount</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account,
+                 <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
+                 <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner)</code></th>
+<td class="colLast">
+<div class="block">Initializes a new token account.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#initializeMint(com.lmax.solana4j.api.PublicKey,byte,com.lmax.solana4j.api.PublicKey,java.util.Optional)">initializeMint</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenMintAddress,
+              byte&nbsp;decimals,
+              <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mintAuthority,
+              java.util.Optional&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;freezeAuthority)</code></th>
+<td class="colLast">
+<div class="block">Initializes a new mint.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#initializeMultisig(com.lmax.solana4j.api.PublicKey,java.util.List,int)">initializeMultisig</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;multisigPublicKey,
+                  java.util.List&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;signers,
+                  int&nbsp;requiredSignatures)</code></th>
+<td class="colLast">
+<div class="block">Initializes a new multisig account.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#mintTo(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.Destination)">mintTo</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
+      <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authority,
+      <a href="../Destination.html" title="interface in com.lmax.solana4j.api">Destination</a>&nbsp;destination)</code></th>
+<td class="colLast">
+<div class="block">Mints new tokens to a list of destinations.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#setAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List,com.lmax.solana4j.programs.token.TokenProgramBase.AuthorityType)">setAuthority</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenAccount,
+            <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;newAuthority,
+            <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;oldAuthority,
+            java.util.List&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;signers,
+            <a href="../../programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a>&nbsp;authorityType)</code></th>
+<td class="colLast">
+<div class="block">Sets a new authority for a token account.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,java.util.List)">transfer</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;source,
+        <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;destination,
+        <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
+        long&nbsp;amount,
+        java.util.List&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;signers)</code></th>
+<td class="colLast">
+<div class="block">Transfers tokens between accounts.</div>
 </td>
 </tr>
 </tbody>

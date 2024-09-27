@@ -111,7 +111,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="#com.lmax.solana4j.programs">com.lmax.solana4j.programs</a></th>
+<th class="colFirst" scope="row"><a href="#com.lmax.solana4j.programs.token">com.lmax.solana4j.programs.token</a></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -145,12 +145,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </section>
 </li>
 <li class="blockList">
-<section><a id="com.lmax.solana4j.programs">
+<section><a id="com.lmax.solana4j.programs.token">
 <!--   -->
 </a>
-<h3>Uses of <a href="../Destination.html" title="interface in com.lmax.solana4j.api">Destination</a> in <a href="../../programs/package-summary.html">com.lmax.solana4j.programs</a></h3>
+<h3>Uses of <a href="../Destination.html" title="interface in com.lmax.solana4j.api">Destination</a> in <a href="../../programs/token/package-summary.html">com.lmax.solana4j.programs.token</a></h3>
 <table class="useSummary">
-<caption><span>Method parameters in <a href="../../programs/package-summary.html">com.lmax.solana4j.programs</a> with type arguments of type <a href="../Destination.html" title="interface in com.lmax.solana4j.api">Destination</a></span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span>Methods in <a href="../../programs/token/package-summary.html">com.lmax.solana4j.programs.token</a> with parameters of type <a href="../Destination.html" title="interface in com.lmax.solana4j.api">Destination</a></span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -158,8 +158,27 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><code><a href="../../programs/TokenProgram.html" title="type parameter in TokenProgram">T</a></code></td>
-<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgram.</span><code><span class="memberNameLink"><a href="../../programs/TokenProgram.html#mintTo(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List)">mintTo</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#mintTo(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.Destination)">mintTo</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
+      <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authority,
+      <a href="../Destination.html" title="interface in com.lmax.solana4j.api">Destination</a>&nbsp;destination)</code></th>
+<td class="colLast">
+<div class="block">Mints new tokens to a list of destinations.</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="useSummary">
+<caption><span>Method parameters in <a href="../../programs/token/package-summary.html">com.lmax.solana4j.programs.token</a> with type arguments of type <a href="../Destination.html" title="interface in com.lmax.solana4j.api">Destination</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="type parameter in TokenProgramBase.TokenProgramBaseFactory">T</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.TokenProgramBaseFactory.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html#mintTo(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List)">mintTo</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
       <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authority,
       java.util.List&lt;<a href="../Destination.html" title="interface in com.lmax.solana4j.api">Destination</a>&gt;&nbsp;destinations)</code></th>
 <td class="colLast">

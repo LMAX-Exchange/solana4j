@@ -254,10 +254,10 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
-<td class="colFirst"><code>static <a href="../api/InnerTransactionBuilder.html" title="interface in com.lmax.solana4j.api">InnerTransactionBuilder</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#innerTxBuilder()">innerTxBuilder</a></span>()</code></th>
+<td class="colFirst"><code>static <a href="../api/TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#instruction(java.util.function.Consumer)">instruction</a></span>&#8203;(java.util.function.Consumer&lt;<a href="../api/InstructionBuilderBase.html" title="interface in com.lmax.solana4j.api">InstructionBuilderBase</a>&gt;&nbsp;instructionBuilder)</code></th>
 <td class="colLast">
-<div class="block">Creates a new inner transaction builder.</div>
+<div class="block">Creates a new transaction instructions using the builder provided.</div>
 </td>
 </tr>
 <tr id="i8" class="altColor">
@@ -361,17 +361,19 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="innerTxBuilder()">
+<a id="instruction(java.util.function.Consumer)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>innerTxBuilder</h4>
-<pre class="methodSignature">public static&nbsp;<a href="../api/InnerTransactionBuilder.html" title="interface in com.lmax.solana4j.api">InnerTransactionBuilder</a>&nbsp;innerTxBuilder()</pre>
-<div class="block">Creates a new inner transaction builder.</div>
+<h4>instruction</h4>
+<pre class="methodSignature">public static&nbsp;<a href="../api/TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a>&nbsp;instruction&#8203;(java.util.function.Consumer&lt;<a href="../api/InstructionBuilderBase.html" title="interface in com.lmax.solana4j.api">InstructionBuilderBase</a>&gt;&nbsp;instructionBuilder)</pre>
+<div class="block">Creates a new transaction instructions using the builder provided.</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>instructionBuilder</code> - the builder of the required instruction</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>a new instance of <a href="../api/InnerTransactionBuilder.html" title="interface in com.lmax.solana4j.api"><code>InnerTransactionBuilder</code></a></dd>
+<dd>a new instance of <a href="../api/TransactionInstruction.html" title="interface in com.lmax.solana4j.api"><code>TransactionInstruction</code></a></dd>
 </dl>
 </li>
 </ul>

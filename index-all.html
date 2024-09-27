@@ -118,11 +118,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Adds an account to the instruction with its role specified.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#ACCOUNT_LAYOUT_SPAN">ACCOUNT_LAYOUT_SPAN</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgram.html#ACCOUNT_LAYOUT_SPAN">ACCOUNT_LAYOUT_SPAN</a></span> - Static variable in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgram.html" title="class in com.lmax.solana4j.programs.token">TokenProgram</a></dt>
 <dd>
 <div class="block">The span (size) of the account layout in bytes.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#ACCOUNT_OWNER">ACCOUNT_OWNER</a></span> - com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#ACCOUNT_OWNER">ACCOUNT_OWNER</a></span> - com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for changing the owner of an account.</div>
 </dd>
@@ -158,7 +158,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/MessageVisitor.V0AccountsView.html#accounts(java.util.List)">accounts(List&lt;AddressLookupTable&gt;)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.V0AccountsView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.V0AccountsView</a></dt>
 <dd>
 <div class="block">Returns the list of all accounts, using the address lookup tables to map
-  the indexes stored in the message to actual addresses</div>
+ the indexes stored in the message to actual addresses</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/MessageVisitor.V0InstructionView.html#accounts(java.util.List)">accounts(List&lt;AddressLookupTable&gt;)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.V0InstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.V0InstructionView</a></dt>
 <dd>
@@ -168,10 +168,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><a href="com/lmax/solana4j/api/Accounts.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">Accounts</span></a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
 <div class="block">Interface representing a collection of accounts in the Solana blockchain.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/InnerInstructionBuilder.html#addInstruction()">addInstruction()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/InnerInstructionBuilder.html" title="interface in com.lmax.solana4j.api">InnerInstructionBuilder</a></dt>
-<dd>
-<div class="block">Adds an inner instruction to the transaction.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/AccountLookupEntry.html#addReadOnlyEntry(com.lmax.solana4j.api.PublicKey,int)">addReadOnlyEntry(PublicKey, int)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AccountLookupEntry.html" title="interface in com.lmax.solana4j.api">AccountLookupEntry</a></dt>
 <dd>
@@ -201,6 +197,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Program for managing address lookup tables on the Solana blockchain.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html#%3Cinit%3E()">AddressLookupTableProgram()</a></span> - Constructor for class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html" title="class in com.lmax.solana4j.programs">AddressLookupTableProgram</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/lmax/solana4j/programs/AddressLookupTableProgram.AddressLookupTableProgramFactory.html" title="class in com.lmax.solana4j.programs"><span class="typeNameLink">AddressLookupTableProgram.AddressLookupTableProgramFactory</span></a> - Class in <a href="com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.html#ADVANCE_NONCE_INSTRUCTION">ADVANCE_NONCE_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.html" title="class in com.lmax.solana4j.programs">SystemProgram</a></dt>
 <dd>
 <div class="block">The instruction code for advancing a nonce.</div>
@@ -208,6 +208,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html#allAccounts(java.util.List)">allAccounts(List&lt;AddressLookupTable&gt;)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.Version0MessageView</a></dt>
 <dd>
 <div class="block">Retrieves the list of all accounts, including both static and lookup accounts.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/TransactionBuilder.html#append(com.lmax.solana4j.api.TransactionInstruction)">append(TransactionInstruction)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/TransactionBuilder.html" title="interface in com.lmax.solana4j.api">TransactionBuilder</a></dt>
+<dd>
+<div class="block">Appends an instruction to the transaction.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/TransactionBuilder.html#append(java.util.function.Consumer)">append(Consumer&lt;InstructionBuilderBase&gt;)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/TransactionBuilder.html" title="interface in com.lmax.solana4j.api">TransactionBuilder</a></dt>
 <dd>
@@ -231,6 +235,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Program for managing associated token accounts on the Solana blockchain.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/AssociatedTokenProgram.html#%3Cinit%3E()">AssociatedTokenProgram()</a></span> - Constructor for class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AssociatedTokenProgram.html" title="class in com.lmax.solana4j.programs">AssociatedTokenProgram</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/lmax/solana4j/programs/AssociatedTokenProgram.AssociatedTokenProgramFactory.html" title="class in com.lmax.solana4j.programs"><span class="typeNameLink">AssociatedTokenProgram.AssociatedTokenProgramFactory</span></a> - Class in <a href="com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <a id="I:B">
 <!--   -->
@@ -257,11 +265,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Represents a program for interacting with the BPF Loader Upgradeable program on the Solana blockchain.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/InnerTransactionBuilder.html#build()">build()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/InnerTransactionBuilder.html" title="interface in com.lmax.solana4j.api">InnerTransactionBuilder</a></dt>
-<dd>
-<div class="block">Builds and returns the inner instructions.</div>
-</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html#%3Cinit%3E()">BpfLoaderUpgradeableProgram()</a></span> - Constructor for class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html" title="class in com.lmax.solana4j.programs">BpfLoaderUpgradeableProgram</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.BpfLoaderUpgradeableProgramFactory.html" title="class in com.lmax.solana4j.programs"><span class="typeNameLink">BpfLoaderUpgradeableProgram.BpfLoaderUpgradeableProgramFactory</span></a> - Class in <a href="com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/InstructionBuilder.html#build()">build()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/InstructionBuilder.html" title="interface in com.lmax.solana4j.api">InstructionBuilder</a></dt>
+<dd>
+<div class="block">Builds and returns a transaction instruction.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/MessageInstructionBuilder.html#build()">build()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageInstructionBuilder.html" title="interface in com.lmax.solana4j.api">MessageInstructionBuilder</a></dt>
 <dd>
 <div class="block">Builds and returns a message builder with the instructions.</div>
 </dd>
@@ -313,11 +325,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">C</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#CLOSE_ACCOUNT">CLOSE_ACCOUNT</a></span> - com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#CLOSE_ACCOUNT">CLOSE_ACCOUNT</a></span> - com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for closing an account.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#CLOSE_MINT">CLOSE_MINT</a></span> - com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#CLOSE_MINT">CLOSE_MINT</a></span> - com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for closing a mint.</div>
 </dd>
@@ -329,6 +341,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><a href="com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a> - package com.lmax.solana4j.programs</dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/lmax/solana4j/programs/token/package-summary.html">com.lmax.solana4j.programs.token</a> - package com.lmax.solana4j.programs.token</dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html#COMPUTE_BUDGET_PROGRAM_ACCOUNT">COMPUTE_BUDGET_PROGRAM_ACCOUNT</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html" title="class in com.lmax.solana4j.programs">ComputeBudgetProgram</a></dt>
 <dd>
 <div class="block">The public key for the compute budget program account.</div>
@@ -337,11 +351,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Program for managing compute budgets on the Solana blockchain.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#CONFIDENTIAL_TRANSFER_FEE_CONFIG">CONFIDENTIAL_TRANSFER_FEE_CONFIG</a></span> - com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html#%3Cinit%3E()">ComputeBudgetProgram()</a></span> - Constructor for class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html" title="class in com.lmax.solana4j.programs">ComputeBudgetProgram</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/lmax/solana4j/programs/ComputeBudgetProgram.ComputeBudgetProgramFactory.html" title="class in com.lmax.solana4j.programs"><span class="typeNameLink">ComputeBudgetProgram.ComputeBudgetProgramFactory</span></a> - Class in <a href="com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#CONFIDENTIAL_TRANSFER_FEE_CONFIG">CONFIDENTIAL_TRANSFER_FEE_CONFIG</a></span> - com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for configuring confidential transfer fees.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#CONFIDENTIAL_TRANSFER_MINT">CONFIDENTIAL_TRANSFER_MINT</a></span> - com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#CONFIDENTIAL_TRANSFER_MINT">CONFIDENTIAL_TRANSFER_MINT</a></span> - com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for configuring confidential transfer mint.</div>
 </dd>
@@ -373,15 +391,27 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The instruction code for creating a lookup table.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.html#createAccount(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,long,com.lmax.solana4j.api.PublicKey)">createAccount(PublicKey, PublicKey, long, long, PublicKey)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.html" title="class in com.lmax.solana4j.programs">SystemProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.html#createAccount(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,long,com.lmax.solana4j.api.PublicKey)">createAccount(PublicKey, PublicKey, long, long, PublicKey)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.html" title="class in com.lmax.solana4j.programs">SystemProgram</a></dt>
 <dd>
 <div class="block">Creates a new account.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/AssociatedTokenProgram.html#createAssociatedToken(com.lmax.solana4j.api.ProgramDerivedAddress,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,boolean)">createAssociatedToken(ProgramDerivedAddress, PublicKey, PublicKey, PublicKey, PublicKey, boolean)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AssociatedTokenProgram.html" title="class in com.lmax.solana4j.programs">AssociatedTokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.SystemProgramFactory.html#createAccount(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,long,com.lmax.solana4j.api.PublicKey)">createAccount(PublicKey, PublicKey, long, long, PublicKey)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.SystemProgramFactory.html" title="class in com.lmax.solana4j.programs">SystemProgram.SystemProgramFactory</a></dt>
+<dd>
+<div class="block">Creates a new account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/AssociatedTokenProgram.AssociatedTokenProgramFactory.html#createAssociatedTokenAccount(com.lmax.solana4j.api.ProgramDerivedAddress,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,boolean)">createAssociatedTokenAccount(ProgramDerivedAddress, PublicKey, PublicKey, PublicKey, PublicKey, boolean)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AssociatedTokenProgram.AssociatedTokenProgramFactory.html" title="class in com.lmax.solana4j.programs">AssociatedTokenProgram.AssociatedTokenProgramFactory</a></dt>
 <dd>
 <div class="block">Creates a new associated token account.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html#createLookupTable(com.lmax.solana4j.api.ProgramDerivedAddress,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.Slot)">createLookupTable(ProgramDerivedAddress, PublicKey, PublicKey, Slot)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html" title="class in com.lmax.solana4j.programs">AddressLookupTableProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/AssociatedTokenProgram.html#createAssociatedTokenAccount(com.lmax.solana4j.api.ProgramDerivedAddress,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,boolean)">createAssociatedTokenAccount(ProgramDerivedAddress, PublicKey, PublicKey, PublicKey, PublicKey, boolean)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AssociatedTokenProgram.html" title="class in com.lmax.solana4j.programs">AssociatedTokenProgram</a></dt>
+<dd>
+<div class="block">Creates a new associated token account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/AddressLookupTableProgram.AddressLookupTableProgramFactory.html#createLookupTable(com.lmax.solana4j.api.ProgramDerivedAddress,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.Slot)">createLookupTable(ProgramDerivedAddress, PublicKey, PublicKey, Slot)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AddressLookupTableProgram.AddressLookupTableProgramFactory.html" title="class in com.lmax.solana4j.programs">AddressLookupTableProgram.AddressLookupTableProgramFactory</a></dt>
+<dd>
+<div class="block">Creates a new address lookup table.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html#createLookupTable(com.lmax.solana4j.api.ProgramDerivedAddress,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.Slot)">createLookupTable(ProgramDerivedAddress, PublicKey, PublicKey, Slot)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html" title="class in com.lmax.solana4j.programs">AddressLookupTableProgram</a></dt>
 <dd>
 <div class="block">Creates a new address lookup table.</div>
 </dd>
@@ -449,7 +479,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The instruction code for extending a lookup table.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html#extendLookupTable(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List)">extendLookupTable(PublicKey, PublicKey, PublicKey, List&lt;PublicKey&gt;)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html" title="class in com.lmax.solana4j.programs">AddressLookupTableProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/AddressLookupTableProgram.AddressLookupTableProgramFactory.html#extendLookupTable(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List)">extendLookupTable(PublicKey, PublicKey, PublicKey, List&lt;PublicKey&gt;)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AddressLookupTableProgram.AddressLookupTableProgramFactory.html" title="class in com.lmax.solana4j.programs">AddressLookupTableProgram.AddressLookupTableProgramFactory</a></dt>
+<dd>
+<div class="block">Extends an existing address lookup table with new addresses.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html#extendLookupTable(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List)">extendLookupTable(PublicKey, PublicKey, PublicKey, List&lt;PublicKey&gt;)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html" title="class in com.lmax.solana4j.programs">AddressLookupTableProgram</a></dt>
 <dd>
 <div class="block">Extends an existing address lookup table with new addresses.</div>
 </dd>
@@ -465,11 +499,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html#factory(com.lmax.solana4j.api.TransactionBuilder)">factory(TransactionBuilder)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AddressLookupTableProgram.html" title="class in com.lmax.solana4j.programs">AddressLookupTableProgram</a></dt>
 <dd>
-<div class="block">Factory method for creating a new instance of <code>AddressLookupTableProgram</code>.</div>
+<div class="block">Factory method for creating a new instance of <code>AddressLookupTableProgramFactory</code>.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/AssociatedTokenProgram.html#factory(com.lmax.solana4j.api.TransactionBuilder)">factory(TransactionBuilder)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/AssociatedTokenProgram.html" title="class in com.lmax.solana4j.programs">AssociatedTokenProgram</a></dt>
 <dd>
-<div class="block">Factory method for creating a new instance of <code>AssociatedTokenProgram</code>.</div>
+<div class="block">Factory method for creating a new instance of <code>AssociatedTokenProgramFactory</code>.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html#factory(com.lmax.solana4j.api.TransactionBuilder)">factory(TransactionBuilder)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html" title="class in com.lmax.solana4j.programs">BpfLoaderUpgradeableProgram</a></dt>
 <dd>
@@ -477,19 +511,19 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html#factory(com.lmax.solana4j.api.TransactionBuilder)">factory(TransactionBuilder)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html" title="class in com.lmax.solana4j.programs">ComputeBudgetProgram</a></dt>
 <dd>
-<div class="block">Factory method for creating a new instance of <code>ComputeBudgetProgram</code>.</div>
+<div class="block">Factory method for creating a new instance of <code>ComputeBudgetProgramFactory</code>.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.html#factory(com.lmax.solana4j.api.TransactionBuilder)">factory(TransactionBuilder)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.html" title="class in com.lmax.solana4j.programs">SystemProgram</a></dt>
 <dd>
-<div class="block">Factory method for creating a new instance of <code>SystemProgram</code>.</div>
+<div class="block">Factory method for creating a new instance of <code>SystemProgramFactory</code>.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/Token2022Program.html#factory(com.lmax.solana4j.api.TransactionBuilder)">factory(TransactionBuilder)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/Token2022Program.html" title="class in com.lmax.solana4j.programs">Token2022Program</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/Token2022Program.html#factory(com.lmax.solana4j.api.TransactionBuilder)">factory(TransactionBuilder)</a></span> - Static method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/Token2022Program.html" title="class in com.lmax.solana4j.programs.token">Token2022Program</a></dt>
 <dd>
-<div class="block">Factory method for creating a new instance of <code>Token2022Program</code>.</div>
+<div class="block">Factory method for creating a new instance of <code>Token2022ProgramFactory</code>.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#factory(com.lmax.solana4j.api.TransactionBuilder)">factory(TransactionBuilder)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgram.html#factory(com.lmax.solana4j.api.TransactionBuilder)">factory(TransactionBuilder)</a></span> - Static method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgram.html" title="class in com.lmax.solana4j.programs.token">TokenProgram</a></dt>
 <dd>
-<div class="block">Factory method for creating a new instance of <code>TokenProgram</code>.</div>
+<div class="block">Factory method for creating a new instance of <code>TokenProgramFactory</code>.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/MessageVisitor.MessageView.html#feePayer()">feePayer()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.MessageView</a></dt>
 <dd>
@@ -508,7 +542,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Creates a new signed message builder for the given message buffer.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#FREEZE_ACCOUNT">FREEZE_ACCOUNT</a></span> - com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#FREEZE_ACCOUNT">FREEZE_ACCOUNT</a></span> - com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for freezing an account.</div>
 </dd>
@@ -562,14 +596,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns the index of the address in the lookup table.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/InnerInstructions.html#getInnerTransactionBytes()">getInnerTransactionBytes()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/InnerInstructions.html" title="interface in com.lmax.solana4j.api">InnerInstructions</a></dt>
-<dd>
-<div class="block">Returns the byte array representation of the inner transaction.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/InnerInstructions.html#getInstructions()">getInstructions()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/InnerInstructions.html" title="interface in com.lmax.solana4j.api">InnerInstructions</a></dt>
-<dd>
-<div class="block">Returns the list of transaction instructions.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/AccountLookupEntry.html#getLookupTableAddress()">getLookupTableAddress()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/AccountLookupEntry.html" title="interface in com.lmax.solana4j.api">AccountLookupEntry</a></dt>
 <dd>
 <div class="block">Returns the public key of the lookup table address.</div>
@@ -579,6 +605,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Returns the public key of the lookup table address.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.html#getNonceAccountValue(byte%5B%5D)">getNonceAccountValue(byte[])</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.html" title="class in com.lmax.solana4j.programs">SystemProgram</a></dt>
+<dd>
+<div class="block">Gets the nonce value from a nonce account's data.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.SystemProgramFactory.html#getNonceAccountValue(byte%5B%5D)">getNonceAccountValue(byte[])</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.SystemProgramFactory.html" title="class in com.lmax.solana4j.programs">SystemProgram.SystemProgramFactory</a></dt>
 <dd>
 <div class="block">Gets the nonce value from a nonce account's data.</div>
 </dd>
@@ -608,49 +638,49 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns the index of the given account in the reference collection.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#INITIALIZE_ACCOUNT_INSTRUCTION">INITIALIZE_ACCOUNT_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#INITIALIZE_ACCOUNT_INSTRUCTION">INITIALIZE_ACCOUNT_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
 <dd>
 <div class="block">The instruction code for initializing an account.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#INITIALIZE_MINT_INSTRUCTION">INITIALIZE_MINT_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#INITIALIZE_MINT_INSTRUCTION">INITIALIZE_MINT_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
 <dd>
 <div class="block">The instruction code for initializing a mint.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#INITIALIZE_MULTISIG_INSTRUCTION">INITIALIZE_MULTISIG_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#INITIALIZE_MULTISIG_INSTRUCTION">INITIALIZE_MULTISIG_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
 <dd>
 <div class="block">The instruction code for initializing a multisig account.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#initializeAccount(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">initializeAccount(PublicKey, PublicKey, PublicKey)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#initializeAccount(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">initializeAccount(PublicKey, PublicKey, PublicKey)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
 <dd>
 <div class="block">Initializes a new token account.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#initializeMint(com.lmax.solana4j.api.PublicKey,byte,com.lmax.solana4j.api.PublicKey,java.util.Optional)">initializeMint(PublicKey, byte, PublicKey, Optional&lt;PublicKey&gt;)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html#initializeAccount(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">initializeAccount(PublicKey, PublicKey, PublicKey)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></dt>
+<dd>
+<div class="block">Initializes a new token account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#initializeMint(com.lmax.solana4j.api.PublicKey,byte,com.lmax.solana4j.api.PublicKey,java.util.Optional)">initializeMint(PublicKey, byte, PublicKey, Optional&lt;PublicKey&gt;)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
 <dd>
 <div class="block">Initializes a new mint.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#initializeMultisig(com.lmax.solana4j.api.PublicKey,java.util.List,int)">initializeMultisig(PublicKey, List&lt;PublicKey&gt;, int)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html#initializeMint(com.lmax.solana4j.api.PublicKey,byte,com.lmax.solana4j.api.PublicKey,java.util.Optional)">initializeMint(PublicKey, byte, PublicKey, Optional&lt;PublicKey&gt;)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></dt>
+<dd>
+<div class="block">Initializes a new mint.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#initializeMultisig(com.lmax.solana4j.api.PublicKey,java.util.List,int)">initializeMultisig(PublicKey, List&lt;PublicKey&gt;, int)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
 <dd>
 <div class="block">Initializes a new multisig account.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/InnerInstructionBuilder.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">InnerInstructionBuilder</span></a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html#initializeMultisig(com.lmax.solana4j.api.PublicKey,java.util.List,int)">initializeMultisig(PublicKey, List&lt;PublicKey&gt;, int)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></dt>
 <dd>
-<div class="block">Interface for building inner instructions in a Solana blockchain transaction.</div>
+<div class="block">Initializes a new multisig account.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/InnerInstructions.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">InnerInstructions</span></a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/encoding/SolanaEncoding.html#instruction(java.util.function.Consumer)">instruction(Consumer&lt;InstructionBuilderBase&gt;)</a></span> - Static method in class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaEncoding.html" title="class in com.lmax.solana4j.encoding">SolanaEncoding</a></dt>
 <dd>
-<div class="block">Interface representing inner instructions in a Solana blockchain transaction.</div>
+<div class="block">Creates a new transaction instructions using the builder provided.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/api/InnerTransactionBuilder.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">InnerTransactionBuilder</span></a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/Solana.html#instruction(java.util.function.Consumer)">instruction(Consumer&lt;InstructionBuilderBase&gt;)</a></span> - Static method in class com.lmax.solana4j.<a href="com/lmax/solana4j/Solana.html" title="class in com.lmax.solana4j">Solana</a></dt>
 <dd>
-<div class="block">Interface for building inner transactions in a Solana blockchain transaction.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/encoding/SolanaEncoding.html#innerTxBuilder()">innerTxBuilder()</a></span> - Static method in class com.lmax.solana4j.encoding.<a href="com/lmax/solana4j/encoding/SolanaEncoding.html" title="class in com.lmax.solana4j.encoding">SolanaEncoding</a></dt>
-<dd>
-<div class="block">Creates a new inner transaction builder.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/Solana.html#innerTxBuilder()">innerTxBuilder()</a></span> - Static method in class com.lmax.solana4j.<a href="com/lmax/solana4j/Solana.html" title="class in com.lmax.solana4j">Solana</a></dt>
-<dd>
-<div class="block">Creates a new inner transaction builder.</div>
+<div class="block">Creates a new transaction instructions using the builder provided.</div>
 </dd>
 <dt><a href="com/lmax/solana4j/api/InstructionBuilder.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">InstructionBuilder</span></a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
@@ -668,10 +698,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Retrieves the list of instructions included in this version 0 message.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/InnerTransactionBuilder.html#instructions(java.util.function.Consumer)">instructions(Consumer&lt;TransactionBuilder&gt;)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/InnerTransactionBuilder.html" title="interface in com.lmax.solana4j.api">InnerTransactionBuilder</a></dt>
-<dd>
-<div class="block">Sets the instructions for the inner transaction.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/MessageBuilderLegacy.html#instructions(java.util.function.Consumer)">instructions(Consumer&lt;TransactionBuilder&gt;)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageBuilderLegacy.html" title="interface in com.lmax.solana4j.api">MessageBuilderLegacy</a></dt>
 <dd>
 <div class="block">Sets the instructions for the legacy message.</div>
@@ -680,7 +706,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Sets the instructions for the version 0 message.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#INTEREST_RATE">INTEREST_RATE</a></span> - com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/MessageBuilderLegacy.html#instructions(java.util.List)">instructions(List&lt;TransactionInstruction&gt;)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageBuilderLegacy.html" title="interface in com.lmax.solana4j.api">MessageBuilderLegacy</a></dt>
+<dd>
+<div class="block">Sets the instructions for the legacy message.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/MessageBuilderV0.html#instructions(java.util.List)">instructions(List&lt;TransactionInstruction&gt;)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageBuilderV0.html" title="interface in com.lmax.solana4j.api">MessageBuilderV0</a></dt>
+<dd>
+<div class="block">Sets the instructions for the legacy message.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#INTEREST_RATE">INTEREST_RATE</a></span> - com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for setting the interest rate.</div>
 </dd>
@@ -756,6 +790,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Interface for building version 0 messages in the Solana blockchain.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/api/MessageInstructionBuilder.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">MessageInstructionBuilder</span></a> - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
+<dd>
+<div class="block">Interface for building instructions in a Solana blockchain transaction.</div>
+</dd>
 <dt><a href="com/lmax/solana4j/api/MessageVisitor.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">MessageVisitor</span></a>&lt;<a href="com/lmax/solana4j/api/MessageVisitor.html" title="type parameter in MessageVisitor">T</a>&gt; - Interface in <a href="com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
 <div class="block">Interface representing a visitor for messages in the Solana blockchain.</div>
@@ -800,7 +838,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Interface representing a view of a version 0 message in the Solana blockchain.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#METADATA_POINTER">METADATA_POINTER</a></span> - com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#METADATA_POINTER">METADATA_POINTER</a></span> - com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for setting a metadata pointer.</div>
 </dd>
@@ -808,19 +846,23 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The length of a mint account in bytes.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#MINT_TO_INSTRUCTION">MINT_TO_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#MINT_TO_INSTRUCTION">MINT_TO_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
 <dd>
 <div class="block">The instruction code for minting new tokens to an account.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#MINT_TOKEN">MINT_TOKEN</a></span> - com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#MINT_TOKEN">MINT_TOKEN</a></span> - com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for minting new tokens.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#mintTo(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List)">mintTo(PublicKey, PublicKey, List&lt;Destination&gt;)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#mintTo(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.Destination)">mintTo(PublicKey, PublicKey, Destination)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
 <dd>
 <div class="block">Mints new tokens to a list of destinations.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#MULTI_SIG_LAYOUT_SPAN">MULTI_SIG_LAYOUT_SPAN</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html#mintTo(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List)">mintTo(PublicKey, PublicKey, List&lt;Destination&gt;)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></dt>
+<dd>
+<div class="block">Mints new tokens to a list of destinations.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgram.html#MULTI_SIG_LAYOUT_SPAN">MULTI_SIG_LAYOUT_SPAN</a></span> - Static variable in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgram.html" title="class in com.lmax.solana4j.programs.token">TokenProgram</a></dt>
 <dd>
 <div class="block">The span (size) of the multi sig account layout in bytes.</div>
 </dd>
@@ -842,11 +884,19 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The instruction code for initializing a nonce account.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.html#nonceAdvance(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">nonceAdvance(PublicKey, PublicKey)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.html" title="class in com.lmax.solana4j.programs">SystemProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.html#nonceAdvance(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">nonceAdvance(PublicKey, PublicKey)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.html" title="class in com.lmax.solana4j.programs">SystemProgram</a></dt>
 <dd>
 <div class="block">Advances a nonce.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.html#nonceInitialize(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">nonceInitialize(PublicKey, PublicKey)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.html" title="class in com.lmax.solana4j.programs">SystemProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.SystemProgramFactory.html#nonceAdvance(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">nonceAdvance(PublicKey, PublicKey)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.SystemProgramFactory.html" title="class in com.lmax.solana4j.programs">SystemProgram.SystemProgramFactory</a></dt>
+<dd>
+<div class="block">Advances a nonce.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.html#nonceInitialize(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">nonceInitialize(PublicKey, PublicKey)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.html" title="class in com.lmax.solana4j.programs">SystemProgram</a></dt>
+<dd>
+<div class="block">Initializes a nonce account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.SystemProgramFactory.html#nonceInitialize(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">nonceInitialize(PublicKey, PublicKey)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.SystemProgramFactory.html" title="class in com.lmax.solana4j.programs">SystemProgram.SystemProgramFactory</a></dt>
 <dd>
 <div class="block">Initializes a nonce account.</div>
 </dd>
@@ -856,10 +906,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">P</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/InnerTransactionBuilder.html#payer(com.lmax.solana4j.api.PublicKey)">payer(PublicKey)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/InnerTransactionBuilder.html" title="interface in com.lmax.solana4j.api">InnerTransactionBuilder</a></dt>
-<dd>
-<div class="block">Sets the payer for the inner transaction.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/MessageBuilderLegacy.html#payer(com.lmax.solana4j.api.PublicKey)">payer(PublicKey)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageBuilderLegacy.html" title="interface in com.lmax.solana4j.api">MessageBuilderLegacy</a></dt>
 <dd>
 <div class="block">Sets the payer for the legacy message.</div>
@@ -868,7 +914,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Sets the payer for the version 0 message.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#PERMANENT_DELEGATE">PERMANENT_DELEGATE</a></span> - com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#PERMANENT_DELEGATE">PERMANENT_DELEGATE</a></span> - com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for setting a permanent delegate.</div>
 </dd>
@@ -897,11 +943,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The public key associated with the BPF Loader Upgradeable program.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/Token2022Program.html#PROGRAM_ACCOUNT">PROGRAM_ACCOUNT</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/Token2022Program.html" title="class in com.lmax.solana4j.programs">Token2022Program</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/Token2022Program.html#PROGRAM_ACCOUNT">PROGRAM_ACCOUNT</a></span> - Static variable in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/Token2022Program.html" title="class in com.lmax.solana4j.programs.token">Token2022Program</a></dt>
 <dd>
 <div class="block">The public key for the Token 2022 program account.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#PROGRAM_ACCOUNT">PROGRAM_ACCOUNT</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgram.html#PROGRAM_ACCOUNT">PROGRAM_ACCOUNT</a></span> - Static variable in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgram.html" title="class in com.lmax.solana4j.programs.token">TokenProgram</a></dt>
 <dd>
 <div class="block">The public key for the token program account.</div>
 </dd>
@@ -993,7 +1039,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Interface for building sealed messages in the Solana blockchain.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#SET_AUTHORITY_INSTRUCTION">SET_AUTHORITY_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#SET_AUTHORITY_INSTRUCTION">SET_AUTHORITY_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
 <dd>
 <div class="block">The instruction code for setting an authority.</div>
 </dd>
@@ -1005,19 +1051,35 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The instruction code for setting the compute unit price.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#setAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List,com.lmax.solana4j.programs.TokenProgram.AuthorityType)">setAuthority(PublicKey, PublicKey, PublicKey, List&lt;PublicKey&gt;, TokenProgram.AuthorityType)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#setAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List,com.lmax.solana4j.programs.token.TokenProgramBase.AuthorityType)">setAuthority(PublicKey, PublicKey, PublicKey, List&lt;PublicKey&gt;, TokenProgramBase.AuthorityType)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
 <dd>
 <div class="block">Sets a new authority for a token account.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html#setComputeUnitLimit(int)">setComputeUnitLimit(int)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html" title="class in com.lmax.solana4j.programs">ComputeBudgetProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html#setAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List,com.lmax.solana4j.programs.token.TokenProgramBase.AuthorityType)">setAuthority(PublicKey, PublicKey, PublicKey, List&lt;PublicKey&gt;, TokenProgramBase.AuthorityType)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></dt>
+<dd>
+<div class="block">Sets a new authority for a token account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/ComputeBudgetProgram.ComputeBudgetProgramFactory.html#setComputeUnitLimit(int)">setComputeUnitLimit(int)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/ComputeBudgetProgram.ComputeBudgetProgramFactory.html" title="class in com.lmax.solana4j.programs">ComputeBudgetProgram.ComputeBudgetProgramFactory</a></dt>
 <dd>
 <div class="block">Sets the compute unit limit.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html#setComputeUnitPrice(long)">setComputeUnitPrice(long)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html" title="class in com.lmax.solana4j.programs">ComputeBudgetProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html#setComputeUnitLimit(int)">setComputeUnitLimit(int)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html" title="class in com.lmax.solana4j.programs">ComputeBudgetProgram</a></dt>
+<dd>
+<div class="block">Sets the compute unit limit.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/ComputeBudgetProgram.ComputeBudgetProgramFactory.html#setComputeUnitPrice(long)">setComputeUnitPrice(long)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/ComputeBudgetProgram.ComputeBudgetProgramFactory.html" title="class in com.lmax.solana4j.programs">ComputeBudgetProgram.ComputeBudgetProgramFactory</a></dt>
 <dd>
 <div class="block">Sets the compute unit price.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html#setUpgradeAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.Optional)">setUpgradeAuthority(PublicKey, PublicKey, Optional&lt;PublicKey&gt;)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html" title="class in com.lmax.solana4j.programs">BpfLoaderUpgradeableProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html#setComputeUnitPrice(long)">setComputeUnitPrice(long)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/ComputeBudgetProgram.html" title="class in com.lmax.solana4j.programs">ComputeBudgetProgram</a></dt>
+<dd>
+<div class="block">Sets the compute unit price.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.BpfLoaderUpgradeableProgramFactory.html#setUpgradeAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.Optional)">setUpgradeAuthority(PublicKey, PublicKey, Optional&lt;PublicKey&gt;)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.BpfLoaderUpgradeableProgramFactory.html" title="class in com.lmax.solana4j.programs">BpfLoaderUpgradeableProgram.BpfLoaderUpgradeableProgramFactory</a></dt>
+<dd>
+<div class="block">Sets the upgrade authority for a given program address.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html#setUpgradeAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.Optional)">setUpgradeAuthority(PublicKey, PublicKey, Optional&lt;PublicKey&gt;)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html" title="class in com.lmax.solana4j.programs">BpfLoaderUpgradeableProgram</a></dt>
 <dd>
 <div class="block">Sets the upgrade authority for a given program address.</div>
 </dd>
@@ -1079,6 +1141,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Program for managing system-level operations on the Solana blockchain.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.html#%3Cinit%3E()">SystemProgram()</a></span> - Constructor for class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.html" title="class in com.lmax.solana4j.programs">SystemProgram</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/lmax/solana4j/programs/SystemProgram.SystemProgramFactory.html" title="class in com.lmax.solana4j.programs"><span class="typeNameLink">SystemProgram.SystemProgramFactory</span></a> - Class in <a href="com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/lmax/solana4j/encoding/SysVar.html" title="class in com.lmax.solana4j.encoding"><span class="typeNameLink">SysVar</span></a> - Class in <a href="com/lmax/solana4j/encoding/package-summary.html">com.lmax.solana4j.encoding</a></dt>
 <dd>
 <div class="block">Utility class for Solana system variable (sysvar) accounts.</div>
@@ -1095,18 +1161,36 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Wraps a byte array into a <code>ByteBuffer</code>.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/programs/Token2022Program.html" title="class in com.lmax.solana4j.programs"><span class="typeNameLink">Token2022Program</span></a>&lt;<a href="com/lmax/solana4j/programs/Token2022Program.html" title="type parameter in Token2022Program">T</a> extends <a href="com/lmax/solana4j/programs/Token2022Program.html" title="class in com.lmax.solana4j.programs">Token2022Program</a>&lt;<a href="com/lmax/solana4j/programs/Token2022Program.html" title="type parameter in Token2022Program">T</a>&gt;&gt; - Class in <a href="com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
+<dt><a href="com/lmax/solana4j/programs/token/Token2022Program.html" title="class in com.lmax.solana4j.programs.token"><span class="typeNameLink">Token2022Program</span></a>&lt;<a href="com/lmax/solana4j/programs/token/Token2022Program.html" title="type parameter in Token2022Program">T</a> extends <a href="com/lmax/solana4j/programs/token/Token2022Program.html" title="class in com.lmax.solana4j.programs.token">Token2022Program</a>&lt;<a href="com/lmax/solana4j/programs/token/Token2022Program.html" title="type parameter in Token2022Program">T</a>&gt;&gt; - Class in <a href="com/lmax/solana4j/programs/token/package-summary.html">com.lmax.solana4j.programs.token</a></dt>
 <dd>
 <div class="block">Program for managing Token 2022 operations on the Solana blockchain.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs"><span class="typeNameLink">TokenProgram</span></a>&lt;<a href="com/lmax/solana4j/programs/TokenProgram.html" title="type parameter in TokenProgram">T</a> extends <a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a>&lt;? extends <a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a>&lt;<a href="com/lmax/solana4j/programs/TokenProgram.html" title="type parameter in TokenProgram">T</a>&gt;&gt;&gt; - Class in <a href="com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/Token2022Program.html#%3Cinit%3E()">Token2022Program()</a></span> - Constructor for class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/Token2022Program.html" title="class in com.lmax.solana4j.programs.token">Token2022Program</a></dt>
+<dd>
+<div class="block">Constructs a new <code>Token2022Program</code> instance.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/programs/token/Token2022Program.Token2022ProgramFactory.html" title="class in com.lmax.solana4j.programs.token"><span class="typeNameLink">Token2022Program.Token2022ProgramFactory</span></a>&lt;<a href="com/lmax/solana4j/programs/token/Token2022Program.Token2022ProgramFactory.html" title="type parameter in Token2022Program.Token2022ProgramFactory">T</a> extends <a href="com/lmax/solana4j/programs/token/Token2022Program.Token2022ProgramFactory.html" title="class in com.lmax.solana4j.programs.token">Token2022Program.Token2022ProgramFactory</a>&lt;<a href="com/lmax/solana4j/programs/token/Token2022Program.Token2022ProgramFactory.html" title="type parameter in Token2022Program.Token2022ProgramFactory">T</a>&gt;&gt; - Class in <a href="com/lmax/solana4j/programs/token/package-summary.html">com.lmax.solana4j.programs.token</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/lmax/solana4j/programs/token/TokenProgram.html" title="class in com.lmax.solana4j.programs.token"><span class="typeNameLink">TokenProgram</span></a>&lt;<a href="com/lmax/solana4j/programs/token/TokenProgram.html" title="type parameter in TokenProgram">T</a> extends <a href="com/lmax/solana4j/programs/token/TokenProgram.html" title="class in com.lmax.solana4j.programs.token">TokenProgram</a>&lt;<a href="com/lmax/solana4j/programs/token/TokenProgram.html" title="type parameter in TokenProgram">T</a>&gt;&gt; - Class in <a href="com/lmax/solana4j/programs/token/package-summary.html">com.lmax.solana4j.programs.token</a></dt>
 <dd>
 <div class="block">Program for managing token operations on the Solana blockchain.</div>
 </dd>
-<dt><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs"><span class="typeNameLink">TokenProgram.AuthorityType</span></a> - Enum in <a href="com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgram.html#%3Cinit%3E()">TokenProgram()</a></span> - Constructor for class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgram.html" title="class in com.lmax.solana4j.programs.token">TokenProgram</a></dt>
+<dd>
+<div class="block">Constructs a new <code>TokenProgram</code> instance.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/programs/token/TokenProgram.TokenProgramFactory.html" title="class in com.lmax.solana4j.programs.token"><span class="typeNameLink">TokenProgram.TokenProgramFactory</span></a>&lt;<a href="com/lmax/solana4j/programs/token/TokenProgram.TokenProgramFactory.html" title="type parameter in TokenProgram.TokenProgramFactory">T</a> extends <a href="com/lmax/solana4j/programs/token/TokenProgram.TokenProgramFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgram.TokenProgramFactory</a>&lt;<a href="com/lmax/solana4j/programs/token/TokenProgram.TokenProgramFactory.html" title="type parameter in TokenProgram.TokenProgramFactory">T</a>&gt;&gt; - Class in <a href="com/lmax/solana4j/programs/token/package-summary.html">com.lmax.solana4j.programs.token</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token"><span class="typeNameLink">TokenProgramBase</span></a>&lt;<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="type parameter in TokenProgramBase">T</a> extends <a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a>&lt;? extends <a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a>&lt;<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="type parameter in TokenProgramBase">T</a>&gt;&gt;&gt; - Class in <a href="com/lmax/solana4j/programs/token/package-summary.html">com.lmax.solana4j.programs.token</a></dt>
+<dd>
+<div class="block">Program for managing token operations on the Solana blockchain.</div>
+</dd>
+<dt><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token"><span class="typeNameLink">TokenProgramBase.AuthorityType</span></a> - Enum in <a href="com/lmax/solana4j/programs/token/package-summary.html">com.lmax.solana4j.programs.token</a></dt>
 <dd>
 <div class="block">Enumeration of authority types for the Solana token program.</div>
 </dd>
+<dt><a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token"><span class="typeNameLink">TokenProgramBase.TokenProgramBaseFactory</span></a>&lt;<a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="type parameter in TokenProgramBase.TokenProgramBaseFactory">T</a> extends <a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a>&lt;? extends <a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a>&lt;<a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="type parameter in TokenProgramBase.TokenProgramBaseFactory">T</a>&gt;&gt;&gt; - Class in <a href="com/lmax/solana4j/programs/token/package-summary.html">com.lmax.solana4j.programs.token</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/api/MessageVisitor.MessageView.html#transaction()">transaction()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com/lmax/solana4j/api/MessageVisitor.MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.MessageView</a></dt>
 <dd>
 <div class="block">Returns the transaction data as a byte buffer.</div>
@@ -1123,19 +1207,27 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Interface representing a reference to an account in a transaction instruction.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.html#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long)">transfer(PublicKey, PublicKey, long)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.html" title="class in com.lmax.solana4j.programs">SystemProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.SystemProgramFactory.html#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long)">transfer(PublicKey, PublicKey, long)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.SystemProgramFactory.html" title="class in com.lmax.solana4j.programs">SystemProgram.SystemProgramFactory</a></dt>
 <dd>
 <div class="block">Transfers funds between accounts.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,java.util.List)">transfer(PublicKey, PublicKey, PublicKey, long, List&lt;PublicKey&gt;)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/SystemProgram.html#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long)">transfer(PublicKey, PublicKey, long)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/SystemProgram.html" title="class in com.lmax.solana4j.programs">SystemProgram</a></dt>
+<dd>
+<div class="block">Transfers funds between accounts.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,java.util.List)">transfer(PublicKey, PublicKey, PublicKey, long, List&lt;PublicKey&gt;)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></dt>
 <dd>
 <div class="block">Transfers tokens between accounts.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#TRANSFER_FEE_CONFIG">TRANSFER_FEE_CONFIG</a></span> - com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,java.util.List)">transfer(PublicKey, PublicKey, PublicKey, long, List&lt;PublicKey&gt;)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
+<dd>
+<div class="block">Transfers tokens between accounts.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#TRANSFER_FEE_CONFIG">TRANSFER_FEE_CONFIG</a></span> - com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for configuring transfer fees.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#TRANSFER_HOOK_PROGRAM_ID">TRANSFER_HOOK_PROGRAM_ID</a></span> - com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#TRANSFER_HOOK_PROGRAM_ID">TRANSFER_HOOK_PROGRAM_ID</a></span> - com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for setting the transfer hook program ID.</div>
 </dd>
@@ -1143,7 +1235,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The instruction code for transferring funds.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.html#TRANSFER_INSTRUCTION">TRANSFER_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.html" title="class in com.lmax.solana4j.programs">TokenProgram</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#TRANSFER_INSTRUCTION">TRANSFER_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
 <dd>
 <div class="block">The instruction code for transferring tokens.</div>
 </dd>
@@ -1171,11 +1263,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Creates and returns a builder for a version 0 message.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#valueOf(java.lang.String)">valueOf(String)</a></span> - Static method in enum com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#valueOf(java.lang.String)">valueOf(String)</a></span> - Static method in enum com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Returns the enum constant of this type with the specified name.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#values()">values()</a></span> - Static method in enum com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#values()">values()</a></span> - Static method in enum com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Returns an array containing the constants of this enum type, in
 the order they are declared.</div>
@@ -1194,7 +1286,7 @@ the order they are declared.</div>
 </a>
 <h2 class="title">W</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html#WITHHELD_WITHDRAW">WITHHELD_WITHDRAW</a></span> - com.lmax.solana4j.programs.<a href="com/lmax/solana4j/programs/TokenProgram.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgram.AuthorityType</a></dt>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#WITHHELD_WITHDRAW">WITHHELD_WITHDRAW</a></span> - com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for withdrawing withheld tokens.</div>
 </dd>

@@ -27,8 +27,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":9,"i2":9};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":9,"i1":9,"i2":9};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -89,15 +89,15 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
@@ -141,6 +141,29 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="nested.class.summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<table class="memberSummary">
+<caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Class</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="AssociatedTokenProgram.AssociatedTokenProgramFactory.html" title="class in com.lmax.solana4j.programs">AssociatedTokenProgram.AssociatedTokenProgramFactory</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+</section>
 <!-- =========== FIELD SUMMARY =========== -->
 <section>
 <ul class="blockList">
@@ -180,6 +203,27 @@ extends java.lang.Object</pre>
 </li>
 </ul>
 </section>
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="constructor.summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="memberSummary">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Constructor</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr class="altColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">AssociatedTokenProgram</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+</section>
 <!-- ========== METHOD SUMMARY =========== -->
 <section>
 <ul class="blockList">
@@ -188,20 +232,20 @@ extends java.lang.Object</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code><a href="AssociatedTokenProgram.html" title="class in com.lmax.solana4j.programs">AssociatedTokenProgram</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createAssociatedToken(com.lmax.solana4j.api.ProgramDerivedAddress,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,boolean)">createAssociatedToken</a></span>&#8203;(<a href="../api/ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a>&nbsp;programDerivedAddress,
-                     <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
-                     <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
-                     <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;payer,
-                     <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;programId,
-                     boolean&nbsp;idempotent)</code></th>
+<td class="colFirst"><code>static <a href="../api/TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createAssociatedTokenAccount(com.lmax.solana4j.api.ProgramDerivedAddress,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,boolean)">createAssociatedTokenAccount</a></span>&#8203;(<a href="../api/ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a>&nbsp;programDerivedAddress,
+                            <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
+                            <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
+                            <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;payer,
+                            <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;programId,
+                            boolean&nbsp;idempotent)</code></th>
 <td class="colLast">
 <div class="block">Creates a new associated token account.</div>
 </td>
@@ -216,10 +260,10 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>static <a href="AssociatedTokenProgram.html" title="class in com.lmax.solana4j.programs">AssociatedTokenProgram</a></code></td>
+<td class="colFirst"><code>static <a href="AssociatedTokenProgram.AssociatedTokenProgramFactory.html" title="class in com.lmax.solana4j.programs">AssociatedTokenProgram.AssociatedTokenProgramFactory</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#factory(com.lmax.solana4j.api.TransactionBuilder)">factory</a></span>&#8203;(<a href="../api/TransactionBuilder.html" title="interface in com.lmax.solana4j.api">TransactionBuilder</a>&nbsp;tb)</code></th>
 <td class="colLast">
-<div class="block">Factory method for creating a new instance of <code>AssociatedTokenProgram</code>.</div>
+<div class="block">Factory method for creating a new instance of <code>AssociatedTokenProgramFactory</code>.</div>
 </td>
 </tr>
 </table>
@@ -298,6 +342,25 @@ extends java.lang.Object</pre>
 </li>
 </ul>
 </section>
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="constructor.detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a id="&lt;init&gt;()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>AssociatedTokenProgram</h4>
+<pre>public&nbsp;AssociatedTokenProgram()</pre>
+</li>
+</ul>
+</li>
+</ul>
+</section>
 <!-- ============ METHOD DETAIL ========== -->
 <section>
 <ul class="blockList">
@@ -311,28 +374,28 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>factory</h4>
-<pre class="methodSignature">public static&nbsp;<a href="AssociatedTokenProgram.html" title="class in com.lmax.solana4j.programs">AssociatedTokenProgram</a>&nbsp;factory&#8203;(<a href="../api/TransactionBuilder.html" title="interface in com.lmax.solana4j.api">TransactionBuilder</a>&nbsp;tb)</pre>
-<div class="block">Factory method for creating a new instance of <code>AssociatedTokenProgram</code>.</div>
+<pre class="methodSignature">public static&nbsp;<a href="AssociatedTokenProgram.AssociatedTokenProgramFactory.html" title="class in com.lmax.solana4j.programs">AssociatedTokenProgram.AssociatedTokenProgramFactory</a>&nbsp;factory&#8203;(<a href="../api/TransactionBuilder.html" title="interface in com.lmax.solana4j.api">TransactionBuilder</a>&nbsp;tb)</pre>
+<div class="block">Factory method for creating a new instance of <code>AssociatedTokenProgramFactory</code>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>tb</code> - the transaction builder</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>a new instance of <code>AssociatedTokenProgram</code></dd>
+<dd>a new instance of <code>AssociatedTokenProgramFactory</code></dd>
 </dl>
 </li>
 </ul>
-<a id="createAssociatedToken(com.lmax.solana4j.api.ProgramDerivedAddress,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,boolean)">
+<a id="createAssociatedTokenAccount(com.lmax.solana4j.api.ProgramDerivedAddress,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>createAssociatedToken</h4>
-<pre class="methodSignature">public&nbsp;<a href="AssociatedTokenProgram.html" title="class in com.lmax.solana4j.programs">AssociatedTokenProgram</a>&nbsp;createAssociatedToken&#8203;(<a href="../api/ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a>&nbsp;programDerivedAddress,
-                                                    <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
-                                                    <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
-                                                    <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;payer,
-                                                    <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;programId,
-                                                    boolean&nbsp;idempotent)</pre>
+<h4>createAssociatedTokenAccount</h4>
+<pre class="methodSignature">public static&nbsp;<a href="../api/TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a>&nbsp;createAssociatedTokenAccount&#8203;(<a href="../api/ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a>&nbsp;programDerivedAddress,
+                                                                  <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
+                                                                  <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
+                                                                  <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;payer,
+                                                                  <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;programId,
+                                                                  boolean&nbsp;idempotent)</pre>
 <div class="block">Creates a new associated token account.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -343,7 +406,7 @@ extends java.lang.Object</pre>
 <dd><code>programId</code> - the public key of the token program used to create the programDerivedAddress</dd>
 <dd><code>idempotent</code> - whether the creation should be idempotent</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>this <code>AssociatedTokenProgram</code> instance</dd>
+<dd>A <code>TransactionInstruction</code> of the created instruction</dd>
 </dl>
 </li>
 </ul>
@@ -423,15 +486,15 @@ extends java.lang.Object</pre>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
