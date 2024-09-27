@@ -111,14 +111,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="#com.lmax.solana4j.api">com.lmax.solana4j.api</a></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
 <th class="colFirst" scope="row"><a href="#com.lmax.solana4j.encoding">com.lmax.solana4j.encoding</a></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="#com.lmax.solana4j.programs">com.lmax.solana4j.programs</a></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -146,30 +142,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
                      <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;programId)</code></th>
 <td class="colLast">
 <div class="block">Derives a program address from the given seeds and program ID.</div>
-</td>
-</tr>
-</tbody>
-</table>
-</section>
-</li>
-<li class="blockList">
-<section><a id="com.lmax.solana4j.api">
-<!--   -->
-</a>
-<h3>Uses of <a href="../ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a> in <a href="../package-summary.html">com.lmax.solana4j.api</a></h3>
-<table class="useSummary">
-<caption><span>Subinterfaces of <a href="../ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a> in <a href="../package-summary.html">com.lmax.solana4j.api</a></span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Interface</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tbody>
-<tr class="altColor">
-<td class="colFirst"><code>interface&nbsp;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../AssociatedTokenAddress.html" title="interface in com.lmax.solana4j.api">AssociatedTokenAddress</a></span></code></th>
-<td class="colLast">
-<div class="block">Interface representing an associated token address in the Solana blockchain.</div>
 </td>
 </tr>
 </tbody>
@@ -230,6 +202,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>static <a href="../ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">AssociatedTokenProgram.</span><code><span class="memberNameLink"><a href="../../programs/AssociatedTokenProgram.html#deriveAddress(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">deriveAddress</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
+             <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenProgramAccount,
+             <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint)</code></th>
+<td class="colLast">
+<div class="block">Derives a program address for a given owner, token program account, and mint.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">BpfLoaderUpgradeableProgram.</span><code><span class="memberNameLink"><a href="../../programs/BpfLoaderUpgradeableProgram.html#deriveAddress(com.lmax.solana4j.api.PublicKey)">deriveAddress</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;program)</code></th>
 <td class="colLast">

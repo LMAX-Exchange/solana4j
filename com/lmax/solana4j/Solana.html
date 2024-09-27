@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9};
+var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -204,43 +204,34 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>static <a href="api/AssociatedTokenAddress.html" title="interface in com.lmax.solana4j.api">AssociatedTokenAddress</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#associatedTokenAddress(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">associatedTokenAddress</a></span>&#8203;(<a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
-                      <a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
-                      <a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenProgramAccount)</code></th>
-<td class="colLast">
-<div class="block">Derives an associated token address for the given owner, mint, and token program account.</div>
-</td>
-</tr>
-<tr id="i3" class="rowColor">
 <td class="colFirst"><code>static <a href="api/Blockhash.html" title="interface in com.lmax.solana4j.api">Blockhash</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#blockhash(byte%5B%5D)">blockhash</a></span>&#8203;(byte[]&nbsp;bytes)</code></th>
 <td class="colLast">
 <div class="block">Creates a new blockhash from the given byte array.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>static <a href="api/MessageBuilder.html" title="interface in com.lmax.solana4j.api">MessageBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#builder(java.nio.ByteBuffer)">builder</a></span>&#8203;(java.nio.ByteBuffer&nbsp;buffer)</code></th>
 <td class="colLast">
 <div class="block">Creates a new message builder for the given buffer.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>static <a href="api/SignedMessageBuilder.html" title="interface in com.lmax.solana4j.api">SignedMessageBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#forSigning(java.nio.ByteBuffer)">forSigning</a></span>&#8203;(java.nio.ByteBuffer&nbsp;message)</code></th>
 <td class="colLast">
 <div class="block">Creates a new signed message builder for the given message buffer.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>static <a href="api/InnerTransactionBuilder.html" title="interface in com.lmax.solana4j.api">InnerTransactionBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#innerTxBuilder()">innerTxBuilder</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a new inner transaction builder.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>static <a href="api/ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#programDerivedAddress(java.util.List,com.lmax.solana4j.api.PublicKey)">programDerivedAddress</a></span>&#8203;(java.util.List&lt;byte[]&gt;&nbsp;seeds,
                      <a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;programId)</code></th>
@@ -248,14 +239,14 @@ extends java.lang.Object</pre>
 <div class="block">Derives a program address from the given seeds and program ID.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>static <a href="api/Message.html" title="interface in com.lmax.solana4j.api">Message</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#read(java.nio.ByteBuffer)">read</a></span>&#8203;(java.nio.ByteBuffer&nbsp;message)</code></th>
 <td class="colLast">
 <div class="block">Reads a message from the given buffer.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>static <a href="api/Slot.html" title="interface in com.lmax.solana4j.api">Slot</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#slot(long)">slot</a></span>&#8203;(long&nbsp;slot)</code></th>
 <td class="colLast">
@@ -425,26 +416,6 @@ extends java.lang.Object</pre>
 <dd><code>programId</code> - the public key of the program ID</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a new instance of <a href="api/ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api"><code>ProgramDerivedAddress</code></a></dd>
-</dl>
-</li>
-</ul>
-<a id="associatedTokenAddress(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>associatedTokenAddress</h4>
-<pre class="methodSignature">public static&nbsp;<a href="api/AssociatedTokenAddress.html" title="interface in com.lmax.solana4j.api">AssociatedTokenAddress</a>&nbsp;associatedTokenAddress&#8203;(<a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
-                                                            <a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
-                                                            <a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenProgramAccount)</pre>
-<div class="block">Derives an associated token address for the given owner, mint, and token program account.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>owner</code> - the public key of the owner</dd>
-<dd><code>mint</code> - the public key of the mint</dd>
-<dd><code>tokenProgramAccount</code> - the public key of the token program account</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>a new instance of <a href="api/AssociatedTokenAddress.html" title="interface in com.lmax.solana4j.api"><code>AssociatedTokenAddress</code></a></dd>
 </dl>
 </li>
 </ul>
