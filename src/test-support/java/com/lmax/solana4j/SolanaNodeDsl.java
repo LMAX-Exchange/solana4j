@@ -6,7 +6,6 @@ import com.lmax.simpledsl.api.RepeatingArgGroup;
 import com.lmax.simpledsl.api.RepeatingGroup;
 import com.lmax.simpledsl.api.RequiredArg;
 import com.lmax.solana4j.api.AddressLookupTable;
-import com.lmax.solana4j.api.AssociatedTokenAddress;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.assertion.Condition;
@@ -17,6 +16,7 @@ import com.lmax.solana4j.domain.TestPublicKey;
 import com.lmax.solana4j.domain.TokenProgram;
 import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
+import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
 import com.lmax.solana4j.programs.SystemProgram;
 import com.lmax.solana4j.solanaclient.api.AccountInfo;
@@ -36,7 +36,6 @@ import java.util.stream.Collectors;
 import static com.lmax.solana4j.assertion.Condition.isEqualTo;
 import static com.lmax.solana4j.assertion.Condition.isNotNull;
 import static com.lmax.solana4j.assertion.Condition.isTrue;
-import static com.lmax.solana4j.encoding.SolanaEncoding.deriveAssociatedTokenAddress;
 import static com.lmax.solana4j.programs.SystemProgram.MINT_ACCOUNT_LENGTH;
 import static com.lmax.solana4j.programs.SystemProgram.NONCE_ACCOUNT_LENGTH;
 import static com.lmax.solana4j.programs.TokenProgram.ACCOUNT_LAYOUT_SPAN;
@@ -581,7 +580,7 @@ public class SolanaNodeDsl
         final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
         final TestPublicKey owner = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("owner"));
 
-        final AssociatedTokenAddress associatedTokenAddress = deriveAssociatedTokenAddress(owner.getSolana4jPublicKey(), tokenMint.getSolana4jPublicKey(), tokenProgram.getProgram());
+        final ProgramDerivedAddress associatedTokenAddress = AssociatedTokenProgram.deriveAddress(owner.getSolana4jPublicKey(), tokenProgram.getProgram(), tokenMint.getSolana4jPublicKey());
         testContext.data(TestDataType.TEST_PUBLIC_KEY).store(params.value("associatedTokenAddress"), new TestPublicKey(associatedTokenAddress.address().bytes()));
 
         final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));

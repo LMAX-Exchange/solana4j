@@ -4,12 +4,15 @@ import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionBuilder;
+import com.lmax.solana4j.encoding.SolanaEncoding;
 import org.bitcoinj.core.Base58;
 
 import java.nio.ByteOrder;
+import java.util.List;
 
 import static com.lmax.solana4j.encoding.SysVar.RENT;
 import static com.lmax.solana4j.programs.SystemProgram.SYSTEM_PROGRAM_ACCOUNT;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Program for managing associated token accounts on the Solana blockchain.
@@ -97,4 +100,25 @@ public final class AssociatedTokenProgram
 
         return this;
     }
+
+    /**
+     * Derives a program address for a given owner, token program account, and mint.
+     * This method generates a program-derived address based on the combination of the owner's public key,
+     * the token program account's public key, and the mint's public key, using the associated token program account.
+     *
+     * @param owner the owner's public key; must not be null
+     * @param tokenProgramAccount the token program account's public key; must not be null
+     * @param mint the mint's public key; must not be null
+     * @return the derived program address based on the provided owner, token program account, and mint public keys
+     * @throws NullPointerException if the owner, tokenProgramAccount, or mint is null
+     */
+    public static ProgramDerivedAddress deriveAddress(final PublicKey owner, final PublicKey tokenProgramAccount, final PublicKey mint)
+    {
+        requireNonNull(owner, "The owner public key must be specified, but was null");
+        requireNonNull(tokenProgramAccount, "The token program public key must be specified, but was null");
+        requireNonNull(mint, "The mint public key must be specified, but was null");
+
+        return SolanaEncoding.deriveProgramAddress(List.of(owner.bytes(), tokenProgramAccount.bytes(), mint.bytes()), ASSOCIATED_TOKEN_PROGRAM_ACCOUNT);
+    }
+
 }

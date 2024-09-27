@@ -2,7 +2,6 @@ package com.lmax.solana4j.encoding;
 
 
 import com.lmax.solana4j.api.AddressLookupTable;
-import com.lmax.solana4j.api.AssociatedTokenAddress;
 import com.lmax.solana4j.api.Blockhash;
 import com.lmax.solana4j.api.Destination;
 import com.lmax.solana4j.api.InnerTransactionBuilder;
@@ -96,19 +95,6 @@ public final class SolanaEncoding
     public static ProgramDerivedAddress deriveProgramAddress(final List<byte[]> seeds, final PublicKey programId)
     {
         return SolanaProgramDerivedAddress.deriveProgramAddress(seeds, programId);
-    }
-
-    /**
-     * Derives an associated token address for the given owner, mint, and token program account.
-     *
-     * @param owner               the public key of the owner
-     * @param mint                the public key of the mint
-     * @param tokenProgramAccount the public key of the token program account
-     * @return a new instance of {@link AssociatedTokenAddress}
-     */
-    public static AssociatedTokenAddress deriveAssociatedTokenAddress(final PublicKey owner, final PublicKey mint, final PublicKey tokenProgramAccount)
-    {
-        return SolanaAssociatedTokenAddress.deriveAssociatedTokenAddress(owner, mint, tokenProgramAccount);
     }
 
     /**
