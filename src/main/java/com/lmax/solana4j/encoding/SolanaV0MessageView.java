@@ -75,11 +75,12 @@ final class SolanaV0MessageView extends SolanaMessageView implements MessageVisi
     public List<MessageVisitor.V0InstructionView> instructions()
     {
         return instructions.stream()
-                .map(instructionView -> (MessageVisitor.V0InstructionView) new SolanaV0InstructionView(
-                        instructionView.programIndex(),
-                        instructionView.accountIndexes(),
-                        instructionView.data(),
-                        accountsView)
+                .map(instructionView ->
+                        new SolanaV0InstructionView(
+                                instructionView.programIndex(),
+                                instructionView.accountIndexes(),
+                                instructionView.data(),
+                                accountsView)
                 ).collect(Collectors.toList());
     }
 
@@ -87,7 +88,9 @@ final class SolanaV0MessageView extends SolanaMessageView implements MessageVisi
     {
         final var signedWriterStaticAccountsCount = countAccountsSigned() - countAccountsSignedReadOnly();
         final var isSignerWriter = index < signedWriterStaticAccountsCount;
-        final var isNonSignerWriter = (index >= countAccountsSigned() && (index < (accountsView.staticAccounts().size() - countAccountsUnsignedReadOnly())));
+        final var isNonSignerWriter =
+                (index >= countAccountsSigned() &&
+                (index < (accountsView.staticAccounts().size() - countAccountsUnsignedReadOnly())));
 
         return isSignerWriter || isNonSignerWriter;
     }
@@ -102,7 +105,7 @@ final class SolanaV0MessageView extends SolanaMessageView implements MessageVisi
             {
                 throw new IllegalArgumentException(
                         "The address lookup tables provided do not contain an address" +
-                        "lookup table present in the message.");
+                                "lookup table present in the message.");
             }
             for (final int readWriteIndex : accountLookup.readWriteTableIndexes())
             {

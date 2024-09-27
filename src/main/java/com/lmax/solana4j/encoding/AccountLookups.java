@@ -1,7 +1,7 @@
 package com.lmax.solana4j.encoding;
 
-import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.AccountLookupEntry;
+import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.PublicKey;
 
 import java.util.ArrayList;

@@ -301,7 +301,8 @@ class SolanaV0MessageViewTest
         final SolanaV0MessageView messageView = (SolanaV0MessageView) SolanaV0MessageView.fromBuffer(buffer);
 
         assertThat(messageView.instructions()).size().isEqualTo(1);
-        assertThat(messageView.instructions().get(0).program(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))).isEqualTo(Solana.account(PROGRAM1));
+        assertThat(messageView.instructions().get(0)
+                .program(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))).isEqualTo(Solana.account(PROGRAM1));
         // account lives in lookup table so index has changed compared with legacy message
         assertThat(messageView.instructions().get(0).programIndex()).isEqualTo(3);
     }
@@ -325,7 +326,8 @@ class SolanaV0MessageViewTest
                         Solana.account(ACCOUNT3)
                 ));
 
-        assertThat(messageView.instructions().get(0).accountIndexes()).usingRecursiveAssertion().isEqualTo(List.of(5, 1, 2, 4));
+        assertThat(messageView.instructions().get(0).accountIndexes()).usingRecursiveAssertion()
+                .isEqualTo(List.of(5, 1, 2, 4));
     }
 
     @Test

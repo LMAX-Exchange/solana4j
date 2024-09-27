@@ -3,6 +3,8 @@ package com.lmax.solana4j.programs;
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
+import com.lmax.solana4j.programs.token.Token2022Program;
+import com.lmax.solana4j.programs.token.TokenProgram;
 import org.junit.jupiter.api.Test;
 
 import static com.lmax.solana4j.Solana4jTestHelper.ACCOUNT1;

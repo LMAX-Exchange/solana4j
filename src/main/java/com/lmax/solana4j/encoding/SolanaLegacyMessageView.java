@@ -34,11 +34,12 @@ class SolanaLegacyMessageView extends SolanaMessageView implements LegacyMessage
     public List<MessageVisitor.LegacyInstructionView> instructions()
     {
         return instructions.stream()
-                .map(instructionView -> (MessageVisitor.LegacyInstructionView) new SolanaLegacyInstructionView(
-                        instructionView.programIndex(),
-                        instructionView.accountIndexes(),
-                        instructionView.data(),
-                        accountsView)
+                .map(instructionView ->
+                        new SolanaLegacyInstructionView(
+                                instructionView.programIndex(),
+                                instructionView.accountIndexes(),
+                                instructionView.data(),
+                                accountsView)
                 ).collect(Collectors.toList());
     }
 
@@ -53,7 +54,7 @@ class SolanaLegacyMessageView extends SolanaMessageView implements LegacyMessage
 
         final var isSignerWriter = index < countAccountsSigned() - countAccountsSignedReadOnly();
         final boolean isNonSigner = index >= countAccountsSigned();
-        final boolean isNonSignerReadonly = index >= accountsView.staticAccounts().size() - countAccountsUnsignedReadOnly();
+        final boolean isNonSignerReadonly = index >= (accountsView.staticAccounts().size() - countAccountsUnsignedReadOnly());
         final var isNonSignerWriter = isNonSigner && !isNonSignerReadonly;
 
         return isSignerWriter || isNonSignerWriter;

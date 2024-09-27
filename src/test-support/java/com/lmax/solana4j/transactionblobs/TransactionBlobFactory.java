@@ -8,7 +8,7 @@ import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TokenProgram;
-import com.lmax.solana4j.domain.TokenProgramFactory;
+import com.lmax.solana4j.domain.TokenProgramInstructionFactory;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public interface TransactionBlobFactory
             List<AddressLookupTable> addressLookupTables);
 
     String tokenTransfer(
-            TokenProgramFactory tokenProgramFactory,
+            TokenProgramInstructionFactory tokenProgramInstructionFactory,
             PublicKey from,
             PublicKey to,
             PublicKey owner,
@@ -35,7 +35,7 @@ public interface TransactionBlobFactory
             List<AddressLookupTable> addressLookupTables);
 
     String mintTo(
-            TokenProgramFactory tokenProgramFactory,
+            TokenProgramInstructionFactory tokenProgramInstructionFactory,
             PublicKey mint,
             PublicKey authority,
             Destination destination,
@@ -133,7 +133,7 @@ public interface TransactionBlobFactory
             PublicKey tokenAccount,
             PublicKey tokenAccountOldAuthority,
             PublicKey tokenAccountNewAuthority,
-            com.lmax.solana4j.programs.TokenProgram.AuthorityType authorityType,
+            com.lmax.solana4j.programs.token.TokenProgram.AuthorityType authorityType,
             Blockhash blockhash,
             TestKeyPair payer,
             List<TestKeyPair> signers,

@@ -36,7 +36,10 @@ final class SolanaAccountLookupEntry implements AccountLookupEntry
     @Override
     public List<PublicKey> getAddresses()
     {
-        return Stream.concat(readWriteEntrys.stream().map(LookupEntry::getAddress), readOnlyEntrys.stream().map(LookupEntry::getAddress)).collect(Collectors.toList());
+        return Stream.concat(
+                        readWriteEntrys.stream().map(LookupEntry::getAddress),
+                        readOnlyEntrys.stream().map(LookupEntry::getAddress)
+                ).collect(Collectors.toList());
     }
 
     @Override

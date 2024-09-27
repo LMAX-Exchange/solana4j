@@ -6,18 +6,18 @@ import org.bitcoinj.core.Base58;
 
 public enum TokenProgram
 {
-    TOKEN_PROGRAM("Token", "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA", com.lmax.solana4j.programs.TokenProgram::factory),
-    TOKEN_2022_PROGRAM("Token2022", "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb", com.lmax.solana4j.programs.Token2022Program::factory);
+    TOKEN_PROGRAM("Token", "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA", com.lmax.solana4j.programs.token.TokenProgram::factory),
+    TOKEN_2022_PROGRAM("Token2022", "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb", com.lmax.solana4j.programs.token.Token2022Program::factory);
 
     private final String name;
     private final String address;
-    private final TokenProgramFactory tokenProgramFactory;
+    private final TokenProgramInstructionFactory tokenProgramInstructionFactory;
 
-    TokenProgram(final String name, final String address, final TokenProgramFactory tokenProgramFactory)
+    TokenProgram(final String name, final String address, final TokenProgramInstructionFactory tokenProgramInstructionFactory)
     {
         this.name = name;
         this.address = address;
-        this.tokenProgramFactory = tokenProgramFactory;
+        this.tokenProgramInstructionFactory = tokenProgramInstructionFactory;
     }
 
     public static TokenProgram fromName(final String name)
@@ -32,9 +32,9 @@ public enum TokenProgram
         throw new RuntimeException("Unrecognised token program!!");
     }
 
-    public TokenProgramFactory getFactory()
+    public TokenProgramInstructionFactory getFactory()
     {
-        return tokenProgramFactory;
+        return tokenProgramInstructionFactory;
     }
 
     public PublicKey getProgram()

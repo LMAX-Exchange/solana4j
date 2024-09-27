@@ -46,6 +46,7 @@ import static com.lmax.solana4j.Solana4jTestHelper.reader;
 import static com.lmax.solana4j.Solana4jTestHelper.writeComplexPartiallySignedLegacyMessage;
 import static com.lmax.solana4j.Solana4jTestHelper.writeComplexSignedLegacyMessageWithNoSignatures;
 import static com.lmax.solana4j.Solana4jTestHelper.writeComplexUnsignedLegacyMessage;
+import static com.lmax.solana4j.Solana4jTestHelper.writeComplexUnsignedLegacyMessageWithInstructionsAddedInBulk;
 import static com.lmax.solana4j.Solana4jTestHelper.writeSimpleFullySignedLegacyMessage;
 import static com.lmax.solana4j.Solana4jTestHelper.writeSimpleSignedLegacyMessageWithNoSignatures;
 import static com.lmax.solana4j.Solana4jTestHelper.writeSimpleUnsignedLegacyMessage;
@@ -112,6 +113,16 @@ class SolanaLegacyMessageBuilderConformanceTest
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
         writeComplexUnsignedLegacyMessage(buffer);
+
+        reader(buffer).expect("number of signers", (byte) 6);
+    }
+
+    @Test
+    void checkComplexUnsignedMessageHasSixSignersWithInstructionsAddedInBulk()
+    {
+        final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
+        writeComplexUnsignedLegacyMessageWithInstructionsAddedInBulk(buffer);
 
         reader(buffer).expect("number of signers", (byte) 6);
     }
@@ -432,6 +443,16 @@ class SolanaLegacyMessageBuilderConformanceTest
     }
 
     @Test
+    void checkComplexUnsignedMessageTransactionInstructionCountWhenInstructionsAddedInBulk()
+    {
+        final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
+        writeComplexUnsignedLegacyMessageWithInstructionsAddedInBulk(buffer);
+
+        fromInstructions(buffer).expectShortVecInteger("count instructions", 3);
+    }
+
+    @Test
     void checkPartiallySignedMessageAddFirstSignature()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
@@ -570,6 +591,38 @@ class SolanaLegacyMessageBuilderConformanceTest
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
         writeComplexUnsignedLegacyMessage(buffer);
+
+        fromInstruction(buffer, 0)
+                .expect("program index", indexOfAccount(buffer, PROGRAM1))
+                .expect("number of accounts", (byte) 4)
+                .expect("first account index", indexOfAccount(buffer, ACCOUNT4))
+                .expect("second account index", indexOfAccount(buffer, ACCOUNT1))
+                .expect("third account index", indexOfAccount(buffer, ACCOUNT2))
+                .expect("fourth account index", indexOfAccount(buffer, ACCOUNT3));
+
+        fromInstruction(buffer, 1)
+                .expect("program index", indexOfAccount(buffer, PROGRAM2))
+                .expect("number of accounts", (byte) 7)
+                .expect("first account index", indexOfAccount(buffer, ACCOUNT5))
+                .expect("second account index", indexOfAccount(buffer, ACCOUNT1))
+                .expect("third account index", indexOfAccount(buffer, ACCOUNT6))
+                .expect("fourth account index", indexOfAccount(buffer, ACCOUNT2))
+                .expect("fifth account index", indexOfAccount(buffer, ACCOUNT7))
+                .expect("sixth account index", indexOfAccount(buffer, ACCOUNT3))
+                .expect("seventh account index", indexOfAccount(buffer, ACCOUNT8));
+
+        fromInstruction(buffer, 2)
+                .expect("program index", indexOfAccount(buffer, PROGRAM1))
+                .expect("number of accounts", (byte) 1)
+                .expect("fourth account index", indexOfAccount(buffer, ACCOUNT3));
+    }
+
+    @Test
+    void checkComplexMessageInstructionAccountReferencesWhenInstructionsAddedInBulk()
+    {
+        final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
+        writeComplexUnsignedLegacyMessageWithInstructionsAddedInBulk(buffer);
 
         fromInstruction(buffer, 0)
                 .expect("program index", indexOfAccount(buffer, PROGRAM1))

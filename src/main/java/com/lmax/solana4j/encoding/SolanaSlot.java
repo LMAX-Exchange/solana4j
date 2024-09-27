@@ -58,7 +58,7 @@ final class SolanaSlot implements Slot
     public String toString()
     {
         return "SolanaSlot{" +
-               "bytes=" + Arrays.toString(bytes) +
-               '}';
+                "bytes=" + Arrays.toString(bytes) +
+                '}';
     }
 }

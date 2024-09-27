@@ -5,6 +5,7 @@ import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionBuilder;
 import com.lmax.solana4j.encoding.SolanaEncoding;
+import com.lmax.solana4j.api.TransactionInstruction;
 import org.bitcoinj.core.Base58;
 
 import java.nio.ByteOrder;
@@ -48,22 +49,49 @@ public final class AssociatedTokenProgram
      */
     public static final int IDEMPOTENT_CREATE_INSTRUCTION = 1;
 
-    private final TransactionBuilder tb;
-
     /**
-     * Factory method for creating a new instance of {@code AssociatedTokenProgram}.
+     * Factory method for creating a new instance of {@code AssociatedTokenProgramFactory}.
      *
      * @param tb the transaction builder
-     * @return a new instance of {@code AssociatedTokenProgram}
+     * @return a new instance of {@code AssociatedTokenProgramFactory}
      */
-    public static AssociatedTokenProgram factory(final TransactionBuilder tb)
+    public static AssociatedTokenProgramFactory factory(final TransactionBuilder tb)
     {
-        return new AssociatedTokenProgram(tb);
+        return new AssociatedTokenProgramFactory(tb);
     }
 
-    private AssociatedTokenProgram(final TransactionBuilder tb)
+    public static final class AssociatedTokenProgramFactory
     {
-        this.tb = tb;
+
+        private final TransactionBuilder tb;
+
+        private AssociatedTokenProgramFactory(final TransactionBuilder tb)
+        {
+            this.tb = tb;
+        }
+
+        /**
+         * Creates a new associated token account.
+         *
+         * @param programDerivedAddress the program derived address
+         * @param mint                  the public key of the mint
+         * @param owner                 the public key of the owner
+         * @param payer                 the public key of the payer
+         * @param programId             the public key of the token program used to create the programDerivedAddress
+         * @param idempotent            whether the creation should be idempotent
+         * @return this {@code AssociatedTokenProgramFactory} instance
+         */
+        public AssociatedTokenProgramFactory createAssociatedTokenAccount(
+                final ProgramDerivedAddress programDerivedAddress,
+                final PublicKey mint,
+                final PublicKey owner,
+                final PublicKey payer,
+                final PublicKey programId,
+                final boolean idempotent)
+        {
+            tb.append(AssociatedTokenProgram.createAssociatedTokenAccount(programDerivedAddress, mint, owner, payer, programId, idempotent));
+            return this;
+        }
     }
 
     /**
@@ -75,9 +103,9 @@ public final class AssociatedTokenProgram
      * @param payer                 the public key of the payer
      * @param programId             the public key of the token program used to create the programDerivedAddress
      * @param idempotent            whether the creation should be idempotent
-     * @return this {@code AssociatedTokenProgram} instance
+     * @return A {@code TransactionInstruction} of the created instruction
      */
-    public AssociatedTokenProgram createAssociatedToken(
+    public static TransactionInstruction createAssociatedTokenAccount(
             final ProgramDerivedAddress programDerivedAddress,
             final PublicKey mint,
             final PublicKey owner,
@@ -85,7 +113,7 @@ public final class AssociatedTokenProgram
             final PublicKey programId,
             final boolean idempotent)
     {
-        tb.append(ib -> ib
+        return Solana.instruction(ib -> ib
                 .program(ASSOCIATED_TOKEN_PROGRAM_ACCOUNT)
                 .account(payer, true, true)
                 .account(programDerivedAddress.address(), false, true)
@@ -95,10 +123,8 @@ public final class AssociatedTokenProgram
                 .account(programId, false, false)
                 .account(RENT, false, false)
                 .data(1, bb -> bb.order(ByteOrder.LITTLE_ENDIAN)
-                        .put((byte) (idempotent ? IDEMPOTENT_CREATE_INSTRUCTION : CREATE_INSTRUCTION)))
+                                 .put((byte) (idempotent ? IDEMPOTENT_CREATE_INSTRUCTION : CREATE_INSTRUCTION)))
         );
-
-        return this;
     }
 
     /**

@@ -1,8 +1,8 @@
 package com.lmax.solana4j.encoding;
 
+import com.lmax.solana4j.api.AccountLookupEntry;
 import com.lmax.solana4j.api.Accounts;
 import com.lmax.solana4j.api.AddressLookupTable;
-import com.lmax.solana4j.api.AccountLookupEntry;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionInstruction;
 
@@ -38,7 +38,10 @@ final class SolanaAccounts implements Accounts
     @Override
     public List<PublicKey> getFlattenedAccountList()
     {
-        return Stream.concat(staticAccounts.stream(), accountLookups.stream().flatMap(lookupTable -> lookupTable.getAddresses().stream())).collect(Collectors.toList());
+        return Stream.concat(staticAccounts.stream(), accountLookups.stream()
+                                                                    .flatMap(lookupTable -> lookupTable.getAddresses()
+                                                                                                       .stream()))
+                     .collect(Collectors.toList());
     }
 
     @Override
@@ -111,7 +114,10 @@ final class SolanaAccounts implements Accounts
         }
 
         return new SolanaAccounts(
-                staticAccountReferences.stream().map(TransactionInstruction.AccountReference::account).collect(Collectors.toList()),
+                staticAccountReferences
+                        .stream()
+                        .map(TransactionInstruction.AccountReference::account)
+                        .collect(Collectors.toList()),
                 accountLookups.getAccountLookupEntrys(),
                 countSigned,
                 countSignedReadOnly,
@@ -128,14 +134,14 @@ final class SolanaAccounts implements Accounts
         final LinkedHashMap<PublicKey, TransactionInstruction.AccountReference> staticAccountReferences = new LinkedHashMap<>();
         for (final var accountReference : allAccountReferences)
         {
-                if (staticAccountReferences.containsKey(accountReference.account()))
-                {
-                    staticAccountReferences.merge(accountReference.account(), accountReference, SolanaAccounts::merge);
-                }
-                else
-                {
-                    staticAccountReferences.put(accountReference.account(), accountReference);
-                }
+            if (staticAccountReferences.containsKey(accountReference.account()))
+            {
+                staticAccountReferences.merge(accountReference.account(), accountReference, SolanaAccounts::merge);
+            }
+            else
+            {
+                staticAccountReferences.put(accountReference.account(), accountReference);
+            }
         }
 
         return new ArrayList<>(staticAccountReferences.values());
@@ -152,11 +158,11 @@ final class SolanaAccounts implements Accounts
         return Stream.concat(
                 Stream.of(payerReference),
                 instructions.stream()
-                        .flatMap(instruction -> Stream.concat(
-                                Stream.of(new SolanaAccountReference(instruction.program(), false, false, true)),
-                                instruction.accountReferences().stream())
-                        )
-                        .sorted(cmp)).collect(Collectors.toList());
+                            .flatMap(instruction -> Stream.concat(
+                                    Stream.of(new SolanaAccountReference(instruction.program(), false, false, true)),
+                                    instruction.accountReferences().stream())
+                            )
+                            .sorted(cmp)).collect(Collectors.toList());
     }
 
     private static TransactionInstruction.AccountReference merge(

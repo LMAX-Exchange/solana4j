@@ -7,13 +7,13 @@ package com.lmax.solana4j.api;
  * for building a {@link MessageBuilder}.
  * </p>
  */
-public interface InstructionBuilder extends InstructionBuilderBase
+public interface MessageInstructionBuilder extends InstructionBuilderBase
 {
 
     /**
-     * Builds and returns a transaction instruction.
+     * Builds and returns a message builder with the instructions.
      *
-     * @return a {@link TransactionInstruction} object representing the built instruction
+     * @return a {@link MessageBuilder} object representing the built instructions
      */
-    TransactionInstruction build();
+    MessageBuilder build();
 }

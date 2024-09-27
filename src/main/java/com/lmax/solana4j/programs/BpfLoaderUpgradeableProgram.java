@@ -4,6 +4,7 @@ import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionBuilder;
+import com.lmax.solana4j.api.TransactionInstruction;
 import com.lmax.solana4j.encoding.SolanaEncoding;
 import org.bitcoinj.core.Base58;
 
@@ -33,29 +34,50 @@ public final class BpfLoaderUpgradeableProgram
     private static final int SET_AUTHORITY_INSTRUCTION = 4;
 
     /**
-     * The transaction builder used to construct and manage Solana transactions.
-     */
-    private final TransactionBuilder tb;
-
-    /**
      * Factory method to create an instance of {@code BpfLoaderUpgradeableProgram} with a specified transaction builder.
      *
      * @param tb The transaction builder to use for constructing transactions.
-     * @return A new instance of {@code BpfLoaderUpgradeableProgram}.
+     * @return A new instance of {@code BpfLoaderUpgradeableProgramFactory}.
      */
-    public static BpfLoaderUpgradeableProgram factory(final TransactionBuilder tb)
+    public static BpfLoaderUpgradeableProgramFactory factory(final TransactionBuilder tb)
     {
-        return new BpfLoaderUpgradeableProgram(tb);
+        return new BpfLoaderUpgradeableProgramFactory(tb);
     }
 
-    /**
-     * Constructs a new instance of {@code BpfLoaderUpgradeableProgram} with the specified transaction builder.
-     *
-     * @param tb The transaction builder to use for constructing transactions.
-     */
-    BpfLoaderUpgradeableProgram(final TransactionBuilder tb)
+    public static class BpfLoaderUpgradeableProgramFactory
     {
-        this.tb = tb;
+        /**
+         * The transaction builder used to construct and manage Solana transactions.
+         */
+        private final TransactionBuilder tb;
+
+        /**
+         * Constructs a new instance of {@code BpfLoaderUpgradeableProgramFactory} with the specified transaction builder.
+         *
+         * @param tb The transaction builder to use for constructing transactions.
+         */
+        BpfLoaderUpgradeableProgramFactory(final TransactionBuilder tb)
+        {
+            this.tb = tb;
+        }
+
+        /**
+         * Sets the upgrade authority for a given program address.
+         *
+         * @param programAddress           The public key of the program whose upgrade authority is being changed.
+         * @param currentUpgradeAuthorityAddress  The current upgrade authority's public key.
+         * @param maybeNewUpgradeAuthorityAddress An optional public key for the new upgrade authority. If not present, no new upgrade authority is set.
+         * @return The current instance of {@code BpfLoaderUpgradeableProgramFactory} to allow method chaining.
+         */
+        public BpfLoaderUpgradeableProgramFactory setUpgradeAuthority(
+                final PublicKey programAddress,
+                final PublicKey currentUpgradeAuthorityAddress,
+                final Optional<PublicKey> maybeNewUpgradeAuthorityAddress)
+        {
+            tb.append(BpfLoaderUpgradeableProgram.setUpgradeAuthority(programAddress, currentUpgradeAuthorityAddress, maybeNewUpgradeAuthorityAddress));
+
+            return this;
+        }
     }
 
     /**
@@ -64,14 +86,14 @@ public final class BpfLoaderUpgradeableProgram
      * @param programAddress           The public key of the program whose upgrade authority is being changed.
      * @param currentUpgradeAuthorityAddress  The current upgrade authority's public key.
      * @param maybeNewUpgradeAuthorityAddress An optional public key for the new upgrade authority. If not present, no new upgrade authority is set.
-     * @return The current instance of {@code BpfLoaderUpgradeableProgram} to allow method chaining.
+     * @return A {@code TransactionInstruction} of the built instruction
      */
-    public BpfLoaderUpgradeableProgram setUpgradeAuthority(
+    public static TransactionInstruction setUpgradeAuthority(
             final PublicKey programAddress,
             final PublicKey currentUpgradeAuthorityAddress,
             final Optional<PublicKey> maybeNewUpgradeAuthorityAddress)
     {
-        tb.append(ib ->
+        return Solana.instruction(ib ->
         {
             ib.program(PROGRAM_ACCOUNT)
                     .account(deriveAddress(programAddress).address(), false, true)
@@ -79,8 +101,6 @@ public final class BpfLoaderUpgradeableProgram
             maybeNewUpgradeAuthorityAddress.ifPresent(newUpgradeAuthorityAddress -> ib.account(newUpgradeAuthorityAddress, false, false));
             ib.data(4, bb -> bb.order(ByteOrder.LITTLE_ENDIAN).putInt(SET_AUTHORITY_INSTRUCTION));
         });
-
-        return this;
     }
 
     /**

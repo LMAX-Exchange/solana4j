@@ -1,4 +1,4 @@
-package com.lmax.solana4j.programs;
+package com.lmax.solana4j.programs.token;
 
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;
@@ -10,7 +10,7 @@ import org.bitcoinj.core.Base58;
  *
  * @param <T> the type of the Token 2022 program
  */
-public final class Token2022Program<T extends Token2022Program<T>> extends TokenProgram<T>
+public final class Token2022Program<T extends Token2022Program<T>> extends TokenProgramBase<T>
 {
     private static final byte[] TOKEN_2022_PROGRAM_ID = Base58.decode("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
     /**
@@ -25,22 +25,33 @@ public final class Token2022Program<T extends Token2022Program<T>> extends Token
     /**
      * Constructs a new {@code Token2022Program} instance.
      *
-     * @param tokenProgramId the public key of the token program ID
-     * @param tb             the transaction builder
      */
-    Token2022Program(final PublicKey tokenProgramId, final TransactionBuilder tb)
+    public Token2022Program()
     {
-        super(tokenProgramId, tb);
+        super(PROGRAM_ACCOUNT);
     }
 
     /**
-     * Factory method for creating a new instance of {@code Token2022Program}.
+     * Factory method for creating a new instance of {@code Token2022ProgramFactory}.
      *
      * @param tb the transaction builder
-     * @return a new instance of {@code Token2022Program}
+     * @return a new instance of {@code Token2022ProgramFactory}
      */
-    public static Token2022Program<?> factory(final TransactionBuilder tb)
+    public static Token2022ProgramFactory<?> factory(final TransactionBuilder tb)
     {
-        return new Token2022Program<>(PROGRAM_ACCOUNT, tb);
+        return new Token2022ProgramFactory<>(PROGRAM_ACCOUNT, tb);
+    }
+
+    public static class Token2022ProgramFactory<T extends Token2022ProgramFactory<T>> extends TokenProgramBaseFactory<T>
+    {
+        /**
+         * Constructs a new {@code Token2022ProgramFactory} instance.
+         *
+         * @param tb the transaction builder
+         */
+        Token2022ProgramFactory(final PublicKey programId, final TransactionBuilder tb)
+        {
+            super(programId, tb);
+        }
     }
 }
