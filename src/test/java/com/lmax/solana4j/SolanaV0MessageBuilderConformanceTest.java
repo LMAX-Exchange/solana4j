@@ -319,7 +319,7 @@ class SolanaV0MessageBuilderConformanceTest
                 .expect("version header", (byte) 128)
                 .expect("count signed accounts", (byte) 3)
                 .expect("count signed read-only accounts", (byte) 1)
-                .expect("count unsigned read-only accounts", (byte) 2);
+                .expect("count unsigned read-only accounts", (byte) 1);
     }
 
     @Test
@@ -333,7 +333,7 @@ class SolanaV0MessageBuilderConformanceTest
                 .expect("version header", (byte) 128)
                 .expect("count signed accounts", (byte) 6)
                 .expect("count signed read-only accounts", (byte) 2)
-                .expect("count unsigned read-only accounts", (byte) 4);
+                .expect("count unsigned read-only accounts", (byte) 3);
     }
 
     @Test

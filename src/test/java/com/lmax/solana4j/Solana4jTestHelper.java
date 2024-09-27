@@ -3,6 +3,7 @@ package com.lmax.solana4j;
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.Blockhash;
 import com.lmax.solana4j.api.ByteBufferSigner;
+import com.lmax.solana4j.api.Message;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionInstruction;
 import org.assertj.core.api.Assertions;
@@ -127,9 +128,9 @@ public class Solana4jTestHelper
         return sigs;
     }
 
-    public static void writeSimpleUnsignedLegacyMessage(final ByteBuffer buffer)
+    public static Message writeSimpleUnsignedLegacyMessage(final ByteBuffer buffer)
     {
-        Solana.builder(buffer)
+        return Solana.builder(buffer)
               .legacy()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
@@ -147,9 +148,9 @@ public class Solana4jTestHelper
               .build();
     }
 
-    public static void writeSimpleUnsignedV0Message(final ByteBuffer buffer)
+    public static Message writeSimpleUnsignedV0Message(final ByteBuffer buffer)
     {
-        Solana.builder(buffer)
+        return Solana.builder(buffer)
               .v0()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
@@ -168,9 +169,9 @@ public class Solana4jTestHelper
               .build();
     }
 
-    public static void writeSimpleUnsignedLegacyMessageWithBigData(final ByteBuffer buffer)
+    public static Message writeSimpleUnsignedLegacyMessageWithBigData(final ByteBuffer buffer)
     {
-        Solana.builder(buffer)
+        return Solana.builder(buffer)
               .legacy()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
@@ -183,9 +184,9 @@ public class Solana4jTestHelper
               .build();
     }
 
-    public static void writeSimpleUnsignedV0MessageWithBigData(final ByteBuffer buffer)
+    public static Message writeSimpleUnsignedV0MessageWithBigData(final ByteBuffer buffer)
     {
-        Solana.builder(buffer)
+        return Solana.builder(buffer)
               .v0()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
@@ -199,9 +200,9 @@ public class Solana4jTestHelper
               .build();
     }
 
-    public static void writeSimpleSignedLegacyMessageWithNoSignatures(final ByteBuffer buffer)
+    public static Message writeSimpleSignedLegacyMessageWithNoSignatures(final ByteBuffer buffer)
     {
-        Solana.builder(buffer)
+        return Solana.builder(buffer)
               .legacy()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
@@ -218,9 +219,9 @@ public class Solana4jTestHelper
               .build();
     }
 
-    public static void writeSimpleSignedV0MessageWithNoSignatures(final ByteBuffer buffer)
+    public static Message writeSimpleSignedV0MessageWithNoSignatures(final ByteBuffer buffer)
     {
-        Solana.builder(buffer)
+        return Solana.builder(buffer)
               .v0()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
@@ -238,9 +239,9 @@ public class Solana4jTestHelper
               .build();
     }
 
-    public static void writeSimpleFullySignedLegacyMessage(final ByteBuffer buffer)
+    public static Message writeSimpleFullySignedLegacyMessage(final ByteBuffer buffer)
     {
-        Solana.builder(buffer)
+        return Solana.builder(buffer)
               .legacy()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
@@ -260,9 +261,9 @@ public class Solana4jTestHelper
               .build();
     }
 
-    public static void writeSimpleFullySignedV0Message(final ByteBuffer buffer)
+    public static Message writeSimpleFullySignedV0Message(final ByteBuffer buffer)
     {
-        Solana.builder(buffer)
+        return Solana.builder(buffer)
               .v0()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
@@ -284,9 +285,33 @@ public class Solana4jTestHelper
               .build();
     }
 
-    public static void writeComplexUnsignedLegacyMessage(final ByteBuffer buffer)
+    public static Message writeSimpleFullySignedV0MessageWithoutLookupTables(final ByteBuffer buffer)
     {
-        Solana.builder(buffer)
+        return Solana.builder(buffer)
+                .v0()
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
+                .instructions(tb -> tb
+                        .append(ib -> ib
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT4), false, false)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT2), true, false)
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .data(DATA1.length, w -> w.put(DATA1))))
+                // account3 and account4 should end up in lookup accounts section
+                .lookups(List.of())
+                .seal()
+                .signed()
+                .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
+                .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
+                .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
+                .build();
+    }
+
+    public static Message writeComplexUnsignedLegacyMessage(final ByteBuffer buffer)
+    {
+        return Solana.builder(buffer)
               .legacy()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
@@ -319,9 +344,9 @@ public class Solana4jTestHelper
               .build();
     }
 
-    public static void writeComplexUnsignedV0Message(final ByteBuffer buffer)
+    public static Message writeComplexUnsignedV0Message(final ByteBuffer buffer)
     {
-        Solana.builder(buffer)
+        return Solana.builder(buffer)
               .v0()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
@@ -430,9 +455,9 @@ public class Solana4jTestHelper
               .build();
     }
 
-    public static void writeComplexSignedLegacyMessageWithNoSignatures(final ByteBuffer buffer)
+    public static Message writeComplexSignedLegacyMessageWithNoSignatures(final ByteBuffer buffer)
     {
-        Solana.builder(buffer)
+        return Solana.builder(buffer)
               .legacy()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
@@ -465,9 +490,9 @@ public class Solana4jTestHelper
               .build();
     }
 
-    public static void writeComplexSignedV0MessageWithNoSignatures(final ByteBuffer buffer)
+    public static Message writeComplexSignedV0MessageWithNoSignatures(final ByteBuffer buffer)
     {
-        Solana.builder(buffer)
+        return Solana.builder(buffer)
               .v0()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
@@ -501,9 +526,9 @@ public class Solana4jTestHelper
               .build();
     }
 
-    public static void writeComplexPartiallySignedLegacyMessage(final ByteBuffer buffer)
+    public static Message writeComplexPartiallySignedLegacyMessage(final ByteBuffer buffer)
     {
-        Solana.builder(buffer)
+        return Solana.builder(buffer)
               .legacy()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
@@ -540,9 +565,9 @@ public class Solana4jTestHelper
               .build();
     }
 
-    public static void writeComplexPartiallySignedV0Message(final ByteBuffer buffer)
+    public static Message writeComplexPartiallySignedV0Message(final ByteBuffer buffer)
     {
-        Solana.builder(buffer)
+        return Solana.builder(buffer)
               .v0()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
@@ -765,7 +790,7 @@ public class Solana4jTestHelper
         return result;
     }
 
-    private static ByteBufferSigner getByteBufferSignerFor(final byte[] account)
+    public static ByteBufferSigner getByteBufferSignerFor(final byte[] account)
     {
         return (transaction, signature) -> signature.put(SIGNINGS.get(Solana.account(account)));
     }

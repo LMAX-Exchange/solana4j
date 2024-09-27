@@ -19,7 +19,7 @@ final class AddressLookupTableProgramIntegrationTest extends IntegrationTestBase
         solana.setMessageEncoding(messageEncoding);
 
         solana.createAddressLookupTable("lookupTableAddress", "addressLookupTableAuthority", "payer");
-        solana.retrieveAddressLookupTable("lookupTableAddress");
+        solana.verifyAddressLookupTable("lookupTableAddress");
     }
 
     @ParameterizedMessageEncodingTest
@@ -40,7 +40,7 @@ final class AddressLookupTableProgramIntegrationTest extends IntegrationTestBase
                 "addressForLookupTable1, addressForLookupTable2, addressForLookupTable3"
         );
 
-        solana.retrieveAddressLookupTable(
+        solana.verifyAddressLookupTable(
                 "lookupTableAddress",
                 "addressForLookupTable1, addressForLookupTable2, addressForLookupTable3"
         );
