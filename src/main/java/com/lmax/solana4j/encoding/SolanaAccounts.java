@@ -110,8 +110,6 @@ final class SolanaAccounts implements Accounts
             }
         }
 
-        countUnsignedReadOnly += accountLookups.countUnsignedReadOnly();
-
         return new SolanaAccounts(
                 staticAccountReferences.stream().map(TransactionInstruction.AccountReference::account).collect(Collectors.toList()),
                 accountLookups.getAccountLookupEntrys(),

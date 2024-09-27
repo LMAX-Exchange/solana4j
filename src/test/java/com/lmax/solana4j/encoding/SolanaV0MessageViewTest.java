@@ -77,7 +77,7 @@ class SolanaV0MessageViewTest
 
         assertThat(messageView.countAccountsSigned()).isEqualTo(3);
         assertThat(messageView.countAccountsSignedReadOnly()).isEqualTo(1);
-        assertThat(messageView.countAccountsUnsignedReadOnly()).isEqualTo(2);
+        assertThat(messageView.countAccountsUnsignedReadOnly()).isEqualTo(1);
     }
 
     @Test

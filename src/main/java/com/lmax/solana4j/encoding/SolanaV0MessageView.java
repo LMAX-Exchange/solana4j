@@ -85,16 +85,9 @@ final class SolanaV0MessageView extends SolanaMessageView implements MessageVisi
 
     private boolean isWriterStaticAccount(final int index)
     {
-        final var unsignedReadOnlyLookupAccountsCount = accountLookups
-                .stream()
-                .map(x -> x.readOnlyTableIndexes().size())
-                .mapToInt(Integer::intValue)
-                .sum();
-
-        final var unsignedReadOnlyStaticAccountsCount = countAccountsUnsignedReadOnly() - unsignedReadOnlyLookupAccountsCount;
         final var signedWriterStaticAccountsCount = countAccountsSigned() - countAccountsSignedReadOnly();
         final var isSignerWriter = index < signedWriterStaticAccountsCount;
-        final var isNonSignerWriter = (index > (countAccountsSigned() - 1) && (index < (accountsView.staticAccounts().size() - unsignedReadOnlyStaticAccountsCount)));
+        final var isNonSignerWriter = (index >= countAccountsSigned() && (index < (accountsView.staticAccounts().size() - countAccountsUnsignedReadOnly())));
 
         return isSignerWriter || isNonSignerWriter;
     }

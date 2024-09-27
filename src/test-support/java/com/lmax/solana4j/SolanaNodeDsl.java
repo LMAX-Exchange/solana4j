@@ -87,7 +87,7 @@ public class SolanaNodeDsl
         Waiter.waitFor(transactionFinalized(transactionSignature));
     }
 
-    public void retrieveAddressLookupTable(final String... args)
+    public void verifyAddressLookupTable(final String... args)
     {
         final DslParams params = DslParams.create(
                 args,
@@ -95,17 +95,15 @@ public class SolanaNodeDsl
                 new OptionalArg("addresses").setAllowMultipleValues()
         );
 
-        final TestPublicKey account = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("lookupTableAddress"));
-
-        final AccountInfo accountInfo = Waiter.waitFor(isNotNull(() -> solanaDriver.getAccountInfo(account)));
+        final TestPublicKey lookupTableAddress = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("lookupTableAddress"));
 
         final List<PublicKey> expectedAddresses = stream(params.values("addresses"))
                 .map(address -> testContext.data(TestDataType.TEST_KEY_PAIR).lookup(address).getSolana4jPublicKey())
                 .collect(Collectors.toList());
 
-        final AddressLookupTable addressLookupTable = AddressLookupTableProgram.deserializeAddressLookupTable(account.getSolana4jPublicKey(), Base64.decode(accountInfo.getData().get(0)));
+        final AddressLookupTable addressLookupTable = storeAddressLookupTable(lookupTableAddress, params.value("lookupTableAddress"));
+
         assertThat(addressLookupTable.getAddresses()).usingRecursiveComparison().isEqualTo(expectedAddresses);
-        testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE).store(params.value("lookupTableAddress"), addressLookupTable);
     }
 
     public void createAddressLookupTable(final String... args)
@@ -122,13 +120,15 @@ public class SolanaNodeDsl
         final long recentSlot = solanaDriver.getSlot();
 
         final ProgramDerivedAddress programDerivedAddress = AddressLookupTableProgram.deriveAddress(authority.getSolana4jPublicKey(), SolanaEncoding.slot(recentSlot));
-        final TestPublicKey address = new TestPublicKey(programDerivedAddress.address().bytes());
-        testContext.data(TestDataType.TEST_PUBLIC_KEY).store(params.value("lookupTableAddress"), address);
+        final TestPublicKey lookupTableAddress = new TestPublicKey(programDerivedAddress.address().bytes());
+        testContext.data(TestDataType.TEST_PUBLIC_KEY).store(params.value("lookupTableAddress"), lookupTableAddress);
 
         // intermittency caused by slot not moving on to the next slot before including in the sent transaction
         waitForSlot(recentSlot + 1);
         final String transactionSignature = solanaDriver.createAddressLookupTable(programDerivedAddress, authority, payer, SolanaEncoding.slot(recentSlot));
         Waiter.waitFor(transactionFinalized(transactionSignature));
+
+        storeAddressLookupTable(lookupTableAddress, params.value("lookupTableAddress"));
     }
 
     public void extendAddressLookupTable(final String... args)
@@ -142,7 +142,7 @@ public class SolanaNodeDsl
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
         );
 
-        final TestPublicKey addressLookupTable = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("lookupTableAddress"));
+        final TestPublicKey lookupTableAddress = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("lookupTableAddress"));
         final TestKeyPair authority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("authority"));
         final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
@@ -156,9 +156,11 @@ public class SolanaNodeDsl
             addresses.add(testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(address));
         }
 
-        final String transactionSignature = solanaDriver.extendAddressLookupTable(addressLookupTable, authority, payer, addresses, addressLookupTables);
+        final String transactionSignature = solanaDriver.extendAddressLookupTable(lookupTableAddress, authority, payer, addresses, addressLookupTables);
 
         Waiter.waitFor(transactionFinalized(transactionSignature));
+
+        storeAddressLookupTable(lookupTableAddress, params.value("lookupTableAddress"));
     }
 
     public void waitForSlot(final String... args)
@@ -794,5 +796,15 @@ public class SolanaNodeDsl
     private Condition<TransactionData> transactionFinalized(final String transactionSignature)
     {
         return isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction());
+    }
+
+    private AddressLookupTable storeAddressLookupTable(final TestPublicKey lookupTableAddress, final String lookupTableAlias)
+    {
+        final AccountInfo accountInfo = Waiter.waitFor(isNotNull(() -> solanaDriver.getAccountInfo(lookupTableAddress)));
+        final AddressLookupTable addressLookupTable = AddressLookupTableProgram.deserializeAddressLookupTable(
+                lookupTableAddress.getSolana4jPublicKey(),
+                Base64.decode(accountInfo.getData().get(0)));
+        testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE).store(lookupTableAlias, addressLookupTable);
+        return addressLookupTable;
     }
 }

@@ -545,7 +545,7 @@ class SolanaAccountsTest
     }
 
     @Test
-    void unsignedReadOnlyAccountReferenceInLookupTable()
+    void unsignedReadOnlyAccountReferenceInLookupTableNotIncludedInUnsignedReadOnlyCountOfMessage()
     {
         final SolanaAccount roUAccount = new SolanaAccount(ACCOUNT1);
 
@@ -568,7 +568,7 @@ class SolanaAccountsTest
         lookupAccountsEqual(accounts.getAccountLookups(), lookupTableAddress, List.of(roUAccount));
         accountLookupReadOnlyIndexEquals(accounts.getAccountLookups(), lookupTableAddress, roUAccount, 0);
         flattenedAccountListEquals(accounts.getFlattenedAccountList(), List.of(RW_S_PAYER_ACCOUNT, RO_U_PROGRAM1_ACCOUNT, roUAccount));
-        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 2);
+        countUnsignedReadOnlyEquals(accounts.getCountUnsignedReadOnly(), 1);
         countSignedReadOnlyEquals(accounts.getCountSignedReadOnly(), 0);
         countSignedEquals(accounts.getCountSigned(), 1);
     }

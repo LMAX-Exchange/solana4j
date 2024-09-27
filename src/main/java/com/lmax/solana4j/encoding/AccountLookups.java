@@ -80,9 +80,4 @@ final class AccountLookups
     {
         return accountsInLookupTables;
     }
-
-    public int countUnsignedReadOnly()
-    {
-        return accountLookupEntries.stream().map(x -> x.getReadOnlyLookupEntrys().size()).mapToInt(Integer::intValue).sum();
-    }
 }
