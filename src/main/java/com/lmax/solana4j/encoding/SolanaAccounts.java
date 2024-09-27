@@ -91,8 +91,7 @@ final class SolanaAccounts implements Accounts
 
         final var staticAccountReferences = allAccountReferences
                 .stream()
-                .filter(accountReference -> !accountLookups.getAccountsInLookupTables()
-                                                           .contains(accountReference.account()))
+                .filter(accountReference -> !accountLookups.getAccountsInLookupTables().contains(accountReference.account()))
                 .collect(Collectors.toList());
 
         int countSigned = 0;
@@ -115,8 +114,10 @@ final class SolanaAccounts implements Accounts
         }
 
         return new SolanaAccounts(
-                staticAccountReferences.stream().map(TransactionInstruction.AccountReference::account)
-                                       .collect(Collectors.toList()),
+                staticAccountReferences
+                        .stream()
+                        .map(TransactionInstruction.AccountReference::account)
+                        .collect(Collectors.toList()),
                 accountLookups.getAccountLookupEntrys(),
                 countSigned,
                 countSignedReadOnly,

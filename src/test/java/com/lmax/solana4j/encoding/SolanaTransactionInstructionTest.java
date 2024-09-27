@@ -69,9 +69,9 @@ class SolanaTransactionInstructionTest
     {
         assertThat(instruction.datasize()).isEqualTo(expectedData.length);
         assertThat(instruction.accountReferences()
-                              .stream()
-                              .map(TransactionInstruction.AccountReference::account)
-                              .collect(Collectors.toList()))
+                .stream()
+                .map(TransactionInstruction.AccountReference::account)
+                .collect(Collectors.toList()))
                 .usingRecursiveComparison()
                 .isEqualTo(expectedAccountReferences);
 

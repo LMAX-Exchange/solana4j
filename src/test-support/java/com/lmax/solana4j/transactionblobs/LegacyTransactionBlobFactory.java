@@ -84,7 +84,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
                 .legacy()
                 .recent(blockhash)
                 .instructions(builder -> tokenProgramInstructionFactory.factory(builder)
-                                                                       .transfer(
+                        .transfer(
                                 from,
                                 to,
                                 owner,
@@ -123,11 +123,10 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
                 .legacy()
                 .recent(blockhash)
                 .instructions(builder -> tokenProgramInstructionFactory.factory(builder)
-                                                                       .mintTo(
+                        .mintTo(
                                 mint,
                                 authority,
-                                List.of(destination)
-                        ))
+                                List.of(destination)))
                 .payer(payer)
                 .seal()
                 .unsigned()

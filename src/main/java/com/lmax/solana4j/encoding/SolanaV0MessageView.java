@@ -75,21 +75,22 @@ final class SolanaV0MessageView extends SolanaMessageView implements MessageVisi
     public List<MessageVisitor.V0InstructionView> instructions()
     {
         return instructions.stream()
-                           .map(instructionView -> (MessageVisitor.V0InstructionView) new SolanaV0InstructionView(
-                                   instructionView.programIndex(),
-                                   instructionView.accountIndexes(),
-                                   instructionView.data(),
-                                   accountsView)
-                           )
-                           .collect(Collectors.toList());
+                .map(instructionView ->
+                        new SolanaV0InstructionView(
+                                instructionView.programIndex(),
+                                instructionView.accountIndexes(),
+                                instructionView.data(),
+                                accountsView)
+                ).collect(Collectors.toList());
     }
 
     private boolean isWriterStaticAccount(final int index)
     {
         final var signedWriterStaticAccountsCount = countAccountsSigned() - countAccountsSignedReadOnly();
         final var isSignerWriter = index < signedWriterStaticAccountsCount;
-        final var isNonSignerWriter = (index >= countAccountsSigned() && (index < (accountsView.staticAccounts()
-                                                                                                    .size() - countAccountsUnsignedReadOnly())));
+        final var isNonSignerWriter =
+                (index >= countAccountsSigned() &&
+                (index < (accountsView.staticAccounts().size() - countAccountsUnsignedReadOnly())));
 
         return isSignerWriter || isNonSignerWriter;
     }

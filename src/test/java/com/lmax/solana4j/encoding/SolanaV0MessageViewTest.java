@@ -106,19 +106,19 @@ class SolanaV0MessageViewTest
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
         Solana.builder(buffer)
-              .v0()
-              .payer(Solana.account(PAYER))
-              .recent(Solana.blockhash(BLOCKHASH))
-              .instructions(tb -> tb
-                      .append(ib -> ib
-                              .program(Solana.account(PROGRAM1))
-                              .account(Solana.account(ACCOUNT3), false, true)
-                              .account(Solana.account(ACCOUNT1), true, true)
-                              .data(DATA1.length, w -> w.put(DATA1))))
-              .lookups(List.of(ADDRESS_LOOK_TABLE1))
-              .seal()
-              .signed()
-              .build();
+                .v0()
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
+                .instructions(tb -> tb
+                        .append(ib -> ib
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .data(DATA1.length, w -> w.put(DATA1))))
+                .lookups(List.of(ADDRESS_LOOK_TABLE1))
+                .seal()
+                .signed()
+                .build();
 
         final SolanaV0MessageView messageView = (SolanaV0MessageView) SolanaV0MessageView.fromBuffer(buffer);
 
@@ -133,20 +133,20 @@ class SolanaV0MessageViewTest
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
         Solana.builder(buffer)
-              .v0()
-              .payer(Solana.account(PAYER))
-              .recent(Solana.blockhash(BLOCKHASH))
-              .instructions(tb -> tb
-                      .append(ib -> ib
-                              .program(Solana.account(PROGRAM1))
-                              .account(Solana.account(ACCOUNT3), false, true)
-                              .account(Solana.account(ACCOUNT1), true, true)
-                              .account(Solana.account(ACCOUNT5), false, false)
-                              .data(DATA1.length, w -> w.put(DATA1))))
-              .lookups(List.of(ADDRESS_LOOK_TABLE2))
-              .seal()
-              .signed()
-              .build();
+                .v0()
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
+                .instructions(tb -> tb
+                        .append(ib -> ib
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT3), false, true)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .account(Solana.account(ACCOUNT5), false, false)
+                                .data(DATA1.length, w -> w.put(DATA1))))
+                .lookups(List.of(ADDRESS_LOOK_TABLE2))
+                .seal()
+                .signed()
+                .build();
 
         final SolanaV0MessageView messageView = (SolanaV0MessageView) SolanaV0MessageView.fromBuffer(buffer);
 
@@ -162,19 +162,19 @@ class SolanaV0MessageViewTest
         final var buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
 
         Solana.builder(buffer)
-              .v0()
-              .payer(Solana.account(PAYER))
-              .recent(Solana.blockhash(BLOCKHASH))
-              .instructions(tb -> tb
-                      .append(ib -> ib
-                              .program(Solana.account(PROGRAM1))
-                              .account(Solana.account(ACCOUNT3), true, true)
-                              .account(Solana.account(ACCOUNT1), true, true)
-                              .data(DATA1.length, w -> w.put(DATA1))))
-              .lookups(List.of(ADDRESS_LOOK_TABLE2))
-              .seal()
-              .signed()
-              .build();
+                .v0()
+                .payer(Solana.account(PAYER))
+                .recent(Solana.blockhash(BLOCKHASH))
+                .instructions(tb -> tb
+                        .append(ib -> ib
+                                .program(Solana.account(PROGRAM1))
+                                .account(Solana.account(ACCOUNT3), true, true)
+                                .account(Solana.account(ACCOUNT1), true, true)
+                                .data(DATA1.length, w -> w.put(DATA1))))
+                .lookups(List.of(ADDRESS_LOOK_TABLE2))
+                .seal()
+                .signed()
+                .build();
 
         final SolanaV0MessageView messageView = (SolanaV0MessageView) SolanaV0MessageView.fromBuffer(buffer);
 
@@ -302,7 +302,7 @@ class SolanaV0MessageViewTest
 
         assertThat(messageView.instructions()).size().isEqualTo(1);
         assertThat(messageView.instructions().get(0)
-                              .program(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))).isEqualTo(Solana.account(PROGRAM1));
+                .program(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))).isEqualTo(Solana.account(PROGRAM1));
         // account lives in lookup table so index has changed compared with legacy message
         assertThat(messageView.instructions().get(0).programIndex()).isEqualTo(3);
     }
@@ -327,7 +327,7 @@ class SolanaV0MessageViewTest
                 ));
 
         assertThat(messageView.instructions().get(0).accountIndexes()).usingRecursiveAssertion()
-                                                                      .isEqualTo(List.of(5, 1, 2, 4));
+                .isEqualTo(List.of(5, 1, 2, 4));
     }
 
     @Test

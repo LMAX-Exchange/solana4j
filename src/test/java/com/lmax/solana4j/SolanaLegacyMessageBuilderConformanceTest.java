@@ -449,8 +449,7 @@ class SolanaLegacyMessageBuilderConformanceTest
 
         writeComplexUnsignedLegacyMessageWithInstructionsAddedInBulk(buffer);
 
-        fromInstructions(buffer)
-                .expectShortVecInteger("count instructions", 3);
+        fromInstructions(buffer).expectShortVecInteger("count instructions", 3);
     }
 
     @Test

@@ -79,13 +79,12 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .v0()
                 .recent(blockhash)
                 .instructions(builder -> tokenProgramInstructionFactory.factory(builder)
-                                                                       .transfer(
+                        .transfer(
                                 from,
                                 to,
                                 owner,
                                 amount,
-                                signers.stream().map(TestKeyPair::getSolana4jPublicKey).collect(Collectors.toList())
-                        ))
+                                signers.stream().map(TestKeyPair::getSolana4jPublicKey).collect(Collectors.toList())))
                 .payer(payer)
                 .lookups(addressLookupTables)
                 .seal()
@@ -119,11 +118,10 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .v0()
                 .recent(blockhash)
                 .instructions(builder -> tokenProgramInstructionFactory.factory(builder)
-                                                                       .mintTo(
+                        .mintTo(
                                 mint,
                                 authority,
-                                List.of(destination)
-                        ))
+                                List.of(destination)))
                 .payer(payer)
                 .lookups(addressLookupTables)
                 .seal()
@@ -404,8 +402,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(tb -> factory(tb)
-                        .nonceAdvance(account, authority))
+                .instructions(tb -> factory(tb).nonceAdvance(account, authority))
                 .payer(payer)
                 .lookups(addressLookupTables)
                 .seal()
