@@ -140,4 +140,9 @@ task setUpGitHooks(type: Exec, description: 'Add a pre-commit git hook that runs
     commandLine 'git', 'config', 'core.hooksPath', hooksFolder
 }
 
+tasks.register('sourcesJar', Jar) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+}
+
 check.dependsOn integrationTest
