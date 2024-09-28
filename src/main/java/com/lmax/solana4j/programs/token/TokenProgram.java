@@ -11,7 +11,7 @@ import org.bitcoinj.core.Base58;
  *
  */
 
-public final class TokenProgram
+public final class TokenProgram extends TokenProgramBase
 {
     private static final byte[] TOKEN_PROGRAM_ID = Base58.decode("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
     /**

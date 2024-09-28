@@ -74,7 +74,6 @@ public abstract class TokenProgramBase
          *
          * @param tokenProgramId the program id of the token program
          * @param tb the transaction builder
-         * @return a new instance of {@code TokenProgramBaseFactory}
          */
         protected TokenProgramBaseFactory(final PublicKey tokenProgramId, final TransactionBuilder tb)
         {
