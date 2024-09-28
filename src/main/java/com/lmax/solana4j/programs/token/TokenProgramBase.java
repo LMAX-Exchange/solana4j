@@ -63,7 +63,7 @@ public abstract class TokenProgramBase
      */
     public static final int MINT_TO_INSTRUCTION = 7;
 
-    public static class TokenProgramBaseFactory<T extends TokenProgramBaseFactory<? extends TokenProgramBaseFactory<T>>>
+    public static class TokenProgramBaseFactory
     {
 
         private final PublicKey programId;
@@ -90,10 +90,10 @@ public abstract class TokenProgramBase
          * @param owner   the public key of the account owner
          * @return this {@code T} instance
          */
-        public T initializeAccount(final PublicKey account, final PublicKey mint, final PublicKey owner)
+        public TokenProgramBaseFactory initializeAccount(final PublicKey account, final PublicKey mint, final PublicKey owner)
         {
             tb.append(TokenProgramBase.initializeAccount(programId, account, mint, owner));
-            return (T) this;
+            return this;
         }
 
         /**
@@ -105,14 +105,14 @@ public abstract class TokenProgramBase
          * @param freezeAuthority  the public key of the freeze authority (optional)
          * @return this {@code T} instance
          */
-        public T initializeMint(
+        public TokenProgramBaseFactory initializeMint(
                 final PublicKey tokenMintAddress,
                 final byte decimals,
                 final PublicKey mintAuthority,
                 final Optional<PublicKey> freezeAuthority)
         {
             tb.append(TokenProgramBase.initializeMint(programId, tokenMintAddress, decimals, mintAuthority, freezeAuthority));
-            return (T) this;
+            return this;
         }
 
         /**
@@ -123,7 +123,7 @@ public abstract class TokenProgramBase
          * @param destinations the list of destinations to mint to
          * @return this {@code T} instance
          */
-        public T mintTo(
+        public TokenProgramBaseFactory mintTo(
                 final PublicKey mint,
                 final PublicKey authority,
                 final List<Destination> destinations)
@@ -132,7 +132,7 @@ public abstract class TokenProgramBase
             {
                 tb.append(TokenProgramBase.mintTo(programId, mint, authority, destination));
             }
-            return (T) this;
+            return this;
         }
 
         /**
@@ -145,7 +145,7 @@ public abstract class TokenProgramBase
          * @param signers     the list of public keys of the signers
          * @return this {@code T} instance
          */
-        public T transfer(
+        public TokenProgramBaseFactory transfer(
                 final PublicKey source,
                 final PublicKey destination,
                 final PublicKey owner,
@@ -153,7 +153,7 @@ public abstract class TokenProgramBase
                 final List<PublicKey> signers)
         {
             tb.append(TokenProgramBase.transfer(programId, source, destination, owner, amount, signers));
-            return (T) this;
+            return this;
         }
 
         /**
@@ -164,13 +164,13 @@ public abstract class TokenProgramBase
          * @param requiredSignatures the number of required signatures
          * @return this {@code T} instance
          */
-        public T initializeMultisig(
+        public TokenProgramBaseFactory initializeMultisig(
                 final PublicKey multisigPublicKey,
                 final List<PublicKey> signers,
                 final int requiredSignatures)
         {
             tb.append(TokenProgramBase.initializeMultisig(programId, multisigPublicKey, signers, requiredSignatures));
-            return (T) this;
+            return this;
         }
 
         /**
@@ -183,7 +183,7 @@ public abstract class TokenProgramBase
          * @param authorityType the type of authority to set
          * @return this {@code T} instance
          */
-        public T setAuthority(
+        public TokenProgramBaseFactory setAuthority(
                 final PublicKey tokenAccount,
                 final PublicKey newAuthority,
                 final PublicKey oldAuthority,
@@ -192,7 +192,7 @@ public abstract class TokenProgramBase
         )
         {
             tb.append(TokenProgramBase.setAuthority(programId, tokenAccount, newAuthority, oldAuthority, signers, authorityType));
-            return (T) this;
+            return this;
         }
     }
 

@@ -11,7 +11,7 @@ import org.bitcoinj.core.Base58;
  *
  */
 
-public class TokenProgram
+public final class TokenProgram
 {
     private static final byte[] TOKEN_PROGRAM_ID = Base58.decode("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
     /**
@@ -47,12 +47,12 @@ public class TokenProgram
      * @param tb the transaction builder
      * @return a new instance of {@code TokenProgramFactory}
      */
-    public static TokenProgramFactory<?> factory(final TransactionBuilder tb)
+    public static TokenProgramFactory factory(final TransactionBuilder tb)
     {
-        return new TokenProgramFactory<>(PROGRAM_ACCOUNT, tb);
+        return new TokenProgramFactory(PROGRAM_ACCOUNT, tb);
     }
 
-    public static class TokenProgramFactory<T extends TokenProgramFactory<T>> extends TokenProgramBase.TokenProgramBaseFactory<T>
+    public static class TokenProgramFactory extends TokenProgramBase.TokenProgramBaseFactory
     {
         TokenProgramFactory(final PublicKey tokenProgramId, final TransactionBuilder tb)
         {

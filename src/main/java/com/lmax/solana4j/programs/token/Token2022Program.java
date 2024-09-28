@@ -27,12 +27,12 @@ public final class Token2022Program extends TokenProgramBase
      * @param tb the transaction builder
      * @return a new instance of {@code Token2022ProgramFactory}
      */
-    public static Token2022ProgramFactory<?> factory(final TransactionBuilder tb)
+    public static Token2022ProgramFactory factory(final TransactionBuilder tb)
     {
-        return new Token2022ProgramFactory<>(PROGRAM_ACCOUNT, tb);
+        return new Token2022ProgramFactory(PROGRAM_ACCOUNT, tb);
     }
 
-    public static class Token2022ProgramFactory<T extends Token2022ProgramFactory<T>> extends TokenProgramBaseFactory<T>
+    public static class Token2022ProgramFactory extends TokenProgramBaseFactory
     {
         /**
          * Constructs a new {@code Token2022ProgramFactory} instance.

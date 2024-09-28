@@ -5,5 +5,5 @@ import com.lmax.solana4j.programs.token.TokenProgramBase;
 
 public interface TokenProgramInstructionFactory
 {
-    TokenProgramBase.TokenProgramBaseFactory<?> factory(TransactionBuilder tb);
+    TokenProgramBase.TokenProgramBaseFactory factory(TransactionBuilder tb);
 }
