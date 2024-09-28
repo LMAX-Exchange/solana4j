@@ -650,13 +650,25 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The instruction code for initializing a multisig account.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#initializeAccount(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">initializeAccount(PublicKey, PublicKey, PublicKey)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
+<dd>
+<div class="block">Initializes a new token account.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html#initializeAccount(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">initializeAccount(PublicKey, PublicKey, PublicKey)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></dt>
 <dd>
 <div class="block">Initializes a new token account.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#initializeMint(com.lmax.solana4j.api.PublicKey,byte,com.lmax.solana4j.api.PublicKey,java.util.Optional)">initializeMint(PublicKey, byte, PublicKey, Optional&lt;PublicKey&gt;)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
+<dd>
+<div class="block">Initializes a new mint.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html#initializeMint(com.lmax.solana4j.api.PublicKey,byte,com.lmax.solana4j.api.PublicKey,java.util.Optional)">initializeMint(PublicKey, byte, PublicKey, Optional&lt;PublicKey&gt;)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></dt>
 <dd>
 <div class="block">Initializes a new mint.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#initializeMultisig(com.lmax.solana4j.api.PublicKey,java.util.List,int)">initializeMultisig(PublicKey, List&lt;PublicKey&gt;, int)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
+<dd>
+<div class="block">Initializes a new multisig account.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html#initializeMultisig(com.lmax.solana4j.api.PublicKey,java.util.List,int)">initializeMultisig(PublicKey, List&lt;PublicKey&gt;, int)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></dt>
 <dd>
@@ -833,6 +845,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html#MINT_TOKEN">MINT_TOKEN</a></span> - com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for minting new tokens.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#mintTo(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.Destination)">mintTo(PublicKey, PublicKey, Destination)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
+<dd>
+<div class="block">Mints new tokens to a list of destinations.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html#mintTo(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List)">mintTo(PublicKey, PublicKey, List&lt;Destination&gt;)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></dt>
 <dd>
@@ -1035,6 +1051,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The instruction code for setting the compute unit price.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#setAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List,com.lmax.solana4j.programs.token.TokenProgramBase.AuthorityType)">setAuthority(PublicKey, PublicKey, PublicKey, List&lt;PublicKey&gt;, TokenProgramBase.AuthorityType)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
+<dd>
+<div class="block">Sets a new authority for a token account.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html#setAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List,com.lmax.solana4j.programs.token.TokenProgramBase.AuthorityType)">setAuthority(PublicKey, PublicKey, PublicKey, List&lt;PublicKey&gt;, TokenProgramBase.AuthorityType)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></dt>
 <dd>
 <div class="block">Sets a new authority for a token account.</div>
@@ -1194,6 +1214,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Transfers funds between accounts.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,java.util.List)">transfer(PublicKey, PublicKey, PublicKey, long, List&lt;PublicKey&gt;)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></dt>
+<dd>
+<div class="block">Transfers tokens between accounts.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/lmax/solana4j/programs/token/TokenProgramBase.html#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,java.util.List)">transfer(PublicKey, PublicKey, PublicKey, long, List&lt;PublicKey&gt;)</a></span> - Method in class com.lmax.solana4j.programs.token.<a href="com/lmax/solana4j/programs/token/TokenProgramBase.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase</a></dt>
 <dd>
 <div class="block">Transfers tokens between accounts.</div>
 </dd>

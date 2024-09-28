@@ -962,12 +962,31 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#initializeAccount(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">initializeAccount</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account,
+                 <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
+                 <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner)</code></th>
+<td class="colLast">
+<div class="block">Initializes a new token account.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.TokenProgramBaseFactory.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html#initializeAccount(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">initializeAccount</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account,
                  <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
                  <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner)</code></th>
 <td class="colLast">
 <div class="block">Initializes a new token account.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#initializeMint(com.lmax.solana4j.api.PublicKey,byte,com.lmax.solana4j.api.PublicKey,java.util.Optional)">initializeMint</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenMintAddress,
+              byte&nbsp;decimals,
+              <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mintAuthority,
+              java.util.Optional&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;freezeAuthority)</code></th>
+<td class="colLast">
+<div class="block">Initializes a new mint.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -981,12 +1000,30 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#initializeMultisig(com.lmax.solana4j.api.PublicKey,java.util.List,int)">initializeMultisig</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;multisigPublicKey,
+                  java.util.List&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;signers,
+                  int&nbsp;requiredSignatures)</code></th>
+<td class="colLast">
+<div class="block">Initializes a new multisig account.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.TokenProgramBaseFactory.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html#initializeMultisig(com.lmax.solana4j.api.PublicKey,java.util.List,int)">initializeMultisig</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;multisigPublicKey,
                   java.util.List&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;signers,
                   int&nbsp;requiredSignatures)</code></th>
 <td class="colLast">
 <div class="block">Initializes a new multisig account.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#mintTo(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.Destination)">mintTo</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
+      <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authority,
+      <a href="../Destination.html" title="interface in com.lmax.solana4j.api">Destination</a>&nbsp;destination)</code></th>
+<td class="colLast">
+<div class="block">Mints new tokens to a list of destinations.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -999,8 +1036,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></code></td>
-<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.TokenProgramBaseFactory.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html#setAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List,com.lmax.solana4j.programs.token.TokenProgramBase.AuthorityType)">setAuthority</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenAccount,
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#setAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List,com.lmax.solana4j.programs.token.TokenProgramBase.AuthorityType)">setAuthority</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenAccount,
             <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;newAuthority,
             <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;oldAuthority,
             java.util.List&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;signers,
@@ -1011,7 +1048,29 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.TokenProgramBaseFactory.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html#setAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List,com.lmax.solana4j.programs.token.TokenProgramBase.AuthorityType)">setAuthority</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenAccount,
+            <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;newAuthority,
+            <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;oldAuthority,
+            java.util.List&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;signers,
+            <a href="../../programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a>&nbsp;authorityType)</code></th>
+<td class="colLast">
+<div class="block">Sets a new authority for a token account.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.TokenProgramBaseFactory.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,java.util.List)">transfer</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;source,
+        <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;destination,
+        <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
+        long&nbsp;amount,
+        java.util.List&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;signers)</code></th>
+<td class="colLast">
+<div class="block">Transfers tokens between accounts.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,java.util.List)">transfer</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;source,
         <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;destination,
         <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
         long&nbsp;amount,
@@ -1031,6 +1090,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#initializeMint(com.lmax.solana4j.api.PublicKey,byte,com.lmax.solana4j.api.PublicKey,java.util.Optional)">initializeMint</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenMintAddress,
+              byte&nbsp;decimals,
+              <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mintAuthority,
+              java.util.Optional&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;freezeAuthority)</code></th>
+<td class="colLast">
+<div class="block">Initializes a new mint.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.TokenProgramBaseFactory.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html#initializeMint(com.lmax.solana4j.api.PublicKey,byte,com.lmax.solana4j.api.PublicKey,java.util.Optional)">initializeMint</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenMintAddress,
               byte&nbsp;decimals,
@@ -1038,6 +1107,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
               java.util.Optional&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;freezeAuthority)</code></th>
 <td class="colLast">
 <div class="block">Initializes a new mint.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#initializeMultisig(com.lmax.solana4j.api.PublicKey,java.util.List,int)">initializeMultisig</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;multisigPublicKey,
+                  java.util.List&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;signers,
+                  int&nbsp;requiredSignatures)</code></th>
+<td class="colLast">
+<div class="block">Initializes a new multisig account.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -1050,8 +1128,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></code></td>
-<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.TokenProgramBaseFactory.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html#setAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List,com.lmax.solana4j.programs.token.TokenProgramBase.AuthorityType)">setAuthority</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenAccount,
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#setAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List,com.lmax.solana4j.programs.token.TokenProgramBase.AuthorityType)">setAuthority</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenAccount,
             <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;newAuthority,
             <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;oldAuthority,
             java.util.List&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;signers,
@@ -1062,7 +1140,29 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.TokenProgramBaseFactory.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html#setAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List,com.lmax.solana4j.programs.token.TokenProgramBase.AuthorityType)">setAuthority</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenAccount,
+            <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;newAuthority,
+            <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;oldAuthority,
+            java.util.List&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;signers,
+            <a href="../../programs/token/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs.token">TokenProgramBase.AuthorityType</a>&nbsp;authorityType)</code></th>
+<td class="colLast">
+<div class="block">Sets a new authority for a token account.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html" title="class in com.lmax.solana4j.programs.token">TokenProgramBase.TokenProgramBaseFactory</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.TokenProgramBaseFactory.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.TokenProgramBaseFactory.html#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,java.util.List)">transfer</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;source,
+        <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;destination,
+        <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
+        long&nbsp;amount,
+        java.util.List&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;signers)</code></th>
+<td class="colLast">
+<div class="block">Transfers tokens between accounts.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/token/TokenProgramBase.html#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,java.util.List)">transfer</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;source,
         <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;destination,
         <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;owner,
         long&nbsp;amount,
