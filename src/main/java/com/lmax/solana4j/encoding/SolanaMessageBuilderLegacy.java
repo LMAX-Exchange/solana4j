@@ -52,7 +52,7 @@ final class SolanaMessageBuilderLegacy implements MessageBuilderLegacy
     }
 
     @Override
-    public MessageBuilderLegacy instructions(final List<TransactionInstruction> instructions)
+    public MessageBuilderLegacy prebuiltInstructions(final List<TransactionInstruction> instructions)
     {
         this.instructions.addAll(instructions);
         return this;

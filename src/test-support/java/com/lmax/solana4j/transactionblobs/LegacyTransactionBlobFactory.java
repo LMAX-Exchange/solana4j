@@ -168,7 +168,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
                                 rentExemption,
                                 accountSpan,
                                 tokenProgram.getProgram()))
-                .instructions(builder -> tokenProgram.getFactory().factory(builder)
+                .instructions(legacyTransactionBuilder -> tokenProgram.getFactory().factory(legacyTransactionBuilder)
                         .initializeMint(
                                 account,
                                 (byte) decimals,
@@ -213,7 +213,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
                                 rentExemption,
                                 accountSpan,
                                 tokenProgram.getProgram()))
-                .instructions(builder -> tokenProgram.getFactory().factory(builder)
+                .instructions(legacyInstructionBuilder -> tokenProgram.getFactory().factory(legacyInstructionBuilder)
                         .initializeMultisig(
                                 account,
                                 multiSigSigners,
@@ -329,7 +329,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(builder -> AddressLookupTableProgram.factory(builder)
+                .instructions(legacyInstructionBuilder -> AddressLookupTableProgram.factory(legacyInstructionBuilder)
                         .createLookupTable(
                                 programDerivedAddress,
                                 authority,
@@ -366,7 +366,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(builder -> AddressLookupTableProgram.factory(builder)
+                .instructions(legacyInstructionBuilder -> AddressLookupTableProgram.factory(legacyInstructionBuilder)
                         .extendLookupTable(
                                 lookupAddress,
                                 authority,

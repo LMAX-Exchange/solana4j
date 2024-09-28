@@ -42,7 +42,7 @@ final class SolanaMessageBuilderV0 implements MessageBuilderV0
     }
 
     @Override
-    public MessageBuilderV0 instructions(final List<TransactionInstruction> instructions)
+    public MessageBuilderV0 prebuiltInstructions(final List<TransactionInstruction> instructions)
     {
         this.instructions.addAll(instructions);
         return this;

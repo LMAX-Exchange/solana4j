@@ -411,7 +411,7 @@ public class Solana4jTestHelper
               .legacy()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
-              .instructions(List.of(instruction1, instruction2, instruction3))
+              .prebuiltInstructions(List.of(instruction1, instruction2, instruction3))
               .seal()
               .unsigned()
               .build();
@@ -447,7 +447,7 @@ public class Solana4jTestHelper
               .v0()
               .payer(Solana.account(PAYER))
               .recent(Solana.blockhash(BLOCKHASH))
-              .instructions(List.of(instruction1, instruction2, instruction3))
+              .prebuiltInstructions(List.of(instruction1, instruction2, instruction3))
               // account4 and account8 should appear in lookup table accounts and be omitted from the accounts section
               .lookups(List.of(ADDRESS_LOOK_TABLE1, ADDRESS_LOOK_TABLE2))
               .seal()

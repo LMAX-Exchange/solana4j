@@ -23,15 +23,6 @@ public final class Token2022Program<T extends Token2022Program<T>> extends Token
     public static final PublicKey PROGRAM_ACCOUNT = Solana.account(TOKEN_2022_PROGRAM_ID);
 
     /**
-     * Constructs a new {@code Token2022Program} instance.
-     *
-     */
-    public Token2022Program()
-    {
-        super(PROGRAM_ACCOUNT);
-    }
-
-    /**
      * Factory method for creating a new instance of {@code Token2022ProgramFactory}.
      *
      * @param tb the transaction builder

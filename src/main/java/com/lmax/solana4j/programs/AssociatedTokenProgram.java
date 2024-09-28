@@ -62,7 +62,6 @@ public final class AssociatedTokenProgram
 
     public static final class AssociatedTokenProgramFactory
     {
-
         private final TransactionBuilder tb;
 
         private AssociatedTokenProgramFactory(final TransactionBuilder tb)

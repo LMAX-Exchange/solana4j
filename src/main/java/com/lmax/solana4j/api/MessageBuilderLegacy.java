@@ -13,7 +13,6 @@ import java.util.function.Consumer;
  */
 public interface MessageBuilderLegacy
 {
-
     /**
      * Sets the instructions for the legacy message.
      *
@@ -28,7 +27,7 @@ public interface MessageBuilderLegacy
      * @param instructions a list of {@link TransactionInstruction} of prebuilt instructions
      * @return this {@code MessageBuilderLegacy} instance for method chaining
      */
-    MessageBuilderLegacy instructions(List<TransactionInstruction> instructions);
+    MessageBuilderLegacy prebuiltInstructions(List<TransactionInstruction> instructions);
 
     /**
      * Sets the payer for the legacy message.

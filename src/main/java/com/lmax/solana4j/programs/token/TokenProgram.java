@@ -44,15 +44,6 @@ public class TokenProgram<T extends TokenProgram<T>> extends TokenProgramBase<T>
     public static final int MULTI_SIG_LAYOUT_SPAN = 355; // https://spl.solana.com/token
 
     /**
-     * Constructs a new {@code TokenProgram} instance.
-     *
-     */
-    public TokenProgram()
-    {
-        super(PROGRAM_ACCOUNT);
-    }
-
-    /**
      * Factory method for creating a new instance of {@code TokenProgramFactory}.
      *
      * @param tb the transaction builder
@@ -65,7 +56,6 @@ public class TokenProgram<T extends TokenProgram<T>> extends TokenProgramBase<T>
 
     public static class TokenProgramFactory<T extends TokenProgramFactory<T>> extends TokenProgramBaseFactory<T>
     {
-
         TokenProgramFactory(final PublicKey tokenProgramId, final TransactionBuilder tb)
         {
             super(tokenProgramId, tb);

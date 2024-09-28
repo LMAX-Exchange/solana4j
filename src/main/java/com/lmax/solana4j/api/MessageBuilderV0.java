@@ -28,7 +28,7 @@ public interface MessageBuilderV0
      * @param instructions a list of {@link TransactionInstruction} of prebuilt instructions
      * @return this {@code MessageBuilderV0} instance for method chaining
      */
-    MessageBuilderV0 instructions(List<TransactionInstruction> instructions);
+    MessageBuilderV0 prebuiltInstructions(List<TransactionInstruction> instructions);
 
     /**
      * Sets the payer for the version 0 message.

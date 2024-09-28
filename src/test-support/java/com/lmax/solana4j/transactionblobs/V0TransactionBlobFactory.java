@@ -44,7 +44,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(builder -> factory(builder).transfer(from, to, amount))
+                .instructions(versionedInstructionBuilder -> factory(versionedInstructionBuilder).transfer(from, to, amount))
                 .payer(payer)
                 .lookups(addressLookupTables)
                 .seal()
@@ -78,7 +78,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(builder -> tokenProgramInstructionFactory.factory(builder)
+                .instructions(versionedInstructionBuilder -> tokenProgramInstructionFactory.factory(versionedInstructionBuilder)
                         .transfer(
                                 from,
                                 to,
@@ -117,7 +117,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(builder -> tokenProgramInstructionFactory.factory(builder)
+                .instructions(versionedInstructionBuilder -> tokenProgramInstructionFactory.factory(versionedInstructionBuilder)
                         .mintTo(
                                 mint,
                                 authority,
@@ -164,7 +164,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                                 rentExemption,
                                 accountSpan,
                                 tokenProgram.getProgram()))
-                .instructions(builder -> tokenProgram.getFactory().factory(builder)
+                .instructions(versionedInstructionBuilder -> tokenProgram.getFactory().factory(versionedInstructionBuilder)
                         .initializeMint(
                                 account,
                                 (byte) decimals,
@@ -210,7 +210,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                                 rentExemption,
                                 accountSpan,
                                 tokenProgram.getProgram()))
-                .instructions(builder -> tokenProgram.getFactory().factory(builder)
+                .instructions(versionedInstructionBuilder -> tokenProgram.getFactory().factory(versionedInstructionBuilder)
                         .initializeMultisig(
                                 account,
                                 multiSigSigners,
@@ -329,7 +329,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(builder -> AddressLookupTableProgram.factory(builder)
+                .instructions(versionedInstructionBuilder -> AddressLookupTableProgram.factory(versionedInstructionBuilder)
                         .createLookupTable(
                                 programDerivedAddress,
                                 authority,
@@ -366,7 +366,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(builder -> AddressLookupTableProgram.factory(builder)
+                .instructions(versionedInstructionBuilder -> AddressLookupTableProgram.factory(versionedInstructionBuilder)
                         .extendLookupTable(
                                 lookupAddress,
                                 authority,
@@ -435,7 +435,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(tb -> AssociatedTokenProgram.factory(tb)
+                .instructions(versionedTransactionBuilder -> AssociatedTokenProgram.factory(versionedTransactionBuilder)
                         .createAssociatedTokenAccount(
                                 associatedTokenAddress, mint, owner, payer,
                                 tokenProgram.getProgram(),
