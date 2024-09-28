@@ -16,6 +16,7 @@ import com.lmax.solana4j.programs.AddressLookupTableProgram;
 import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
 import com.lmax.solana4j.programs.ComputeBudgetProgram;
+import com.lmax.solana4j.programs.token.TokenProgramBase;
 import com.lmax.solana4j.util.BouncyCastleSigner;
 import org.bitcoinj.core.Base58;
 
@@ -465,7 +466,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
             final PublicKey tokenAccount,
             final PublicKey tokenAccountOldAuthority,
             final PublicKey tokenAccountNewAuthority,
-            final com.lmax.solana4j.programs.token.TokenProgram.AuthorityType authorityType,
+            final TokenProgramBase.AuthorityType authorityType,
             final Blockhash blockhash,
             final TestKeyPair payer,
             final List<TestKeyPair> signers,

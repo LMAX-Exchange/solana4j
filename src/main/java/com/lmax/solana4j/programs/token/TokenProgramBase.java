@@ -17,10 +17,8 @@ import static com.lmax.solana4j.encoding.SysVar.RENT;
 /**
  * Program for managing token operations on the Solana blockchain.
  *
- * @param <T> the type of the Token program
  */
-@SuppressWarnings("unchecked") // return type cast is pretty safe after all as we're limited to our types only
-public abstract class TokenProgramBase<T extends TokenProgramBase<? extends TokenProgramBase<T>>>
+public abstract class TokenProgramBase
 {
     /**
      * The instruction code for initializing a mint.

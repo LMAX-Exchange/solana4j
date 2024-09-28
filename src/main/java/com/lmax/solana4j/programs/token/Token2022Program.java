@@ -8,9 +8,8 @@ import org.bitcoinj.core.Base58;
 /**
  * Program for managing Token 2022 operations on the Solana blockchain.
  *
- * @param <T> the type of the Token 2022 program
  */
-public final class Token2022Program<T extends Token2022Program<T>> extends TokenProgramBase<T>
+public final class Token2022Program extends TokenProgramBase
 {
     private static final byte[] TOKEN_2022_PROGRAM_ID = Base58.decode("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
     /**

@@ -9,11 +9,9 @@ import org.bitcoinj.core.Base58;
 /**
  * Program for managing token operations on the Solana blockchain.
  *
- * @param <T> the type of the Token program
  */
 
-@SuppressWarnings("unchecked") // return type cast is pretty safe after all as we're limited to our types only
-public class TokenProgram<T extends TokenProgram<T>> extends TokenProgramBase<T>
+public class TokenProgram
 {
     private static final byte[] TOKEN_PROGRAM_ID = Base58.decode("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
     /**
@@ -54,7 +52,7 @@ public class TokenProgram<T extends TokenProgram<T>> extends TokenProgramBase<T>
         return new TokenProgramFactory<>(PROGRAM_ACCOUNT, tb);
     }
 
-    public static class TokenProgramFactory<T extends TokenProgramFactory<T>> extends TokenProgramBaseFactory<T>
+    public static class TokenProgramFactory<T extends TokenProgramFactory<T>> extends TokenProgramBase.TokenProgramBaseFactory<T>
     {
         TokenProgramFactory(final PublicKey tokenProgramId, final TransactionBuilder tb)
         {

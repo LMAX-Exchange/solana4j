@@ -19,6 +19,7 @@ import com.lmax.solana4j.programs.AddressLookupTableProgram;
 import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
 import com.lmax.solana4j.programs.SystemProgram;
+import com.lmax.solana4j.programs.token.TokenProgramBase;
 import com.lmax.solana4j.solanaclient.api.AccountInfo;
 import com.lmax.solana4j.solanaclient.api.TransactionData;
 import com.lmax.solana4j.solanaclient.api.TransactionResponse;
@@ -660,7 +661,7 @@ public class SolanaNodeDsl
                 new RequiredArg("tokenAccount"),
                 new RequiredArg("tokenAccountOldAuthority"),
                 new RequiredArg("tokenAccountNewAuthority"),
-                new RequiredArg("authorityType").setAllowedValues(com.lmax.solana4j.programs.token.TokenProgram.AuthorityType.class),
+                new RequiredArg("authorityType").setAllowedValues(TokenProgramBase.AuthorityType.class),
                 new RequiredArg("payer"),
                 new OptionalArg("tokenProgram").setAllowedValues("Token", "Token2022").setDefault("Token"),
                 new OptionalArg("addressLookupTables").setAllowMultipleValues()
@@ -669,7 +670,7 @@ public class SolanaNodeDsl
         final TestPublicKey tokenAccount = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("tokenAccount"));
         final TestKeyPair tokenAccountOldAuthority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("tokenAccountOldAuthority"));
         final TestPublicKey tokenAccountNewAuthority = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("tokenAccountNewAuthority"));
-        final com.lmax.solana4j.programs.token.TokenProgram.AuthorityType authorityType = com.lmax.solana4j.programs.token.TokenProgram.AuthorityType.valueOf(params.value("authorityType"));
+        final TokenProgramBase.AuthorityType authorityType = TokenProgramBase.AuthorityType.valueOf(params.value("authorityType"));
         final TokenProgram tokenProgram = TokenProgram.fromName(params.value("tokenProgram"));
         final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
 
