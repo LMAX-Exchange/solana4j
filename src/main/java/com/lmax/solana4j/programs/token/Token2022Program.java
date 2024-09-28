@@ -21,6 +21,12 @@ public final class Token2022Program extends TokenProgramBase
      */
     public static final PublicKey PROGRAM_ACCOUNT = Solana.account(TOKEN_2022_PROGRAM_ID);
 
+    @Override
+    PublicKey getProgramId()
+    {
+        return PROGRAM_ACCOUNT;
+    }
+
     /**
      * Factory method for creating a new instance of {@code Token2022ProgramFactory}.
      *

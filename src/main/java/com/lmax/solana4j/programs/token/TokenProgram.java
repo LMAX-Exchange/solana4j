@@ -41,6 +41,12 @@ public final class TokenProgram extends TokenProgramBase
      */
     public static final int MULTI_SIG_LAYOUT_SPAN = 355; // https://spl.solana.com/token
 
+    @Override
+    PublicKey getProgramId()
+    {
+        return PROGRAM_ACCOUNT;
+    }
+
     /**
      * Factory method for creating a new instance of {@code TokenProgramFactory}.
      *
