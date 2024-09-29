@@ -8,7 +8,6 @@ import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TokenProgram;
-import com.lmax.solana4j.domain.TokenProgramInstructionFactory;
 import com.lmax.solana4j.programs.token.TokenProgramBase;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public interface TransactionBlobFactory
             List<AddressLookupTable> addressLookupTables);
 
     String tokenTransfer(
-            TokenProgramInstructionFactory tokenProgramInstructionFactory,
+            TokenProgram tokenProgram,
             PublicKey from,
             PublicKey to,
             PublicKey owner,
@@ -36,7 +35,7 @@ public interface TransactionBlobFactory
             List<AddressLookupTable> addressLookupTables);
 
     String mintTo(
-            TokenProgramInstructionFactory tokenProgramInstructionFactory,
+            TokenProgram tokenProgram,
             PublicKey mint,
             PublicKey authority,
             Destination destination,

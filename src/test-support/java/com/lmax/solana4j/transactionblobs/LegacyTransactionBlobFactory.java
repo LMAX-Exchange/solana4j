@@ -11,11 +11,11 @@ import com.lmax.solana4j.api.SignedMessageBuilder;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TokenProgram;
-import com.lmax.solana4j.domain.TokenProgramInstructionFactory;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
 import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
 import com.lmax.solana4j.programs.ComputeBudgetProgram;
+import com.lmax.solana4j.programs.SystemProgram;
 import com.lmax.solana4j.programs.token.TokenProgramBase;
 import com.lmax.solana4j.util.BouncyCastleSigner;
 import org.bitcoinj.core.Base58;
@@ -26,11 +26,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.lmax.solana4j.programs.SystemProgram.SYSTEM_PROGRAM_ACCOUNT;
-import static com.lmax.solana4j.programs.SystemProgram.factory;
 
 public class LegacyTransactionBlobFactory implements TransactionBlobFactory
 {
-
     @Override
     public String solTransfer(
             final PublicKey from,
@@ -46,12 +44,12 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(builder -> factory(builder)
-                        .transfer(
+                .prebuiltInstructions(List.of(
+                        SystemProgram.transfer(
                                 from,
                                 to,
-                                amount
-                        ))
+                                amount)
+                ))
                 .payer(payer)
                 .seal()
                 .unsigned()
@@ -69,7 +67,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
 
     @Override
     public String tokenTransfer(
-            final TokenProgramInstructionFactory tokenProgramInstructionFactory,
+            final TokenProgram tokenProgram,
             final PublicKey from,
             final PublicKey to,
             final PublicKey owner,
@@ -84,14 +82,14 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(builder -> tokenProgramInstructionFactory.factory(builder)
-                        .transfer(
+                .prebuiltInstructions(List.of(
+                        tokenProgram.getTokenProgram().transfer(
                                 from,
                                 to,
                                 owner,
                                 amount,
-                                signers.stream().map(TestKeyPair::getSolana4jPublicKey).collect(Collectors.toList())
-                        ))
+                                signers.stream().map(TestKeyPair::getSolana4jPublicKey).collect(Collectors.toList()))
+                ))
                 .payer(payer)
                 .seal()
                 .unsigned()
@@ -110,7 +108,7 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
 
     @Override
     public String mintTo(
-            final TokenProgramInstructionFactory tokenProgramInstructionFactory,
+            final TokenProgram tokenProgram,
             final PublicKey mint,
             final PublicKey authority,
             final Destination destination,
@@ -123,11 +121,12 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(builder -> tokenProgramInstructionFactory.factory(builder)
-                        .mintTo(
+                .prebuiltInstructions(List.of(
+                        tokenProgram.getTokenProgram().mintTo(
                                 mint,
                                 authority,
-                                List.of(destination)))
+                                destination)
+                ))
                 .payer(payer)
                 .seal()
                 .unsigned()
@@ -162,19 +161,19 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder)
-                        .createAccount(
+                .prebuiltInstructions(List.of(
+                        SystemProgram.createAccount(
                                 payer,
                                 account,
                                 rentExemption,
                                 accountSpan,
-                                tokenProgram.getProgram()))
-                .instructions(legacyTransactionBuilder -> tokenProgram.getFactory().factory(legacyTransactionBuilder)
-                        .initializeMint(
+                                tokenProgram.getProgram()),
+                        tokenProgram.getTokenProgram().initializeMint(
                                 account,
                                 (byte) decimals,
                                 mintAuthority,
-                                Optional.of(freezeAuthority)))
+                                Optional.of(freezeAuthority))
+                ))
                 .payer(payer)
                 .seal()
                 .unsigned()
@@ -207,18 +206,18 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder)
-                        .createAccount(
+                .prebuiltInstructions(List.of(
+                        SystemProgram.createAccount(
                                 payer,
                                 account,
                                 rentExemption,
                                 accountSpan,
-                                tokenProgram.getProgram()))
-                .instructions(legacyInstructionBuilder -> tokenProgram.getFactory().factory(legacyInstructionBuilder)
-                        .initializeMultisig(
+                                tokenProgram.getProgram()),
+                        tokenProgram.getTokenProgram().initializeMultisig(
                                 account,
                                 multiSigSigners,
-                                requiredSigners))
+                                requiredSigners)
+                ))
                 .payer(payer)
                 .seal()
                 .unsigned()
@@ -249,14 +248,15 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder)
-                        .createAccount(
+                .prebuiltInstructions(List.of(
+                        SystemProgram.createAccount(
                                 authority,
                                 nonce,
                                 rentExemption,
                                 accountSpan,
-                                SYSTEM_PROGRAM_ACCOUNT))
-                .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder).nonceInitialize(nonce, authority))
+                                SYSTEM_PROGRAM_ACCOUNT),
+                        SystemProgram.nonceInitialize(nonce, authority)
+                ))
                 .payer(payer)
                 .seal()
                 .unsigned()
@@ -289,18 +289,18 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(legacyTransactionBuilder -> factory(legacyTransactionBuilder)
-                        .createAccount(
+                .prebuiltInstructions(List.of(
+                        SystemProgram.createAccount(
                                 payer,
                                 account,
                                 rentExemption,
                                 accountSpan,
-                                tokenProgram.getProgram()))
-                .instructions(legacyTransactionBuilder -> tokenProgram.getFactory().factory(legacyTransactionBuilder)
-                        .initializeAccount(
+                                tokenProgram.getProgram()),
+                        tokenProgram.getTokenProgram().initializeAccount(
                                 account,
                                 mint,
-                                owner))
+                                owner)
+                ))
                 .payer(payer)
                 .seal()
                 .unsigned()
@@ -330,13 +330,13 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(legacyInstructionBuilder -> AddressLookupTableProgram.factory(legacyInstructionBuilder)
-                        .createLookupTable(
+                .prebuiltInstructions(List.of(
+                        AddressLookupTableProgram.createLookupTable(
                                 programDerivedAddress,
                                 authority,
                                 payer,
                                 recentSlot)
-                )
+                ))
                 .payer(payer)
                 .seal()
                 .unsigned()
@@ -367,13 +367,13 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(legacyInstructionBuilder -> AddressLookupTableProgram.factory(legacyInstructionBuilder)
-                        .extendLookupTable(
+                .prebuiltInstructions(List.of(
+                        AddressLookupTableProgram.extendLookupTable(
                                 lookupAddress,
                                 authority,
                                 payer,
                                 addressesToAdd)
-                )
+                ))
                 .payer(payer)
                 .seal()
                 .unsigned()
@@ -403,8 +403,9 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(tb -> factory(tb)
-                        .nonceAdvance(account, authority))
+                .prebuiltInstructions(List.of(
+                        SystemProgram.nonceAdvance(account, authority)
+                ))
                 .payer(payer)
                 .seal()
                 .unsigned()
@@ -437,14 +438,15 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(tb -> AssociatedTokenProgram.factory(tb)
-                        .createAssociatedTokenAccount(
+                .prebuiltInstructions(List.of(
+                        AssociatedTokenProgram.createAssociatedTokenAccount(
                                 associatedTokenAddress,
                                 mint,
                                 owner,
                                 payer,
                                 tokenProgram.getProgram(),
-                                idempotent))
+                                idempotent)
+                ))
                 .payer(payer)
                 .seal()
                 .unsigned()
@@ -477,13 +479,14 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(legacyTransactionBuilder -> tokenProgram.getFactory().factory(legacyTransactionBuilder)
-                        .setAuthority(
+                .prebuiltInstructions(List.of(
+                        tokenProgram.getTokenProgram().setAuthority(
                                 tokenAccount,
                                 tokenAccountNewAuthority,
                                 tokenAccountOldAuthority,
                                 signers.stream().map(TestKeyPair::getSolana4jPublicKey).collect(Collectors.toList()),
-                                authorityType))
+                                authorityType)
+                ))
                 .payer(payer.getSolana4jPublicKey())
                 .seal()
                 .unsigned()
@@ -507,9 +510,10 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(legacyTransactionBuilder -> ComputeBudgetProgram.factory(legacyTransactionBuilder)
-                        .setComputeUnitLimit(computeUnitLimit)
-                        .setComputeUnitPrice(computeUnitPrice))
+                .prebuiltInstructions(List.of(
+                        ComputeBudgetProgram.setComputeUnitLimit(computeUnitLimit),
+                        ComputeBudgetProgram.setComputeUnitPrice(computeUnitPrice)
+                ))
                 .payer(payer)
                 .seal()
                 .unsigned()
@@ -540,12 +544,12 @@ public class LegacyTransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .legacy()
                 .recent(blockhash)
-                .instructions(legacyTransactionBuilder -> BpfLoaderUpgradeableProgram.factory(legacyTransactionBuilder)
-                        .setUpgradeAuthority(
+                .prebuiltInstructions(List.of(
+                        BpfLoaderUpgradeableProgram.setUpgradeAuthority(
                                 program,
                                 oldUpgradeAuthority,
                                 Optional.of(newUpgradeAuthority))
-                )
+                ))
                 .payer(payer)
                 .seal()
                 .unsigned()

@@ -11,7 +11,6 @@ import com.lmax.solana4j.api.SignedMessageBuilder;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TokenProgram;
-import com.lmax.solana4j.domain.TokenProgramInstructionFactory;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
 import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
@@ -28,6 +27,7 @@ import java.util.stream.Collectors;
 import static com.lmax.solana4j.programs.SystemProgram.SYSTEM_PROGRAM_ACCOUNT;
 import static com.lmax.solana4j.programs.SystemProgram.factory;
 
+// uses instructions() to build transaction
 public class V0TransactionBlobFactory implements TransactionBlobFactory
 {
     @Override
@@ -64,7 +64,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
 
     @Override
     public String tokenTransfer(
-            final TokenProgramInstructionFactory tokenProgramInstructionFactory,
+            final TokenProgram tokenProgram,
             final PublicKey from,
             final PublicKey to,
             final PublicKey owner,
@@ -79,7 +79,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(versionedInstructionBuilder -> tokenProgramInstructionFactory.factory(versionedInstructionBuilder)
+                .instructions(versionedInstructionBuilder -> tokenProgram.getFactory().factory(versionedInstructionBuilder)
                         .transfer(
                                 from,
                                 to,
@@ -105,7 +105,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
 
     @Override
     public String mintTo(
-            final TokenProgramInstructionFactory tokenProgramInstructionFactory,
+            final TokenProgram tokenProgram,
             final PublicKey mint,
             final PublicKey authority,
             final Destination destination,
@@ -118,7 +118,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         Solana.builder(buffer)
                 .v0()
                 .recent(blockhash)
-                .instructions(versionedInstructionBuilder -> tokenProgramInstructionFactory.factory(versionedInstructionBuilder)
+                .instructions(versionedInstructionBuilder -> tokenProgram.getFactory().factory(versionedInstructionBuilder)
                         .mintTo(
                                 mint,
                                 authority,

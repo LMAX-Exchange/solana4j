@@ -7,7 +7,6 @@ import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TestPublicKey;
 import com.lmax.solana4j.domain.TokenProgram;
-import com.lmax.solana4j.domain.TokenProgramInstructionFactory;
 import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.programs.token.TokenProgramBase;
 import com.lmax.solana4j.solanaclient.api.AccountInfo;
@@ -125,7 +124,7 @@ public class SolanaDriver
     }
 
     public String mintTo(
-            final TokenProgramInstructionFactory tokenProgramInstructionFactory,
+            final TokenProgram tokenProgram,
             final TestPublicKey tokenMintAddress,
             final TestPublicKey to,
             final long amount,
@@ -136,7 +135,7 @@ public class SolanaDriver
         final Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
 
         final String transactionBlob = getTransactionFactory().mintTo(
-                tokenProgramInstructionFactory,
+                tokenProgram,
                 tokenMintAddress.getSolana4jPublicKey(),
                 authority.getSolana4jPublicKey(),
                 SolanaEncoding.destination(to.getSolana4jPublicKey(), amount),
@@ -268,7 +267,7 @@ public class SolanaDriver
         final Blockhash blockhash = solanaApi.getRecentBlockHash();
 
         final String transactionBlob = getTransactionFactory().tokenTransfer(
-                tokenProgram.getFactory(),
+                tokenProgram,
                 from.getSolana4jPublicKey(),
                 to.getSolana4jPublicKey(),
                 owner.getSolana4jPublicKey(),

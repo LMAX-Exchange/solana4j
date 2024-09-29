@@ -234,7 +234,7 @@ public class SolanaNodeDsl
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
-        final String transactionSignature = solanaDriver.mintTo(tokenProgram.getFactory(), tokenMint, to, amount, authority, payer, addressLookupTables);
+        final String transactionSignature = solanaDriver.mintTo(tokenProgram, tokenMint, to, amount, authority, payer, addressLookupTables);
 
         Waiter.waitFor(transactionFinalized(transactionSignature));
     }
