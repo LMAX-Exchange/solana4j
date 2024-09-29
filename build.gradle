@@ -132,6 +132,7 @@ javadoc {
     options.use = true
     options.version = true
     options.showFromPublic()
+    options.overview = file('overview.html').absolutePath
 }
 
 

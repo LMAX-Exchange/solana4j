@@ -8,7 +8,7 @@ import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TokenProgram;
-import com.lmax.solana4j.programs.token.TokenProgramBase;
+import com.lmax.solana4j.programs.TokenProgramBase;
 
 import java.util.List;
 

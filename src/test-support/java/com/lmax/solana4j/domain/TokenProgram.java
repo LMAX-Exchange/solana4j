@@ -2,19 +2,19 @@ package com.lmax.solana4j.domain;
 
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;
-import com.lmax.solana4j.programs.token.Token2022Program;
-import com.lmax.solana4j.programs.token.TokenProgramBase;
+import com.lmax.solana4j.programs.Token2022Program;
+import com.lmax.solana4j.programs.TokenProgramBase;
 import org.bitcoinj.core.Base58;
 
 public enum TokenProgram
 {
     TOKEN_PROGRAM("Token",
             "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-            com.lmax.solana4j.programs.token.TokenProgram::factory,
-            new com.lmax.solana4j.programs.token.TokenProgram()),
+            com.lmax.solana4j.programs.TokenProgram::factory,
+            new com.lmax.solana4j.programs.TokenProgram()),
     TOKEN_2022_PROGRAM("Token2022",
             "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
-            com.lmax.solana4j.programs.token.Token2022Program::factory,
+            Token2022Program::factory,
             new Token2022Program());
 
     private final String name;

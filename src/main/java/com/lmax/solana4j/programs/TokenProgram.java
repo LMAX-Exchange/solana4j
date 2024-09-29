@@ -1,4 +1,4 @@
-package com.lmax.solana4j.programs.token;
+package com.lmax.solana4j.programs;
 
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;

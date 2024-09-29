@@ -16,7 +16,7 @@ import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
 import com.lmax.solana4j.programs.ComputeBudgetProgram;
 import com.lmax.solana4j.programs.SystemProgram;
-import com.lmax.solana4j.programs.token.TokenProgramBase;
+import com.lmax.solana4j.programs.TokenProgramBase;
 import com.lmax.solana4j.util.BouncyCastleSigner;
 import org.bitcoinj.core.Base58;
 

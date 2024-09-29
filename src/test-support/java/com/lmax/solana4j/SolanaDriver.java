@@ -8,7 +8,7 @@ import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TestPublicKey;
 import com.lmax.solana4j.domain.TokenProgram;
 import com.lmax.solana4j.encoding.SolanaEncoding;
-import com.lmax.solana4j.programs.token.TokenProgramBase;
+import com.lmax.solana4j.programs.TokenProgramBase;
 import com.lmax.solana4j.solanaclient.api.AccountInfo;
 import com.lmax.solana4j.solanaclient.api.Blockhash;
 import com.lmax.solana4j.solanaclient.api.SolanaApi;
