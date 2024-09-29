@@ -27,8 +27,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":9,"i2":10,"i3":10,"i4":10};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -154,7 +154,7 @@ extends java.lang.Object</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -172,13 +172,6 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>static <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNonceAccountValue(byte%5B%5D)">getNonceAccountValue</a></span>&#8203;(byte[]&nbsp;nonceAccountDataBytes)</code></th>
-<td class="colLast">
-<div class="block">Gets the nonce value from a nonce account's data.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="SystemProgram.SystemProgramFactory.html" title="class in com.lmax.solana4j.programs">SystemProgram.SystemProgramFactory</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#nonceAdvance(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">nonceAdvance</a></span>&#8203;(<a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;nonce,
             <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authorized)</code></th>
@@ -186,7 +179,7 @@ extends java.lang.Object</pre>
 <div class="block">Advances a nonce.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="SystemProgram.SystemProgramFactory.html" title="class in com.lmax.solana4j.programs">SystemProgram.SystemProgramFactory</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#nonceInitialize(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">nonceInitialize</a></span>&#8203;(<a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;nonce,
                <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authorized)</code></th>
@@ -194,7 +187,7 @@ extends java.lang.Object</pre>
 <div class="block">Initializes a nonce account.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="SystemProgram.SystemProgramFactory.html" title="class in com.lmax.solana4j.programs">SystemProgram.SystemProgramFactory</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long)">transfer</a></span>&#8203;(<a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;from,
         <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;to,
@@ -290,7 +283,7 @@ extends java.lang.Object</pre>
 <a id="transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long)">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>transfer</h4>
 <pre class="methodSignature">public&nbsp;<a href="SystemProgram.SystemProgramFactory.html" title="class in com.lmax.solana4j.programs">SystemProgram.SystemProgramFactory</a>&nbsp;transfer&#8203;(<a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;from,
@@ -304,22 +297,6 @@ extends java.lang.Object</pre>
 <dd><code>lamports</code> - the amount of lamports to transfer</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>this <code>SystemProgramFactory</code> instance</dd>
-</dl>
-</li>
-</ul>
-<a id="getNonceAccountValue(byte[])">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>getNonceAccountValue</h4>
-<pre class="methodSignature">public static&nbsp;<a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;getNonceAccountValue&#8203;(byte[]&nbsp;nonceAccountDataBytes)</pre>
-<div class="block">Gets the nonce value from a nonce account's data.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>nonceAccountDataBytes</code> - the byte array containing the nonce account's data</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the public key representing the nonce value</dd>
 </dl>
 </li>
 </ul>
