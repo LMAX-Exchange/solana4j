@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.lmax.solana4j"},{"l":"com.lmax.solana4j.api"},{"l":"com.lmax.solana4j.encoding"},{"l":"com.lmax.solana4j.programs"},{"l":"com.lmax.solana4j.programs.token"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"m":"com.lmax.solana4j","l":"com.lmax.solana4j"},{"m":"com.lmax.solana4j","l":"com.lmax.solana4j.api"},{"m":"com.lmax.solana4j","l":"com.lmax.solana4j.encoding"},{"m":"com.lmax.solana4j","l":"com.lmax.solana4j.programs"}]

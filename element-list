@@ -1,5 +1,5 @@
+module:com.lmax.solana4j
 com.lmax.solana4j
 com.lmax.solana4j.api
 com.lmax.solana4j.encoding
 com.lmax.solana4j.programs
-com.lmax.solana4j.programs.token
