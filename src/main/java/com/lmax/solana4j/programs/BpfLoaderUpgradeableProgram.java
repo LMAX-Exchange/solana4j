@@ -33,6 +33,10 @@ public final class BpfLoaderUpgradeableProgram
      */
     private static final int SET_AUTHORITY_INSTRUCTION = 4;
 
+    private BpfLoaderUpgradeableProgram()
+    {
+    }
+
     /**
      * Factory method to create an instance of {@code BpfLoaderUpgradeableProgram} with a specified transaction builder.
      *

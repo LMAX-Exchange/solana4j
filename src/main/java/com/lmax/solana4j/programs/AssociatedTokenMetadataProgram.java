@@ -29,6 +29,10 @@ public final class AssociatedTokenMetadataProgram
      */
     public static final PublicKey ASSOCIATED_TOKEN_METADATA_PROGRAM_ACCOUNT = Solana.account(ASSOCIATED_TOKEN_METADATA_PROGRAM_ID);
 
+    private AssociatedTokenMetadataProgram()
+    {
+    }
+
     /**
      * Derives the program address for the given mint.
      *

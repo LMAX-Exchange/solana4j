@@ -56,6 +56,9 @@ public final class AddressLookupTableProgram
      */
     public static final int LOOKUP_TABLE_META_SIZE = 56;
 
+    private AddressLookupTableProgram()
+    {
+    }
 
     /**
      * Factory method for creating a new instance of {@code AddressLookupTableProgramFactory}.

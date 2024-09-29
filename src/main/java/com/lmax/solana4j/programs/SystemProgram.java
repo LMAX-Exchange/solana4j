@@ -67,6 +67,10 @@ public final class SystemProgram
      */
     public static final int NONCE_INIT_INSTRUCTION = 6;
 
+    private SystemProgram()
+    {
+    }
+
     /**
      * Factory method for creating a new instance of {@code SystemProgramFactory}.
      *
@@ -142,26 +146,6 @@ public final class SystemProgram
         {
             tb.append(SystemProgram.transfer(from, to, lamports));
             return this;
-        }
-
-        /**
-         * Gets the nonce value from a nonce account's data.
-         *
-         * @param nonceAccountDataBytes the byte array containing the nonce account's data
-         * @return the public key representing the nonce value
-         */
-        public static PublicKey getNonceAccountValue(final byte[] nonceAccountDataBytes)
-        {
-            assert nonceAccountDataBytes.length >= 72;
-
-            final ByteBuffer nonceAccountData = ByteBuffer.allocate(nonceAccountDataBytes.length);
-            nonceAccountData.put(nonceAccountDataBytes);
-
-            final byte[] nonceValue = new byte[32];
-            nonceAccountData.position(40);
-            nonceAccountData.get(nonceValue, 0, 32);
-
-            return Solana.account(nonceValue);
         }
     }
 

@@ -11,7 +11,7 @@ import java.nio.ByteOrder;
 /**
  * Program for managing compute budgets on the Solana blockchain.
  */
-public class ComputeBudgetProgram
+public final class ComputeBudgetProgram
 {
     private static final byte[] COMPUTE_BUDGET_PROGRAM_ID = Base58.decode("ComputeBudget111111111111111111111111111111");
     /**
@@ -37,12 +37,17 @@ public class ComputeBudgetProgram
      */
     public static final int SET_COMPUTE_UNIT_PRICE_INSTRUCTION = 3;
 
+    private ComputeBudgetProgram()
+    {
+    }
+
     /**
      * Factory method for creating a new instance of {@code ComputeBudgetProgramFactory}.
      *
      * @param tb the transaction builder
      * @return a new instance of {@code ComputeBudgetProgramFactory}
      */
+
     public static ComputeBudgetProgramFactory factory(final TransactionBuilder tb)
     {
         return new ComputeBudgetProgramFactory(tb);

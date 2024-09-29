@@ -49,6 +49,10 @@ public final class AssociatedTokenProgram
      */
     public static final int IDEMPOTENT_CREATE_INSTRUCTION = 1;
 
+    private AssociatedTokenProgram()
+    {
+    }
+
     /**
      * Factory method for creating a new instance of {@code AssociatedTokenProgramFactory}.
      *

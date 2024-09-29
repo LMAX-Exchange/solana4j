@@ -380,7 +380,7 @@ public abstract class TokenProgramBase
      * @param destination the list of destinations to mint to
      * @return {@code TransactionInstruction} of the created instruction
      */
-    protected static TransactionInstruction mintTo(
+    static TransactionInstruction mintTo(
             final PublicKey programId,
             final PublicKey mint,
             final PublicKey authority,
@@ -408,7 +408,7 @@ public abstract class TokenProgramBase
      * @param signers     the list of public keys of the signers
      * @return {@code TransactionInstruction} of the created instruction
      */
-    protected static TransactionInstruction transfer(
+    static TransactionInstruction transfer(
             final PublicKey programId,
             final PublicKey source,
             final PublicKey destination,
@@ -440,7 +440,7 @@ public abstract class TokenProgramBase
      * @param requiredSignatures the number of required signatures
      * @return {@code TransactionInstruction} of the created instruction
      */
-    protected static TransactionInstruction initializeMultisig(
+    static TransactionInstruction initializeMultisig(
             final PublicKey programId,
             final PublicKey multisigPublicKey,
             final List<PublicKey> signers,
@@ -471,7 +471,7 @@ public abstract class TokenProgramBase
      * @param authorityType the type of authority to set
      * @return {@code TransactionInstruction} of the created instruction
      */
-    protected static TransactionInstruction setAuthority(
+    static TransactionInstruction setAuthority(
             final PublicKey programId,
             final PublicKey tokenAccount,
             final PublicKey newAuthority,
