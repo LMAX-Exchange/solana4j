@@ -49,6 +49,7 @@ public final class BpfLoaderUpgradeableProgram
     {
     }
 
+
     /**
      * Factory method to create an instance of {@code BpfLoaderUpgradeableProgram} with a specified transaction builder.
      *
@@ -61,7 +62,7 @@ public final class BpfLoaderUpgradeableProgram
     }
 
     /**
-     * Inner factory class for building BPF Loader Upgradeable program instructions.
+     * Inner factory class for building BPF Loader Upgradeable program instructions using a {@link TransactionBuilder}.
      */
     public static final class BpfLoaderUpgradeableProgramFactory
     {

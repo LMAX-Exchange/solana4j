@@ -76,7 +76,7 @@ public final class TokenProgram extends TokenProgramBase
     }
 
     /**
-     * Factory class for creating transactions related to the Token Program.
+     * Inner factory class for creating transactions for the Token Program using a token program id and {@link TransactionBuilder}.
      * <p>
      * This factory extends the {@link TokenProgramBase.TokenProgramBaseFactory} class to provide functionality
      * specific to the Solana Token Program.

@@ -51,7 +51,7 @@ public final class Token2022Program extends TokenProgramBase
     }
 
     /**
-     * Factory class for creating transactions for the Token 2022 program.
+     * Inner factory class for creating transactions for the Token 2022 program using a token program id and {@link TransactionBuilder}.
      * <p>
      * This factory extends the {@link TokenProgramBaseFactory} class to provide functionality specific to the Token 2022 program.
      * </p>

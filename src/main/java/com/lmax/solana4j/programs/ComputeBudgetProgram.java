@@ -67,7 +67,7 @@ public final class ComputeBudgetProgram
     }
 
     /**
-     * Inner factory class for building compute budget program instructions. using a {@link TransactionBuilder}.
+     * Inner factory class for building compute budget program instructions using a {@link TransactionBuilder}.
      */
     public static final class ComputeBudgetProgramFactory
     {

@@ -99,7 +99,7 @@ public final class SystemProgram
     }
 
     /**
-     * Inner factory class for building system program instructions. using a {@link TransactionBuilder}.
+     * Inner factory class for building system program instructions using a {@link TransactionBuilder}.
      */
     public static final class SystemProgramFactory
     {
