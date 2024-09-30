@@ -25,7 +25,7 @@ We hope that you enjoy using the library, and we welcome any feedback. We especi
 
 ##### Core Functionality
 
-* Reading and Writing Legacy & V0 Message Encoding.
+* Reading and Writing Legacy & V0 Solana Messages.
 * Building Solana Messages for signing.
 * Appending signatures to Solana Messages for transaction submission.
 
