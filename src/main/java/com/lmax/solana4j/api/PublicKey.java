@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 /**
  * Interface representing a public key.
  * <p>
- * A public key is used to identify accounts and perform cryptographic operations in the Solana blockchain.
+ * A public key is used to identify accounts on the Solana blockchain.
  * </p>
  */
 public interface PublicKey

@@ -25,7 +25,7 @@ public interface MessageVisitor<T>
     T visit(MessageView message);
 
     /**
-     * Interface representing a view of a message in the Solana blockchain.
+     * Interface representing a view of a Solana Message.
      */
     interface MessageView
     {
@@ -201,7 +201,7 @@ public interface MessageVisitor<T>
     }
 
     /**
-     * Interface representing an instruction view in the Solana blockchain.
+     * Interface representing an instruction view of a Solana Message.
      */
     interface InstructionView
     {
@@ -233,7 +233,7 @@ public interface MessageVisitor<T>
     }
 
     /**
-     * Interface representing a legacy instruction view in the Solana blockchain.
+     * Interface representing a legacy instruction view of a Solana Message.
      */
     interface LegacyInstructionView extends InstructionView
     {
@@ -254,7 +254,7 @@ public interface MessageVisitor<T>
     }
 
     /**
-     * Interface representing a V0 instruction view in the Solana blockchain.
+     * Interface representing a V0 instruction view of a Solana Message.
      */
     interface V0InstructionView extends InstructionView
     {
@@ -283,7 +283,7 @@ public interface MessageVisitor<T>
     }
 
     /**
-     * Interface representing an account lookup view in the Solana blockchain.
+     * Interface representing an account lookup view of a Solana Message.
      */
     interface AccountLookupView
     {
@@ -320,7 +320,7 @@ public interface MessageVisitor<T>
     }
 
     /**
-     * Interface representing a view of accounts in the Solana blockchain.
+     * Interface representing a view of static accounts of a Solana Message.
      */
     interface AccountsView
     {
@@ -334,7 +334,7 @@ public interface MessageVisitor<T>
     }
 
     /**
-     * Interface representing a view of legacy accounts in the Solana blockchain.
+     * Interface representing a view of legacy accounts of a Solana Message.
      * <p>
      * Extends the {@link AccountsView} interface to represent legacy account views.
      * </p>
@@ -344,7 +344,7 @@ public interface MessageVisitor<T>
     }
 
     /**
-     * Interface representing a view of V0 accounts in the Solana blockchain.
+     * Interface representing a view of V0 accounts of a Solana Message.
      * <p>
      * Extends the {@link AccountsView} interface and provides methods specific to V0 accounts.
      * </p>

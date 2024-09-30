@@ -21,7 +21,7 @@ public final class BpfLoaderUpgradeableProgram
     /**
      * The Program ID for the BPF Loader Upgradeable program.
      * <p>
-     * This constant holds the program ID used to identify the BPF Loader Upgradeable program in the Solana blockchain.
+     * This constant holds the program ID used to identify the BPF Loader Upgradeable program.
      * </p>
      */
     private static final byte[] PROGRAM_ID = Base58.decode("BPFLoaderUpgradeab1e11111111111111111111111");

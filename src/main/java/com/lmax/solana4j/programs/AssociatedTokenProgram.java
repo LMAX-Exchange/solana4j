@@ -23,7 +23,7 @@ public final class AssociatedTokenProgram
     /**
      * The program ID for the associated token program.
      * <p>
-     * This constant holds the program ID used to identify the associated token program in the Solana blockchain.
+     * This constant holds the program ID used to identify the associated token program.
      * </p>
      */
     private static final byte[] ASSOCIATED_TOKEN_PROGRAM_ID = Base58.decode("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
