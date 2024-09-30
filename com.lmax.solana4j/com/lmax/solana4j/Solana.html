@@ -136,14 +136,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public final class <span class="typeNameLabel">Solana</span>
 extends java.lang.Object</pre>
-<div class="block">Utility class for Solana blockchain operations.
+<div class="block">Entrypoint to the library's APIs.
  <p>
- This class provides various utility methods for creating, reading, and manipulating Solana blockchain data structures.
- It utilizes the Solana encoding to facilitate operations on different blockchain entities such as accounts, messages,
- transactions, and more.
- </p>
- <p>
- This class is designed to be non-instantiable and serves as a static utility holder.
+ This class provides the entrypoint to the underlying APIs that this library provides.
  </p></div>
 </li>
 </ul>
@@ -209,7 +204,7 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>static <a href="api/Blockhash.html" title="interface in com.lmax.solana4j.api">Blockhash</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#blockhash(byte%5B%5D)">blockhash</a></span>&#8203;(byte[]&nbsp;bytes)</code></th>
 <td class="colLast">
-<div class="block">Creates a new blockhash from the given byte array.</div>
+<div class="block">Creates a new Blockhash from the given byte array.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -230,7 +225,7 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>static <a href="api/TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#instruction(java.util.function.Consumer)">instruction</a></span>&#8203;(java.util.function.Consumer&lt;<a href="api/InstructionBuilderBase.html" title="interface in com.lmax.solana4j.api">InstructionBuilderBase</a>&gt;&nbsp;instructionBuilder)</code></th>
 <td class="colLast">
-<div class="block">Creates a new transaction instructions using the builder provided.</div>
+<div class="block">Creates a new transaction instruction using the builder provided.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
@@ -252,7 +247,7 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>static <a href="api/Slot.html" title="interface in com.lmax.solana4j.api">Slot</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#slot(long)">slot</a></span>&#8203;(long&nbsp;slot)</code></th>
 <td class="colLast">
-<div class="block">Creates a new slot from the given slot number.</div>
+<div class="block">Creates a new Slot from the given slot number.</div>
 </td>
 </tr>
 </table>
@@ -330,7 +325,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>instruction</h4>
 <pre class="methodSignature">public static&nbsp;<a href="api/TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a>&nbsp;instruction&#8203;(java.util.function.Consumer&lt;<a href="api/InstructionBuilderBase.html" title="interface in com.lmax.solana4j.api">InstructionBuilderBase</a>&gt;&nbsp;instructionBuilder)</pre>
-<div class="block">Creates a new transaction instructions using the builder provided.</div>
+<div class="block">Creates a new transaction instruction using the builder provided.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>instructionBuilder</code> - the builder of the required instruction</dd>
@@ -430,10 +425,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>blockhash</h4>
 <pre class="methodSignature">public static&nbsp;<a href="api/Blockhash.html" title="interface in com.lmax.solana4j.api">Blockhash</a>&nbsp;blockhash&#8203;(byte[]&nbsp;bytes)</pre>
-<div class="block">Creates a new blockhash from the given byte array.</div>
+<div class="block">Creates a new Blockhash from the given byte array.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>bytes</code> - the byte array representing the blockhash</dd>
+<dd><code>bytes</code> - the byte array representing the Blockhash</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a new instance of <a href="api/Blockhash.html" title="interface in com.lmax.solana4j.api"><code>Blockhash</code></a></dd>
 </dl>
@@ -446,7 +441,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>slot</h4>
 <pre class="methodSignature">public static&nbsp;<a href="api/Slot.html" title="interface in com.lmax.solana4j.api">Slot</a>&nbsp;slot&#8203;(long&nbsp;slot)</pre>
-<div class="block">Creates a new slot from the given slot number.</div>
+<div class="block">Creates a new Slot from the given slot number.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>slot</code> - the slot number</dd>

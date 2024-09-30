@@ -251,12 +251,16 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>deriveAddress</h4>
 <pre class="methodSignature">public static&nbsp;<a href="../api/ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a>&nbsp;deriveAddress&#8203;(<a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint)</pre>
-<div class="block">Derives the program address for the given mint.</div>
+<div class="block">Derives the program address for the given mint.
+ <p>
+ This method derives the program address for a specific token mint by using a combination of the
+ metadata magic string, the associated token metadata program ID, and the mint's public key.
+ </p></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>mint</code> - the public key of the mint</dd>
+<dd><code>mint</code> - the public key of the token mint</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the derived program address</dd>
+<dd>the derived program address as a <a href="../api/ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api"><code>ProgramDerivedAddress</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -267,12 +271,16 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>extractTokenName</h4>
 <pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;extractTokenName&#8203;(java.lang.String&nbsp;base64Metadata)</pre>
-<div class="block">Extracts the token name from the base64-encoded metadata.</div>
+<div class="block">Extracts the token name from the base64-encoded metadata.
+ <p>
+ This method decodes the base64-encoded metadata and extracts the token name from it. The name is determined
+ by reading the length of the name and then extracting the corresponding bytes from the metadata.
+ </p></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>base64Metadata</code> - the base64-encoded metadata</dd>
+<dd><code>base64Metadata</code> - the base64-encoded metadata string</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the extracted token name</dd>
+<dd>the extracted token name as a string</dd>
 </dl>
 </li>
 </ul>

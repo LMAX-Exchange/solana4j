@@ -136,7 +136,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public final class <span class="typeNameLabel">SystemProgram</span>
 extends java.lang.Object</pre>
-<div class="block">Program for managing system-level operations on the Solana blockchain.</div>
+<div class="block">Program for managing system-level operations on the Solana blockchain.
+ <p>
+ This class provides methods to create accounts, transfer funds, and manage nonce accounts on the Solana blockchain.
+ </p></div>
 </li>
 </ul>
 </div>
@@ -160,7 +163,9 @@ extends java.lang.Object</pre>
 <tr class="altColor">
 <td class="colFirst"><code>static class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="SystemProgram.SystemProgramFactory.html" title="class in com.lmax.solana4j.programs">SystemProgram.SystemProgramFactory</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Inner factory class for building system program instructions.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -454,7 +459,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>factory</h4>
 <pre class="methodSignature">public static&nbsp;<a href="SystemProgram.SystemProgramFactory.html" title="class in com.lmax.solana4j.programs">SystemProgram.SystemProgramFactory</a>&nbsp;factory&#8203;(<a href="../api/TransactionBuilder.html" title="interface in com.lmax.solana4j.api">TransactionBuilder</a>&nbsp;tb)</pre>
-<div class="block">Factory method for creating a new instance of <code>SystemProgramFactory</code>.</div>
+<div class="block">Factory method for creating a new instance of <code>SystemProgramFactory</code>.
+ <p>
+ This factory helps in creating new instances of <a href="SystemProgram.html" title="class in com.lmax.solana4j.programs"><code>SystemProgram</code></a> for managing system-level operations using a provided <a href="../api/TransactionBuilder.html" title="interface in com.lmax.solana4j.api"><code>TransactionBuilder</code></a>.
+ </p></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>tb</code> - the transaction builder</dd>

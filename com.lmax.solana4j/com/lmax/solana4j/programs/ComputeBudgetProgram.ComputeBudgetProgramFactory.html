@@ -138,8 +138,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd><a href="ComputeBudgetProgram.html" title="class in com.lmax.solana4j.programs">ComputeBudgetProgram</a></dd>
 </dl>
 <hr>
-<pre>public static class <span class="typeNameLabel">ComputeBudgetProgram.ComputeBudgetProgramFactory</span>
+<pre>public static final class <span class="typeNameLabel">ComputeBudgetProgram.ComputeBudgetProgramFactory</span>
 extends java.lang.Object</pre>
+<div class="block">Inner factory class for building compute budget program instructions. using a <a href="../api/TransactionBuilder.html" title="interface in com.lmax.solana4j.api"><code>TransactionBuilder</code></a>.</div>
 </li>
 </ul>
 </div>
@@ -205,7 +206,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>setComputeUnitLimit</h4>
 <pre class="methodSignature">public&nbsp;<a href="ComputeBudgetProgram.ComputeBudgetProgramFactory.html" title="class in com.lmax.solana4j.programs">ComputeBudgetProgram.ComputeBudgetProgramFactory</a>&nbsp;setComputeUnitLimit&#8203;(int&nbsp;computeUnits)</pre>
-<div class="block">Sets the compute unit limit.</div>
+<div class="block">Sets the compute unit limit.
+ <p>
+ This method generates a transaction instruction to set the maximum number of compute units that can be used.
+ </p></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>computeUnits</code> - the number of compute units to set as the limit</dd>
@@ -221,7 +225,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>setComputeUnitPrice</h4>
 <pre class="methodSignature">public&nbsp;<a href="ComputeBudgetProgram.ComputeBudgetProgramFactory.html" title="class in com.lmax.solana4j.programs">ComputeBudgetProgram.ComputeBudgetProgramFactory</a>&nbsp;setComputeUnitPrice&#8203;(long&nbsp;microLamports)</pre>
-<div class="block">Sets the compute unit price.</div>
+<div class="block">Sets the compute unit price.
+ <p>
+ This method generates a transaction instruction to set the price per compute unit, expressed in microLamports.
+ </p></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>microLamports</code> - the price in microLamports per compute unit</dd>

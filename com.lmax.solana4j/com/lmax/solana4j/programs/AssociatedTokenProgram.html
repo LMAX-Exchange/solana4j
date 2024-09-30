@@ -160,7 +160,9 @@ extends java.lang.Object</pre>
 <tr class="altColor">
 <td class="colFirst"><code>static class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="AssociatedTokenProgram.AssociatedTokenProgramFactory.html" title="class in com.lmax.solana4j.programs">AssociatedTokenProgram.AssociatedTokenProgramFactory</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Inner factory class for building associated token program instructions using a <a href="../api/TransactionBuilder.html" title="interface in com.lmax.solana4j.api"><code>TransactionBuilder</code></a>.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -198,7 +200,7 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>static int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#IDEMPOTENT_CREATE_INSTRUCTION">IDEMPOTENT_CREATE_INSTRUCTION</a></span></code></th>
 <td class="colLast">
-<div class="block">The instruction code for creating an account idempotently.</div>
+<div class="block">The instruction code for idempotently creating an account.</div>
 </td>
 </tr>
 </table>
@@ -294,7 +296,7 @@ extends java.lang.Object</pre>
 <pre>public static final&nbsp;int CREATE_INSTRUCTION</pre>
 <div class="block">The instruction code for creating an account.
  <p>
- This constant defines the instruction code used to create a new account in Solana.
+ This constant defines the instruction code used to create a new token account in Solana.
  </p></div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -309,9 +311,9 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>IDEMPOTENT_CREATE_INSTRUCTION</h4>
 <pre>public static final&nbsp;int IDEMPOTENT_CREATE_INSTRUCTION</pre>
-<div class="block">The instruction code for creating an account idempotently.
+<div class="block">The instruction code for idempotently creating an account.
  <p>
- This constant defines the instruction code used to create a new account in Solana idempotently,
+ This constant defines the instruction code used to create a new token account idempotently,
  ensuring that if the creation is attempted multiple times, it will have the same effect as if it were done once.
  </p></div>
 <dl>
@@ -340,7 +342,7 @@ extends java.lang.Object</pre>
 <div class="block">Factory method for creating a new instance of <code>AssociatedTokenProgramFactory</code>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>tb</code> - the transaction builder</dd>
+<dd><code>tb</code> - the transaction builder to append instructions to</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a new instance of <code>AssociatedTokenProgramFactory</code></dd>
 </dl>
@@ -368,7 +370,7 @@ extends java.lang.Object</pre>
 <dd><code>programId</code> - the public key of the token program used to create the programDerivedAddress</dd>
 <dd><code>idempotent</code> - whether the creation should be idempotent</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>A <code>TransactionInstruction</code> of the created instruction</dd>
+<dd>A <code>TransactionInstruction</code> representing the created instruction</dd>
 </dl>
 </li>
 </ul>
@@ -382,8 +384,10 @@ extends java.lang.Object</pre>
                                                   <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenProgramAccount,
                                                   <a href="../api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint)</pre>
 <div class="block">Derives a program address for a given owner, token program account, and mint.
+ <p>
  This method generates a program-derived address based on the combination of the owner's public key,
- the token program account's public key, and the mint's public key, using the associated token program account.</div>
+ the token program account's public key, and the mint's public key, using the associated token program account.
+ </p></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>owner</code> - the owner's public key; must not be null</dd>
