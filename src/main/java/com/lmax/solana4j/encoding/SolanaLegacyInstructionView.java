@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class SolanaLegacyInstructionView extends SolanaInstructionView implements MessageVisitor.LegacyInstructionView
+final class SolanaLegacyInstructionView extends SolanaInstructionView implements MessageVisitor.LegacyInstructionView
 {
     private final MessageVisitor.LegacyAccountsView accountsView;
 

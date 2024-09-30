@@ -33,6 +33,10 @@ public final class SolanaEncoding
      */
     public static final int MAX_MESSAGE_SIZE = 1280 - 40 - 8;
 
+    private SolanaEncoding()
+    {
+    }
+
     /**
      * Creates a new message builder for the given buffer.
      *

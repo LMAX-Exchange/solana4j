@@ -16,7 +16,6 @@ import static com.lmax.solana4j.encoding.SysVar.RENT;
 
 /**
  * Program for managing token operations on the Solana blockchain.
- *
  */
 public abstract class TokenProgramBase
 {
@@ -99,9 +98,9 @@ public abstract class TokenProgramBase
     /**
      * Mints new tokens to a list of destinations.
      *
-     * @param mint         the public key of the mint
-     * @param authority    the public key of the authority
-     * @param destination  the destination to mint to
+     * @param mint        the public key of the mint
+     * @param authority   the public key of the authority
+     * @param destination the destination to mint to
      * @return {@code TransactionInstruction} of the created instruction
      */
     public TransactionInstruction mintTo(
@@ -179,7 +178,7 @@ public abstract class TokenProgramBase
          * Factory method for creating a new instance of {@code TokenProgramBaseFactory}.
          *
          * @param tokenProgramId the program id of the token program
-         * @param tb the transaction builder
+         * @param tb             the transaction builder
          */
         protected TokenProgramBaseFactory(final PublicKey tokenProgramId, final TransactionBuilder tb)
         {
@@ -351,8 +350,8 @@ public abstract class TokenProgramBase
                 .data(67, bb ->
                 {
                     bb.order(ByteOrder.LITTLE_ENDIAN)
-                      .put((byte) INITIALIZE_MINT_INSTRUCTION)
-                      .put(decimals);
+                            .put((byte) INITIALIZE_MINT_INSTRUCTION)
+                            .put(decimals);
                     mintAuthority.write(bb);
                     bb.put((byte) (
                             freezeAuthority.isPresent()
@@ -392,8 +391,8 @@ public abstract class TokenProgramBase
                 .account(destination.getDestination(), false, true)
                 .account(authority, true, false)
                 .data(1 + 8, bb -> bb.order(ByteOrder.LITTLE_ENDIAN)
-                                     .put((byte) MINT_TO_INSTRUCTION)
-                                     .putLong(destination.getAmount()))
+                        .put((byte) MINT_TO_INSTRUCTION)
+                        .putLong(destination.getAmount()))
         );
     }
 
@@ -421,8 +420,8 @@ public abstract class TokenProgramBase
             ib
                     .program(programId)
                     .data(1 + 8, bb -> bb.order(ByteOrder.LITTLE_ENDIAN)
-                                         .put((byte) TRANSFER_INSTRUCTION)
-                                         .putLong(amount))
+                            .put((byte) TRANSFER_INSTRUCTION)
+                            .putLong(amount))
                     .account(source, false, true)
                     .account(destination, false, true)
                     .account(owner, signers.isEmpty(), false);
@@ -451,8 +450,8 @@ public abstract class TokenProgramBase
             ib
                     .program(programId)
                     .data(1 + 1, bb -> bb.order(ByteOrder.LITTLE_ENDIAN)
-                                         .put((byte) INITIALIZE_MULTISIG_INSTRUCTION)
-                                         .put((byte) requiredSignatures))
+                            .put((byte) INITIALIZE_MULTISIG_INSTRUCTION)
+                            .put((byte) requiredSignatures))
                     .account(multisigPublicKey, false, true)
                     .account(RENT, false, false);
             signers.forEach(signer -> ib
@@ -488,10 +487,10 @@ public abstract class TokenProgramBase
             ib
                     .program(programId)
                     .data(1 + 1 + 1 + PublicKey.PUBLIC_KEY_LENGTH, bb -> bb.order(ByteOrder.LITTLE_ENDIAN)
-                                                                           .put((byte) SET_AUTHORITY_INSTRUCTION)
-                                                                           .put(authorityType.value)
-                                                                           .put((byte) 1)
-                                                                           .put(newAuthorityBuffer.flip())
+                            .put((byte) SET_AUTHORITY_INSTRUCTION)
+                            .put(authorityType.value)
+                            .put((byte) 1)
+                            .put(newAuthorityBuffer.flip())
                     )
                     .account(tokenAccount, false, true)
                     .account(oldAuthority, signers.isEmpty(), false);

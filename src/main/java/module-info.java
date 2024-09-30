@@ -1,9 +1,9 @@
 /**
- * This module provides core functionality for interacting with the Solana blockchain,
- * focusing on token operations such as minting, transferring, and managing token accounts.
+ * This module provides functionality for reading and writing messages on the Solana blockchain.
  * <p>
- * The module is part of the solana4j library and exports key packages for token management
- * and transaction building.
+ *     The Solana Legacy and V0 encoding schemes are both supported. The library has support for interacting
+ *     with core programs such as the SystemProgram, TokenProgram and AssociatedTokenProgram. Support for
+ *     more programs can be easily extended.
  * </p>
  */
 module com.lmax.solana4j {

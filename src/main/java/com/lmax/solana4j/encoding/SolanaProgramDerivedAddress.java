@@ -14,7 +14,7 @@ import static com.lmax.solana4j.api.PublicKey.PUBLIC_KEY_LENGTH;
 import static java.util.Objects.requireNonNull;
 import static net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable.ED_25519_CURVE_SPEC;
 
-class SolanaProgramDerivedAddress implements ProgramDerivedAddress
+final class SolanaProgramDerivedAddress implements ProgramDerivedAddress
 {
     public static final byte[] PROGRAM_DERIVED_ADDRESS_BYTES = "ProgramDerivedAddress".getBytes(StandardCharsets.UTF_8);
     private static final int BUMP_LENGTH = 1;
