@@ -138,11 +138,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/AccountLookupEntry.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">AccountLookupEntry</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
 <div class="block">Interface representing an account lookup entry which stores the read only and read write indexes of
- addresses in an address lookup table on the Solana blockchain</div>
+ addresses in an address lookup table.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/AccountLookupEntry.LookupEntry.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">AccountLookupEntry.LookupEntry</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing an address lookup index in the Solana blockchain.</div>
+<div class="block">Interface representing an address lookup entry, which is the address and it's index within
+ an address lookup table.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html#accountLookups()">accountLookups()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.Version0MessageView</a></dt>
 <dd>
@@ -168,7 +169,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/Accounts.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">Accounts</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a collection of accounts in the Solana blockchain.</div>
+<div class="block">Interface representing a collection of accounts within a Solana Message.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/AccountLookupEntry.html#addReadOnlyEntry(com.lmax.solana4j.api.PublicKey,int)">addReadOnlyEntry(PublicKey, int)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/AccountLookupEntry.html" title="interface in com.lmax.solana4j.api">AccountLookupEntry</a></dt>
 <dd>
@@ -192,7 +193,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/AddressLookupTable.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">AddressLookupTable</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing an address lookup table in the Solana blockchain.</div>
+<div class="block">Interface representing an address lookup table on the Solana blockchain.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/programs/AddressLookupTableProgram.html" title="class in com.lmax.solana4j.programs"><span class="typeNameLink">AddressLookupTableProgram</span></a> - Class in <a href="com.lmax.solana4j/com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
 <dd>
@@ -258,7 +259,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/Blockhash.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">Blockhash</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a blockhash in the Solana blockchain.</div>
+<div class="block">Interface representing a blockhash on the Solana blockchain.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/programs/BpfLoaderUpgradeableProgram.html" title="class in com.lmax.solana4j.programs"><span class="typeNameLink">BpfLoaderUpgradeableProgram</span></a> - Class in <a href="com.lmax.solana4j/com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
 <dd>
@@ -268,10 +269,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Inner factory class for building BPF Loader Upgradeable program instructions.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/InstructionBuilder.html#build()">build()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/InstructionBuilder.html" title="interface in com.lmax.solana4j.api">InstructionBuilder</a></dt>
-<dd>
-<div class="block">Builds and returns a transaction instruction.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageInstructionBuilder.html#build()">build()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageInstructionBuilder.html" title="interface in com.lmax.solana4j.api">MessageInstructionBuilder</a></dt>
 <dd>
 <div class="block">Builds and returns a message builder with the instructions.</div>
@@ -279,6 +276,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/SignedMessageBuilder.html#build()">build()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/SignedMessageBuilder.html" title="interface in com.lmax.solana4j.api">SignedMessageBuilder</a></dt>
 <dd>
 <div class="block">Builds and returns the signed message.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/TransactionInstructionBuilder.html#build()">build()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/TransactionInstructionBuilder.html" title="interface in com.lmax.solana4j.api">TransactionInstructionBuilder</a></dt>
+<dd>
+<div class="block">Builds and returns a transaction instruction.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/UnsignedMessageBuilder.html#build()">build()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/UnsignedMessageBuilder.html" title="interface in com.lmax.solana4j.api">UnsignedMessageBuilder</a></dt>
 <dd>
@@ -304,11 +305,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/ByteBufferSigner.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">ByteBufferSigner</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing an entity capable of signing transactions represented as <code>ByteBuffer</code> in the Solana blockchain.</div>
-</dd>
-<dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/ByteBufferWriter.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">ByteBufferWriter</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
-<dd>
-<div class="block">Interface representing an entity capable of writing data to a <code>ByteBuffer</code> in the context of Solana blockchain references.</div>
+<div class="block">Interface representing an entity capable of signing transactions represented as <code>ByteBuffer</code>.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/PublicKey.html#bytes()">bytes()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></dt>
 <dd>
@@ -346,7 +343,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/encoding/package-summary.html">com.lmax.solana4j.encoding</a> - package com.lmax.solana4j.encoding</dt>
 <dd>
-<div class="block">This package exposes the library's APIs.</div>
+<div class="block">This package exposes the library's API.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a> - package com.lmax.solana4j.programs</dt>
 <dd>
@@ -480,7 +477,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/Destination.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">Destination</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a destination for a transaction in the Solana blockchain.</div>
+<div class="block">Interface representing a destination for a transaction on the Solana blockchain.</div>
 </dd>
 </dl>
 <a id="I:E">
@@ -691,13 +688,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Creates a new transaction instruction using the builder provided.</div>
 </dd>
-<dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/InstructionBuilder.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">InstructionBuilder</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
-<dd>
-<div class="block">Interface for building instructions in a Solana blockchain transaction.</div>
-</dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/InstructionBuilderBase.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">InstructionBuilderBase</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Base interface for building instructions in a Solana blockchain transaction.</div>
+<div class="block">Base interface for building instructions for a Solana transaction.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.LegacyMessageView.html#instructions()">instructions()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.LegacyMessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyMessageView</a></dt>
 <dd>
@@ -705,7 +698,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html#instructions()">instructions()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.Version0MessageView</a></dt>
 <dd>
-<div class="block">Retrieves the list of instructions included in this version 0 message.</div>
+<div class="block">Retrieves the list of instructions included in this V0 message.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderLegacy.html#instructions(java.util.function.Consumer)">instructions(Consumer&lt;TransactionBuilder&gt;)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderLegacy.html" title="interface in com.lmax.solana4j.api">MessageBuilderLegacy</a></dt>
 <dd>
@@ -713,7 +706,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderV0.html#instructions(java.util.function.Consumer)">instructions(Consumer&lt;TransactionBuilder&gt;)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderV0.html" title="interface in com.lmax.solana4j.api">MessageBuilderV0</a></dt>
 <dd>
-<div class="block">Sets the instructions for the version 0 message.</div>
+<div class="block">Sets the instructions for the V0 message.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html#INTEREST_RATE">INTEREST_RATE</a></span> - com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgramBase.AuthorityType</a></dt>
 <dd>
@@ -741,7 +734,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html#isWriter(com.lmax.solana4j.api.PublicKey,java.util.List)">isWriter(PublicKey, List&lt;AddressLookupTable&gt;)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.Version0MessageView</a></dt>
 <dd>
-<div class="block">Checks if the specified account is designated as a writer in this version 0 message.</div>
+<div class="block">Checks if the specified account is designated as a writer in this V0 message.</div>
 </dd>
 </dl>
 <a id="I:L">
@@ -759,7 +752,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderV0.html#lookups(java.util.List)">lookups(List&lt;AddressLookupTable&gt;)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderV0.html" title="interface in com.lmax.solana4j.api">MessageBuilderV0</a></dt>
 <dd>
-<div class="block">Sets the account lookups for the version 0 message.</div>
+<div class="block">Sets the account lookups for the V0 message.</div>
 </dd>
 </dl>
 <a id="I:M">
@@ -777,27 +770,27 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/Message.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">Message</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a message in the Solana blockchain.</div>
+<div class="block">Interface representing a Solana message.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilder.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">MessageBuilder</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface for building messages in the Solana blockchain.</div>
+<div class="block">Interface for building messages for the Solana blockchain.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderLegacy.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">MessageBuilderLegacy</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface for building legacy messages in the Solana blockchain.</div>
+<div class="block">Interface for building legacy messages for the Solana blockchain.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderV0.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">MessageBuilderV0</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface for building version 0 messages in the Solana blockchain.</div>
+<div class="block">Interface for building V0 messages for the Solana blockchain.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageInstructionBuilder.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">MessageInstructionBuilder</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface for building instructions in a Solana blockchain transaction.</div>
+<div class="block">Interface for building instructions for a Solana Message.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">MessageVisitor</span></a>&lt;<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.html" title="type parameter in MessageVisitor">T</a>&gt; - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a visitor for messages in the Solana blockchain.</div>
+<div class="block">Interface representing a visitor for reading information about Solana Messages.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.AccountLookupView.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">MessageVisitor.AccountLookupView</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
@@ -821,7 +814,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.LegacyMessageView.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">MessageVisitor.LegacyMessageView</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a view of a legacy message in the Solana blockchain.</div>
+<div class="block">Interface representing a view of a Solana Legacy message.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.MessageView.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">MessageVisitor.MessageView</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
@@ -829,15 +822,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.V0AccountsView.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">MessageVisitor.V0AccountsView</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a view of version 0 accounts in the Solana blockchain.</div>
+<div class="block">Interface representing a view of V0 accounts in the Solana blockchain.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.V0InstructionView.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">MessageVisitor.V0InstructionView</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a version 0 instruction view in the Solana blockchain.</div>
+<div class="block">Interface representing a V0 instruction view in the Solana blockchain.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.Version0MessageView.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">MessageVisitor.Version0MessageView</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a view of a version 0 message in the Solana blockchain.</div>
+<div class="block">Interface representing a view of a Solana V0 message.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html#METADATA_POINTER">METADATA_POINTER</a></span> - com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgramBase.AuthorityType</a></dt>
 <dd>
@@ -913,7 +906,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderV0.html#payer(com.lmax.solana4j.api.PublicKey)">payer(PublicKey)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderV0.html" title="interface in com.lmax.solana4j.api">MessageBuilderV0</a></dt>
 <dd>
-<div class="block">Sets the payer for the version 0 message.</div>
+<div class="block">Sets the payer for the V0 message.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html#PERMANENT_DELEGATE">PERMANENT_DELEGATE</a></span> - com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgramBase.AuthorityType</a></dt>
 <dd>
@@ -921,11 +914,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderLegacy.html#prebuiltInstructions(java.util.List)">prebuiltInstructions(List&lt;TransactionInstruction&gt;)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderLegacy.html" title="interface in com.lmax.solana4j.api">MessageBuilderLegacy</a></dt>
 <dd>
-<div class="block">Sets the instructions for the legacy message.</div>
+<div class="block">Sets the prebuilt instructions for the legacy message.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderV0.html#prebuiltInstructions(java.util.List)">prebuiltInstructions(List&lt;TransactionInstruction&gt;)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderV0.html" title="interface in com.lmax.solana4j.api">MessageBuilderV0</a></dt>
 <dd>
-<div class="block">Sets the instructions for the legacy message.</div>
+<div class="block">Sets the prebuilt instructions for the legacy message.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.LegacyInstructionView.html#program()">program()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.LegacyInstructionView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.LegacyInstructionView</a></dt>
 <dd>
@@ -966,7 +959,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">ProgramDerivedAddress</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a program derived address in the Solana blockchain.</div>
+<div class="block">Interface representing a program derived address.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/ProgramDerivedAddress.html#programId()">programId()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a></dt>
 <dd>
@@ -982,7 +975,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/PublicKey.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">PublicKey</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a public key in the Solana blockchain.</div>
+<div class="block">Interface representing a public key.</div>
 </dd>
 </dl>
 <a id="I:R">
@@ -1012,7 +1005,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderV0.html#recent(com.lmax.solana4j.api.Blockhash)">recent(Blockhash)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderV0.html" title="interface in com.lmax.solana4j.api">MessageBuilderV0</a></dt>
 <dd>
-<div class="block">Sets the recent blockhash for the version 0 message.</div>
+<div class="block">Sets the recent blockhash for the V0 message.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/encoding/SysVar.html#RECENT_BLOCKHASHES">RECENT_BLOCKHASHES</a></span> - Static variable in class com.lmax.solana4j.encoding.<a href="com.lmax.solana4j/com/lmax/solana4j/encoding/SysVar.html" title="class in com.lmax.solana4j.encoding">SysVar</a></dt>
 <dd>
@@ -1024,7 +1017,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/References.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">References</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a collection of references to accounts in the Solana blockchain.</div>
+<div class="block">Interface representing a collection of references to accounts.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/encoding/SysVar.html#RENT">RENT</a></span> - Static variable in class com.lmax.solana4j.encoding.<a href="com.lmax.solana4j/com/lmax/solana4j/encoding/SysVar.html" title="class in com.lmax.solana4j.encoding">SysVar</a></dt>
 <dd>
@@ -1042,11 +1035,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderV0.html#seal()">seal()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilderV0.html" title="interface in com.lmax.solana4j.api">MessageBuilderV0</a></dt>
 <dd>
-<div class="block">Seals the version 0 message and returns a sealed message builder.</div>
+<div class="block">Seals the V0 message and returns a sealed message builder.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/SealedMessageBuilder.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">SealedMessageBuilder</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface for building sealed messages in the Solana blockchain.</div>
+<div class="block">Interface for building sealed messages.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.html#SET_AUTHORITY_INSTRUCTION">SET_AUTHORITY_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.html" title="class in com.lmax.solana4j.programs">TokenProgramBase</a></dt>
 <dd>
@@ -1106,7 +1099,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/SignedMessageBuilder.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">SignedMessageBuilder</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface for building signed messages in the Solana blockchain.</div>
+<div class="block">Interface for building signed messages.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.MessageView.html#signers()">signers()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.MessageView</a></dt>
 <dd>
@@ -1122,7 +1115,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/Slot.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">Slot</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a slot in the Solana blockchain.</div>
+<div class="block">Interface representing a Slot.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/Solana.html" title="class in com.lmax.solana4j"><span class="typeNameLink">Solana</span></a> - Class in <a href="com.lmax.solana4j/com/lmax/solana4j/package-summary.html">com.lmax.solana4j</a></dt>
 <dd>
@@ -1208,15 +1201,19 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/TransactionBuilder.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">TransactionBuilder</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface for building transactions in the Solana blockchain.</div>
+<div class="block">Interface for building Solana transactions.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/TransactionInstruction.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">TransactionInstruction</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface representing a transaction instruction in the Solana blockchain.</div>
+<div class="block">Interface representing a transaction instruction.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/TransactionInstruction.AccountReference.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">TransactionInstruction.AccountReference</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
 <div class="block">Interface representing a reference to an account in a transaction instruction.</div>
+</dd>
+<dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/TransactionInstructionBuilder.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">TransactionInstructionBuilder</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
+<dd>
+<div class="block">Interface for building instructions for a Solana transaction.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/SystemProgram.SystemProgramFactory.html#transfer(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long)">transfer(PublicKey, PublicKey, long)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/SystemProgram.SystemProgramFactory.html" title="class in com.lmax.solana4j.programs">SystemProgram.SystemProgramFactory</a></dt>
 <dd>
@@ -1262,7 +1259,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/UnsignedMessageBuilder.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">UnsignedMessageBuilder</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
-<div class="block">Interface for building unsigned messages in the Solana blockchain.</div>
+<div class="block">Interface for building unsigned messages.</div>
 </dd>
 </dl>
 <a id="I:V">
@@ -1272,7 +1269,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilder.html#v0()">v0()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageBuilder.html" title="interface in com.lmax.solana4j.api">MessageBuilder</a></dt>
 <dd>
-<div class="block">Creates and returns a builder for a version 0 message.</div>
+<div class="block">Creates and returns a builder for a V0 message.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html#valueOf(java.lang.String)">valueOf(String)</a></span> - Static method in enum com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgramBase.AuthorityType</a></dt>
 <dd>
@@ -1300,10 +1297,6 @@ the order they are declared.</div>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html#WITHHELD_WITHDRAW">WITHHELD_WITHDRAW</a></span> - com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for withdrawing withheld tokens.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/ByteBufferWriter.html#write(com.lmax.solana4j.api.References,java.nio.ByteBuffer)">write(References, ByteBuffer)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/ByteBufferWriter.html" title="interface in com.lmax.solana4j.api">ByteBufferWriter</a></dt>
-<dd>
-<div class="block">Writes data to the provided buffer using the given references.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/Blockhash.html#write(java.nio.ByteBuffer)">write(ByteBuffer)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/Blockhash.html" title="interface in com.lmax.solana4j.api">Blockhash</a></dt>
 <dd>
