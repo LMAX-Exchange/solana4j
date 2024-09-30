@@ -98,13 +98,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h1 class="title">solana4j</h1>
 </div>
 <div class="contentContainer">
-<div class="block"><h1>Solana4j Library Overview</h1>
-<p>This library provides APIs for interacting with the Solana blockchain, focusing on token operations.</p>
+<div class="block"><h1>solana4j Library Overview</h1>
+<p>This library provides APIs for reading and writing messages to the Solana blockchain with both the Legacy
+and V0 Solana Message encodings. This library supports interacting with a subset of the core Solana Programs, including
+the SystemProgram, TokenProgram and AssociatedTokenProgram. The library can be easily extended to support more
+Programs.
+</p>
 <h2>Features</h2>
 <ul>
-    <li>Token account management</li>
-    <li>Minting and transferring tokens</li>
-    <li>Multisig account operations</li>
+    <li>Creating Token, Mint, MultiSig and Nonce Accounts.</li>
+    <li>Sol and Token Transfers.</li>
+    <li>Mint Operations.</li>
+    <li>Nonce Account Operations.</li>
+    <li>Creating, Extending and Retrieving AddressLookupTables.</li>
+    <li>Compute Budget Operations.</li>
 </ul></div>
 </div>
 <div class="contentContainer">
@@ -118,8 +125,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr class="altColor" id="i0">
 <th class="colFirst" scope="row"><a href="com.lmax.solana4j/module-summary.html">com.lmax.solana4j</a></th>
 <td class="colLast">
-<div class="block">This module provides core functionality for interacting with the Solana blockchain,
- focusing on token operations such as minting, transferring, and managing token accounts.</div>
+<div class="block">This module provides functionality for reading and writing messages on the Solana blockchain.</div>
 </td>
 </tr>
 </tbody>
