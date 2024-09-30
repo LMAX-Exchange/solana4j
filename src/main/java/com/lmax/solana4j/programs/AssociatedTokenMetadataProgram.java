@@ -18,8 +18,23 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public final class AssociatedTokenMetadataProgram
 {
+
+    /**
+     * The magic string used for metadata.
+     * <p>
+     * This constant defines the magic string "metadata" used in deriving the associated token metadata address.
+     * </p>
+     */
     private static final byte[] METADATA_MAGIC_STRING = "metadata".getBytes(UTF_8);
+
+    /**
+     * The program ID for the associated token metadata program.
+     * <p>
+     * This constant defines the program ID associated with the Solana account for the associated token metadata program.
+     * </p>
+     */
     private static final byte[] ASSOCIATED_TOKEN_METADATA_PROGRAM_ID = Base58.decode("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
+
     /**
      * The public key for the associated token metadata program account.
      * <p>
@@ -29,26 +44,40 @@ public final class AssociatedTokenMetadataProgram
      */
     public static final PublicKey ASSOCIATED_TOKEN_METADATA_PROGRAM_ACCOUNT = Solana.account(ASSOCIATED_TOKEN_METADATA_PROGRAM_ID);
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private AssociatedTokenMetadataProgram()
     {
     }
 
     /**
      * Derives the program address for the given mint.
+     * <p>
+     * This method derives the program address for a specific token mint by using a combination of the
+     * metadata magic string, the associated token metadata program ID, and the mint's public key.
+     * </p>
      *
-     * @param mint the public key of the mint
-     * @return the derived program address
+     * @param mint the public key of the token mint
+     * @return the derived program address as a {@link ProgramDerivedAddress}
      */
     public static ProgramDerivedAddress deriveAddress(final PublicKey mint)
     {
-        return SolanaEncoding.deriveProgramAddress(List.of(METADATA_MAGIC_STRING, ASSOCIATED_TOKEN_METADATA_PROGRAM_ID, mint.bytes()), ASSOCIATED_TOKEN_METADATA_PROGRAM_ACCOUNT);
+        return SolanaEncoding.deriveProgramAddress(
+                List.of(METADATA_MAGIC_STRING, ASSOCIATED_TOKEN_METADATA_PROGRAM_ID, mint.bytes()),
+                ASSOCIATED_TOKEN_METADATA_PROGRAM_ACCOUNT
+        );
     }
 
     /**
      * Extracts the token name from the base64-encoded metadata.
+     * <p>
+     * This method decodes the base64-encoded metadata and extracts the token name from it. The name is determined
+     * by reading the length of the name and then extracting the corresponding bytes from the metadata.
+     * </p>
      *
-     * @param base64Metadata the base64-encoded metadata
-     * @return the extracted token name
+     * @param base64Metadata the base64-encoded metadata string
+     * @return the extracted token name as a string
      */
     public static String extractTokenName(final String base64Metadata)
     {

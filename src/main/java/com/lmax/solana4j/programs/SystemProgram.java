@@ -12,10 +12,14 @@ import java.nio.ByteOrder;
 
 /**
  * Program for managing system-level operations on the Solana blockchain.
+ * <p>
+ * This class provides methods to create accounts, transfer funds, and manage nonce accounts on the Solana blockchain.
+ * </p>
  */
 public final class SystemProgram
 {
     private static final byte[] SYSTEM_PROGRAM_ID = Base58.decode("11111111111111111111111111111111");
+
     /**
      * The public key for the system program account.
      * <p>
@@ -24,6 +28,7 @@ public final class SystemProgram
      * </p>
      */
     public static final PublicKey SYSTEM_PROGRAM_ACCOUNT = Solana.account(SYSTEM_PROGRAM_ID);
+
     /**
      * The length of a nonce account in bytes.
      * <p>
@@ -31,6 +36,7 @@ public final class SystemProgram
      * </p>
      */
     public static final int NONCE_ACCOUNT_LENGTH = 80;
+
     /**
      * The length of a mint account in bytes.
      * <p>
@@ -38,6 +44,7 @@ public final class SystemProgram
      * </p>
      */
     public static final int MINT_ACCOUNT_LENGTH = 82;
+
     /**
      * The instruction code for creating an account.
      * <p>
@@ -45,6 +52,7 @@ public final class SystemProgram
      * </p>
      */
     public static final int CREATE_ACCOUNT_INSTRUCTION = 0;
+
     /**
      * The instruction code for transferring funds.
      * <p>
@@ -52,6 +60,7 @@ public final class SystemProgram
      * </p>
      */
     public static final int TRANSFER_INSTRUCTION = 2;
+
     /**
      * The instruction code for advancing a nonce.
      * <p>
@@ -59,6 +68,7 @@ public final class SystemProgram
      * </p>
      */
     public static final int ADVANCE_NONCE_INSTRUCTION = 4;
+
     /**
      * The instruction code for initializing a nonce account.
      * <p>
@@ -67,12 +77,18 @@ public final class SystemProgram
      */
     public static final int NONCE_INIT_INSTRUCTION = 6;
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private SystemProgram()
     {
     }
 
     /**
      * Factory method for creating a new instance of {@code SystemProgramFactory}.
+     * <p>
+     * This factory helps in creating new instances of {@link SystemProgram} for managing system-level operations using a provided {@link TransactionBuilder}.
+     * </p>
      *
      * @param tb the transaction builder
      * @return a new instance of {@code SystemProgramFactory}
@@ -82,11 +98,19 @@ public final class SystemProgram
         return new SystemProgramFactory(tb);
     }
 
+    /**
+     * Inner factory class for building system program instructions. using a {@link TransactionBuilder}.
+     */
     public static final class SystemProgramFactory
     {
 
         private final TransactionBuilder tb;
 
+        /**
+         * Private constructor to initialize the factory with the given transaction builder.
+         *
+         * @param tb the transaction builder
+         */
         private SystemProgramFactory(final TransactionBuilder tb)
         {
             this.tb = tb;
@@ -167,8 +191,7 @@ public final class SystemProgram
                 .account(newAccount, true, true)
                 .data(52, bb ->
                 {
-                    bb
-                            .order(ByteOrder.LITTLE_ENDIAN)
+                    bb.order(ByteOrder.LITTLE_ENDIAN)
                             .putInt(CREATE_ACCOUNT_INSTRUCTION)
                             .putLong(lamports)
                             .putLong(space);
@@ -194,7 +217,7 @@ public final class SystemProgram
                 .data(36, bb ->
                 {
                     bb.order(ByteOrder.LITTLE_ENDIAN)
-                      .putInt(NONCE_INIT_INSTRUCTION);
+                            .putInt(NONCE_INIT_INSTRUCTION);
                     authorized.write(bb);
                 })
         );
@@ -215,7 +238,7 @@ public final class SystemProgram
                 .account(SysVar.RECENT_BLOCKHASHES, false, false)
                 .account(authorized, true, false)
                 .data(4, bb -> bb.order(ByteOrder.LITTLE_ENDIAN)
-                                 .putInt(ADVANCE_NONCE_INSTRUCTION))
+                        .putInt(ADVANCE_NONCE_INSTRUCTION))
         );
     }
 
@@ -234,8 +257,8 @@ public final class SystemProgram
                 .account(from, true, true)
                 .account(to, false, true)
                 .data(12, bb -> bb.order(ByteOrder.LITTLE_ENDIAN)
-                                  .putInt(TRANSFER_INSTRUCTION)
-                                  .putLong(lamports))
+                        .putInt(TRANSFER_INSTRUCTION)
+                        .putLong(lamports))
         );
     }
 

@@ -17,14 +17,9 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Utility class for Solana blockchain operations.
+ * Entrypoint to the library's APIs.
  * <p>
- * This class provides various utility methods for creating, reading, and manipulating Solana blockchain data structures.
- * It utilizes the Solana encoding to facilitate operations on different blockchain entities such as accounts, messages,
- * transactions, and more.
- * </p>
- * <p>
- * This class is designed to be non-instantiable and serves as a static utility holder.
+ * This class provides the entrypoint to the underlying APIs that this library provides.
  * </p>
  */
 public final class Solana
@@ -32,7 +27,6 @@ public final class Solana
 
     private Solana()
     {
-        // Private constructor to prevent instantiation
     }
 
     /**
@@ -56,7 +50,7 @@ public final class Solana
     }
 
     /**
-     * Creates a new transaction instructions using the builder provided.
+     * Creates a new transaction instruction using the builder provided.
      *
      * @param instructionBuilder the builder of the required instruction
      * @return a new instance of {@link TransactionInstruction}
@@ -124,9 +118,9 @@ public final class Solana
     }
 
     /**
-     * Creates a new blockhash from the given byte array.
+     * Creates a new Blockhash from the given byte array.
      *
-     * @param bytes the byte array representing the blockhash
+     * @param bytes the byte array representing the Blockhash
      * @return a new instance of {@link Blockhash}
      */
     public static Blockhash blockhash(final byte[] bytes)
@@ -135,7 +129,7 @@ public final class Solana
     }
 
     /**
-     * Creates a new slot from the given slot number.
+     * Creates a new Slot from the given slot number.
      *
      * @param slot the slot number
      * @return a new instance of {@link Slot}

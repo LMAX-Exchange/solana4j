@@ -20,7 +20,12 @@ import static java.util.Objects.requireNonNull;
  */
 public final class AssociatedTokenProgram
 {
-
+    /**
+     * The program ID for the associated token program.
+     * <p>
+     * This constant holds the program ID used to identify the associated token program in the Solana blockchain.
+     * </p>
+     */
     private static final byte[] ASSOCIATED_TOKEN_PROGRAM_ID = Base58.decode("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
 
     /**
@@ -35,20 +40,23 @@ public final class AssociatedTokenProgram
     /**
      * The instruction code for creating an account.
      * <p>
-     * This constant defines the instruction code used to create a new account in Solana.
+     * This constant defines the instruction code used to create a new token account in Solana.
      * </p>
      */
     public static final int CREATE_INSTRUCTION = 0;
 
     /**
-     * The instruction code for creating an account idempotently.
+     * The instruction code for idempotently creating an account.
      * <p>
-     * This constant defines the instruction code used to create a new account in Solana idempotently,
+     * This constant defines the instruction code used to create a new token account idempotently,
      * ensuring that if the creation is attempted multiple times, it will have the same effect as if it were done once.
      * </p>
      */
     public static final int IDEMPOTENT_CREATE_INSTRUCTION = 1;
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private AssociatedTokenProgram()
     {
     }
@@ -56,7 +64,7 @@ public final class AssociatedTokenProgram
     /**
      * Factory method for creating a new instance of {@code AssociatedTokenProgramFactory}.
      *
-     * @param tb the transaction builder
+     * @param tb the transaction builder to append instructions to
      * @return a new instance of {@code AssociatedTokenProgramFactory}
      */
     public static AssociatedTokenProgramFactory factory(final TransactionBuilder tb)
@@ -64,10 +72,19 @@ public final class AssociatedTokenProgram
         return new AssociatedTokenProgramFactory(tb);
     }
 
+    /**
+     * Inner factory class for building associated token program instructions using a {@link TransactionBuilder}.
+     */
     public static final class AssociatedTokenProgramFactory
     {
+
         private final TransactionBuilder tb;
 
+        /**
+         * Private constructor to initialize the factory with the given transaction builder.
+         *
+         * @param tb the transaction builder
+         */
         private AssociatedTokenProgramFactory(final TransactionBuilder tb)
         {
             this.tb = tb;
@@ -106,7 +123,7 @@ public final class AssociatedTokenProgram
      * @param payer                 the public key of the payer
      * @param programId             the public key of the token program used to create the programDerivedAddress
      * @param idempotent            whether the creation should be idempotent
-     * @return A {@code TransactionInstruction} of the created instruction
+     * @return A {@code TransactionInstruction} representing the created instruction
      */
     public static TransactionInstruction createAssociatedTokenAccount(
             final ProgramDerivedAddress programDerivedAddress,
@@ -126,18 +143,20 @@ public final class AssociatedTokenProgram
                 .account(programId, false, false)
                 .account(RENT, false, false)
                 .data(1, bb -> bb.order(ByteOrder.LITTLE_ENDIAN)
-                                 .put((byte) (idempotent ? IDEMPOTENT_CREATE_INSTRUCTION : CREATE_INSTRUCTION)))
+                        .put((byte) (idempotent ? IDEMPOTENT_CREATE_INSTRUCTION : CREATE_INSTRUCTION)))
         );
     }
 
     /**
      * Derives a program address for a given owner, token program account, and mint.
+     * <p>
      * This method generates a program-derived address based on the combination of the owner's public key,
      * the token program account's public key, and the mint's public key, using the associated token program account.
+     * </p>
      *
-     * @param owner the owner's public key; must not be null
+     * @param owner               the owner's public key; must not be null
      * @param tokenProgramAccount the token program account's public key; must not be null
-     * @param mint the mint's public key; must not be null
+     * @param mint                the mint's public key; must not be null
      * @return the derived program address based on the provided owner, token program account, and mint public keys
      * @throws NullPointerException if the owner, tokenProgramAccount, or mint is null
      */
@@ -147,7 +166,9 @@ public final class AssociatedTokenProgram
         requireNonNull(tokenProgramAccount, "The token program public key must be specified, but was null");
         requireNonNull(mint, "The mint public key must be specified, but was null");
 
-        return SolanaEncoding.deriveProgramAddress(List.of(owner.bytes(), tokenProgramAccount.bytes(), mint.bytes()), ASSOCIATED_TOKEN_PROGRAM_ACCOUNT);
+        return SolanaEncoding.deriveProgramAddress(
+                List.of(owner.bytes(), tokenProgramAccount.bytes(), mint.bytes()),
+                ASSOCIATED_TOKEN_PROGRAM_ACCOUNT
+        );
     }
-
 }

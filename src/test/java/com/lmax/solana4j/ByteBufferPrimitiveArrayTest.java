@@ -1,5 +1,6 @@
 package com.lmax.solana4j;
 
+import com.lmax.solana4j.util.ByteBufferPrimitiveArray;
 import org.junit.jupiter.api.Test;
 
 import java.nio.ByteBuffer;

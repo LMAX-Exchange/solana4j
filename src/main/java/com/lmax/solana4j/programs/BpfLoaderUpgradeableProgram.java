@@ -20,19 +20,31 @@ public final class BpfLoaderUpgradeableProgram
 {
     /**
      * The Program ID for the BPF Loader Upgradeable program.
+     * <p>
+     * This constant holds the program ID used to identify the BPF Loader Upgradeable program in the Solana blockchain.
+     * </p>
      */
     private static final byte[] PROGRAM_ID = Base58.decode("BPFLoaderUpgradeab1e11111111111111111111111");
 
     /**
      * The public key associated with the BPF Loader Upgradeable program.
+     * <p>
+     * This constant defines the public key associated with the Solana account for the BPF Loader Upgradeable program.
+     * </p>
      */
     public static final PublicKey PROGRAM_ACCOUNT = Solana.account(PROGRAM_ID);
 
     /**
      * The instruction code for setting a new upgrade authority.
+     * <p>
+     * This constant defines the instruction code used to change the upgrade authority for a program in the Solana BPF Loader Upgradeable program.
+     * </p>
      */
     private static final int SET_AUTHORITY_INSTRUCTION = 4;
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private BpfLoaderUpgradeableProgram()
     {
     }
@@ -48,19 +60,23 @@ public final class BpfLoaderUpgradeableProgram
         return new BpfLoaderUpgradeableProgramFactory(tb);
     }
 
-    public static class BpfLoaderUpgradeableProgramFactory
+    /**
+     * Inner factory class for building BPF Loader Upgradeable program instructions.
+     */
+    public static final class BpfLoaderUpgradeableProgramFactory
     {
+
         /**
          * The transaction builder used to construct and manage Solana transactions.
          */
         private final TransactionBuilder tb;
 
         /**
-         * Constructs a new instance of {@code BpfLoaderUpgradeableProgramFactory} with the specified transaction builder.
+         * Private constructor to initialize the factory with the given transaction builder.
          *
-         * @param tb The transaction builder to use for constructing transactions.
+         * @param tb the transaction builder
          */
-        BpfLoaderUpgradeableProgramFactory(final TransactionBuilder tb)
+        private BpfLoaderUpgradeableProgramFactory(final TransactionBuilder tb)
         {
             this.tb = tb;
         }
@@ -68,7 +84,7 @@ public final class BpfLoaderUpgradeableProgram
         /**
          * Sets the upgrade authority for a given program address.
          *
-         * @param programAddress           The public key of the program whose upgrade authority is being changed.
+         * @param programAddress                  The public key of the program whose upgrade authority is being changed.
          * @param currentUpgradeAuthorityAddress  The current upgrade authority's public key.
          * @param maybeNewUpgradeAuthorityAddress An optional public key for the new upgrade authority. If not present, no new upgrade authority is set.
          * @return The current instance of {@code BpfLoaderUpgradeableProgramFactory} to allow method chaining.
@@ -79,7 +95,6 @@ public final class BpfLoaderUpgradeableProgram
                 final Optional<PublicKey> maybeNewUpgradeAuthorityAddress)
         {
             tb.append(BpfLoaderUpgradeableProgram.setUpgradeAuthority(programAddress, currentUpgradeAuthorityAddress, maybeNewUpgradeAuthorityAddress));
-
             return this;
         }
     }
@@ -87,7 +102,7 @@ public final class BpfLoaderUpgradeableProgram
     /**
      * Sets the upgrade authority for a given program address.
      *
-     * @param programAddress           The public key of the program whose upgrade authority is being changed.
+     * @param programAddress                  The public key of the program whose upgrade authority is being changed.
      * @param currentUpgradeAuthorityAddress  The current upgrade authority's public key.
      * @param maybeNewUpgradeAuthorityAddress An optional public key for the new upgrade authority. If not present, no new upgrade authority is set.
      * @return A {@code TransactionInstruction} of the built instruction

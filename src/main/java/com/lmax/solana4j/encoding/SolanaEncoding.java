@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Utility class for Solana encoding and decoding operations.
+ * Exposes the library's APIs.
  */
 public final class SolanaEncoding
 {

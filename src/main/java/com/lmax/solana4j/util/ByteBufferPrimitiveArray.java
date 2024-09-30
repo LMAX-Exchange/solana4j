@@ -1,4 +1,4 @@
-package com.lmax.solana4j;
+package com.lmax.solana4j.util;
 
 import java.nio.ByteBuffer;
 

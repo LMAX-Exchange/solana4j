@@ -56,6 +56,9 @@ public final class AddressLookupTableProgram
      */
     public static final int LOOKUP_TABLE_META_SIZE = 56;
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private AddressLookupTableProgram()
     {
     }
@@ -71,16 +74,23 @@ public final class AddressLookupTableProgram
         return new AddressLookupTableProgramFactory(tb);
     }
 
+    /**
+     * Inner factory class to handle the creation and extension of address lookup tables using a {@link TransactionBuilder}.
+     */
     public static final class AddressLookupTableProgramFactory
     {
 
         private final TransactionBuilder tb;
 
+        /**
+         * Private constructor to initialize the factory with the given transaction builder.
+         *
+         * @param tb the transaction builder
+         */
         private AddressLookupTableProgramFactory(final TransactionBuilder tb)
         {
             this.tb = tb;
         }
-
 
         /**
          * Creates a new address lookup table.
@@ -137,7 +147,6 @@ public final class AddressLookupTableProgram
                     bb.put((byte) programDerivedAddress.nonce());
                 })
         );
-
     }
 
     /**
@@ -209,5 +218,4 @@ public final class AddressLookupTableProgram
 
         return SolanaEncoding.addressLookupTable(lookupTableAddress, addresses);
     }
-
 }

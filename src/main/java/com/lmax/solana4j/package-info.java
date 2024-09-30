@@ -1,6 +1,4 @@
 /**
- * This is the base package representing the entrypoint to the library. Functionality includes
- * building a Solana Message, reading a signed or unsigned Solana Message, as well as exposing methods
- * to create useful domain objects, such as an AddressLookupTable, Blockhash, Slot and a PublicKey.
+ * This package is the base package and is the entrypoint to the library's APIs.
  */
 package com.lmax.solana4j;

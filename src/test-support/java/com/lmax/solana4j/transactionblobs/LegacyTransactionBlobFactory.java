@@ -1,6 +1,6 @@
 package com.lmax.solana4j.transactionblobs;
 
-import com.lmax.solana4j.ByteBufferPrimitiveArray;
+import com.lmax.solana4j.util.ByteBufferPrimitiveArray;
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.Blockhash;
