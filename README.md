@@ -15,8 +15,8 @@ what we needed to implement for our needs as a business.
 We hope that people will use the library and extend it to their needs, so that together we can build a `Java` library with parity
 to the aforementioned `Rust` and `Javascript` libraries. 
 
-All the `Programs` that have been implemented have been conformance tested against a real `Solana Test Validator`. The hope
-is that those tests act as living documentation of how the library can be used. Any future implemented programs should also
+All the `Solana Programs` that have been implemented have been conformance tested against a real `Solana Test Validator`. The hope
+is that these tests act as living documentation of how the library can be used. Any future implemented programs should also
 have accompanying integration tests so that we can carry on extending this living documentation!
 
 We hope that you enjoy using the library, and we welcome any feedback. We especially welcome PRs!
