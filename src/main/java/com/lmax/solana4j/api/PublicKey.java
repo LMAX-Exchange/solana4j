@@ -3,7 +3,7 @@ package com.lmax.solana4j.api;
 import java.nio.ByteBuffer;
 
 /**
- * Interface representing a public key in the Solana blockchain.
+ * Interface representing a public key.
  * <p>
  * A public key is used to identify accounts and perform cryptographic operations in the Solana blockchain.
  * </p>

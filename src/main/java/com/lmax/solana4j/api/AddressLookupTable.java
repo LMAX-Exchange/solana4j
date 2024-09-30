@@ -3,7 +3,7 @@ package com.lmax.solana4j.api;
 import java.util.List;
 
 /**
- * Interface representing an address lookup table in the Solana blockchain.
+ * Interface representing an address lookup table on the Solana blockchain.
  */
 public interface AddressLookupTable
 {

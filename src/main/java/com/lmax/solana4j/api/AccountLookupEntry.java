@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Interface representing an account lookup entry which stores the read only and read write indexes of
- * addresses in an address lookup table on the Solana blockchain
+ * addresses in an address lookup table.
  */
 public interface AccountLookupEntry
 {
@@ -54,7 +54,8 @@ public interface AccountLookupEntry
     List<LookupEntry> getReadOnlyLookupEntrys();
 
     /**
-     * Interface representing an address lookup index in the Solana blockchain.
+     * Interface representing an address lookup entry, which is the address and it's index within
+     * an address lookup table.
      */
     interface LookupEntry
     {

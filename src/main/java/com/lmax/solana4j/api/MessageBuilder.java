@@ -1,9 +1,9 @@
 package com.lmax.solana4j.api;
 
 /**
- * Interface for building messages in the Solana blockchain.
+ * Interface for building messages for the Solana blockchain.
  * <p>
- * This interface provides methods for creating legacy and version 0 messages.
+ * This interface provides methods for creating legacy and V0 messages.
  * </p>
  */
 public interface MessageBuilder
@@ -17,9 +17,9 @@ public interface MessageBuilder
     MessageBuilderLegacy legacy();
 
     /**
-     * Creates and returns a builder for a version 0 message.
+     * Creates and returns a builder for a V0 message.
      *
-     * @return a {@link MessageBuilderV0} instance for building a version 0 message
+     * @return a {@link MessageBuilderV0} instance for building a V0 message
      */
     MessageBuilderV0 v0();
 }

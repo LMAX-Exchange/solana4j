@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Interface representing a visitor for messages in the Solana blockchain.
+ * Interface representing a visitor for reading information about Solana Messages.
  * <p>
  * This interface defines methods for visiting and interacting with different views of messages,
  * including legacy and versioned messages.
@@ -112,7 +112,7 @@ public interface MessageVisitor<T>
     }
 
     /**
-     * Interface representing a view of a legacy message in the Solana blockchain.
+     * Interface representing a view of a Solana Legacy message.
      * <p>
      * This interface provides methods to inspect and interact with legacy messages,
      * which are message formats used in earlier versions of the Solana protocol.
@@ -139,10 +139,10 @@ public interface MessageVisitor<T>
     }
 
     /**
-     * Interface representing a view of a version 0 message in the Solana blockchain.
+     * Interface representing a view of a Solana V0 message.
      * <p>
      * This interface extends the {@link LegacyMessageView} and provides additional methods
-     * specific to version 0 messages, which include advanced features such as account lookup tables.
+     * specific to V0 messages, which include advanced features such as account lookup tables.
      * </p>
      */
     interface Version0MessageView extends MessageView
@@ -151,7 +151,7 @@ public interface MessageVisitor<T>
         /**
          * Retrieves the version number of this message.
          *
-         * @return the version number of the message, expected to be 0 for version 0 messages
+         * @return the version number of the message, expected to be 0 for V0 messages
          */
         int version();
 
@@ -167,15 +167,15 @@ public interface MessageVisitor<T>
         List<AccountLookupView> accountLookups();
 
         /**
-         * Retrieves the list of instructions included in this version 0 message.
+         * Retrieves the list of instructions included in this V0 message.
          *
          * @return a list of {@link V0InstructionView} objects representing the instructions
-         * in the version 0 message
+         * in the V0 message
          */
         List<V0InstructionView> instructions();
 
         /**
-         * Checks if the specified account is designated as a writer in this version 0 message.
+         * Checks if the specified account is designated as a writer in this V0 message.
          * <p>
          * This method checks both static accounts and accounts referenced via the provided
          * address lookup tables to determine if the account has write access.
@@ -254,7 +254,7 @@ public interface MessageVisitor<T>
     }
 
     /**
-     * Interface representing a version 0 instruction view in the Solana blockchain.
+     * Interface representing a V0 instruction view in the Solana blockchain.
      */
     interface V0InstructionView extends InstructionView
     {
@@ -344,9 +344,9 @@ public interface MessageVisitor<T>
     }
 
     /**
-     * Interface representing a view of version 0 accounts in the Solana blockchain.
+     * Interface representing a view of V0 accounts in the Solana blockchain.
      * <p>
-     * Extends the {@link AccountsView} interface and provides methods specific to version 0 accounts.
+     * Extends the {@link AccountsView} interface and provides methods specific to V0 accounts.
      * </p>
      */
     interface V0AccountsView extends AccountsView

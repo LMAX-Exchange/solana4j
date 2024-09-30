@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Interface for building legacy messages in the Solana blockchain.
+ * Interface for building legacy messages for the Solana blockchain.
  * <p>
  * This interface provides methods for setting instructions, specifying the payer, setting the recent blockhash,
  * and sealing the message.
@@ -22,7 +22,7 @@ public interface MessageBuilderLegacy
     MessageBuilderLegacy instructions(Consumer<TransactionBuilder> builder);
 
     /**
-     * Sets the instructions for the legacy message.
+     * Sets the prebuilt instructions for the legacy message.
      *
      * @param instructions a list of {@link TransactionInstruction} of prebuilt instructions
      * @return this {@code MessageBuilderLegacy} instance for method chaining

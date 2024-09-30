@@ -3,7 +3,7 @@ package com.lmax.solana4j.api;
 import java.util.function.Consumer;
 
 /**
- * Interface for building transactions in the Solana blockchain.
+ * Interface for building Solana transactions.
  * <p>
  * This interface provides a method for appending instructions to the transaction.
  * </p>

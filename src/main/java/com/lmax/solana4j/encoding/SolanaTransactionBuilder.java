@@ -1,6 +1,6 @@
 package com.lmax.solana4j.encoding;
 
-import com.lmax.solana4j.api.InstructionBuilder;
+import com.lmax.solana4j.api.TransactionInstructionBuilder;
 import com.lmax.solana4j.api.InstructionBuilderBase;
 import com.lmax.solana4j.api.MessageBuilder;
 import com.lmax.solana4j.api.MessageInstructionBuilder;
@@ -84,7 +84,7 @@ final class SolanaTransactionBuilder implements TransactionBuilder
         }
     }
 
-    static final class SolanaInstructionBuilderBase implements InstructionBuilder
+    static final class SolanaTransactionInstructionBuilderBase implements TransactionInstructionBuilder
     {
         private final List<SolanaAccountReference> references = new ArrayList<>();
         private SolanaAccount program;

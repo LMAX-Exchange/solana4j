@@ -1,7 +1,7 @@
 package com.lmax.solana4j.api;
 
 /**
- * Interface for building signed messages in the Solana blockchain.
+ * Interface for building signed messages.
  * <p>
  * This interface provides methods for specifying the signer and building the signed message.
  * </p>

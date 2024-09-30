@@ -1,7 +1,7 @@
 package com.lmax.solana4j.api;
 
 /**
- * Interface for building instructions in a Solana blockchain transaction.
+ * Interface for building instructions for a Solana Message.
  * <p>
  * This interface extends {@link InstructionBuilderBase} and provides an additional method
  * for building a {@link MessageBuilder}.

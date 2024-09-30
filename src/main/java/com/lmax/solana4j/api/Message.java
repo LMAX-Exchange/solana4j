@@ -1,7 +1,7 @@
 package com.lmax.solana4j.api;
 
 /**
- * Interface representing a message in the Solana blockchain.
+ * Interface representing a Solana message.
  * <p>
  * A message in the Solana blockchain contains the transaction instructions, accounts, and other metadata.
  * </p>

@@ -3,7 +3,7 @@ package com.lmax.solana4j.api;
 import java.nio.ByteBuffer;
 
 /**
- * Interface representing a slot in the Solana blockchain.
+ * Interface representing a Slot.
  * <p>
  * A slot is a specific time interval during which transactions are processed in the Solana blockchain.
  * </p>

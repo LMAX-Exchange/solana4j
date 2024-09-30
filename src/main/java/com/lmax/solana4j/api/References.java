@@ -1,7 +1,7 @@
 package com.lmax.solana4j.api;
 
 /**
- * Interface representing a collection of references to accounts in the Solana blockchain.
+ * Interface representing a collection of references to accounts.
  */
 public interface References
 {

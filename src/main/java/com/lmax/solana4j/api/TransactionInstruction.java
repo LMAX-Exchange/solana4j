@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Interface representing a transaction instruction in the Solana blockchain.
+ * Interface representing a transaction instruction.
  * <p>
  * A transaction instruction defines the program to be executed and the accounts and data involved in the transaction.
  * </p>

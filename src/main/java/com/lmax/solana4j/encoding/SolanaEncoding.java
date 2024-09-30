@@ -56,7 +56,7 @@ public final class SolanaEncoding
      */
     public static TransactionInstruction instruction(final Consumer<InstructionBuilderBase> instructionBuilder)
     {
-        final SolanaTransactionBuilder.SolanaInstructionBuilderBase builder = new SolanaTransactionBuilder.SolanaInstructionBuilderBase();
+        final SolanaTransactionBuilder.SolanaTransactionInstructionBuilderBase builder = new SolanaTransactionBuilder.SolanaTransactionInstructionBuilderBase();
         instructionBuilder.accept(builder);
         return builder.build();
     }

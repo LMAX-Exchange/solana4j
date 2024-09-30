@@ -1,7 +1,7 @@
 package com.lmax.solana4j.api;
 
 /**
- * Interface representing a program derived address in the Solana blockchain.
+ * Interface representing a program derived address.
  * <p>
  * A program derived address (PDA) is an address derived from a program ID and a set of seeds.
  * PDAs are used for various purposes, including managing program state and associated accounts.

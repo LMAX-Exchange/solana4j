@@ -3,7 +3,7 @@ package com.lmax.solana4j.api;
 import java.util.List;
 
 /**
- * Interface representing a collection of accounts in the Solana blockchain.
+ * Interface representing a collection of accounts within a Solana Message.
  */
 public interface Accounts
 {

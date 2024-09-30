@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 import java.util.function.Consumer;
 
 /**
- * Base interface for building instructions in a Solana blockchain transaction.
+ * Base interface for building instructions for a Solana transaction.
  * <p>
  * This interface provides methods for specifying accounts, programs, and data associated with the instruction.
  * </p>
