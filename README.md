@@ -40,7 +40,7 @@ We hope that you enjoy using the library, and we welcome any feedback. We especi
   * `Token2022Program`
   * `TokenProgram`
 
-#### Useful Commands
+### Useful Commands
 
 * `./gradlew build` - build the project
 * `./gradlew javadocs` - build javadocs
@@ -48,7 +48,7 @@ We hope that you enjoy using the library, and we welcome any feedback. We especi
 * `./gradlew sourcesJar` - build sources jar
 * `./gradlew setupGitHooks` - create a git hook to prevent locally committing bad changes
 
-#### Local Requirements
+### Local Requirements
 
 * `jdk11` installation
 * `docker` (for `testcontainers`)
