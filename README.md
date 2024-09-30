@@ -27,7 +27,7 @@ We hope that you enjoy using the library, and we welcome any feedback. We especi
 
 * Reading and Writing Legacy & V0 Message Encoding.
 * Building Solana Messages for signing.
-* Appending Signatures to Solana Messages for transaction submission.
+* Appending signatures to Solana Messages for transaction submission.
 
 #### Programs
 
