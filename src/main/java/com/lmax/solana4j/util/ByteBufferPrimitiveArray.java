@@ -7,8 +7,11 @@ import static java.util.Objects.requireNonNull;
 /**
  * Utility class for operations involving {@link ByteBuffer} and primitive byte arrays.
  */
-public class ByteBufferPrimitiveArray
+public final class ByteBufferPrimitiveArray
 {
+    private ByteBufferPrimitiveArray()
+    {
+    }
 
     /**
      * Creates a copy of the contents of the buffer.

@@ -9,7 +9,7 @@ import java.util.Arrays;
  * It avoids characters that can cause confusion, such as '0' (zero), 'O' (capital o), 'l' (lowercase L), and 'I' (capital I).
  * </p>
  */
-public class Base58
+public final class Base58
 {
     private static final char[] ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz".toCharArray();
     private static final char ENCODED_ZERO = ALPHABET[0];
@@ -22,6 +22,10 @@ public class Base58
         {
             INDEXES[ALPHABET[i]] = i;
         }
+    }
+
+    private Base58()
+    {
     }
 
     /**

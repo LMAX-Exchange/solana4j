@@ -11,8 +11,11 @@ import java.security.NoSuchAlgorithmException;
  * It's commonly used for data integrity and security purposes.
  * </p>
  */
-public class Sha256
+public final class Sha256
 {
+    private Sha256()
+    {
+    }
 
     /**
      * Computes the SHA-256 hash of the input byte array.

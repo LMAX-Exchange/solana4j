@@ -14,11 +14,15 @@ import static com.lmax.solana4j.util.ByteBufferPrimitiveArray.reverse;
  * The Ed25519 curve equation is:
  * dx^2y^2 + x^2 = y^2 - 1 (mod P), where d is a curve constant.
  */
-public class Ed25519
+public final class Ed25519
 {
     private static final BigInteger P = new BigInteger("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed", 16);
     private static final BigInteger D = new BigInteger("52036cee2b6ffe738cc740797779e89800700a4d4141d8ab75eb4dca135978a3", 16);
     private static final BigInteger PM5D8 = P.subtract(BigInteger.valueOf(5)).divide(BigInteger.valueOf(8));
+
+    private Ed25519()
+    {
+    }
 
     /**
      * Checks if the public key represented by a 32-byte array is on the Ed25519 curve.
