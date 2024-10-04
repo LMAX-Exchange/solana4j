@@ -39,6 +39,7 @@ jobs:
           JRELEASER_COSIGN_PUBLIC_KEY: ${{ secrets.COSIGN_PUBLIC_KEY }}
           JRELEASER_COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
           JRELEASER_COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+          JRELEASER_GITHUB_TOKEN: ${{ github.token }}
       - name: Add Artifact to GitHub Release
         uses: softprops/action-gh-release@v1
         with:
