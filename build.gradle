@@ -160,6 +160,39 @@ task setUpGitHooks(type: Exec, description: 'Add a pre-commit git hook that runs
 
 check.dependsOn integrationTest
 
+jreleaser {
+    files {
+        active = 'ALWAYS'
+        glob {
+            pattern = 'build/staging-deploy/**/*.jar'
+            pattern = 'build/staging-deploy/**/*.pom'
+            pattern = 'build/staging-deploy/**/*.module'
+        }
+    }
+    signing {
+        active = 'ALWAYS'
+        armored = true
+        mode = 'COSIGN'
+        verify = true
+        cosign {
+            version = '2.4.1'
+        }
+
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                sonatype {
+                    active = 'ALWAYS'
+                    url = 'https://central.sonatype.com/api/v1/publisher'
+                    stagingRepository('build/staging-deploy')
+                    applyMavenCentralRules = true
+                }
+            }
+        }
+    }
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
@@ -201,22 +234,3 @@ publishing {
     }
 }
 
-jreleaser {
-    signing {
-        active = 'ALWAYS'
-        armored = true
-        mode = 'COSIGN'
-    }
-    deploy {
-        maven {
-            mavenCentral {
-                sonatype {
-                    active = 'ALWAYS'
-                    url = 'https://central.sonatype.com/api/v1/publisher'
-                    stagingRepository('build/staging-deploy')
-                    applyMavenCentralRules = true
-                }
-            }
-        }
-    }
-}
