@@ -5,7 +5,7 @@ import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionBuilder;
 import com.lmax.solana4j.api.TransactionInstruction;
 import com.lmax.solana4j.encoding.SysVar;
-import org.bitcoinj.core.Base58;
+import com.lmax.solana4j.util.Base58;;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

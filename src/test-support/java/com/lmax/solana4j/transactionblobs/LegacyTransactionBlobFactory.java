@@ -18,7 +18,7 @@ import com.lmax.solana4j.programs.ComputeBudgetProgram;
 import com.lmax.solana4j.programs.SystemProgram;
 import com.lmax.solana4j.programs.TokenProgramBase;
 import com.lmax.solana4j.util.BouncyCastleSigner;
-import org.bitcoinj.core.Base58;
+import com.lmax.solana4j.util.Base58;;
 
 import java.nio.ByteBuffer;
 import java.util.List;

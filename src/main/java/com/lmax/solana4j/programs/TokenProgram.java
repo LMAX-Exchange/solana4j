@@ -3,7 +3,7 @@ package com.lmax.solana4j.programs;
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionBuilder;
-import org.bitcoinj.core.Base58;
+import com.lmax.solana4j.util.Base58;;
 
 
 /**

@@ -25,7 +25,7 @@ import com.lmax.solana4j.solanaclient.api.TransactionData;
 import com.lmax.solana4j.solanaclient.api.TransactionResponse;
 import com.lmax.solana4j.solanaclient.jsonrpc.SolanaClient;
 import com.lmax.solana4j.util.TestKeyPairGenerator;
-import org.bitcoinj.core.Base58;
+import com.lmax.solana4j.util.Base58;;
 import org.bouncycastle.util.encoders.Base64;
 
 import java.util.ArrayList;

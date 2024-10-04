@@ -64,8 +64,6 @@ sourceSets {
 
 dependencies {
     checkstyle 'com.puppycrawl.tools:checkstyle:10.4'
-    // dependencies
-    implementation 'org.bitcoinj:bitcoinj-core:0.16.3'
 
     // test support dependencies
     testSupportImplementation 'org.testcontainers:testcontainers:1.19.8'

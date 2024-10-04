@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lmax.solana4j.solanaclient.api.Blockhash;
 import com.lmax.solana4j.solanaclient.api.SolanaRpcResponse;
-import org.bitcoinj.core.Base58;
+import com.lmax.solana4j.util.Base58;;
 
 final class BlockhashDTO implements SolanaRpcResponse<Blockhash>
 {

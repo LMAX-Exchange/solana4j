@@ -3,6 +3,16 @@ package com.lmax.solana4j.util;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 
+/**
+ * Utility class for performing Ed25519 elliptic curve operations.
+ * <p>
+ * This class provides a method to check whether a given public key, represented as a 32-byte array,
+ * lies on the Ed25519 elliptic curve. It handles key validation by leveraging the curve equation
+ * and modular arithmetic.
+ * </p>
+ * The Ed25519 curve equation is:
+ * dx^2y^2 + x^2 = y^2 - 1 (mod P), where d is a curve constant.
+ */
 public class Ed25519
 {
     private static final BigInteger P = new BigInteger("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed", 16);
@@ -14,6 +24,7 @@ public class Ed25519
      *
      * @param publicKeyBytes The 32-byte array representing the public key.
      * @return true if the point is on the curve, false otherwise.
+     * @throws IllegalArgumentException if the public key byte array is not 32 bytes long.
      */
     public static boolean isOnCurve(final byte[] publicKeyBytes)
     {
@@ -22,10 +33,11 @@ public class Ed25519
             throw new IllegalArgumentException("Public key must be 32 bytes long");
         }
 
-        // elliptic curve equation dx^2y^2 + x^2 = y^2 - 1 (mod P)
-        // let x^2 = u/v where u = y^2 - 1 & v = dy^2 + 1 (mod P)
+        // Elliptic curve equation: dx^2y^2 + x^2 = y^2 - 1 (mod P)
+        // Let x^2 = u/v where u = y^2 - 1 and v = dy^2 + 1 (mod P)
         byte[] yBytes = publicKeyBytes.clone();
-        yBytes[31] &= 0x7F;
+        yBytes[31] &= 0x7F; // Mask the most significant bit to ensure y is positive
+
         // publicKey is in little endian encoding, so we must reverse the byte array before we "math"
         final BigInteger y = new BigInteger(1, reverseByteArray(yBytes));
         final BigInteger y2 = y.multiply(y).mod(P);

@@ -2,7 +2,7 @@ package com.lmax.solana4j.encoding;
 
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;
-import org.bitcoinj.core.Base58;
+import com.lmax.solana4j.util.Base58;;
 
 /**
  * Utility class for Solana system variable (sysvar) accounts.

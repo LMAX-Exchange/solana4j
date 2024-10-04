@@ -3,7 +3,7 @@ package com.lmax.solana4j;
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TestPublicKey;
-import org.bitcoinj.core.Base58;
+import com.lmax.solana4j.util.Base58;;
 
 import java.util.function.Function;
 

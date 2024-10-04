@@ -7,8 +7,6 @@
  * </p>
  */
 module com.lmax.solana4j {
-    requires org.bitcoinj.core;
-
     exports com.lmax.solana4j;
     exports com.lmax.solana4j.api;
     exports com.lmax.solana4j.programs;
