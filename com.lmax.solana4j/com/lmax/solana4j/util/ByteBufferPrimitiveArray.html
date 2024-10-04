@@ -186,10 +186,10 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>static java.nio.ByteBuffer</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toByteBuffer(byte%5B%5D)">toByteBuffer</a></span>&#8203;(byte[]&nbsp;bytes)</code></th>
+<td class="colFirst"><code>static byte[]</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reverse(byte%5B%5D)">reverse</a></span>&#8203;(byte[]&nbsp;array)</code></th>
 <td class="colLast">
-<div class="block">Wraps a byte array into a <code>ByteBuffer</code>.</div>
+<div class="block">Reverses the order of bytes in the given byte array.</div>
 </td>
 </tr>
 </table>
@@ -254,19 +254,19 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="toByteBuffer(byte[])">
+<a id="reverse(byte[])">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>toByteBuffer</h4>
-<pre class="methodSignature">public static&nbsp;java.nio.ByteBuffer&nbsp;toByteBuffer&#8203;(byte[]&nbsp;bytes)</pre>
-<div class="block">Wraps a byte array into a <code>ByteBuffer</code>.</div>
+<h4>reverse</h4>
+<pre class="methodSignature">public static&nbsp;byte[]&nbsp;reverse&#8203;(byte[]&nbsp;array)</pre>
+<div class="block">Reverses the order of bytes in the given byte array.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>bytes</code> - the byte array to wrap</dd>
+<dd><code>array</code> - the byte array to be reversed</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>a ByteBuffer containing the given byte array</dd>
+<dd>a new byte array with the bytes in reverse order</dd>
 </dl>
 </li>
 </ul>
