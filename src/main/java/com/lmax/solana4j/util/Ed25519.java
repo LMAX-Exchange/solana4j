@@ -46,13 +46,13 @@ public class Ed25519
         final BigInteger uv3 = u.multiply(v3).mod(P);
 
         final BigInteger uv7 = u.multiply(v7).mod(P);
-        final BigInteger uv7Pow22523 = uv7.modPow(PM5D8, P);
+        final BigInteger uv7Pm5d8 = uv7.modPow(PM5D8, P);
 
-        // after some transformations, given the properties of the e25519 curve we can say
+        // after some transformations, given the properties of the ed25519 curve we can say
         // x^2 = (u/v)
         // x1 = (u/v)^(P+3/8) where x1 is the candidate root
         // x1 = uv^3(uv^7)^(P-5/8)
-        return uv3.multiply(uv7Pow22523).mod(P);
+        return uv3.multiply(uv7Pm5d8).mod(P);
     }
 
     private static boolean isCandidateRootValid(final BigInteger x1, final BigInteger v, final BigInteger u)
