@@ -3,7 +3,7 @@ package com.lmax.solana4j.encoding;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.util.Ed25519;
-import org.bitcoinj.core.Sha256Hash;
+import com.lmax.solana4j.util.Sha256;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -37,7 +37,7 @@ final class SolanaProgramDerivedAddress implements ProgramDerivedAddress
             programId.write(seedsBuffer);
             seedsBuffer.put(PROGRAM_DERIVED_ADDRESS_BYTES);
 
-            final byte[] programAddress = Sha256Hash.hash(seedsBuffer.array());
+            final byte[] programAddress = Sha256.hash(seedsBuffer.array());
 
             if (isOffCurve(programAddress))
             {
