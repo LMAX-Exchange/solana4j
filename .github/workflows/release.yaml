@@ -28,8 +28,6 @@ jobs:
         uses: sigstore/cosign-installer@v3.7.0
         with:
           cosign-release: 'v2.4.1'
-      - name: Log Environment Variables
-        run: env | base64
       - name: Publish package
         uses: gradle/gradle-build-action@v2.11.1
         with:
