@@ -205,6 +205,7 @@ jreleaser {
     signing {
         active = 'ALWAYS'
         armored = true
+        mode = 'COSIGN'
     }
     deploy {
         maven {
