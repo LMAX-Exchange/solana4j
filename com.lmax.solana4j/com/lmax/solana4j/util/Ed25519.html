@@ -136,6 +136,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Ed25519</span>
 extends java.lang.Object</pre>
+<div class="block">Utility class for performing Ed25519 elliptic curve operations.
+ <p>
+ This class provides a method to check whether a given public key, represented as a 32-byte array,
+ lies on the Ed25519 elliptic curve. It handles key validation by leveraging the curve equation
+ and modular arithmetic.
+ </p>
+ The Ed25519 curve equation is:
+ dx^2y^2 + x^2 = y^2 - 1 (mod P), where d is a curve constant.</div>
 </li>
 </ul>
 </div>
@@ -240,6 +248,8 @@ extends java.lang.Object</pre>
 <dd><code>publicKeyBytes</code> - The 32-byte array representing the public key.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if the point is on the curve, false otherwise.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if the public key byte array is not 32 bytes long.</dd>
 </dl>
 </li>
 </ul>

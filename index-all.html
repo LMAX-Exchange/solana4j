@@ -249,6 +249,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns the Base58-encoded string representation of the public key.</div>
 </dd>
+<dt><a href="com.lmax.solana4j/com/lmax/solana4j/util/Base58.html" title="class in com.lmax.solana4j.util"><span class="typeNameLink">Base58</span></a> - Class in <a href="com.lmax.solana4j/com/lmax/solana4j/util/package-summary.html">com.lmax.solana4j.util</a></dt>
+<dd>
+<div class="block">Utility class for encoding and decoding Base58.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/util/Base58.html#%3Cinit%3E()">Base58()</a></span> - Constructor for class com.lmax.solana4j.util.<a href="com.lmax.solana4j/com/lmax/solana4j/util/Base58.html" title="class in com.lmax.solana4j.util">Base58</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/encoding/SolanaEncoding.html#blockhash(byte%5B%5D)">blockhash(byte[])</a></span> - Static method in class com.lmax.solana4j.encoding.<a href="com.lmax.solana4j/com/lmax/solana4j/encoding/SolanaEncoding.html" title="class in com.lmax.solana4j.encoding">SolanaEncoding</a></dt>
 <dd>
 <div class="block">Creates a new blockhash from the given byte array.</div>
@@ -447,6 +453,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns the size of the data for this instruction.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/util/Base58.html#decode(java.lang.String)">decode(String)</a></span> - Static method in class com.lmax.solana4j.util.<a href="com.lmax.solana4j/com/lmax/solana4j/util/Base58.html" title="class in com.lmax.solana4j.util">Base58</a></dt>
+<dd>
+<div class="block">Decodes the given Base58 string into a byte array.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/AssociatedTokenMetadataProgram.html#deriveAddress(com.lmax.solana4j.api.PublicKey)">deriveAddress(PublicKey)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/AssociatedTokenMetadataProgram.html" title="class in com.lmax.solana4j.programs">AssociatedTokenMetadataProgram</a></dt>
 <dd>
 <div class="block">Derives the program address for the given mint.</div>
@@ -486,9 +496,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h2 class="title">E</h2>
 <dl>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/util/Ed25519.html" title="class in com.lmax.solana4j.util"><span class="typeNameLink">Ed25519</span></a> - Class in <a href="com.lmax.solana4j/com/lmax/solana4j/util/package-summary.html">com.lmax.solana4j.util</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Utility class for performing Ed25519 elliptic curve operations.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/util/Ed25519.html#%3Cinit%3E()">Ed25519()</a></span> - Constructor for class com.lmax.solana4j.util.<a href="com.lmax.solana4j/com/lmax/solana4j/util/Ed25519.html" title="class in com.lmax.solana4j.util">Ed25519</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/util/Base58.html#encode(byte%5B%5D)">encode(byte[])</a></span> - Static method in class com.lmax.solana4j.util.<a href="com.lmax.solana4j/com/lmax/solana4j/util/Base58.html" title="class in com.lmax.solana4j.util">Base58</a></dt>
+<dd>
+<div class="block">Encodes the given byte array as a Base58 string.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/AddressLookupTableProgram.html#EXTEND_LOOKUP_TABLE_INSTRUCTION">EXTEND_LOOKUP_TABLE_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/AddressLookupTableProgram.html" title="class in com.lmax.solana4j.programs">AddressLookupTableProgram</a></dt>
 <dd>
 <div class="block">The instruction code for extending a lookup table.</div>
@@ -641,7 +657,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h2 class="title">H</h2>
 <dl>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/util/Sha256.html#hash(byte%5B%5D)">hash(byte[])</a></span> - Static method in class com.lmax.solana4j.util.<a href="com.lmax.solana4j/com/lmax/solana4j/util/Sha256.html" title="class in com.lmax.solana4j.util">Sha256</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Computes the SHA-256 hash of the input byte array.</div>
+</dd>
 </dl>
 <a id="I:I">
 <!--   -->
@@ -1102,7 +1120,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Sets the upgrade authority for a given program address.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/util/Sha256.html" title="class in com.lmax.solana4j.util"><span class="typeNameLink">Sha256</span></a> - Class in <a href="com.lmax.solana4j/com/lmax/solana4j/util/package-summary.html">com.lmax.solana4j.util</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Utility class for generating SHA-256 hashes.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/util/Sha256.html#%3Cinit%3E()">Sha256()</a></span> - Constructor for class com.lmax.solana4j.util.<a href="com.lmax.solana4j/com/lmax/solana4j/util/Sha256.html" title="class in com.lmax.solana4j.util">Sha256</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/ByteBufferSigner.html#sign(java.nio.ByteBuffer,java.nio.ByteBuffer)">sign(ByteBuffer, ByteBuffer)</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/ByteBufferSigner.html" title="interface in com.lmax.solana4j.api">ByteBufferSigner</a></dt>
