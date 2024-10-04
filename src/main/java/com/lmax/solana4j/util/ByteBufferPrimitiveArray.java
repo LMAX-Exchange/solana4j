@@ -33,13 +33,22 @@ public class ByteBufferPrimitiveArray
     }
 
     /**
-     * Wraps a byte array into a {@link ByteBuffer}.
+     * Reverses the order of bytes in the given byte array.
      *
-     * @param bytes the byte array to wrap
-     * @return a ByteBuffer containing the given byte array
+     * @param array the byte array to be reversed
+     * @return a new byte array with the bytes in reverse order
      */
-    public static ByteBuffer toByteBuffer(final byte[] bytes)
+    public static byte[] reverse(final byte[] array)
     {
-        return ByteBuffer.wrap(bytes);
+        final ByteBuffer buffer = ByteBuffer.allocate(array.length);
+
+        for (int i = array.length - 1; i >= 0; i--)
+        {
+            buffer.put(array[i]);
+        }
+
+        buffer.flip();
+
+        return buffer.array();
     }
 }

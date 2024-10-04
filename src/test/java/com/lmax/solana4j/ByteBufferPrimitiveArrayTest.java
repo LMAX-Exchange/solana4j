@@ -97,4 +97,16 @@ class ByteBufferPrimitiveArrayTest
 
         assertThat(result).containsExactly(new byte[]{30, 40, 50, 60, 70});
     }
+
+    @Test
+    void shouldReverseByteArray()
+    {
+        final var sample = new byte[]{10, 20, 30, 40, 50, 60, 70, 80, 90};
+        final var reversedSample = new byte[]{90, 80, 70, 60, 50, 40, 30, 20, 10};
+
+        final var result = ByteBufferPrimitiveArray.reverse(sample);
+
+        assertThat(result).containsExactly(reversedSample);
+
+    }
 }
