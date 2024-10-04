@@ -8,7 +8,6 @@
  */
 module com.lmax.solana4j {
     requires org.bitcoinj.core;
-    requires net.i2p.crypto.eddsa;
 
     exports com.lmax.solana4j;
     exports com.lmax.solana4j.api;

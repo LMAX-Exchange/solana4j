@@ -2,7 +2,7 @@ package com.lmax.solana4j.encoding;
 
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
-import net.i2p.crypto.eddsa.math.GroupElement;
+import com.lmax.solana4j.util.Ed25519;
 import org.bitcoinj.core.Sha256Hash;
 
 import java.nio.ByteBuffer;
@@ -12,7 +12,6 @@ import java.util.Objects;
 
 import static com.lmax.solana4j.api.PublicKey.PUBLIC_KEY_LENGTH;
 import static java.util.Objects.requireNonNull;
-import static net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable.ED_25519_CURVE_SPEC;
 
 final class SolanaProgramDerivedAddress implements ProgramDerivedAddress
 {
@@ -53,8 +52,7 @@ final class SolanaProgramDerivedAddress implements ProgramDerivedAddress
     {
         try
         {
-            final GroupElement point = ED_25519_CURVE_SPEC.getCurve().createPoint(programAddress, false);
-            return !point.isOnCurve();
+            return !Ed25519.isOnCurve(programAddress);
         }
         catch (final IllegalArgumentException e)
         {
