@@ -57,7 +57,7 @@ public final class Ed25519
 
     private static BigInteger calculateCandidateRoot(final BigInteger u, final BigInteger v)
     {
-        final BigInteger v3 = v.modPow(BigInteger.TEN, P).multiply(v).mod(P);
+        final BigInteger v3 = v.multiply(v).multiply(v).mod(P);
         final BigInteger v7 = v3.multiply(v3).multiply(v).mod(P);
 
         final BigInteger uv3 = u.multiply(v3).mod(P);
