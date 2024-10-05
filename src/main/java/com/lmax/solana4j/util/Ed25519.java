@@ -78,7 +78,7 @@ public final class Ed25519
         // vx^2 = u (mod P) for x = x1 is a candidate root
         // vx^2 = -u (mod P) for x = x1 is a candidate root
         // if no roots then the point does not lie on the curve
-        final BigInteger vx12 = v.multiply(x1.modPow(BigInteger.TWO, P)).mod(P);
+        final BigInteger vx12 = v.multiply(x1).multiply(x1).mod(P);
 
         if (vx12.equals(u))
         {
