@@ -32,15 +32,5 @@ EddsaPointOnCurveBenchmark.pointOnCurveEddsaImplementation        thrpt   10   8
 EddsaPointOnCurveBenchmark.pointOnCurveSolana4jImplementation     thrpt   10   84799.239 ± 5135.192  ops/s
 ```
 
-#### Sha256 Hashing
-
-Dependency Replaced: `org.bitcoinj:bitcoinj-core:0.16.3`    
-Benchmark Written: `Sha256HashingBenchmark`  
-
-```text
-Benchmark                                                 Mode  Cnt        Score       Error  Units
-Sha256HashingBenchmark.sha256HashBitcoinjImplementation  thrpt   10  9082306.173 ± 56286.482  ops/s
-Sha256HashingBenchmark.sha256HashSolana4jImplementation  thrpt   10  9184423.015 ± 18583.452  ops/s
-```
 
 

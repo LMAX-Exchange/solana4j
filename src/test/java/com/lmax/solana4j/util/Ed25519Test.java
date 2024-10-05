@@ -1,9 +1,14 @@
 package com.lmax.solana4j.util;
 
+import net.i2p.crypto.eddsa.math.GroupElement;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
+import java.util.Random;
 
+import static net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable.ED_25519_CURVE_SPEC;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -75,5 +80,44 @@ class Ed25519Test
         final var invalidPublicKey = new byte[] { 0 };
 
         assertThrows(RuntimeException.class, () -> Ed25519.isOnCurve(invalidPublicKey));
+    }
+
+    @Test
+    @Disabled("Just to check the implementations do provide the same results.")
+    void solana4jImplementationIsPointOnCurveShouldMatchEddsaLibrary()
+    {
+        for (int i = 0; i < 100000; i++)
+        {
+            final var randomByteArray = createRandomByteArray(32);
+
+            final boolean onCurveEddsaLibrary = isOnCurveEddsaLibrary(randomByteArray);
+            final boolean onCurveSolana4jImplementation = Ed25519.isOnCurve(randomByteArray);
+
+            assertEquals(onCurveEddsaLibrary, onCurveSolana4jImplementation);
+        }
+    }
+
+    private byte[] createRandomByteArray(final int length)
+    {
+        final Random random = new Random();
+        final byte[] array = new byte[length];
+        for (int i = 0; i < length; i++)
+        {
+            array[i] = (byte) random.nextInt();
+        }
+        return array;
+    }
+
+    private boolean isOnCurveEddsaLibrary(final byte[] publickKey)
+    {
+        try
+        {
+            final GroupElement point = ED_25519_CURVE_SPEC.getCurve().createPoint(publickKey, false);
+            return point.isOnCurve();
+        }
+        catch (final IllegalArgumentException e)
+        {
+            return false;
+        }
     }
 }
