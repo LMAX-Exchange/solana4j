@@ -51,8 +51,8 @@ jobs:
           JRELEASER_MAVENCENTRAL_USERNAME: ${{ secrets.JRELEASER_MAVENCENTRAL_USERNAME }}
           JRELEASER_MAVENCENTRAL_TOKEN: ${{ secrets.JRELEASER_MAVENCENTRAL_TOKEN }}
           JRELEASER_COSIGN_PUBLIC_KEY: "cosign.pub"
-          JRELEASER_COSIGN_PRIVATE_KEY: "cosign.pem"
-          JRELEASER_COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+          JRELEASER_COSIGN_PRIVATE_KEY: "${{ github.workspace }}/cosign.pem"
+          JRELEASER_COSIGN_PASSWORD: "${{ github.workspace }}/${{ secrets.COSIGN_PASSWORD }}"
           JRELEASER_GITHUB_TOKEN: ${{ github.token }}
       - name: Add Artifact to GitHub Release
         uses: softprops/action-gh-release@v1
