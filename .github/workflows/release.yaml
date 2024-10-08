@@ -38,6 +38,10 @@ jobs:
         run: echo "$COSIGN_PRIVATE_KEY" > cosign.pem
         env:
           COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+      - name: Print the Cosign Public Key to Confirm We Can
+        run: cosign public-key --key "cosign.pem"
+        env:
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
       - name: Publish package to Maven Central
         uses: gradle/gradle-build-action@v2.11.1
         with:
