@@ -42,6 +42,8 @@ jobs:
         run: cosign public-key --key "cosign.pem"
         env:
           COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+      - name: Validate that the public key exists
+        run: test -f "${{ github.workspace }}/cosign.pub"
       - name: Publish package to Maven Central
         uses: gradle/gradle-build-action@v2.11.1
         with:
