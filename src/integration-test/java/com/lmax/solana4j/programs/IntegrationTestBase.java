@@ -8,6 +8,7 @@ import org.testcontainers.images.builder.ImageFromDockerfile;
 import org.testcontainers.utility.MountableFile;
 
 import java.nio.file.Path;
+import java.time.Duration;
 
 public abstract class IntegrationTestBase
 {
@@ -24,12 +25,14 @@ public abstract class IntegrationTestBase
         {
             SOLANA_VALIDATOR = new GenericContainer<>(new ImageFromDockerfile().withDockerfile(Path.of(MountableFile.forClasspathResource("Dockerfile").getFilesystemPath())))
                     .withCopyFileToContainer(MountableFile.forClasspathResource("solana-run.sh"), "/solana-run.sh")
+                    .withCopyFileToContainer(MountableFile.forClasspathResource("fetch-spl.sh"), "/fetch-spl.sh")
                     .withCopyFileToContainer(MountableFile.forClasspathResource("lmax_multisig.so"), "/lmax_multisig.so")
                     .withCopyFileToContainer(MountableFile.forClasspathResource("upgrade_authority.json"), "/upgrade_authority.json")
                     .withCopyFileToContainer(MountableFile.forClasspathResource("bpf_program.json"), "/bpf_program.json")
                     .withExposedPorts(SOLANA_HTTP_PORT, SOLANA_WS_PORT)
                     .withEnv("SOLANA_RUN_SH_VALIDATOR_ARGS", "--ticks-per-slot=8")
-                    .withNetwork(NETWORK);
+                    .withNetwork(NETWORK)
+                    .withStartupTimeout(Duration.ofMinutes(2));
 
             SOLANA_VALIDATOR.start();
         }
