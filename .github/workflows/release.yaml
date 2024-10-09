@@ -34,16 +34,6 @@ jobs:
           arguments: publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Write out Cosign Private Key for JReleaser
-        run: echo "$COSIGN_PRIVATE_KEY" > cosign.pem
-        env:
-          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
-      - name: Print the Cosign Public Key to Confirm We Can
-        run: cosign public-key --key "cosign.pem"
-        env:
-          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-      - name: Validate that the public key exists
-        run: test -f "${{ github.workspace }}/cosign.pub"
       - name: Publish package to Maven Central
         uses: gradle/gradle-build-action@v2.11.1
         with:
@@ -52,9 +42,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JRELEASER_MAVENCENTRAL_USERNAME: ${{ secrets.JRELEASER_MAVENCENTRAL_USERNAME }}
           JRELEASER_MAVENCENTRAL_TOKEN: ${{ secrets.JRELEASER_MAVENCENTRAL_TOKEN }}
-          JRELEASER_COSIGN_PUBLIC_KEY: "${{ github.workspace }}/cosign.pub"
-          JRELEASER_COSIGN_PRIVATE_KEY: "${{ github.workspace }}/cosign.pem"
-          JRELEASER_COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+          JRELEASER_GPG_SECRET_KEY: "${{ secrets.JRELEASER_GPG_SECRET_KEY }}"
+          JRELEASER_GPG_PUBLIC_KEY: "${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}"
+          JRELEASER_GPG_PASSPHRASE: "${{ secrets.JRELEASER_GPG_PASSPHRASE }}"
           JRELEASER_GITHUB_TOKEN: ${{ github.token }}
       - name: Add Artifact to GitHub Release
         uses: softprops/action-gh-release@v1
