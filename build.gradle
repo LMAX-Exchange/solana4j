@@ -174,12 +174,7 @@ jreleaser {
     signing {
         active = 'ALWAYS'
         armored = true
-        mode = 'COSIGN'
-        verify = true
-        cosign {
-            version = '2.4.1'
-        }
-
+        mode = 'MEMORY'
     }
     deploy {
         maven {
