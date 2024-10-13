@@ -19,6 +19,9 @@ All the `Solana Programs` that have been implemented have been conformance teste
 is that these tests act as living documentation of how the library can be used. Any future implemented programs should also
 have accompanying integration tests so that we can carry on extending this living documentation!
 
+A note about the integration tests. If you're running on a shiny `Apple M[1,2,3,4]` machine, then 
+there are extra steps you need to take in order to run them locally. Please find the `README.md` in `src/integration-test/resources/README.md`!
+
 We hope that you enjoy using the library, and we welcome any feedback. We especially welcome PRs!
 
 ### Features

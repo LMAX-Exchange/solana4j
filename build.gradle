@@ -134,6 +134,7 @@ task integrationTest(type: Test) {
         showCauses true
         showStackTraces true
     }
+    maxHeapSize = "1g"
 }
 
 tasks.processTestResources {

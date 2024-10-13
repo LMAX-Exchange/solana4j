@@ -1,0 +1,21 @@
+FROM --platform=linux/aarch64 ubuntu:20.04
+
+ENV SOLANA_VERSION=1.18.25
+
+USER root
+
+RUN apt-get update && apt-get install -y wget curl
+
+COPY solana-release-aarch64-unknown-linux-gnu-$SOLANA_VERSION.tar.bz2 /solana-release-aarch64-unknown-linux-gnu-$SOLANA_VERSION.tar.bz2
+
+ENV SOLANA_TAR=/solana-release-aarch64-unknown-linux-gnu-$SOLANA_VERSION.tar.bz2
+
+RUN tar -xvjf $SOLANA_TAR && rm -f $SOLANA_TAR && mv /home/solana/.local/share/solana/install/releases/$SOLANA_VERSION/bin/* /usr/local/bin/
+
+COPY solana-run.sh /usr/bin/solana-run.sh
+RUN chmod +x /usr/bin/solana-run.sh
+
+COPY fetch-spl.sh /usr/bin/fetch-spl.sh
+RUN chmod +x /usr/bin/fetch-spl.sh
+
+ENTRYPOINT ["/usr/bin/solana-run.sh"]
