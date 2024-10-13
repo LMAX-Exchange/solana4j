@@ -8,7 +8,6 @@ import org.testcontainers.images.builder.ImageFromDockerfile;
 import org.testcontainers.utility.MountableFile;
 
 import java.nio.file.Path;
-import java.time.Duration;
 
 public abstract class IntegrationTestBase
 {
@@ -31,8 +30,7 @@ public abstract class IntegrationTestBase
                     .withCopyFileToContainer(MountableFile.forClasspathResource("bpf_program.json"), "/bpf_program.json")
                     .withExposedPorts(SOLANA_HTTP_PORT, SOLANA_WS_PORT)
                     .withEnv("SOLANA_RUN_SH_VALIDATOR_ARGS", "--ticks-per-slot=8")
-                    .withNetwork(NETWORK)
-                    .withStartupTimeout(Duration.ofMinutes(2));
+                    .withNetwork(NETWORK);
 
             SOLANA_VALIDATOR.start();
         }
