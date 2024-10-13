@@ -17,7 +17,7 @@ is as follows:
     SOLANA_VALIDATOR = new GenericContainer<>(new ImageFromDockerfile().withDockerfile(Path.of(MountableFile.forClasspathResource("Aarch64Dockerfile").getFilesystemPath())))
 ```
 
-In order to build `solana-release-x86_64-unknown-linux-gnu.tar-1.18.25.bz2`, you should run the script `build_aarch64_solana_image.sh`. It will put the artifact exactly where you need
+In order to build `solana-release-x86_64-unknown-linux-gnu.tar-1.18.25.tar.bz2`, you should run the script `build_aarch64_solana_image.sh`. It will put the artifact exactly where you need
 it, if you run the script from `src/integration-test/resources`, as you should. You may need to beef up the resources on 
 `Docker Desktop`, particularly the `Virtual disk limit`, in order to do this. This may take up to 10-15 minutes, but thankfully only has to be done once.
 Running that script and making the above code change, should be enough to run the integration tests locally on an `Apple M[1,2,3,4]` computer.
