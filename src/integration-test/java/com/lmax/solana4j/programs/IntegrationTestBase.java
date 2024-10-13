@@ -23,7 +23,7 @@ public abstract class IntegrationTestBase
     {
         try
         {
-            SOLANA_VALIDATOR = new GenericContainer<>(new ImageFromDockerfile().withDockerfile(Path.of(MountableFile.forClasspathResource("Aarch64Dockerfile").getFilesystemPath())))
+            SOLANA_VALIDATOR = new GenericContainer<>(new ImageFromDockerfile().withDockerfile(Path.of(MountableFile.forClasspathResource("Dockerfile").getFilesystemPath())))
                     .withCopyFileToContainer(MountableFile.forClasspathResource("solana-run.sh"), "/solana-run.sh")
                     .withCopyFileToContainer(MountableFile.forClasspathResource("fetch-spl.sh"), "/fetch-spl.sh")
                     .withCopyFileToContainer(MountableFile.forClasspathResource("lmax_multisig.so"), "/lmax_multisig.so")
