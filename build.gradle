@@ -36,34 +36,38 @@ configurations {
 }
 
 sourceSets {
+    solanaMessageEncodingMain {
+        java {
+            srcDir file('solana-message-encoding/src/main/java')
+        }
+    }
     testSupport {
         java {
-            compileClasspath += sourceSets.main.output + configurations.testRuntimeClasspath
-            runtimeClasspath += sourceSets.main.output + configurations.testRuntimeClasspath
-            srcDir file('src/test-support/java')
+            compileClasspath += sourceSets.solanaMessageEncodingMain.output
+            srcDir file('solana-message-encoding/src/test-support/java')
         }
     }
     test {
         java {
-            compileClasspath += sourceSets.main.output + sourceSets.testSupport.output
-            runtimeClasspath += sourceSets.main.output + sourceSets.testSupport.output
-            srcDir file('src/test/java')
+            compileClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.testSupport.output
+            runtimeClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.testSupport.output
+            srcDir file('solana-message-encoding/src/test/java')
         }
         resources.srcDir file('src/test/resources')
     }
     integrationTest {
         java {
-            compileClasspath += sourceSets.main.output + configurations.testRuntimeClasspath + sourceSets.testSupport.output
-            runtimeClasspath += sourceSets.main.output + configurations.testRuntimeClasspath + sourceSets.testSupport.output
-            srcDir file('src/integration-test/java')
+            compileClasspath += sourceSets.testSupport.output
+            runtimeClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.testSupport.output
+            srcDir file('solana-message-encoding/src/integration-test/java')
         }
-        resources.srcDir file('src/integration-test/resources')
+        resources.srcDir file('solana-message-encoding/src/integration-test/resources')
     }
-    jmh {
+    jmhTest {
         java {
-            compileClasspath += sourceSets.main.output + sourceSets.testSupport.output
-            runtimeClasspath += sourceSets.main.output + sourceSets.testSupport.output
-            srcDir file('src/jmh/java')
+            compileClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.testSupport.output
+            runtimeClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.testSupport.output
+            srcDir file('solana-message-encoding/src/jmh-test/java')
         }
     }
 }
@@ -105,12 +109,12 @@ dependencies {
     integrationTestImplementation 'org.slf4j:slf4j-api:2.0.13'
 
     // jmh test dependencies
-    jmhImplementation 'org.openjdk.jmh:jmh-core:1.37'
-    jmhImplementation 'org.openjdk.jmh:jmh-generator-annprocess:1.37'
-    jmhImplementation 'net.i2p.crypto:eddsa:0.3.0'
-    jmhImplementation 'org.bitcoinj:bitcoinj-core:0.16.3'
+    jmhTestImplementation 'org.openjdk.jmh:jmh-core:1.37'
+    jmhTestImplementation 'org.openjdk.jmh:jmh-generator-annprocess:1.37'
+    jmhTestImplementation 'net.i2p.crypto:eddsa:0.3.0'
+    jmhTestImplementation 'org.bitcoinj:bitcoinj-core:0.16.3'
 
-    jmhAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.36'
+    jmhTestAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.36'
 }
 
 test {
@@ -144,7 +148,7 @@ tasks.processTestResources {
 javadoc {
     title = 'solana4j'
 
-    source = fileTree('src/main/java').include('**/*.java')
+    source = fileTree('solana-message-encoding/src/main/java').include('**/*.java')
 
     options.addStringOption('XDignore.symbol.file', '-quiet')
     options.author = true
@@ -155,13 +159,10 @@ javadoc {
     options.overview = file('overview.html').absolutePath
 }
 
-
 task setUpGitHooks(type: Exec, description: 'Add a pre-commit git hook that runs gradle check & test tasks') {
     def hooksFolder = file('.githooks').getAbsolutePath()
     commandLine 'git', 'config', 'core.hooksPath', hooksFolder
 }
-
-check.dependsOn integrationTest
 
 jreleaser {
     files {
