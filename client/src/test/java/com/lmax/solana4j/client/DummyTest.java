@@ -2,10 +2,10 @@ package com.lmax.solana4j.client;
 
 import org.junit.jupiter.api.Test;
 
-class HelloTest
+class DummyTest
 {
     @Test
-    void failTest()
+    void testPlaceHolder()
     {
         assert true;
     }
