@@ -9,24 +9,24 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
-public class SolanaRpcClient
+final class SolanaRpcClient
 {
-    protected static final String JSONRPC = "jsonrpc";
-    protected static final String ID = "id";
-    protected static final String METHOD = "method";
-    protected static final String PARAMS = "params";
+    static final String JSONRPC = "jsonrpc";
+    static final String ID = "id";
+    static final String METHOD = "method";
+    static final String PARAMS = "params";
 
     private final String url;
     private final HttpClient httpClient;
     private final SolanaCodec solanaCodec = new SolanaCodec();
 
-    public SolanaRpcClient(final String url)
+    SolanaRpcClient(final String url)
     {
         this.url = url;
         this.httpClient = HttpClient.newHttpClient();
     }
 
-    public <T> T queryForObject(final TypeReference<RpcWrapperDTO<T>> type, final String method, final Object... params)
+    <T> T queryForObject(final TypeReference<RpcWrapperDTO<T>> type, final String method, final Object... params)
     {
         try
         {

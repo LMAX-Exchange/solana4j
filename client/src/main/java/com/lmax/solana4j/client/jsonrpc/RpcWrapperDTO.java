@@ -3,13 +3,13 @@ package com.lmax.solana4j.client.jsonrpc;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class RpcWrapperDTO<T>
+final class RpcWrapperDTO<T>
 {
     private final T result;
     private final Error error;
 
     @JsonCreator
-    public RpcWrapperDTO(final @JsonProperty("result") T result, final @JsonProperty("error") Error error)
+    RpcWrapperDTO(final @JsonProperty("result") T result, final @JsonProperty("error") Error error)
     {
         this.result = result;
         this.error = error;
