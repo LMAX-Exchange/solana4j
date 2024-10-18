@@ -2,6 +2,7 @@ package com.lmax.solana4j;
 
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.Blockhash;
+import com.lmax.solana4j.api.Destination;
 import com.lmax.solana4j.api.InstructionBuilderBase;
 import com.lmax.solana4j.api.Message;
 import com.lmax.solana4j.api.MessageBuilder;
@@ -11,6 +12,7 @@ import com.lmax.solana4j.api.SignedMessageBuilder;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.api.TransactionInstruction;
 import com.lmax.solana4j.encoding.SolanaEncoding;
+import com.lmax.solana4j.util.Base58;
 
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -129,6 +131,17 @@ public final class Solana
     }
 
     /**
+     * Creates a new Blockhash from the given Base58-encoded string.
+     *
+     * @param blockhashBase58 the Base58-encoded string representing the Blockhash
+     * @return a new instance of {@link Blockhash}
+     */
+    public static Blockhash blockhash(final String blockhashBase58)
+    {
+        return SolanaEncoding.blockhash(Base58.decode(blockhashBase58));
+    }
+
+    /**
      * Creates a new Slot from the given slot number.
      *
      * @param slot the slot number
@@ -137,5 +150,17 @@ public final class Solana
     public static Slot slot(final long slot)
     {
         return SolanaEncoding.slot(slot);
+    }
+
+    /**
+     * Creates a new destination for a token transfer.
+     *
+     * @param destination the public key of the destination
+     * @param amount      the amount to transfer
+     * @return a new instance of {@link Destination}
+     */
+    public static Destination destination(final PublicKey destination, final long amount)
+    {
+        return SolanaEncoding.destination(destination, amount);
     }
 }

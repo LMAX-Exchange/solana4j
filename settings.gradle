@@ -1,2 +1,3 @@
 rootProject.name = 'solana4j'
 include 'solana-message-encoding'
+include 'solana-client'

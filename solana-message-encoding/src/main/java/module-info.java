@@ -1,5 +1,5 @@
 /**
- * This module provides functionality for reading and writing messages on the Solana blockchain.
+ * This module provides functionality for reading and writing Solana messages.
  * <p>
  *     This module supports both the Solana Legacy and V0 encoding schemes. This module has support for interacting
  *     with core programs such as the SystemProgram, TokenProgram and AssociatedTokenProgram. This module can

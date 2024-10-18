@@ -20,12 +20,12 @@ import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
 import com.lmax.solana4j.programs.SystemProgram;
 import com.lmax.solana4j.programs.TokenProgramBase;
-import com.lmax.solana4j.solanaclient.api.AccountInfo;
-import com.lmax.solana4j.solanaclient.api.TransactionData;
-import com.lmax.solana4j.solanaclient.api.TransactionResponse;
-import com.lmax.solana4j.solanaclient.jsonrpc.SolanaClient;
+import com.lmax.solana4j.client.api.AccountInfo;
+import com.lmax.solana4j.client.api.TransactionData;
+import com.lmax.solana4j.client.api.TransactionResponse;
+import com.lmax.solana4j.client.jsonrpc.SolanaClient;
 import com.lmax.solana4j.util.TestKeyPairGenerator;
-import com.lmax.solana4j.util.Base58;;
+import com.lmax.solana4j.util.Base58;
 import org.bouncycastle.util.encoders.Base64;
 
 import java.util.ArrayList;

@@ -4,8 +4,8 @@ import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionBuilder;
-import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.api.TransactionInstruction;
+import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.util.Base58;;
 
 import java.nio.ByteOrder;

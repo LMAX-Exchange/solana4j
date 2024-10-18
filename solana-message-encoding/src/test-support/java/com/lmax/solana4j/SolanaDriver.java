@@ -7,12 +7,11 @@ import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TestPublicKey;
 import com.lmax.solana4j.domain.TokenProgram;
-import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.programs.TokenProgramBase;
-import com.lmax.solana4j.solanaclient.api.AccountInfo;
-import com.lmax.solana4j.solanaclient.api.Blockhash;
-import com.lmax.solana4j.solanaclient.api.SolanaApi;
-import com.lmax.solana4j.solanaclient.api.TransactionResponse;
+import com.lmax.solana4j.client.api.AccountInfo;
+import com.lmax.solana4j.client.api.Blockhash;
+import com.lmax.solana4j.client.api.SolanaApi;
+import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.transactionblobs.LegacyTransactionBlobFactory;
 import com.lmax.solana4j.transactionblobs.TransactionBlobFactory;
 import com.lmax.solana4j.transactionblobs.V0TransactionBlobFactory;
@@ -66,7 +65,7 @@ public class SolanaDriver
                 programDerivedAddress,
                 authority.getSolana4jPublicKey(),
                 slot,
-                Solana.blockhash(recentBlockhash.getBytes()),
+                Solana.blockhash(recentBlockhash.getBlockhashBase58()),
                 payer.getSolana4jPublicKey(),
                 List.of(payer, authority));
 
@@ -85,7 +84,7 @@ public class SolanaDriver
                 addressLookupTable.getSolana4jPublicKey(),
                 authority.getSolana4jPublicKey(),
                 addressesToAdd.stream().map(TestPublicKey::getSolana4jPublicKey).collect(Collectors.toList()),
-                Solana.blockhash(recentBlockhash.getBytes()),
+                Solana.blockhash(recentBlockhash.getBlockhashBase58()),
                 payer.getSolana4jPublicKey(),
                 List.of(payer, authority),
                 addressLookupTables);
@@ -114,7 +113,7 @@ public class SolanaDriver
                 freezeAuthority.getSolana4jPublicKey(),
                 rentExemption,
                 accountSpan,
-                Solana.blockhash(recentBlockhash.getBytes()),
+                Solana.blockhash(recentBlockhash.getBlockhashBase58()),
                 payer.getSolana4jPublicKey(),
                 List.of(payer, tokenMint),
                 addressLookupTables
@@ -138,8 +137,8 @@ public class SolanaDriver
                 tokenProgram,
                 tokenMintAddress.getSolana4jPublicKey(),
                 authority.getSolana4jPublicKey(),
-                SolanaEncoding.destination(to.getSolana4jPublicKey(), amount),
-                SolanaEncoding.blockhash(recentBlockhash.getBytes()),
+                Solana.destination(to.getSolana4jPublicKey(), amount),
+                Solana.blockhash(recentBlockhash.getBlockhashBase58()),
                 payer.getSolana4jPublicKey(),
                 List.of(payer, authority),
                 addressLookupTables
@@ -167,7 +166,7 @@ public class SolanaDriver
                 account.getSolana4jPublicKey(),
                 owner.getSolana4jPublicKey(),
                 tokenMintAddress.getSolana4jPublicKey(),
-                Solana.blockhash(blockhash.getBytes()),
+                Solana.blockhash(blockhash.getBlockhashBase58()),
                 payer.getSolana4jPublicKey(),
                 List.of(payer, account),
                 addressLookupTables);
@@ -198,7 +197,7 @@ public class SolanaDriver
         final String transactionBlob = getTransactionFactory().createNonce(
                 nonceAccount.getSolana4jPublicKey(),
                 nonceAuthority.getSolana4jPublicKey(),
-                Solana.blockhash(blockhash.getBytes()),
+                Solana.blockhash(blockhash.getBlockhashBase58()),
                 rentExemption,
                 accountSpan,
                 payer.getSolana4jPublicKey(),
@@ -227,7 +226,7 @@ public class SolanaDriver
                 requiredSigners,
                 rentExemption,
                 accountSpan,
-                Solana.blockhash(blockhash.getBytes()),
+                Solana.blockhash(blockhash.getBlockhashBase58()),
                 payer.getSolana4jPublicKey(),
                 List.of(payer, account),
                 addressLookupTables);
@@ -246,7 +245,7 @@ public class SolanaDriver
         final String transactionBlob = getTransactionFactory().advanceNonce(
                 account.getSolana4jPublicKey(),
                 authority.getSolana4jPublicKey(),
-                Solana.blockhash(blockhash.getBytes()),
+                Solana.blockhash(blockhash.getBlockhashBase58()),
                 payer.getSolana4jPublicKey(),
                 List.of(payer, authority),
                 addressLookupTables);
@@ -272,7 +271,7 @@ public class SolanaDriver
                 to.getSolana4jPublicKey(),
                 owner.getSolana4jPublicKey(),
                 amount,
-                Solana.blockhash(blockhash.getBytes()),
+                Solana.blockhash(blockhash.getBlockhashBase58()),
                 payer.getSolana4jPublicKey(),
                 signers,
                 addressLookupTables);
@@ -293,7 +292,7 @@ public class SolanaDriver
                 from.getSolana4jPublicKey(),
                 to.getSolana4jPublicKey(),
                 amount,
-                Solana.blockhash(blockhash.getBytes()),
+                Solana.blockhash(blockhash.getBlockhashBase58()),
                 payer.getSolana4jPublicKey(),
                 List.of(payer, from),
                 addressLookupTables);
@@ -316,7 +315,7 @@ public class SolanaDriver
                 tokenProgram,
                 owner,
                 associatedTokenAddress,
-                Solana.blockhash(blockhash.getBytes()),
+                Solana.blockhash(blockhash.getBlockhashBase58()),
                 mint,
                 idempotent,
                 payer.getSolana4jPublicKey(),
@@ -344,7 +343,7 @@ public class SolanaDriver
                 tokenAccountOldAuthority,
                 tokenAccountNewAuthority,
                 authorityType,
-                Solana.blockhash(blockhash.getBytes()),
+                Solana.blockhash(blockhash.getBlockhashBase58()),
                 payer,
                 signers,
                 addressLookupTables);
@@ -359,7 +358,7 @@ public class SolanaDriver
         final String transactionBlob = getTransactionFactory().setComputeUnits(
                 computeUnitLimit,
                 computeUnitPrice,
-                Solana.blockhash(blockhash.getBytes()),
+                Solana.blockhash(blockhash.getBlockhashBase58()),
                 payer.getSolana4jPublicKey(),
                 List.of(payer));
 
@@ -380,7 +379,7 @@ public class SolanaDriver
                 program,
                 oldUpgradeAuthority,
                 newUpgradeAuthority,
-                Solana.blockhash(blockhash.getBytes()),
+                Solana.blockhash(blockhash.getBlockhashBase58()),
                 payer,
                 signers,
                 addressLookupTables);

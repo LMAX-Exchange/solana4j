@@ -27,46 +27,50 @@ java {
     withSourcesJar()
 }
 
-configurations {
-    integrationTestImplementation.extendsFrom testImplementation
-    integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
-
-    testSupportImplementation.extendsFrom testImplementation
-    testSupportRuntimeOnly.extendsFrom testRuntimeOnly
-}
-
 sourceSets {
+    solanaClientMain {
+        java {
+            srcDir file('solana-client/src/main/java')
+        }
+    }
+    solanaClientTest {
+        compileClasspath += sourceSets.solanaClientMain.output
+        runtimeClasspath += sourceSets.solanaClientMain.output
+        java {
+            srcDir file('solana-client/src/test/java')
+        }
+    }
     solanaMessageEncodingMain {
         java {
             srcDir file('solana-message-encoding/src/main/java')
         }
     }
-    testSupport {
+    solanaMessageEncodingTestSupport {
         java {
-            compileClasspath += sourceSets.solanaMessageEncodingMain.output
+            compileClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.solanaClientMain.output
             srcDir file('solana-message-encoding/src/test-support/java')
         }
     }
-    test {
+    solanaMessageEncodingTest {
         java {
-            compileClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.testSupport.output
-            runtimeClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.testSupport.output
+            compileClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.solanaMessageEncodingTestSupport.output
+            runtimeClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.solanaMessageEncodingTestSupport.output
             srcDir file('solana-message-encoding/src/test/java')
         }
         resources.srcDir file('src/test/resources')
     }
-    integrationTest {
+    solanaMessageEncodingIntegrationTest {
         java {
-            compileClasspath += sourceSets.testSupport.output
-            runtimeClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.testSupport.output
+            compileClasspath += sourceSets.solanaMessageEncodingTestSupport.output + sourceSets.solanaClientMain.output
+            runtimeClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.solanaMessageEncodingTestSupport.output + sourceSets.solanaClientMain.output
             srcDir file('solana-message-encoding/src/integration-test/java')
         }
         resources.srcDir file('solana-message-encoding/src/integration-test/resources')
     }
-    jmhTest {
+    solanaMessageEncodingJmhTest {
         java {
-            compileClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.testSupport.output
-            runtimeClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.testSupport.output
+            compileClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.solanaMessageEncodingTestSupport.output
+            runtimeClasspath += sourceSets.solanaMessageEncodingMain.output + sourceSets.solanaMessageEncodingTestSupport.output
             srcDir file('solana-message-encoding/src/jmh-test/java')
         }
     }
@@ -75,61 +79,91 @@ sourceSets {
 dependencies {
     checkstyle 'com.puppycrawl.tools:checkstyle:10.4'
 
+    solanaClientMainImplementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+
+    solanaClientTestImplementation 'org.assertj:assertj-core:3.26.3'
+    solanaClientTestImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    solanaClientTestImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.2'
+
     // test support dependencies
-    testSupportImplementation 'org.testcontainers:testcontainers:1.19.8'
-    testSupportImplementation 'com.lmax:simple-dsl:3.0.0'
-    testSupportImplementation 'org.assertj:assertj-core:3.26.3'
-    testSupportImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
-    testSupportImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.2'
-    testSupportImplementation 'com.fasterxml.jackson.core:jackson-core:2.17.2'
-    testSupportImplementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
-    testSupportImplementation 'org.apache.httpcomponents:httpclient:4.5.14'
-    testSupportImplementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+    solanaMessageEncodingTestSupportImplementation 'com.lmax:simple-dsl:3.0.0'
+    solanaMessageEncodingTestSupportImplementation 'org.assertj:assertj-core:3.26.3'
+    solanaMessageEncodingTestSupportImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    solanaMessageEncodingTestSupportImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.2'
+    solanaMessageEncodingTestSupportImplementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+    solanaMessageEncodingTestSupportImplementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
 
     // test dependencies
-    testImplementation 'org.assertj:assertj-core:3.26.3'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.2'
-    testImplementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
-    testImplementation 'org.slf4j:slf4j-api:2.0.13'
-    testImplementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
-    testImplementation 'net.i2p.crypto:eddsa:0.3.0'
-    testImplementation 'org.bitcoinj:bitcoinj-core:0.16.3'
+    solanaMessageEncodingTestImplementation 'org.assertj:assertj-core:3.26.3'
+    solanaMessageEncodingTestImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    solanaMessageEncodingTestImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.2'
+    solanaMessageEncodingTestImplementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
+    solanaMessageEncodingTestImplementation 'org.slf4j:slf4j-api:2.0.13'
+    solanaMessageEncodingTestImplementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+    solanaMessageEncodingTestImplementation 'net.i2p.crypto:eddsa:0.3.0'
+    solanaMessageEncodingTestImplementation 'org.bitcoinj:bitcoinj-core:0.16.3'
 
     // integration test dependencies
-    integrationTestImplementation 'org.testcontainers:testcontainers:1.19.8'
-    integrationTestImplementation 'com.lmax:simple-dsl:3.0.0'
-    integrationTestImplementation 'org.assertj:assertj-core:3.26.3'
-    integrationTestImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
-    integrationTestImplementation 'com.fasterxml.jackson.core:jackson-core:2.17.2'
-    integrationTestImplementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
-    integrationTestImplementation 'org.apache.httpcomponents:httpclient:4.5.14'
-    integrationTestImplementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
-    integrationTestImplementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
-    integrationTestImplementation 'org.slf4j:slf4j-api:2.0.13'
+    solanaMessageEncodingIntegrationTestImplementation 'org.testcontainers:testcontainers:1.19.8'
+    solanaMessageEncodingIntegrationTestImplementation 'com.lmax:simple-dsl:3.0.0'
+    solanaMessageEncodingIntegrationTestImplementation 'org.assertj:assertj-core:3.26.3'
+    solanaMessageEncodingIntegrationTestImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    solanaMessageEncodingIntegrationTestImplementation 'com.fasterxml.jackson.core:jackson-core:2.17.2'
+    solanaMessageEncodingIntegrationTestImplementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+    solanaMessageEncodingIntegrationTestImplementation 'org.apache.httpcomponents:httpclient:4.5.14'
+    solanaMessageEncodingIntegrationTestImplementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+    solanaMessageEncodingIntegrationTestImplementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
+    solanaMessageEncodingIntegrationTestImplementation 'org.slf4j:slf4j-api:2.0.13'
 
     // jmh test dependencies
-    jmhTestImplementation 'org.openjdk.jmh:jmh-core:1.37'
-    jmhTestImplementation 'org.openjdk.jmh:jmh-generator-annprocess:1.37'
-    jmhTestImplementation 'net.i2p.crypto:eddsa:0.3.0'
-    jmhTestImplementation 'org.bitcoinj:bitcoinj-core:0.16.3'
-
-    jmhTestAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.36'
+    solanaMessageEncodingJmhTestImplementation 'org.openjdk.jmh:jmh-core:1.37'
+    solanaMessageEncodingJmhTestImplementation 'org.openjdk.jmh:jmh-generator-annprocess:1.37'
+    solanaMessageEncodingJmhTestImplementation 'net.i2p.crypto:eddsa:0.3.0'
+    solanaMessageEncodingJmhTestImplementation 'org.bitcoinj:bitcoinj-core:0.16.3'
+    solanaMessageEncodingJmhTestAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.36'
 }
 
-test {
+task setUpGitHooks(type: Exec, description: 'Add a pre-commit git hook that runs gradle check & test tasks') {
+    def hooksFolder = file('.githooks').getAbsolutePath()
+    commandLine 'git', 'config', 'core.hooksPath', hooksFolder
+}
+
+task solanaMessageEncodingTest(type: Test) {
     useJUnitPlatform()
+    description = 'Runs the solana message encoding unit tests .'
+    group = 'verification'
+    testClassesDirs = sourceSets.solanaMessageEncodingTest.output.classesDirs
+    classpath = sourceSets.solanaMessageEncodingTest.runtimeClasspath
     testLogging {
         events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showExceptions true
+        showCauses true
+        showStackTraces true
     }
 }
 
-task integrationTest(type: Test) {
+task solanaClientTest(type: Test) {
     useJUnitPlatform()
-    description = 'runs the integration tests.'
+    description = 'Runs the solana client unit tests .'
     group = 'verification'
-    testClassesDirs = sourceSets.integrationTest.output.classesDirs
-    classpath = sourceSets.integrationTest.runtimeClasspath + sourceSets.testSupport.runtimeClasspath
+    testClassesDirs = sourceSets.solanaClientTest.output.classesDirs
+    classpath = sourceSets.solanaClientTest.runtimeClasspath
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showExceptions true
+        showCauses true
+        showStackTraces true
+    }
+}
+
+task solanaMessageEncodingIntegrationTest(type: Test) {
+    useJUnitPlatform()
+    description = 'Runs the solana message encoding integration tests.'
+    group = 'verification'
+    testClassesDirs = sourceSets.solanaMessageEncodingIntegrationTest.output.classesDirs
+    classpath = sourceSets.solanaMessageEncodingIntegrationTest.runtimeClasspath + sourceSets.solanaMessageEncodingTestSupport.runtimeClasspath
     shouldRunAfter test
     testLogging {
         events "passed", "skipped", "failed"
@@ -141,10 +175,15 @@ task integrationTest(type: Test) {
     maxHeapSize = "1g"
 }
 
+check.dependsOn solanaClientTest
+check.dependsOn solanaMessageEncodingTest
+check.dependsOn solanaMessageEncodingIntegrationTest
+
 tasks.processTestResources {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
+// FIXME: including in gradle.yaml and release.yaml
 javadoc {
     title = 'solana4j'
 
@@ -157,11 +196,6 @@ javadoc {
     options.version = true
     options.showFromPublic()
     options.overview = file('overview.html').absolutePath
-}
-
-task setUpGitHooks(type: Exec, description: 'Add a pre-commit git hook that runs gradle check & test tasks') {
-    def hooksFolder = file('.githooks').getAbsolutePath()
-    commandLine 'git', 'config', 'core.hooksPath', hooksFolder
 }
 
 jreleaser {
