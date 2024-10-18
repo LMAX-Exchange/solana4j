@@ -3,6 +3,7 @@ package com.lmax.solana4j.client.jsonrpc;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lmax.solana4j.client.api.AddressTableLookup;
+import com.lmax.solana4j.client.api.Header;
 import com.lmax.solana4j.client.api.Instruction;
 import com.lmax.solana4j.client.api.Message;
 
@@ -38,7 +39,7 @@ final class MessageDTO implements Message
     }
 
     @Override
-    public HeaderDTO getHeader()
+    public Header getHeader()
     {
         return headerImpl;
     }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lmax.solana4j.client.api.Transaction;
 import com.lmax.solana4j.client.api.TransactionData;
+import com.lmax.solana4j.client.api.TransactionMetadata;
 
 final class TransactionDTO implements Transaction
 {
@@ -20,7 +21,7 @@ final class TransactionDTO implements Transaction
     }
 
     @Override
-    public MetaDTO getMeta()
+    public TransactionMetadata getMeta()
     {
         return metaImpl;
     }

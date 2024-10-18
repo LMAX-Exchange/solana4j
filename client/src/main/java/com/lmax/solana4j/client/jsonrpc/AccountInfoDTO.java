@@ -31,7 +31,7 @@ final class AccountInfoDTO implements SolanaRpcResponse<AccountInfo>
     }
 
     @Override
-    public AccountInfoValueDTO getValue()
+    public AccountInfo getValue()
     {
         return value;
     }

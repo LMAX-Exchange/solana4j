@@ -3,6 +3,7 @@ package com.lmax.solana4j.client.jsonrpc;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lmax.solana4j.client.api.TransactionData;
+import com.lmax.solana4j.client.api.TransactionMetadata;
 import com.lmax.solana4j.client.api.TransactionResponse;
 
 final class TransactionResponseDTO implements TransactionResponse
@@ -27,7 +28,7 @@ final class TransactionResponseDTO implements TransactionResponse
 
     @Override
     @JsonProperty("meta")
-    public MetaDTO getMetadata()
+    public TransactionMetadata getMetadata()
     {
         return metaImpl;
     }

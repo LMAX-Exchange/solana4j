@@ -3,6 +3,7 @@ package com.lmax.solana4j.client.jsonrpc;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lmax.solana4j.client.api.Blockhash;
+import com.lmax.solana4j.client.api.Context;
 import com.lmax.solana4j.client.api.SolanaRpcResponse;
 
 final class BlockhashDTO implements SolanaRpcResponse<Blockhash>
@@ -20,13 +21,13 @@ final class BlockhashDTO implements SolanaRpcResponse<Blockhash>
     }
 
     @Override
-    public ContextDTO getContext()
+    public Context getContext()
     {
         return context;
     }
 
     @Override
-    public BlockhashValueDTO getValue()
+    public Blockhash getValue()
     {
         return value;
     }
