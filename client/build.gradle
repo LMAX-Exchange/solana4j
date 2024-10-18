@@ -2,14 +2,18 @@ plugins {
     id 'java'
     id 'java-library'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'checkstyle'
-    id 'nebula.lint' version '20.1.0'
     id 'maven-publish'
+    id 'checkstyle'
     id 'org.jreleaser' version '1.14.0'
+    id 'nebula.lint' version '20.1.0'
 }
 
 repositories {
     mavenCentral()
+}
+
+gradleLint {
+    rules = ['all-dependency', 'dependency-parentheses']
 }
 
 java {
@@ -25,6 +29,10 @@ jar {
 }
 
 tasks.named('sourcesJar') {
+    archiveBaseName.set('solana4j-json-rpc')
+}
+
+tasks.named('javadocJar') {
     archiveBaseName.set('solana4j-json-rpc')
 }
 
@@ -63,10 +71,8 @@ task unitTest(type: Test) {
 }
 
 check.dependsOn unitTest
-
-gradleLint {
-    rules = ['all-dependency', 'dependency-parentheses']
-}
+check.dependsOn checkstyleMain
+check.dependsOn checkstyleTest
 
 jar {
     archiveBaseName.set('solana4j-json-rpc')

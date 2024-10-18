@@ -14,6 +14,9 @@ subprojects {
         toolVersion = '10.4'
         configFile = rootProject.file('config/checkstyle/checkstyle.xml')
     }
+
+    check.dependsOn lintGradle
+
     group = rootProject.group
     version = rootProject.version
 }

@@ -2,10 +2,10 @@ plugins {
     id 'java'
     id 'java-library'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'checkstyle'
-    id 'nebula.lint' version '20.1.0'
     id 'maven-publish'
+    id 'checkstyle'
     id 'org.jreleaser' version '1.14.0'
+    id 'nebula.lint' version '20.1.0'
 }
 
 repositories {
@@ -20,11 +20,19 @@ java {
     withSourcesJar()
 }
 
+gradleLint {
+    rules = ['all-dependency', 'dependency-parentheses']
+}
+
 jar {
     archiveBaseName.set('solana4j')
 }
 
 tasks.named('sourcesJar') {
+    archiveBaseName.set('solana4j')
+}
+
+tasks.named('javadocJar') {
     archiveBaseName.set('solana4j')
 }
 
@@ -129,13 +137,13 @@ task integrationTest(type: Test) {
 
 check.dependsOn unitTest
 check.dependsOn integrationTest
+check.dependsOn checkstyleMain
+check.dependsOn checkstyleTest
+check.dependsOn checkstyleTestSupport
+check.dependsOn checkstyleIntegrationTest
 
 tasks.processTestResources {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
-}
-
-gradleLint {
-    rules = ['all-dependency', 'dependency-parentheses']
 }
 
 javadoc {
