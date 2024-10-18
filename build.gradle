@@ -7,13 +7,15 @@ plugins {
 }
 
 group = 'com.lmax'
-version = '1.0.0'
+version = '1.1.0'
 
 subprojects {
     checkstyle {
         toolVersion = '10.4'
         configFile = rootProject.file('config/checkstyle/checkstyle.xml')
     }
+    group = rootProject.group
+    version = rootProject.version
 }
 
 task setUpGitHooks(type: Exec, description: 'Add a pre-commit git hook that runs gradle check & test tasks') {

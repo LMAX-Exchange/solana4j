@@ -1,13 +1,12 @@
 plugins {
     id 'java'
     id 'java-library'
-    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
     id 'nebula.lint' version '20.1.0'
+    id 'maven-publish'
+    id 'org.jreleaser' version '1.14.0'
 }
-
-group = 'com.lmax'
-version = '1.0.0'
 
 repositories {
     mavenCentral()
@@ -19,6 +18,14 @@ java {
     }
     withJavadocJar()
     withSourcesJar()
+}
+
+jar {
+    archiveBaseName.set('solana4j')
+}
+
+tasks.named('sourcesJar') {
+    archiveBaseName.set('solana4j')
 }
 
 sourceSets {

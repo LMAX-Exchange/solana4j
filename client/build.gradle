@@ -12,6 +12,22 @@ repositories {
     mavenCentral()
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+    withJavadocJar()
+    withSourcesJar()
+}
+
+jar {
+    archiveBaseName.set('solana4j-json-rpc')
+}
+
+tasks.named('sourcesJar') {
+    archiveBaseName.set('solana4j-json-rpc')
+}
+
 dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.2'
@@ -50,6 +66,10 @@ check.dependsOn unitTest
 
 gradleLint {
     rules = ['all-dependency', 'dependency-parentheses']
+}
+
+jar {
+    archiveBaseName.set('solana4j-json-rpc')
 }
 
 javadoc {
