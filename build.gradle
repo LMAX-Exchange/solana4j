@@ -1,13 +1,21 @@
 plugins {
     id 'java-library'
-    id 'maven-publish'
     id 'checkstyle'
-    id 'org.jreleaser' version '1.14.0'
-    id 'nebula.lint' version '20.1.0'
+    id 'com.autonomousapps.dependency-analysis' version '2.2.0'
 }
 
 group = 'com.lmax'
 version = '1.1.0'
+
+dependencyAnalysis {
+    issues {
+        all {
+            onAny {
+                severity('fail')
+            }
+        }
+    }
+}
 
 subprojects {
     checkstyle {
@@ -15,7 +23,7 @@ subprojects {
         configFile = rootProject.file('config/checkstyle/checkstyle.xml')
     }
 
-    check.dependsOn lintGradle
+    check.dependsOn buildHealth
 
     group = rootProject.group
     version = rootProject.version
