@@ -128,7 +128,7 @@ public class SolanaJsonRpcClient implements SolanaApi
         }, "getMinimumBalanceForRentExemption", size);
     }
 
-    <T> T queryForObject(final TypeReference<RpcWrapperDTO<T>> type, final String method, final Object... params)
+    private <T> T queryForObject(final TypeReference<RpcWrapperDTO<T>> type, final String method, final Object... params)
     {
         try
         {
