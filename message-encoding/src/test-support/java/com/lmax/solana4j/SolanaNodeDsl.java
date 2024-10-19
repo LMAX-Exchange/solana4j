@@ -10,6 +10,7 @@ import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.assertion.Condition;
 import com.lmax.solana4j.assertion.Waiter;
+import com.lmax.solana4j.client.SolanaJsonRpc;
 import com.lmax.solana4j.domain.Sol;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TestPublicKey;
@@ -23,7 +24,6 @@ import com.lmax.solana4j.programs.TokenProgramBase;
 import com.lmax.solana4j.client.api.AccountInfo;
 import com.lmax.solana4j.client.api.TransactionData;
 import com.lmax.solana4j.client.api.TransactionResponse;
-import com.lmax.solana4j.client.jsonrpc.SolanaClient;
 import com.lmax.solana4j.util.TestKeyPairGenerator;
 import com.lmax.solana4j.util.Base58;
 import org.bouncycastle.util.encoders.Base64;
@@ -51,7 +51,7 @@ public class SolanaNodeDsl
 
     public SolanaNodeDsl(final String rpcUrl)
     {
-        this.solanaDriver = new SolanaDriver(new SolanaClient(rpcUrl));
+        this.solanaDriver = new SolanaDriver(SolanaJsonRpc.api(rpcUrl));
         this.testContext = new TestContext();
     }
 
