@@ -16,6 +16,17 @@ class AccountInfoSerializationTest
     @Test
     void shouldSerializeAccountInfo() throws JsonProcessingException
     {
+        final var accountInfo = createAccountInfo();
+
+        final var accountInfoValueWrite = OBJECT_MAPPER.writeValueAsString(accountInfo);
+        final var accountInfoValueRead = OBJECT_MAPPER.readValue(accountInfoValueWrite, AccountInfoDTO.class);
+
+        assertThat(accountInfoValueRead.getContext()).usingRecursiveComparison().isEqualTo(accountInfo.getContext());
+        assertThat(accountInfoValueRead.getValue()).usingRecursiveComparison().isEqualTo(accountInfo.getValue());
+    }
+
+    static AccountInfoDTO createAccountInfo()
+    {
         final var context = new ContextDTO(SLOT);
         final var accountInfoValue = new AccountInfoDTO.AccountInfoValueDTO(
                 LAMPORTS,
@@ -24,14 +35,7 @@ class AccountInfoSerializationTest
                 true,
                 RENT_EPOCH
         );
-        final var accountInfo = new AccountInfoDTO(
-                context,
-                accountInfoValue);
 
-        final var accountInfoValueWrite = OBJECT_MAPPER.writeValueAsString(accountInfo);
-        final var accountInfoValueRead = OBJECT_MAPPER.readValue(accountInfoValueWrite, AccountInfoDTO.class);
-
-        assertThat(accountInfoValueRead.getContext()).usingRecursiveComparison().isEqualTo(context);
-        assertThat(accountInfoValueRead.getValue()).usingRecursiveComparison().isEqualTo(accountInfoValue);
+        return new AccountInfoDTO(context, accountInfoValue);
     }
 }

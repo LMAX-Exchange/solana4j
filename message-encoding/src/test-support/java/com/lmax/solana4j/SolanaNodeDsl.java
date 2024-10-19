@@ -10,7 +10,7 @@ import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.assertion.Condition;
 import com.lmax.solana4j.assertion.Waiter;
-import com.lmax.solana4j.client.SolanaJsonRpc;
+import com.lmax.solana4j.client.SolanaClient;
 import com.lmax.solana4j.domain.Sol;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TestPublicKey;
@@ -51,7 +51,7 @@ public class SolanaNodeDsl
 
     public SolanaNodeDsl(final String rpcUrl)
     {
-        this.solanaDriver = new SolanaDriver(SolanaJsonRpc.api(rpcUrl));
+        this.solanaDriver = new SolanaDriver(SolanaClient.jsonRpc(rpcUrl));
         this.testContext = new TestContext();
     }
 
@@ -740,9 +740,9 @@ public class SolanaNodeDsl
                 .collect(Collectors.toList());
 
         final String transactionSignature = solanaDriver.setBpfUpgradeableProgramUpgradeAuthority(
-                Solana.account(Base58.decode(bpfUpgradeableProgram)),
-                Solana.account(Base58.decode(oldUpgradeAuthorityPublicKey)),
-                Solana.account(Base58.decode(newUpgradeAuthority)),
+                com.lmax.solana4j.Solana.account(Base58.decode(bpfUpgradeableProgram)),
+                com.lmax.solana4j.Solana.account(Base58.decode(oldUpgradeAuthorityPublicKey)),
+                com.lmax.solana4j.Solana.account(Base58.decode(newUpgradeAuthority)),
                 payer.getSolana4jPublicKey(),
                 List.of(payer, new TestKeyPair(oldUpgradeAuthorityPublicKey, oldUpgradeAuthorityPrivateKey)),
                 addressLookupTables);
@@ -761,7 +761,7 @@ public class SolanaNodeDsl
         final String address = testContext.lookupOrLiteral(params.value("address"), TestDataType.TEST_PUBLIC_KEY);
         final String upgradeAuthority = testContext.lookupOrLiteral(params.value("upgradeAuthority"), TestDataType.TEST_PUBLIC_KEY);
 
-        final ProgramDerivedAddress programDataAddress = BpfLoaderUpgradeableProgram.deriveAddress(Solana.account(Base58.decode(address)));
+        final ProgramDerivedAddress programDataAddress = BpfLoaderUpgradeableProgram.deriveAddress(com.lmax.solana4j.Solana.account(Base58.decode(address)));
 
         final AccountInfo accountInfo = Waiter.waitFor(isNotNull(() -> solanaDriver.getAccountInfo(new TestPublicKey(programDataAddress.address().bytes()))));
 

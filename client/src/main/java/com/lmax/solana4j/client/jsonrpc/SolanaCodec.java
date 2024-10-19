@@ -15,6 +15,11 @@ import java.util.concurrent.atomic.AtomicLong;
 
 final class SolanaCodec
 {
+    static final String JSONRPC = "jsonrpc";
+    static final String ID = "id";
+    static final String METHOD = "method";
+    static final String PARAMS = "params";
+
     final AtomicLong requestId = new AtomicLong();
     final ObjectMapper mapper;
 
@@ -35,11 +40,11 @@ final class SolanaCodec
             throw new IllegalArgumentException("Method is not set");
         }
         final ObjectNode requestNode = mapper.createObjectNode();
-        requestNode.put(SolanaRpcClient.JSONRPC, "2.0");
-        requestNode.put(SolanaRpcClient.METHOD, method);
-        requestNode.set(SolanaRpcClient.PARAMS, arrayParams(params));
+        requestNode.put(JSONRPC, "2.0");
+        requestNode.put(METHOD, method);
+        requestNode.set(PARAMS, arrayParams(params));
 
-        requestNode.put(SolanaRpcClient.ID, id);
+        requestNode.put(ID, id);
 
         return mapper.writeValueAsString(requestNode);
     }
