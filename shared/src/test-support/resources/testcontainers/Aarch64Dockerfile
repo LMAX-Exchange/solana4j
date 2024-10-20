@@ -5,14 +5,21 @@ ENV SOLANA_TAR=solana-release-aarch64-unknown-linux-gnu-$SOLANA_VERSION.tar.bz2
 
 USER root
 
+COPY fetch-spl.sh /fetch-spl.sh
+COPY solana-run.sh /solana-run.sh
+COPY solana-release-aarch64-unknown-linux-gnu-$SOLANA_VERSION.tar.bz2 /solana-release-aarch64-unknown-linux-gnu-$SOLANA_VERSION.tar.bz2
+COPY lmax_multisig.so /lmax_multisig.so
+COPY upgrade_authority.json /upgrade_authority.json
+COPY bpf_program.json /bpf_program.json
+
 RUN apt-get update && apt-get install -y wget curl
 
-RUN tar -xvjf /mount/$SOLANA_TAR && rm -f /home/solana/$SOLANA_TAR && mv /mount/home/solana/.local/share/solana/install/releases/$SOLANA_VERSION/bin/* /usr/local/bin/
+RUN tar -xvjf /$SOLANA_TAR && rm -f /mount/$SOLANA_TAR && mv /home/solana/.local/share/solana/install/releases/$SOLANA_VERSION/bin/* /usr/local/bin/
 
-COPY /mount/solana-run.sh /usr/bin/solana-run.sh
+COPY /solana-run.sh /usr/bin/solana-run.sh
 RUN chmod +x /usr/bin/solana-run.sh
 
-COPY fetch-spl.sh /mount/fetch-spl.sh
+COPY fetch-spl.sh /usr/bin/fetch-spl.sh
 RUN chmod +x /usr/bin/fetch-spl.sh
 
 ENTRYPOINT ["/usr/bin/solana-run.sh"]

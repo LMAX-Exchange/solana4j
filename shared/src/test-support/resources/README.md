@@ -7,17 +7,10 @@ in particular on an `Apple M[1,2,3,4]` chip, _within_ a `Docker` container, you 
 
 The `Github` runner at `https://github.com/LMAX-Exchange/solana4j` runs on an `x86_64` architecture, so that will remain the default in this project. However, 
 in the interest that all computer architectures should be treated equally, I have provided a way that you can build your own
-image, on a `Apple M[1,2,3,4]` based laptop, and run the integration tests.  
-
-I will not check the artifact into source, but allow the user to generate it themselves and then reference the `Aarch64Dockerfile` in 
-`IntegrationTestBase.java`; be careful to not actually commit these changes, as the pipeline in `Github` will fail. The code change in `IntegrationTestBase.java`
-is as follows:
-
-```java
-    SOLANA_VALIDATOR = new GenericContainer<>(new ImageFromDockerfile().withDockerfile(Path.of(MountableFile.forClasspathResource("Aarch64Dockerfile").getFilesystemPath())))
-```
+image, on a `Apple M[1,2,3,4]` based laptop, and run the integration tests.
 
 In order to build `solana-release-x86_64-unknown-linux-gnu.tar-1.18.25.bz2`, you should run the script `build_aarch64_solana_image.sh`. It will put the artifact exactly where you need
-it, if you run the script from `src/integration-test/resources`, as you should. You may need to beef up the resources on 
+it, if you run the script from `shared/src/test-support/resources/testcontainers`, as you should. You may need to beef up the resources on 
 `Docker Desktop`, particularly the `Virtual disk limit`, in order to do this. This may take up to 10-15 minutes, but thankfully only has to be done once.
-Running that script and making the above code change, should be enough to run the integration tests locally on an `Apple M[1,2,3,4]` computer.
+Running that script should be enough to run the integration tests locally on an `Apple M[1,2,3,4]` computer. Please be careful NOT to check 
+this file into source. You will be warned by git itself because the file is so big when you try to commit your changes, so it should be hard to commit it by accident!

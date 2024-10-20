@@ -1,7 +1,6 @@
 package com.lmax.solana4j.shared;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.images.builder.ImageFromDockerfile;
@@ -47,12 +46,13 @@ public abstract class IntegrationTestBase
                 }
                 catch (final Exception e)
                 {
-                    throw new RuntimeException("Cannot find solana-release-aarch64-unknown-linux-gnu-1.18.25.tar.bz2, are you sure you've run BuildMeAnAarch64CompliantSolanaDockerImagePleaseDockerfile?");
+                    throw new RuntimeException(
+                            "Cannot find solana-release-aarch64-unknown-linux-gnu-1.18.25.tar.bz2, " +
+                            "are you sure you've run BuildMeAnAarch64CompliantSolanaDockerImagePleaseDockerfile?");
                 }
             }
 
             SOLANA_VALIDATOR = new GenericContainer<>(new ImageFromDockerfile().withDockerfile(dockerfilePath))
-                    .withFileSystemBind(parentDirectory.toAbsolutePath().toString(), "/mount", BindMode.READ_ONLY)
                     .withExposedPorts(SOLANA_HTTP_PORT, SOLANA_WS_PORT)
                     .withEnv("SOLANA_RUN_SH_VALIDATOR_ARGS", "--ticks-per-slot=8")
                     .withNetwork(NETWORK)
@@ -62,6 +62,7 @@ public abstract class IntegrationTestBase
         }
         catch (final RuntimeException | IOException e)
         {
+
             throw new RuntimeException("Something went wrong in the test set-up.", e);
         }
     }
