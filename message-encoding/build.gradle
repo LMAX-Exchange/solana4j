@@ -83,6 +83,8 @@ dependencies {
     testImplementation 'net.i2p.crypto:eddsa:0.3.0'
     testImplementation 'org.bitcoinj:bitcoinj-core:0.16.3'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+    testRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
+
 
     // integration test dependencies
     integrationTestImplementation project(path: ':shared', configuration: 'sharedTestSupport')
@@ -91,11 +93,13 @@ dependencies {
     integrationTestRuntimeOnly 'org.testcontainers:testcontainers:1.20.2'
     integrationTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
     integrationTestRuntimeOnly 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+    integrationTestRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
 
     // jmh test dependencies
     jmhTestImplementation 'org.openjdk.jmh:jmh-core:1.37'
     jmhTestImplementation 'net.i2p.crypto:eddsa:0.3.0'
     jmhTestImplementation 'org.bitcoinj:bitcoinj-core:0.16.3'
+    jmhTestRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
     jmhTestAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.36'
 }
 
