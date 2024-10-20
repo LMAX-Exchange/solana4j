@@ -3,7 +3,7 @@ package com.lmax.solana4j.programs;
 import com.lmax.solana4j.parameterization.ParameterizedMessageEncodingTest;
 import org.junit.jupiter.api.BeforeEach;
 
-final class AddressLookupTableProgramIntegrationTest extends IntegrationTestBase
+final class AddressLookupTableProgramIntegrationTest extends SolanaProgramsIntegrationTestBase
 {
     @BeforeEach
     void beforeEachTest()

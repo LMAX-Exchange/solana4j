@@ -53,7 +53,6 @@ sourceSets {
             runtimeClasspath += sourceSets.main.output + sourceSets.testSupport.output + sourceSets.main.output
             srcDir file('src/integration-test/java')
         }
-        resources.srcDir file('src/integration-test/resources')
     }
     jmhTest {
         java {
@@ -69,7 +68,7 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
 
     // test support dependencies
-    testSupportImplementation project(':client')
+    testSupportImplementation project(path: ':client', configuration: 'default')
     testSupportImplementation 'com.lmax:simple-dsl:3.0.0'
     testSupportImplementation 'org.assertj:assertj-core:3.26.3'
     testSupportImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
@@ -86,9 +85,10 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
 
     // integration test dependencies
-    integrationTestImplementation 'org.testcontainers:testcontainers:1.19.8'
+    integrationTestImplementation project(path: ':shared', configuration: 'sharedTestSupport')
     integrationTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
     integrationTestImplementation 'junit:junit:4.13.2'
+    integrationTestRuntimeOnly 'org.testcontainers:testcontainers:1.20.2'
     integrationTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
     integrationTestRuntimeOnly 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
 

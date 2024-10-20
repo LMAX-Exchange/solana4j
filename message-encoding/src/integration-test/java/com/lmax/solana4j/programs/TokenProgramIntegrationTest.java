@@ -3,7 +3,7 @@ package com.lmax.solana4j.programs;
 import com.lmax.solana4j.parameterization.ParameterizedTokenTest;
 import org.junit.jupiter.api.BeforeEach;
 
-class TokenProgramIntegrationTest extends IntegrationTestBase
+class TokenProgramIntegrationTest extends SolanaProgramsIntegrationTestBase
 {
     @BeforeEach
     void beforeEachTest()

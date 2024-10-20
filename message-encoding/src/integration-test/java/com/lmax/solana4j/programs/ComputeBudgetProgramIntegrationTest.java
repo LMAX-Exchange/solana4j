@@ -4,7 +4,7 @@ import com.lmax.solana4j.parameterization.ParameterizedMessageEncodingTest;
 
 import static org.junit.Assert.assertThrows;
 
-public class ComputeBudgetProgramIntegrationTest extends IntegrationTestBase
+public class ComputeBudgetProgramIntegrationTest extends SolanaProgramsIntegrationTestBase
 {
 
     @ParameterizedMessageEncodingTest

@@ -4,6 +4,10 @@ ENV SOLANA_VERSION=1.18.25
 
 USER root
 
+WORKDIR /
+
+RUN ls -la
+
 RUN apt-get update && apt-get install -y wget curl
 
 COPY solana-release-aarch64-unknown-linux-gnu-$SOLANA_VERSION.tar.bz2 /solana-release-aarch64-unknown-linux-gnu-$SOLANA_VERSION.tar.bz2

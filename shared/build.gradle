@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+    id 'com.autonomousapps.dependency-analysis' version '2.2.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+    withJavadocJar()
+    withSourcesJar()
+}
+
+sourceSets {
+    testSupport {
+        java {
+            compileClasspath += sourceSets.main.output + sourceSets.main.output
+            srcDir file('src/test-support/java')
+        }
+        resources.srcDir file('src/test-support/resources')
+    }
+}
+
+dependencies {
+    testSupportImplementation 'org.testcontainers:testcontainers:1.20.2'
+    testSupportImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+    testSupportRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+}
+
+configurations {
+    sharedTestSupport
+}
+
+task testSupportJar(type: Jar) {
+    from sourceSets.testSupport.output
+}
+
+artifacts {
+    sharedTestSupport testSupportJar
+}
