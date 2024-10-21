@@ -32,24 +32,26 @@ tasks.named('javadocJar') {
     archiveBaseName.set('solana4j-json-rpc')
 }
 
+sourceSets {
+    integrationTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+        java {
+            srcDir file('src/integration-test/java')
+        }
+    }
+}
+
 dependencies {
+
+    // main dependencies
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.2'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.17.2'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
-    testImplementation 'org.assertj:assertj-core:3.26.3'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
-}
-
-sourceSets {
-    test {
-        compileClasspath += sourceSets.main.output
-        runtimeClasspath += sourceSets.main.output
-        java {
-            srcDir file('src/test/java')
-        }
-    }
+    // integration test dependencies
+    integrationTestImplementation project(path: ':shared', configuration: 'sharedTestSupport')
+    integrationTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
 }
 
 task unitTest(type: Test) {
@@ -67,7 +69,29 @@ task unitTest(type: Test) {
     }
 }
 
+task integrationTest(type: Test) {
+    useJUnitPlatform()
+    description = 'Runs the solana client integration tests.'
+    group = 'verification'
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    shouldRunAfter test
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showExceptions true
+        showCauses true
+        showStackTraces true
+    }
+    maxHeapSize = "1g"
+}
+
+tasks.processTestResources {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 check.dependsOn unitTest
+check.dependsOn integrationTest
 check.dependsOn checkstyleMain
 check.dependsOn checkstyleTest
 

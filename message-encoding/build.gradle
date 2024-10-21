@@ -64,8 +64,6 @@ sourceSets {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
 
     // test support dependencies
     testSupportImplementation project(path: ':client', configuration: 'default')
@@ -84,7 +82,6 @@ dependencies {
     testImplementation 'org.bitcoinj:bitcoinj-core:0.16.3'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
     testRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
-
 
     // integration test dependencies
     integrationTestImplementation project(path: ':shared', configuration: 'sharedTestSupport')
