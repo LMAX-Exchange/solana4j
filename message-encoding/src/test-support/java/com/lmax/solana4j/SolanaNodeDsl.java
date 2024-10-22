@@ -11,6 +11,9 @@ import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.assertion.Condition;
 import com.lmax.solana4j.assertion.Waiter;
 import com.lmax.solana4j.client.SolanaClient;
+import com.lmax.solana4j.client.api.AccountInfo;
+import com.lmax.solana4j.client.api.TransactionData;
+import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.domain.Sol;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TestPublicKey;
@@ -21,11 +24,8 @@ import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
 import com.lmax.solana4j.programs.SystemProgram;
 import com.lmax.solana4j.programs.TokenProgramBase;
-import com.lmax.solana4j.client.api.AccountInfo;
-import com.lmax.solana4j.client.api.TransactionData;
-import com.lmax.solana4j.client.api.TransactionResponse;
-import com.lmax.solana4j.util.TestKeyPairGenerator;
 import com.lmax.solana4j.util.Base58;
+import com.lmax.solana4j.util.TestKeyPairGenerator;
 import org.bouncycastle.util.encoders.Base64;
 
 import java.util.ArrayList;
@@ -34,14 +34,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.lmax.solana4j.assertion.Condition.isEqualTo;
-import static com.lmax.solana4j.assertion.Condition.isNotNull;
-import static com.lmax.solana4j.assertion.Condition.isTrue;
 import static com.lmax.solana4j.programs.SystemProgram.MINT_ACCOUNT_LENGTH;
 import static com.lmax.solana4j.programs.SystemProgram.NONCE_ACCOUNT_LENGTH;
 import static com.lmax.solana4j.programs.TokenProgram.ACCOUNT_LAYOUT_SPAN;
 import static com.lmax.solana4j.programs.TokenProgram.MULTI_SIG_LAYOUT_SPAN;
-import static java.util.Arrays.stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class SolanaNodeDsl
@@ -97,7 +93,7 @@ public class SolanaNodeDsl
 
         final TestPublicKey lookupTableAddress = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("lookupTableAddress"));
 
-        final List<PublicKey> expectedAddresses = stream(params.values("addresses"))
+        final List<PublicKey> expectedAddresses = Arrays.stream(params.values("addresses"))
                 .map(address -> testContext.data(TestDataType.TEST_KEY_PAIR).lookup(address).getSolana4jPublicKey())
                 .collect(Collectors.toList());
 
@@ -170,7 +166,7 @@ public class SolanaNodeDsl
                 new RequiredArg("slot")
         );
 
-        Waiter.waitFor(isTrue(() -> solanaDriver.getSlot() > params.valueAsLong("slot")));
+        Waiter.waitFor(Condition.isTrue(() -> solanaDriver.getSlot() > params.valueAsLong("slot")));
     }
 
     public void createMintAccount(final String... args)
@@ -308,7 +304,7 @@ public class SolanaNodeDsl
         final TestPublicKey address = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("address"));
         final String amount = params.value("amount");
 
-        Waiter.waitFor(isEqualTo(amount, () -> solanaDriver.getTokenBalance(address.getPublicKeyBase58())));
+        Waiter.waitFor(Condition.isEqualTo(amount, () -> solanaDriver.getTokenBalance(address.getPublicKeyBase58())));
     }
 
     public void solBalance(final String... args)
@@ -321,7 +317,7 @@ public class SolanaNodeDsl
         final TestPublicKey address = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("address"));
         final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
 
-        Waiter.waitFor(isEqualTo(sol.lamports(), () -> solanaDriver.getBalance(address.getPublicKeyBase58())));
+        Waiter.waitFor(Condition.isEqualTo(sol.lamports(), () -> solanaDriver.getBalance(address.getPublicKeyBase58())));
     }
 
     public void tokenTransfer(final String... args)
@@ -418,7 +414,7 @@ public class SolanaNodeDsl
                 addressLookupTables
         );
 
-        Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
     }
 
     public void verifyMultiSigAccount(final String... args)
@@ -600,7 +596,7 @@ public class SolanaNodeDsl
                 addressLookupTables
         );
 
-        Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
     }
 
     public void verifyAssociatedTokenAccount(final String... args)
@@ -689,7 +685,7 @@ public class SolanaNodeDsl
                 List.of(payer, tokenAccountOldAuthority),
                 addressLookupTables);
 
-        Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
     }
 
     public void setComputeUnits(final String... args)
@@ -709,7 +705,7 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.setComputeUnits(computeUnitLimit, computeUnitPrice, payer);
 
-        Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
 
         testContext.data(TestDataType.TRANSACTION_ID).store(rememberTransactionAs, transactionSignature);
     }
@@ -747,7 +743,7 @@ public class SolanaNodeDsl
                 List.of(payer, new TestKeyPair(oldUpgradeAuthorityPublicKey, oldUpgradeAuthorityPrivateKey)),
                 addressLookupTables);
 
-        Waiter.waitFor(isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
     }
 
     public void verifyBpfUpgradeableAccount(final String... args)
@@ -763,7 +759,7 @@ public class SolanaNodeDsl
 
         final ProgramDerivedAddress programDataAddress = BpfLoaderUpgradeableProgram.deriveAddress(com.lmax.solana4j.Solana.account(Base58.decode(address)));
 
-        final AccountInfo accountInfo = Waiter.waitFor(isNotNull(() -> solanaDriver.getAccountInfo(new TestPublicKey(programDataAddress.address().bytes()))));
+        final AccountInfo accountInfo = Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getAccountInfo(new TestPublicKey(programDataAddress.address().bytes()))));
 
         final byte[] accountInfoBytes = Base64.decode(accountInfo.getData().get(0));
 
@@ -790,17 +786,17 @@ public class SolanaNodeDsl
 
     private void waitForSlot(final long slot)
     {
-        Waiter.waitFor(isTrue(() -> solanaDriver.getSlot() > slot));
+        Waiter.waitFor(Condition.isTrue(() -> solanaDriver.getSlot() > slot));
     }
 
     private Condition<TransactionData> transactionFinalized(final String transactionSignature)
     {
-        return isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction());
+        return Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction());
     }
 
     private AddressLookupTable storeAddressLookupTable(final TestPublicKey lookupTableAddress, final String lookupTableAlias)
     {
-        final AccountInfo accountInfo = Waiter.waitFor(isNotNull(() -> solanaDriver.getAccountInfo(lookupTableAddress)));
+        final AccountInfo accountInfo = Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getAccountInfo(lookupTableAddress)));
         final AddressLookupTable addressLookupTable = AddressLookupTableProgram.deserializeAddressLookupTable(
                 lookupTableAddress.getSolana4jPublicKey(),
                 Base64.decode(accountInfo.getData().get(0)));

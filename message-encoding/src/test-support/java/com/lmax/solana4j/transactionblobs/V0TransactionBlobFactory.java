@@ -1,6 +1,5 @@
 package com.lmax.solana4j.transactionblobs;
 
-import com.lmax.solana4j.util.ByteBufferPrimitiveArray;
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.Blockhash;
@@ -16,8 +15,9 @@ import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
 import com.lmax.solana4j.programs.ComputeBudgetProgram;
 import com.lmax.solana4j.programs.TokenProgramBase;
+import com.lmax.solana4j.util.Base58;
 import com.lmax.solana4j.util.BouncyCastleSigner;
-import com.lmax.solana4j.util.Base58;;
+import com.lmax.solana4j.util.ByteBufferPrimitiveArray;
 
 import java.nio.ByteBuffer;
 import java.util.List;

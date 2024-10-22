@@ -1,11 +1,10 @@
 package com.lmax.solana4j.assertion;
 
+import org.assertj.core.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.function.Supplier;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class IsNotEqualToCondition<T> extends Condition<T>
 {
@@ -26,19 +25,19 @@ class IsNotEqualToCondition<T> extends Condition<T>
         try
         {
             final T actual = actualSupplier.get();
-            LOGGER.debug("Actual value {}.", actual);
+            LOGGER.info("Actual value {}.", actual);
             if (notExpected == null)
             {
-                assertThat(actual).isNotNull();
+                Assertions.assertThat(actual).isNotNull();
             }
             else
             {
-                assertThat(actual).isNotEqualTo(notExpected);
+                Assertions.assertThat(actual).isNotEqualTo(notExpected);
             }
         }
         catch (final Exception e)
         {
-            LOGGER.debug("Something went wrong trying to get the actual value: {}", e.getMessage());
+            LOGGER.error("Something went wrong trying to get the actual value.", e.getCause());
             throw e;
         }
     }

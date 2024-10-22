@@ -23,11 +23,11 @@ final class SolanaCodec
     final AtomicLong requestId = new AtomicLong();
     final ObjectMapper mapper;
 
-    SolanaCodec()
+    SolanaCodec(final boolean failOnUnknownProperties)
     {
         this.mapper = JsonMapper.builder()
                 .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true)
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, failOnUnknownProperties)
                 .build();
     }
 

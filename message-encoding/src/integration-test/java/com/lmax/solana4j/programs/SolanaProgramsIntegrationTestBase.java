@@ -1,7 +1,7 @@
 package com.lmax.solana4j.programs;
 
+import com.lmax.solana4j.IntegrationTestBase;
 import com.lmax.solana4j.SolanaNodeDsl;
-import com.lmax.solana4j.shared.IntegrationTestBase;
 import org.junit.jupiter.api.BeforeEach;
 
 public class SolanaProgramsIntegrationTestBase extends IntegrationTestBase

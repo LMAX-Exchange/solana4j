@@ -21,12 +21,20 @@ public class SolanaJsonRpcClient implements SolanaApi
 {
     private final String rpcUrl;
     private final HttpClient httpClient;
-    private final SolanaCodec solanaCodec = new SolanaCodec();
+    private final SolanaCodec solanaCodec;
 
     public SolanaJsonRpcClient(final String rpcUrl)
     {
         this.rpcUrl = rpcUrl;
         this.httpClient = HttpClient.newHttpClient();
+        this.solanaCodec = new SolanaCodec(false);
+    }
+
+    SolanaJsonRpcClient(final String rpcUrl, final boolean failOnUnknownProperties)
+    {
+        this.rpcUrl = rpcUrl;
+        this.httpClient = HttpClient.newHttpClient();
+        this.solanaCodec = new SolanaCodec(failOnUnknownProperties);
     }
 
     @Override

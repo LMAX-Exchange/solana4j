@@ -1,4 +1,4 @@
-package com.lmax.solana4j.shared;
+package com.lmax.solana4j;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.testcontainers.containers.GenericContainer;

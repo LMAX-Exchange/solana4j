@@ -5,19 +5,37 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 final class RpcWrapperDTO<T>
 {
+    private final String jsonrpc;
     private final T result;
+    private final int id;
     private final Error error;
 
     @JsonCreator
-    RpcWrapperDTO(final @JsonProperty("result") T result, final @JsonProperty("error") Error error)
+    RpcWrapperDTO(
+            final @JsonProperty("jsonrpc") String jsonrpc,
+            final @JsonProperty("result") T result,
+            final @JsonProperty("id") int id,
+            final @JsonProperty("error") Error error)
     {
+        this.jsonrpc = jsonrpc;
         this.result = result;
+        this.id = id;
         this.error = error;
     }
 
     public T getResult()
     {
         return result;
+    }
+
+    public String getJsonrpc()
+    {
+        return jsonrpc;
+    }
+
+    public int getId()
+    {
+        return id;
     }
 
     public Error getError()
@@ -29,8 +47,10 @@ final class RpcWrapperDTO<T>
     public String toString()
     {
         return "RpcWrapperDTO{" +
-                "result=" + result +
-                ", error= " + error.toString() +
+                "jsonrpc='" + jsonrpc + '\'' +
+                ", result=" + result +
+                ", id=" + id +
+                ", error=" + error +
                 '}';
     }
 
@@ -49,6 +69,8 @@ final class RpcWrapperDTO<T>
         {
             return message;
         }
+
+
 
         @Override
         public String toString()

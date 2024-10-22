@@ -39,6 +39,7 @@ sourceSets {
         java {
             srcDir file('src/integration-test/java')
         }
+        resources.srcDir file('src/integration-test/resources')
     }
 }
 
@@ -51,7 +52,15 @@ dependencies {
 
     // integration test dependencies
     integrationTestImplementation project(path: ':shared', configuration: 'sharedTestSupport')
+
+    integrationTestImplementation 'org.assertj:assertj-core:3.26.3'
+    integrationTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+
+    integrationTestRuntimeOnly project(path: ':message-encoding', configuration: 'default')
+    integrationTestRuntimeOnly 'org.testcontainers:testcontainers:1.20.2'
     integrationTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+    integrationTestRuntimeOnly 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+    integrationTestRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
 }
 
 task unitTest(type: Test) {

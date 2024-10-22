@@ -4,7 +4,7 @@ import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.programs.Token2022Program;
 import com.lmax.solana4j.programs.TokenProgramBase;
-import com.lmax.solana4j.util.Base58;;
+import com.lmax.solana4j.util.Base58;
 
 public enum TokenProgram
 {

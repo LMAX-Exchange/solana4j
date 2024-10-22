@@ -21,7 +21,6 @@ java {
 sourceSets {
     testSupport {
         java {
-            compileClasspath += sourceSets.main.output + sourceSets.main.output
             srcDir file('src/test-support/java')
         }
         resources.srcDir file('src/test-support/resources')
@@ -29,9 +28,17 @@ sourceSets {
 }
 
 dependencies {
+
+    // test support dependencies
+    testSupportImplementation project(path: ':message-encoding', configuration: 'default')
+
     testSupportImplementation 'org.testcontainers:testcontainers:1.20.2'
+    testSupportImplementation 'org.assertj:assertj-core:3.26.3'
     testSupportImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
-    testSupportRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+    testSupportImplementation 'org.slf4j:slf4j-api:2.0.9'
+
+    testSupportRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
+    testSupportRuntimeOnly 'org.bouncycastle:bcprov-jdk18on:1.78.1'
 }
 
 configurations {
