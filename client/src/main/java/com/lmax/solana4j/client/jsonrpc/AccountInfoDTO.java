@@ -67,6 +67,7 @@ final class AccountInfoDTO implements SolanaRpcResponse<AccountInfo>
             this.owner = owner;
             this.data = unmodifiableList(data);
             this.executable = executable;
+            // TODO: suspicious
             // solana rpc uses unsigned longs which can overflow javas long object, this is a small workaround
             this.rentEpoch = Long.parseUnsignedLong(rentEpoch) < 0 ? 0 : Long.parseLong(rentEpoch);
             this.space = space;
