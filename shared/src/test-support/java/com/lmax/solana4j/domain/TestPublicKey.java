@@ -3,8 +3,6 @@ package com.lmax.solana4j.domain;
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.util.Base58;
 
-;
-
 public class TestPublicKey
 {
     private final byte[] publicKey;
