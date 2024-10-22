@@ -50,4 +50,15 @@ public interface AccountInfo
      * @return the rent epoch number
      */
     long getRentEpoch();
+
+    /**
+     * Returns the amount of space, in bytes, allocated to the account.
+     * The space is used to store data for the account, and the size is determined by the
+     * program that owns the account. The amount of space is a key factor in determining
+     * the rent required to keep the account alive, as larger accounts typically require
+     * more rent.
+     *
+     * @return the number of bytes allocated for the account's data
+     */
+    long getSpace();
 }

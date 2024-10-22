@@ -52,6 +52,7 @@ final class AccountInfoDTO implements SolanaRpcResponse<AccountInfo>
         private final List<String> data; // Base64 encoded
         private final boolean executable;
         private final long rentEpoch;
+        private final int space;
 
         @JsonCreator
         AccountInfoValueDTO(
@@ -59,7 +60,8 @@ final class AccountInfoDTO implements SolanaRpcResponse<AccountInfo>
                 final @JsonProperty("owner") String owner,
                 final @JsonProperty("data") List<String> data,
                 final @JsonProperty("executable") boolean executable,
-                final @JsonProperty("rentEpoch") String rentEpoch)
+                final @JsonProperty("rentEpoch") String rentEpoch,
+                final @JsonProperty("space") int space)
         {
             this.lamports = lamports;
             this.owner = owner;
@@ -67,6 +69,7 @@ final class AccountInfoDTO implements SolanaRpcResponse<AccountInfo>
             this.executable = executable;
             // solana rpc uses unsigned longs which can overflow javas long object, this is a small workaround
             this.rentEpoch = Long.parseUnsignedLong(rentEpoch) < 0 ? 0 : Long.parseLong(rentEpoch);
+            this.space = space;
         }
 
         @Override
@@ -100,15 +103,22 @@ final class AccountInfoDTO implements SolanaRpcResponse<AccountInfo>
         }
 
         @Override
+        public long getSpace()
+        {
+            return space;
+        }
+
+        @Override
         public String toString()
         {
             return "AccountInfoValueDTO{" +
-                   "lamports=" + lamports +
-                   ", owner='" + owner + '\'' +
-                   ", data=" + data +
-                   ", executable=" + executable +
-                   ", rentEpoch=" + rentEpoch +
-                   '}';
+                    "lamports=" + lamports +
+                    ", owner='" + owner + '\'' +
+                    ", data=" + data +
+                    ", executable=" + executable +
+                    ", rentEpoch=" + rentEpoch +
+                    ", space=" + space +
+                    '}';
         }
     }
 }

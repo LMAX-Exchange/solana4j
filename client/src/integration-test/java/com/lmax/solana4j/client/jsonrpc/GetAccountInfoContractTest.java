@@ -2,8 +2,6 @@ package com.lmax.solana4j.client.jsonrpc;
 
 import com.lmax.solana4j.assertion.Condition;
 import com.lmax.solana4j.assertion.Waiter;
-import com.lmax.solana4j.util.TestKeyPairGenerator;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,14 +9,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
-    @Disabled
     void shouldGetAccountInfo()
     {
-        final var testKeyPair = TestKeyPairGenerator.generateSolanaKeyPair();
+        final var accountInfo = Waiter.waitFor(Condition.isNotNull(() -> api.getAccountInfo(account)));
 
-        api.requestAirdrop(testKeyPair.getPublicKeyBase58(), 10L);
-
-        final var accountInfo = Waiter.waitFor(Condition.isNotNull(() -> api.getAccountInfo(testKeyPair.getPublicKeyBase58())));
-        assertThat(accountInfo).isNotNull();
+        assertThat(accountInfo.getOwner()).isEqualTo("11111111111111111111111111111111");
+        assertThat(accountInfo.getData().get(0)).isEqualTo("");
+        assertThat(accountInfo.getData().get(1)).isEqualTo("base64");
+        assertThat(accountInfo.getLamports()).isEqualTo(1000000000);
+        assertThat(accountInfo.isExecutable()).isEqualTo(false);
+        assertThat(accountInfo.getRentEpoch()).isEqualTo(0);
+        assertThat(accountInfo.getSpace()).isEqualTo(0);
     }
 }
