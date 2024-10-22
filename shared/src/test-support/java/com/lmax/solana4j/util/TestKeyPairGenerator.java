@@ -1,6 +1,5 @@
 package com.lmax.solana4j.util;
 
-
 import com.lmax.solana4j.domain.TestKeyPair;
 import org.bouncycastle.math.ec.rfc8032.Ed25519;
 

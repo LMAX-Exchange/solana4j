@@ -7,11 +7,14 @@ import com.lmax.solana4j.client.api.Context;
 final class ContextDTO implements Context
 {
     private final long slot;
+    private final String apiVersion;
 
     @JsonCreator
-    ContextDTO(final @JsonProperty("slot") long slot)
+    ContextDTO(final @JsonProperty("slot") long slot,
+               final @JsonProperty("apiVersion") String apiVersion)
     {
         this.slot = slot;
+        this.apiVersion = apiVersion;
     }
 
     @Override
@@ -21,10 +24,17 @@ final class ContextDTO implements Context
     }
 
     @Override
+    public String apiVersion()
+    {
+        return apiVersion;
+    }
+
+    @Override
     public String toString()
     {
-        return "Context{" +
-               "slot=" + slot +
-               '}';
+        return "ContextDTO{" +
+                "slot=" + slot +
+                ", apiVersion='" + apiVersion + '\'' +
+                '}';
     }
 }

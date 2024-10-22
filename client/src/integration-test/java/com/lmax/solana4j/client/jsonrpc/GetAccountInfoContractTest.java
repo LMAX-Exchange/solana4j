@@ -15,8 +15,8 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
     void shouldGetAccountInfo()
     {
         final var testKeyPair = TestKeyPairGenerator.generateSolanaKeyPair();
-        final var transactionSignature = api.requestAirdrop(testKeyPair.getPublicKeyBase58(), 10L);
-        Waiter.waitFor(Condition.isNotNull(() -> api.getTransactionResponse(transactionSignature)));
+
+        api.requestAirdrop(testKeyPair.getPublicKeyBase58(), 10L);
 
         final var accountInfo = Waiter.waitFor(Condition.isNotNull(() -> api.getAccountInfo(testKeyPair.getPublicKeyBase58())));
         assertThat(accountInfo).isNotNull();
