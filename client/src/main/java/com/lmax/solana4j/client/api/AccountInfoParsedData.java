@@ -75,5 +75,5 @@ public interface AccountInfoParsedData
      *
      * @return the rent epoch number
      */
-    long getRentEpoch();
+    String getRentEpoch();
 }

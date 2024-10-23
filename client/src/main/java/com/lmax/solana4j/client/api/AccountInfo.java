@@ -49,7 +49,7 @@ public interface AccountInfo
      *
      * @return the rent epoch number
      */
-    long getRentEpoch();
+    String getRentEpoch();
 
     /**
      * Returns the amount of space, in bytes, allocated to the account.

@@ -49,9 +49,9 @@ final class AccountInfoDTO implements SolanaRpcResponse<AccountInfo>
     {
         private final long lamports;
         private final String owner;
-        private final List<String> data; // Base64 encoded
+        private final List<String> data;
         private final boolean executable;
-        private final long rentEpoch;
+        private final String rentEpoch;
         private final int space;
 
         @JsonCreator
@@ -67,9 +67,7 @@ final class AccountInfoDTO implements SolanaRpcResponse<AccountInfo>
             this.owner = owner;
             this.data = unmodifiableList(data);
             this.executable = executable;
-            // TODO: suspicious
-            // solana rpc uses unsigned longs which can overflow javas long object, this is a small workaround
-            this.rentEpoch = Long.parseUnsignedLong(rentEpoch) < 0 ? 0 : Long.parseLong(rentEpoch);
+            this.rentEpoch = rentEpoch;
             this.space = space;
         }
 
@@ -98,7 +96,7 @@ final class AccountInfoDTO implements SolanaRpcResponse<AccountInfo>
         }
 
         @Override
-        public long getRentEpoch()
+        public String getRentEpoch()
         {
             return rentEpoch;
         }
