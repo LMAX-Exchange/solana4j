@@ -11,6 +11,7 @@ COPY solana-release-aarch64-unknown-linux-gnu-$SOLANA_VERSION.tar.bz2 /solana-re
 COPY lmax_multisig.so /lmax_multisig.so
 COPY upgrade_authority.json /upgrade_authority.json
 COPY bpf_program.json /bpf_program.json
+COPY accounts /accounts/
 
 RUN apt-get update && apt-get install -y wget curl
 

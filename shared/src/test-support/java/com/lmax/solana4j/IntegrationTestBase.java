@@ -11,6 +11,8 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public abstract class IntegrationTestBase
@@ -37,6 +39,12 @@ public abstract class IntegrationTestBase
             copyResourceToTempFile(parentDirectory, "lmax_multisig.so");
             copyResourceToTempFile(parentDirectory, "upgrade_authority.json");
             copyResourceToTempFile(parentDirectory, "bpf_program.json");
+            copyResourceToTempFile(parentDirectory, "accounts/payer.json");
+            copyResourceToTempFile(parentDirectory, "accounts/associated_token_account.json");
+            copyResourceToTempFile(parentDirectory, "accounts/multisig.json");
+            copyResourceToTempFile(parentDirectory, "accounts/nonce_account.json");
+            copyResourceToTempFile(parentDirectory, "accounts/token_account.json");
+            copyResourceToTempFile(parentDirectory, "accounts/token_mint.json");
 
             if (arch.equals("aarch64"))
             {
@@ -69,6 +77,11 @@ public abstract class IntegrationTestBase
 
     private static Path copyResourceToTempFile(final Path parent, final String name) throws IOException
     {
+        final List<String> subDirectoryFullRoute = Arrays.asList(name.split("/"));
+        final String subDirectoryRouteMinusFileName = String.join("/", subDirectoryFullRoute.subList(0, subDirectoryFullRoute.size() - 1));
+
+        Files.createDirectories(parent.resolve(subDirectoryRouteMinusFileName));
+
         final Path tempFile = Files.createFile(parent.resolve(name));
         Files.copy(Objects.requireNonNull(IntegrationTestBase.class.getResourceAsStream("/testcontainers/" + name)), tempFile, StandardCopyOption.REPLACE_EXISTING);
         return tempFile;

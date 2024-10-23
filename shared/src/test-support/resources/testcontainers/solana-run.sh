@@ -39,6 +39,7 @@ export RUST_LOG=${RUST_LOG:-solana=info,solana_runtime::message_processor=debug}
 export RUST_BACKTRACE=1
 dataDir=$PWD/config/"$(basename "$0" .sh)"
 ledgerDir=$PWD/config/ledger
+accountDir=/accounts
 
 SOLANA_RUN_SH_CLUSTER_TYPE=${SOLANA_RUN_SH_CLUSTER_TYPE:-development}
 
@@ -92,6 +93,7 @@ args=(
   --ledger "$ledgerDir"
   --gossip-port 8001
   --rpc-port 8899
+  --account-dir "$accountDir"
 )
 
 # shellcheck disable=SC2086
