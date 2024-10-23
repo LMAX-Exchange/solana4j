@@ -86,18 +86,21 @@ public final class AccountInfoParsedDataDTO implements SolanaRpcResponse<Account
         }
 
         @Override
+        @SuppressWarnings({"unchecked"})
         public String getType()
         {
             return (String) ((Map<String, Object>) data.get("parsed")).get("type");
         }
 
         @Override
+        @SuppressWarnings({"unchecked"})
         public Map<String, Object> getInfo()
         {
             return (Map<String, Object>) (((Map<String, Object>) data.get("parsed")).get("info"));
         }
 
         @Override
+        @SuppressWarnings({"unchecked"})
         public Integer getDecimals()
         {
             final Map<String, Object> parsedData = (Map<String, Object>) data.get("parsed");
