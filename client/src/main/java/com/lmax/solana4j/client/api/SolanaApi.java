@@ -32,7 +32,7 @@ public interface SolanaApi
      * @param transactionSignature the base58-encoded signature of the transaction
      * @return the {@link TransactionResponse} containing details of the transaction
      */
-    TransactionResponse getTransactionResponse(String transactionSignature);
+    TransactionResponse getTransaction(String transactionSignature);
 
     /**
      * Retrieves the balance of an account in lamports.

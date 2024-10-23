@@ -36,7 +36,7 @@ public class SolanaDriver
 
     public TransactionResponse getTransactionResponse(final String transactionSignature)
     {
-        return solanaApi.getTransactionResponse(transactionSignature);
+        return solanaApi.getTransaction(transactionSignature);
     }
 
     public long getSlot()

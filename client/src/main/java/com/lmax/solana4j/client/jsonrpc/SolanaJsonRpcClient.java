@@ -46,7 +46,7 @@ public class SolanaJsonRpcClient implements SolanaApi
     }
 
     @Override
-    public TransactionResponse getTransactionResponse(final String transactionSignature)
+    public TransactionResponse getTransaction(final String transactionSignature)
     {
         return queryForObject(new TypeReference<RpcWrapperDTO<TransactionResponseDTO>>()
                                         {
