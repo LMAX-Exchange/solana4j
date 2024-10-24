@@ -1,4 +1,4 @@
-FROM solanalabs/solana:v1.18.25
+FROM anzaxyz/agave:v2.0.14
 
 USER root
 
