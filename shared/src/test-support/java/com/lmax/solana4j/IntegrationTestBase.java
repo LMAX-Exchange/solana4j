@@ -6,14 +6,12 @@ import org.testcontainers.containers.Network;
 import org.testcontainers.images.builder.ImageFromDockerfile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 
 public abstract class IntegrationTestBase
 {
@@ -77,13 +75,19 @@ public abstract class IntegrationTestBase
 
     private static Path copyResourceToTempFile(final Path parent, final String name) throws IOException
     {
-        final List<String> subDirectoryFullRoute = Arrays.asList(name.split("/"));
-        final String subDirectoryRouteMinusFileName = String.join("/", subDirectoryFullRoute.subList(0, subDirectoryFullRoute.size() - 1));
+        final Path fullSubDirectoryPath = parent.resolve(name);
 
-        Files.createDirectories(parent.resolve(subDirectoryRouteMinusFileName));
+        Files.createDirectories(fullSubDirectoryPath.getParent());
+        final Path tempFile = Files.createFile(fullSubDirectoryPath);
 
-        final Path tempFile = Files.createFile(parent.resolve(name));
-        Files.copy(Objects.requireNonNull(IntegrationTestBase.class.getResourceAsStream("/testcontainers/" + name)), tempFile, StandardCopyOption.REPLACE_EXISTING);
+        try (InputStream resourceStream = IntegrationTestBase.class.getResourceAsStream("/testcontainers/" + name))
+        {
+            if (resourceStream == null)
+            {
+                throw new IOException("Resource not found: /testcontainers/" + name);
+            }
+            Files.copy(resourceStream, tempFile, StandardCopyOption.REPLACE_EXISTING);
+        }
         return tempFile;
     }
 
