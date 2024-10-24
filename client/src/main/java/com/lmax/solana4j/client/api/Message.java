@@ -42,7 +42,7 @@ public interface Message
      *
      * @return the base58-encoded string representing the recent blockhash
      */
-    String getRecentBlockhash();
+    String getLatestBlockhash();
 
     /**
      * Returns the list of address table lookups used in the message.

@@ -81,7 +81,7 @@ public interface SolanaApi
      *
      * @return the {@link Blockhash} representing the most recent blockhash
      */
-    Blockhash getRecentBlockHash();
+    Blockhash getLatestBlockhash();
 
     /**
      * Retrieves the minimum balance required for rent exemption for an account of the given size.

@@ -14,7 +14,7 @@ final class MessageDTO implements Message
     private final List<String> accountKeys;
     private final HeaderDTO headerImpl;
     private final List<InstructionDTO> instructions;
-    private final String recentBlockhash;
+    private final String latestBlockhash;
     private final List<AddressTableLookupDTO> addressTableLookups;
 
     @JsonCreator
@@ -22,13 +22,13 @@ final class MessageDTO implements Message
             final @JsonProperty("accountKeys") List<String> accountKeys,
             final @JsonProperty("header") HeaderDTO headerImpl,
             final @JsonProperty("instructions") List<InstructionDTO> instructions,
-            final @JsonProperty("recentBlockhash") String recentBlockhash,
+            final @JsonProperty("latestBlockhash") String latestBlockhash,
             final @JsonProperty("addressTableLookups") List<AddressTableLookupDTO> addressTableLookups)
     {
         this.accountKeys = accountKeys;
         this.headerImpl = headerImpl;
         this.instructions = instructions;
-        this.recentBlockhash = recentBlockhash;
+        this.latestBlockhash = latestBlockhash;
         this.addressTableLookups = addressTableLookups;
     }
 
@@ -52,9 +52,9 @@ final class MessageDTO implements Message
     }
 
     @Override
-    public String getRecentBlockhash()
+    public String getLatestBlockhash()
     {
-        return recentBlockhash;
+        return latestBlockhash;
     }
 
     @Override
@@ -68,11 +68,11 @@ final class MessageDTO implements Message
     public String toString()
     {
         return "MessageDTO{" +
-               "accountKeys=" + accountKeys +
-               ", headerImpl=" + headerImpl +
-               ", instructions=" + instructions +
-               ", recentBlockhash='" + recentBlockhash + '\'' +
-               ", addressTableLookups=" + addressTableLookups +
-               '}';
+                "accountKeys=" + accountKeys +
+                ", headerImpl=" + headerImpl +
+                ", instructions=" + instructions +
+                ", latestBlockhash='" + latestBlockhash + '\'' +
+                ", addressTableLookups=" + addressTableLookups +
+                '}';
     }
 }

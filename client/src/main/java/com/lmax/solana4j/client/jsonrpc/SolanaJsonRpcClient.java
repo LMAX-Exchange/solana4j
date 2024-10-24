@@ -121,11 +121,11 @@ public class SolanaJsonRpcClient implements SolanaApi
     }
 
     @Override
-    public Blockhash getRecentBlockHash()
+    public Blockhash getLatestBlockhash()
     {
         return queryForObject(new TypeReference<RpcWrapperDTO<BlockhashDTO>>()
         {
-        }, "getRecentBlockhash").getValue();
+        }, "getLatestBlockhash").getValue();
     }
 
     @Override
