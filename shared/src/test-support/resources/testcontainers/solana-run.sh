@@ -26,6 +26,8 @@ ok=true
 for program in solana-{faucet,genesis,keygen,test-validator}; do
   $program -V || ok=false
 done
+agave-validator -V || ok=false
+
 $ok || {
   echo
   echo "Unable to locate required programs.  Try building them first with:"
@@ -35,7 +37,7 @@ $ok || {
   exit 1
 }
 
-export RUST_LOG=${RUST_LOG:-solana=info,solana_runtime::message_processor=debug} # if RUST_LOG is unset, default to info
+export RUST_LOG=${RUST_LOG:-solana=info,agave=info,solana_runtime::message_processor=debug} # if RUST_LOG is unset, default to info
 export RUST_BACKTRACE=1
 dataDir=$PWD/config/"$(basename "$0" .sh)"
 ledgerDir=$PWD/config/ledger
@@ -101,7 +103,7 @@ solana-test-validator "${args[@]}" $SOLANA_RUN_SH_VALIDATOR_ARGS &
 validator=$!
 
 
-solana config set --url "http://localhost:8899"
+solana config set --url localhost
 
 set +e
 while true; do

@@ -1,5 +1,5 @@
 ARG SOLANA_VERSION
-FROM solanalabs/solana:v$SOLANA_VERSION
+FROM anzaxyz/agave:v$SOLANA_VERSION
 
 USER root
 
