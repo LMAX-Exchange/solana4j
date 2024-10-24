@@ -60,7 +60,7 @@ public class SolanaDriver
                                            final TestKeyPair payer,
                                            final Slot slot)
     {
-        final Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
+        final Blockhash recentBlockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().createAddressLookupTable(
                 programDerivedAddress,
@@ -79,7 +79,7 @@ public class SolanaDriver
                                            final List<TestPublicKey> addressesToAdd,
                                            final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
+        final Blockhash recentBlockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().extendAddressLookupTable(
                 addressLookupTable.getSolana4jPublicKey(),
@@ -103,7 +103,7 @@ public class SolanaDriver
             final int accountSpan,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
+        final Blockhash recentBlockhash = solanaApi.getLatestBlockhash();
         final long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
 
         final String transactionBlob = getTransactionFactory().createMintAccount(
@@ -132,7 +132,7 @@ public class SolanaDriver
             final TestKeyPair payer,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash recentBlockhash = solanaApi.getRecentBlockHash();
+        final Blockhash recentBlockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().mintTo(
                 tokenProgram,
@@ -158,7 +158,7 @@ public class SolanaDriver
             final List<AddressLookupTable> addressLookupTables)
     {
         final Long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
-        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+        final Blockhash blockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().createTokenAccount(
                 tokenProgram,
@@ -193,7 +193,7 @@ public class SolanaDriver
             final List<AddressLookupTable> addressLookupTables)
     {
         final Long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
-        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+        final Blockhash blockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().createNonce(
                 nonceAccount.getSolana4jPublicKey(),
@@ -218,7 +218,7 @@ public class SolanaDriver
             final List<AddressLookupTable> addressLookupTables)
     {
         final Long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
-        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+        final Blockhash blockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().createMultiSigAccount(
                 tokenProgram,
@@ -241,7 +241,7 @@ public class SolanaDriver
             final TestKeyPair payer,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+        final Blockhash blockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().advanceNonce(
                 account.getSolana4jPublicKey(),
@@ -264,7 +264,7 @@ public class SolanaDriver
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+        final Blockhash blockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().tokenTransfer(
                 tokenProgram,
@@ -287,7 +287,7 @@ public class SolanaDriver
             final TestKeyPair payer,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+        final Blockhash blockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().solTransfer(
                 from.getSolana4jPublicKey(),
@@ -310,7 +310,7 @@ public class SolanaDriver
             final TestKeyPair payer,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+        final Blockhash blockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().createAssociatedTokenAccount(
                 tokenProgram,
@@ -336,7 +336,7 @@ public class SolanaDriver
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+        final Blockhash blockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().setTokenAccountAuthority(
                 tokenProgram,
@@ -354,7 +354,7 @@ public class SolanaDriver
 
     public String setComputeUnits(final int computeUnitLimit, final long computeUnitPrice, final TestKeyPair payer)
     {
-        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+        final Blockhash blockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().setComputeUnits(
                 computeUnitLimit,
@@ -374,7 +374,7 @@ public class SolanaDriver
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash blockhash = solanaApi.getRecentBlockHash();
+        final Blockhash blockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().setBpfUpgradeableProgramUpgradeAuthority(
                 program,
