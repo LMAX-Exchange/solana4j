@@ -18,7 +18,7 @@ public interface SolanaApi
 
     Long getSlot();
 
-    Blockhash getRecentBlockHash();
+    Blockhash getLatestBlockhash();
 
     Long getMinimalBalanceForRentExemption(int size);
 }
