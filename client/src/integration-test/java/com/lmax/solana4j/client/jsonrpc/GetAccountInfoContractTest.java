@@ -12,6 +12,25 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetAccountInfo()
     {
+//        {
+//            "jsonrpc" : "2.0",
+//                "result" : {
+//            "context" : {
+//                "apiVersion" : "1.18.25",
+//                        "slot" : 479
+//            },
+//            "value" : {
+//                "data" : [ "", "base64" ],
+//                "executable" : false,
+//                        "lamports" : 600000,
+//                        "owner" : "11111111111111111111111111111111",
+//                        "rentEpoch" : 18446744073709551615,
+//                        "space" : 0
+//            }
+//        },
+//            "id" : 4
+//        }
+
         final var accountInfo = Waiter.waitFor(Condition.isNotNull(() -> api.getAccountInfo(payerAccount)));
 
         assertThat(accountInfo.getOwner()).isEqualTo("11111111111111111111111111111111");

@@ -1,6 +1,6 @@
 FROM --platform=linux/aarch64 ubuntu:20.04
 
-ENV SOLANA_VERSION=1.18.25
+ARG SOLANA_VERSION
 ENV SOLANA_TAR=solana-release-aarch64-unknown-linux-gnu-$SOLANA_VERSION.tar.bz2
 
 USER root

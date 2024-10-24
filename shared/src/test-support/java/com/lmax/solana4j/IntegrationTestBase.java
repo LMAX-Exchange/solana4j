@@ -44,21 +44,22 @@ public abstract class IntegrationTestBase
             copyResourceToTempFile(parentDirectory, "accounts/token_account.json");
             copyResourceToTempFile(parentDirectory, "accounts/token_mint.json");
 
+            final String solanaVersion = System.getProperty("solana.version");
             if (arch.equals("aarch64"))
             {
                 try
                 {
-                    copyResourceToTempFile(parentDirectory, "solana-release-aarch64-unknown-linux-gnu-1.18.25.tar.bz2");
+                    copyResourceToTempFile(parentDirectory, String.format("solana-release-aarch64-unknown-linux-gnu-%s.tar.bz2", solanaVersion));
                 }
                 catch (final Exception e)
                 {
                     throw new RuntimeException(
-                            "Cannot find solana-release-aarch64-unknown-linux-gnu-1.18.25.tar.bz2, " +
-                            "are you sure you've run BuildMeAnAarch64CompliantSolanaDockerImagePleaseDockerfile?");
+                            String.format("Cannot find solana-release-aarch64-unknown-linux-gnu-%s.tar.bz2, " +
+                            "are you sure you've run BuildMeAnAarch64CompliantSolanaDockerImagePleaseDockerfile?", solanaVersion));
                 }
             }
 
-            SOLANA_VALIDATOR = new GenericContainer<>(new ImageFromDockerfile().withDockerfile(dockerfilePath))
+            SOLANA_VALIDATOR = new GenericContainer<>(new ImageFromDockerfile().withDockerfile(dockerfilePath).withBuildArg("SOLANA_VERSION", solanaVersion))
                     .withExposedPorts(SOLANA_HTTP_PORT, SOLANA_WS_PORT)
                     .withEnv("SOLANA_RUN_SH_VALIDATOR_ARGS", "--ticks-per-slot=8")
                     .withNetwork(NETWORK)

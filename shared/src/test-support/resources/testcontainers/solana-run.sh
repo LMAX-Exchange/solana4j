@@ -23,7 +23,7 @@ fi
 PATH=$PWD/target/$profile:$PATH
 
 ok=true
-for program in solana-{faucet,genesis,keygen,validator}; do
+for program in solana-{faucet,genesis,keygen,test-validator}; do
   $program -V || ok=false
 done
 $ok || {

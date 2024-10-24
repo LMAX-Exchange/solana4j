@@ -4,6 +4,8 @@ plugins {
     id 'com.autonomousapps.dependency-analysis' version '2.2.0'
 }
 
+def solanaVersion = project.property('SOLANA_VERSION')
+
 group = 'com.lmax'
 version = '1.1.0'
 
@@ -14,6 +16,12 @@ dependencyAnalysis {
                 severity('fail')
             }
         }
+    }
+}
+
+allprojects {
+    ext {
+        solanaVersion = project.property('SOLANA_VERSION')
     }
 }
 

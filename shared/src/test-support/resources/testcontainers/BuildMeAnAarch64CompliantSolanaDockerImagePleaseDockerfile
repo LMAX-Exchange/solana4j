@@ -36,7 +36,7 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 
 ENV PATH="/home/solana/.cargo/bin:${PATH}"
 
-RUN git clone https://github.com/solana-labs/solana.git --depth 1 --branch v$SOLANA_VERSION /home/solana/solana-src-v$SOLANA_VERSION
+RUN git clone https://github.com/anza-xyz/agave.git --depth 1 --branch v$SOLANA_VERSION /home/solana/solana-src-v$SOLANA_VERSION
 
 RUN /bin/bash -c "/home/solana/solana-src-v$SOLANA_VERSION/scripts/cargo-install-all.sh /home/solana/.local/share/solana/install/releases/$SOLANA_VERSION"
 
