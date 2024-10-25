@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // https://solana.com/docs/rpc/http/getslot
-public class GetSlotContractTest extends SolanaClientIntegrationTestBase
+class GetSlotContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
     void shouldGetSlot()
