@@ -78,7 +78,6 @@ dependencies {
     testSupportImplementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
 
     // test dependencies
-    testImplementation project(path: ':shared', configuration: 'sharedTestSupport')
 
     testImplementation 'org.assertj:assertj-core:3.26.3'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
@@ -102,7 +101,6 @@ dependencies {
 
     // jmh test dependencies
 
-    jmhTestImplementation project(path: ':shared', configuration: 'sharedTestSupport')
     jmhTestImplementation 'org.openjdk.jmh:jmh-core:1.37'
     jmhTestImplementation 'net.i2p.crypto:eddsa:0.3.0'
     jmhTestImplementation 'org.bitcoinj:bitcoinj-core:0.16.3'

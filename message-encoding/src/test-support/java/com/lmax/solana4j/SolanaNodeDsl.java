@@ -76,9 +76,9 @@ public class SolanaNodeDsl
                 new RequiredArg("amountSol"));
 
         final String address = testContext.lookupOrLiteral(params.value("address"), TestDataType.TEST_PUBLIC_KEY);
-        final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
+        final long lamports = Sol.lamports(params.valueAsBigDecimal("amountSol"));
 
-        final String transactionSignature = solanaDriver.requestAirdrop(new TestPublicKey(Base58.decode(address)), sol.lamports());
+        final String transactionSignature = solanaDriver.requestAirdrop(new TestPublicKey(Base58.decode(address)), lamports);
 
         Waiter.waitFor(transactionFinalized(transactionSignature));
     }
@@ -315,9 +315,9 @@ public class SolanaNodeDsl
                 new RequiredArg("amountSol"));
 
         final TestPublicKey address = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("address"));
-        final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
+        final long lamports = Sol.lamports(params.valueAsBigDecimal("amountSol"));
 
-        Waiter.waitFor(Condition.isEqualTo(sol.lamports(), () -> solanaDriver.getBalance(address.getPublicKeyBase58())));
+        Waiter.waitFor(Condition.isEqualTo(lamports, () -> solanaDriver.getBalance(address.getPublicKeyBase58())));
     }
 
     public void tokenTransfer(final String... args)
@@ -547,7 +547,7 @@ public class SolanaNodeDsl
 
         final TestKeyPair from = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("from"));
         final TestPublicKey to = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("to"));
-        final Sol sol = new Sol(params.valueAsBigDecimal("amountSol"));
+        final long lamports = Sol.lamports(params.valueAsBigDecimal("amountSol"));
         final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
 
         final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
@@ -555,7 +555,7 @@ public class SolanaNodeDsl
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
-        final String transactionSignature = solanaDriver.transfer(from, to, sol.lamports(), payer, addressLookupTables);
+        final String transactionSignature = solanaDriver.transfer(from, to, lamports, payer, addressLookupTables);
 
         Waiter.waitFor(transactionFinalized(transactionSignature));
     }

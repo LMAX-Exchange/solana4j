@@ -4,15 +4,8 @@ import java.math.BigDecimal;
 
 public class Sol
 {
-    private final BigDecimal amount;
-
-    public Sol(final BigDecimal amount)
+    public static long lamports(final BigDecimal solAmount)
     {
-        this.amount = amount;
-    }
-
-    public long lamports()
-    {
-        return amount.multiply(new BigDecimal(1_000_000_000L)).longValue();
+        return solAmount.multiply(new BigDecimal(1_000_000_000L)).longValue();
     }
 }
