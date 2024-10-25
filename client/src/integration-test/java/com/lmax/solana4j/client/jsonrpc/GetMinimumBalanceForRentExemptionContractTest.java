@@ -1,5 +1,6 @@
 package com.lmax.solana4j.client.jsonrpc;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,5 +18,12 @@ class GetMinimumBalanceForRentExemptionContractTest extends SolanaClientIntegrat
 //        }
 
         assertThat(api.getMinimumBalanceForRentExemption(1000)).isGreaterThan(0L);
+    }
+
+    @Test
+    @Disabled
+    void whatHappensWithNegativeOrZeroSpace()
+    {
+
     }
 }

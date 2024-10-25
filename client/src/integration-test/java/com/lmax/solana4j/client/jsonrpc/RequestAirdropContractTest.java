@@ -1,6 +1,7 @@
 package com.lmax.solana4j.client.jsonrpc;
 
 import com.lmax.solana4j.domain.Sol;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -19,5 +20,12 @@ class RequestAirdropContractTest extends SolanaClientIntegrationTestBase
 //                "id" : 4
 //        }
         assertThat(api.requestAirdrop(payerAccount, new Sol(BigDecimal.ONE).lamports())).isNotBlank();
+    }
+
+    @Test
+    @Disabled
+    void shouldThrowRpcExceptionForMalformedAccount()
+    {
+
     }
 }

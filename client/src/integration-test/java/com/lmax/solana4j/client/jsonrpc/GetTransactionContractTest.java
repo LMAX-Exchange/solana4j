@@ -67,4 +67,18 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
             final var transaction = Waiter.waitFor(Condition.isNotNull(() -> api.getTransaction(transactionSignature)));
         }
     }
+
+    @Test
+    @Disabled
+    void shouldThrowRpcExceptionForUnknownTransactionSignature()
+    {
+
+    }
+
+    @Test
+    @Disabled
+    void shouldThrowRpcExceptionForMalformedTransactionSignature()
+    {
+
+    }
 }

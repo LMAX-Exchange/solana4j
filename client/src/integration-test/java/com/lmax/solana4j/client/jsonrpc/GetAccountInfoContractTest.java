@@ -2,6 +2,7 @@ package com.lmax.solana4j.client.jsonrpc;
 
 import com.lmax.solana4j.assertion.Condition;
 import com.lmax.solana4j.assertion.Waiter;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,5 +41,19 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
         assertThat(accountInfo.isExecutable()).isEqualTo(false);
         assertThat(accountInfo.getRentEpoch()).isEqualTo("18446744073709551615");
         assertThat(accountInfo.getSpace()).isEqualTo(0);
+    }
+
+    @Test
+    @Disabled
+    void shouldThrowRpcExceptionForAccount()
+    {
+
+    }
+
+    @Test
+    @Disabled
+    void shouldThrowRpcExceptionForMalformedAccount()
+    {
+
     }
 }

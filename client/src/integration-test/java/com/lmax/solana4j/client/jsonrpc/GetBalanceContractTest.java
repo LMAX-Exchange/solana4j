@@ -1,5 +1,6 @@
 package com.lmax.solana4j.client.jsonrpc;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,5 +23,19 @@ class GetBalanceContractTest extends SolanaClientIntegrationTestBase
 //            "id" : 4
 //        }
         assertThat(api.getBalance(payerAccount)).isEqualTo(600000L);
+    }
+
+    @Test
+    @Disabled
+    void shouldThrowRpcExceptionForUnknownAccountBalance()
+    {
+
+    }
+
+    @Test
+    @Disabled
+    void shouldThrowRpcExceptionForMalformedAccountBalance()
+    {
+
     }
 }

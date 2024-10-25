@@ -1,5 +1,6 @@
 package com.lmax.solana4j.client.jsonrpc;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,4 +34,19 @@ class GetTokenAccountBalanceContractTest extends SolanaClientIntegrationTestBase
         assertThat(tokenAccountBalance.getUiAmountString()).isEqualTo("0.0000000000000001");
         assertThat(tokenAccountBalance.getUiAmount()).isEqualTo(0.0000000000000001f);
     }
+
+    @Test
+    @Disabled
+    void shouldThrowRpcExceptionForUnknownTokenAccountBalance()
+    {
+
+    }
+
+    @Test
+    @Disabled
+    void shouldThrowRpcExceptionForMalformedTokenAccountBalance()
+    {
+
+    }
+
 }
