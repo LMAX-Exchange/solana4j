@@ -27,6 +27,13 @@ class GetBalanceContractTest extends SolanaClientIntegrationTestBase
 
     @Test
     @Disabled
+    void shouldThrowRpcExceptionForTokenAccountBalance()
+    {
+
+    }
+
+    @Test
+    @Disabled
     void shouldThrowRpcExceptionForUnknownAccountBalance()
     {
 
