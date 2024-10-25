@@ -15,7 +15,7 @@ class GetMinimumBalanceForRentExemptionContractTest extends SolanaClientIntegrat
 //                "result" : 7850880,
 //                "id" : 4
 //        }
-        
+
         assertThat(api.getMinimumBalanceForRentExemption(1000)).isGreaterThan(0L);
     }
 }

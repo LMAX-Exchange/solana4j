@@ -17,6 +17,14 @@ public interface SolanaApi
     String sendTransaction(String transactionBlob);
 
     /**
+     * Retrieves the transaction response for a given transaction signature.
+     *
+     * @param transactionSignature the base58-encoded signature of the transaction
+     * @return the {@link TransactionResponse} containing details of the transaction
+     */
+    TransactionResponse getTransaction(String transactionSignature);
+
+    /**
      * Requests an airdrop of lamports to the specified address.
      * This is used for test purposes to receive lamports (the smallest unit of SOL).
      *
@@ -25,14 +33,6 @@ public interface SolanaApi
      * @return the transaction signature as a base58-encoded string
      */
     String requestAirdrop(String address, long amountLamports);
-
-    /**
-     * Retrieves the transaction response for a given transaction signature.
-     *
-     * @param transactionSignature the base58-encoded signature of the transaction
-     * @return the {@link TransactionResponse} containing details of the transaction
-     */
-    TransactionResponse getTransaction(String transactionSignature);
 
     /**
      * Retrieves the balance of an account in lamports.
