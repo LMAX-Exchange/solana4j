@@ -69,8 +69,11 @@ sourceSets {
 dependencies {
 
     // test support dependencies
+    // TODO: should this testSupportImplementation really depend on the client
+    // TODO: it feels a bit wrong
     testSupportImplementation project(path: ':client', configuration: 'default')
     testSupportImplementation project(path: ':shared', configuration: 'sharedTestSupport')
+
     testSupportImplementation 'com.lmax:simple-dsl:3.0.0'
     testSupportImplementation 'org.assertj:assertj-core:3.26.3'
     testSupportImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
