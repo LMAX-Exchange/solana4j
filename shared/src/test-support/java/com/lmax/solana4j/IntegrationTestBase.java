@@ -69,7 +69,6 @@ public abstract class IntegrationTestBase
         }
         catch (final RuntimeException | IOException e)
         {
-
             throw new RuntimeException("Something went wrong in the test set-up.", e);
         }
     }
