@@ -69,8 +69,7 @@ sourceSets {
 dependencies {
 
     // test support dependencies
-    // TODO: should this testSupportImplementation really depend on the client
-    // TODO: it feels a bit wrong
+
     testSupportImplementation project(path: ':client', configuration: 'default')
     testSupportImplementation project(path: ':shared', configuration: 'sharedTestSupport')
 
@@ -91,6 +90,7 @@ dependencies {
     testRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
 
     // integration test dependencies
+
     integrationTestImplementation project(path: ':shared', configuration: 'sharedTestSupport')
 
     integrationTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
