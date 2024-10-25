@@ -14,6 +14,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Locale;
 import java.util.Map;
 
@@ -22,11 +23,16 @@ public class SolanaJsonRpcClient implements SolanaApi
     private final String rpcUrl;
     private final HttpClient httpClient;
     private final SolanaCodec solanaCodec;
+    private final Duration requestTimeout;
 
-    public SolanaJsonRpcClient(final String rpcUrl)
+    public SolanaJsonRpcClient(final String rpcUrl, final Duration connectionTimeout, final Duration requestTimeout)
     {
         this.rpcUrl = rpcUrl;
-        this.httpClient = HttpClient.newHttpClient();
+        this.httpClient = HttpClient
+                .newBuilder()
+                .connectTimeout(connectionTimeout)
+                .build();
+        this.requestTimeout = requestTimeout;
         this.solanaCodec = new SolanaCodec(false);
     }
 
@@ -34,6 +40,7 @@ public class SolanaJsonRpcClient implements SolanaApi
     {
         this.rpcUrl = rpcUrl;
         this.httpClient = HttpClient.newHttpClient();
+        this.requestTimeout = Duration.ofSeconds(30);
         this.solanaCodec = new SolanaCodec(failOnUnknownProperties);
     }
 
@@ -179,6 +186,7 @@ public class SolanaJsonRpcClient implements SolanaApi
     private HttpRequest buildPostRequest(final String payload)
     {
         final HttpRequest.Builder request = HttpRequest.newBuilder();
+        request.timeout(requestTimeout);
         request.uri(URI.create(rpcUrl));
         request.setHeader("Content-Type", "application/json");
         request.POST(HttpRequest.BodyPublishers.ofString(payload));

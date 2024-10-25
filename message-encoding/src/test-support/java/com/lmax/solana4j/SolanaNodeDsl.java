@@ -47,7 +47,7 @@ public class SolanaNodeDsl
 
     public SolanaNodeDsl(final String rpcUrl)
     {
-        this.solanaDriver = new SolanaDriver(SolanaClient.jsonRpc(rpcUrl));
+        this.solanaDriver = new SolanaDriver(SolanaClient.create(rpcUrl));
         this.testContext = new TestContext();
     }
 
