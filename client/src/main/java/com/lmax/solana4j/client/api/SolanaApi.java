@@ -90,5 +90,5 @@ public interface SolanaApi
      * @param size the size of the account in bytes
      * @return the minimum balance in lamports for rent exemption
      */
-    Long getMinimalBalanceForRentExemption(int size);
+    Long getMinimumBalanceForRentExemption(int size);
 }

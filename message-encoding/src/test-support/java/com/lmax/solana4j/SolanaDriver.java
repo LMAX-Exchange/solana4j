@@ -103,7 +103,7 @@ public class SolanaDriver
             final List<AddressLookupTable> addressLookupTables)
     {
         final Blockhash recentBlockhash = solanaApi.getLatestBlockhash();
-        final long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
+        final long rentExemption = solanaApi.getMinimumBalanceForRentExemption(accountSpan);
 
         final String transactionBlob = getTransactionFactory().createMintAccount(
                 tokenProgram,
@@ -156,7 +156,7 @@ public class SolanaDriver
             final int accountSpan,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
+        final Long rentExemption = solanaApi.getMinimumBalanceForRentExemption(accountSpan);
         final Blockhash blockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().createTokenAccount(
@@ -191,7 +191,7 @@ public class SolanaDriver
             final int accountSpan,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
+        final Long rentExemption = solanaApi.getMinimumBalanceForRentExemption(accountSpan);
         final Blockhash blockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().createNonce(
@@ -216,7 +216,7 @@ public class SolanaDriver
             final TestKeyPair payer,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Long rentExemption = solanaApi.getMinimalBalanceForRentExemption(accountSpan);
+        final Long rentExemption = solanaApi.getMinimumBalanceForRentExemption(accountSpan);
         final Blockhash blockhash = solanaApi.getLatestBlockhash();
 
         final String transactionBlob = getTransactionFactory().createMultiSigAccount(

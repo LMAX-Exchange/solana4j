@@ -129,7 +129,7 @@ public class SolanaJsonRpcClient implements SolanaApi
     }
 
     @Override
-    public Long getMinimalBalanceForRentExemption(final int size)
+    public Long getMinimumBalanceForRentExemption(final int size)
     {
         return queryForObject(new TypeReference<>()
         {
