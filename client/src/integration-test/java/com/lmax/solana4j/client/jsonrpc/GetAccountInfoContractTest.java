@@ -32,7 +32,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
 //            "id" : 4
 //        }
 
-        final var accountInfo = Waiter.waitFor(Condition.isNotNull(() -> api.getAccountInfo(payerAccount)));
+        final var accountInfo = Waiter.waitFor(Condition.isNotNull(() -> api.getAccountInfo(payerAccount).getResponse()));
 
         assertThat(accountInfo.getOwner()).isEqualTo("11111111111111111111111111111111");
         assertThat(accountInfo.getData().get(0)).isEqualTo("");

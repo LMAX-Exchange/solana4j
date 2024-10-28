@@ -24,6 +24,6 @@ public class SolanaClientIntegrationTestBase extends IntegrationTestBase
     {
         api = new SolanaJsonRpcClient(rpcUrl, true);
 
-        Waiter.waitFor(Condition.isTrue(() -> api.getSlot() > 35));
+        Waiter.waitFor(Condition.isTrue(() -> api.getSlot().getResponse() > 35));
     }
 }

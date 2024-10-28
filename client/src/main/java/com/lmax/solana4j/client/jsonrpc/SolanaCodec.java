@@ -37,10 +37,6 @@ final class SolanaCodec
     {
         final long id = requestId.incrementAndGet();
 
-        if (method.isEmpty())
-        {
-            throw new IllegalArgumentException("Method is not set");
-        }
         final ObjectNode requestNode = mapper.createObjectNode();
         requestNode.put(JSONRPC, "2.0");
         requestNode.put(METHOD, method);

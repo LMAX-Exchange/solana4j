@@ -28,7 +28,7 @@ class GetTokenAccountBalanceContractTest extends SolanaClientIntegrationTestBase
 //            "id" : 4
 //        }
 
-        final var tokenAccountBalance = api.getTokenAccountBalance(tokenAccount);
+        final var tokenAccountBalance = api.getTokenAccountBalance(tokenAccount).getResponse();
         assertThat(tokenAccountBalance.getAmount()).isEqualTo("100");
         assertThat(tokenAccountBalance.getDecimals()).isEqualTo(18);
         assertThat(tokenAccountBalance.getUiAmountString()).isEqualTo("0.0000000000000001");

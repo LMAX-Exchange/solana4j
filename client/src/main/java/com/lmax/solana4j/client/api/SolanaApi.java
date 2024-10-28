@@ -14,7 +14,7 @@ public interface SolanaApi
      * @param transactionBlob the base64-encoded string representing the transaction
      * @return the signature of the transaction, which is a base58-encoded string
      */
-    String sendTransaction(String transactionBlob);
+    SolanaClientResponse<String> sendTransaction(String transactionBlob);
 
     /**
      * Retrieves the transaction response for a given transaction signature.
@@ -22,7 +22,7 @@ public interface SolanaApi
      * @param transactionSignature the base58-encoded signature of the transaction
      * @return the {@link TransactionResponse} containing details of the transaction
      */
-    TransactionResponse getTransaction(String transactionSignature);
+    SolanaClientResponse<TransactionResponse> getTransaction(String transactionSignature);
 
     /**
      * Requests an airdrop of lamports to the specified address.
@@ -32,7 +32,7 @@ public interface SolanaApi
      * @param amountLamports the amount of lamports to be airdropped
      * @return the transaction signature as a base58-encoded string
      */
-    String requestAirdrop(String address, long amountLamports);
+    SolanaClientResponse<String> requestAirdrop(String address, long amountLamports);
 
     /**
      * Retrieves the balance of an account in lamports.
@@ -40,7 +40,7 @@ public interface SolanaApi
      * @param address the base58-encoded public key of the account
      * @return the balance of the account in lamports
      */
-    Long getBalance(String address);
+    SolanaClientResponse<Long> getBalance(String address);
 
     /**
      * Retrieves the token account balance of an SPL token account.
@@ -48,7 +48,7 @@ public interface SolanaApi
      * @param address the base58-encoded public key of the token account
      * @return the {@link TokenAmount} representing the token balance of the account
      */
-    TokenAmount getTokenAccountBalance(String address);
+    SolanaClientResponse<TokenAmount> getTokenAccountBalance(String address);
 
     /**
      * Retrieves the account information for the specified address.
@@ -57,7 +57,7 @@ public interface SolanaApi
      * @param address the base58-encoded public key of the account
      * @return the {@link AccountInfo} containing details of the account
      */
-    AccountInfo getAccountInfo(String address);
+    SolanaClientResponse<AccountInfo> getAccountInfo(String address);
 
     /**
      * Retrieves the current block height of the Solana blockchain.
@@ -65,7 +65,7 @@ public interface SolanaApi
      *
      * @return the current block height
      */
-    Long getBlockHeight();
+    SolanaClientResponse<Long> getBlockHeight();
 
     /**
      * Retrieves the current slot number.
@@ -73,7 +73,7 @@ public interface SolanaApi
      *
      * @return the current slot number
      */
-    Long getSlot();
+    SolanaClientResponse<Long> getSlot();
 
     /**
      * Retrieves the most recent blockhash.
@@ -81,7 +81,7 @@ public interface SolanaApi
      *
      * @return the {@link Blockhash} representing the most recent blockhash
      */
-    Blockhash getLatestBlockhash();
+    SolanaClientResponse<Blockhash> getLatestBlockhash();
 
     /**
      * Retrieves the minimum balance required for rent exemption for an account of the given size.
@@ -90,5 +90,5 @@ public interface SolanaApi
      * @param size the size of the account in bytes
      * @return the minimum balance in lamports for rent exemption
      */
-    Long getMinimumBalanceForRentExemption(int size);
+    SolanaClientResponse<Long> getMinimumBalanceForRentExemption(int size);
 }

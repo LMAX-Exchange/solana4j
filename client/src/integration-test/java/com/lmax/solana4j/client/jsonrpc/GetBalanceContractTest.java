@@ -22,7 +22,7 @@ class GetBalanceContractTest extends SolanaClientIntegrationTestBase
 //        },
 //            "id" : 4
 //        }
-        assertThat(api.getBalance(payerAccount)).isEqualTo(600000L);
+        assertThat(api.getBalance(payerAccount).getResponse()).isEqualTo(600000L);
     }
 
     @Test

@@ -7,6 +7,8 @@ import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.client.api.AccountInfo;
 import com.lmax.solana4j.client.api.Blockhash;
 import com.lmax.solana4j.client.api.SolanaApi;
+import com.lmax.solana4j.client.api.SolanaClientError;
+import com.lmax.solana4j.client.api.SolanaClientResponse;
 import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TestPublicKey;
@@ -181,7 +183,7 @@ public class SolanaDriver
 
     public String getTokenBalance(final String address)
     {
-        return solanaApi.getTokenAccountBalance(address).getUiAmountString();
+        return solanaApi.getTokenAccountBalance(address);
     }
 
     public String createNonceAccount(
@@ -362,7 +364,7 @@ public class SolanaDriver
                 payer.getSolana4jPublicKey(),
                 List.of(payer));
 
-        return solanaApi.sendTransaction(transactionBlob);
+        return retryingClient(solanaApi.sendTransaction(transactionBlob));
     }
 
     public String setBpfUpgradeableProgramUpgradeAuthority(
@@ -373,7 +375,7 @@ public class SolanaDriver
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash blockhash = solanaApi.getLatestBlockhash();
+        final Blockhash blockhash = retryingClient(solanaApi.getLatestBlockhash());
 
         final String transactionBlob = getTransactionFactory().setBpfUpgradeableProgramUpgradeAuthority(
                 program,
@@ -384,7 +386,7 @@ public class SolanaDriver
                 signers,
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob);
+        return retryingClient(solanaApi.sendTransaction(transactionBlob));
     }
 
     public void setMessageEncoding(final String messageEncoding)
@@ -410,5 +412,10 @@ public class SolanaDriver
             throw new RuntimeException("Please set the message encoding used to create transactions for submitting to the solana blockchain.");
         }
         return transactionBlobFactory;
+    }
+
+    private <T> T retryingClient(final SolanaClientResponse<T> response)
+    {
+        return response.getResponse();
     }
 }

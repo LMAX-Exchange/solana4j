@@ -15,6 +15,6 @@ class GetSlotContractTest extends SolanaClientIntegrationTestBase
 //                "result" : 369,
 //                "id" : 4
 //        }
-        assertThat(api.getSlot()).isGreaterThan(0L);
+        assertThat(api.getSlot().getResponse()).isGreaterThan(0L);
     }
 }

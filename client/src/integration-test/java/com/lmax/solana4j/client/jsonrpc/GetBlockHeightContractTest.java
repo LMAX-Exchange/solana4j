@@ -16,6 +16,6 @@ class GetBlockHeightContractTest extends SolanaClientIntegrationTestBase
 //                "id" : 4
 //        }
 
-        assertThat(api.getBlockHeight()).isGreaterThan(0L);
+        assertThat(api.getBlockHeight().getResponse()).isGreaterThan(0L);
     }
 }

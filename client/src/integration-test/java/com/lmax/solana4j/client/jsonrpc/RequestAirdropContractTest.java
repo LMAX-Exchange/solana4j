@@ -19,7 +19,7 @@ class RequestAirdropContractTest extends SolanaClientIntegrationTestBase
 //                "result" : "cPN2nfGaYtiFC9yR5FFLANmE5jxQFXxyYH3keCPKXuZ4LNAoZBvnqhFLomAMznTGorkw1iMrX3qNy8AVmX8UwEF",
 //                "id" : 4
 //        }
-        assertThat(api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE))).isNotBlank();
+        assertThat(api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse()).isNotBlank();
     }
 
     @Test

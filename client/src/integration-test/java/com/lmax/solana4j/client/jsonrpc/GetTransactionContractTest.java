@@ -62,7 +62,7 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
 //            "id" : 5
 //        }
 
-            final String transactionSignature = api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE));
+            final String transactionSignature = api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
 
             final var transaction = Waiter.waitFor(Condition.isNotNull(() -> api.getTransaction(transactionSignature)));
         }

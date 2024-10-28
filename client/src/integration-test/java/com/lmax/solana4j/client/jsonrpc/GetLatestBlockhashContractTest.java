@@ -24,8 +24,7 @@ class GetLatestBlockhashContractTest extends SolanaClientIntegrationTestBase
 //        },
 //            "id" : 4
 //        }
-
-        final var latestBlockhash = api.getLatestBlockhash();
+        final var latestBlockhash = api.getLatestBlockhash().getResponse();
         assertThat(latestBlockhash.getBlockhashBase58()).isNotBlank();
         assertThat(latestBlockhash.getLastValidBlockHeight()).isGreaterThan(0);
     }

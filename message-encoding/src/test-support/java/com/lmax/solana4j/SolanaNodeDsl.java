@@ -166,7 +166,11 @@ public class SolanaNodeDsl
                 new RequiredArg("slot")
         );
 
-        Waiter.waitFor(Condition.isTrue(() -> solanaDriver.getSlot() > params.valueAsLong("slot")));
+        Waiter.waitFor(Condition.isTrue(() ->
+        {
+            long slot = solanaDriver.getSlot();
+            slot > params.valueAsLong("slot"))
+        }));
     }
 
     public void createMintAccount(final String... args)
@@ -695,7 +699,8 @@ public class SolanaNodeDsl
                 new RequiredArg("computeUnitLimit"),
                 new RequiredArg("computeUnitPrice"),
                 new RequiredArg("payer"),
-                new OptionalArg("rememberTransactionAs")
+                new OptionalArg("rememberTransactionAs"),
+                new OptionalArg("expectedError")
         );
 
         final int computeUnitLimit = params.valueAsInt("computeUnitLimit");

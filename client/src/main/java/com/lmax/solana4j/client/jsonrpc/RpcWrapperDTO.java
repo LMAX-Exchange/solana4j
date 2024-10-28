@@ -56,9 +56,15 @@ final class RpcWrapperDTO<T>
 
     public static class Error
     {
-        private long code;
+        private final long code;
+        private final String message;
 
-        private String message;
+        @JsonCreator
+        Error(final @JsonProperty("code") long code, final @JsonProperty("message") String message)
+        {
+            this.code = code;
+            this.message = message;
+        }
 
         public long getCode()
         {
@@ -69,8 +75,6 @@ final class RpcWrapperDTO<T>
         {
             return message;
         }
-
-
 
         @Override
         public String toString()
