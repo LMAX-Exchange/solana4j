@@ -166,11 +166,7 @@ public class SolanaNodeDsl
                 new RequiredArg("slot")
         );
 
-        Waiter.waitFor(Condition.isTrue(() ->
-        {
-            long slot = solanaDriver.getSlot();
-            slot > params.valueAsLong("slot"))
-        }));
+        Waiter.waitFor(Condition.isTrue(() -> solanaDriver.getSlot() > params.valueAsLong("slot")));
     }
 
     public void createMintAccount(final String... args)
@@ -308,7 +304,7 @@ public class SolanaNodeDsl
         final TestPublicKey address = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("address"));
         final String amount = params.value("amount");
 
-        Waiter.waitFor(Condition.isEqualTo(amount, () -> solanaDriver.getTokenBalance(address.getPublicKeyBase58())));
+        Waiter.waitFor(Condition.isEqualTo(amount, () -> solanaDriver.getTokenBalance(address.getPublicKeyBase58()).getUiAmountString()));
     }
 
     public void solBalance(final String... args)

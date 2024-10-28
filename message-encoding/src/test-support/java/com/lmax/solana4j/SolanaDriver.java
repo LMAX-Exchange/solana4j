@@ -7,8 +7,8 @@ import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.client.api.AccountInfo;
 import com.lmax.solana4j.client.api.Blockhash;
 import com.lmax.solana4j.client.api.SolanaApi;
-import com.lmax.solana4j.client.api.SolanaClientError;
 import com.lmax.solana4j.client.api.SolanaClientResponse;
+import com.lmax.solana4j.client.api.TokenAmount;
 import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TestPublicKey;
@@ -19,6 +19,7 @@ import com.lmax.solana4j.transactionblobs.TransactionBlobFactory;
 import com.lmax.solana4j.transactionblobs.V0TransactionBlobFactory;
 
 import java.util.List;
+import java.util.concurrent.locks.LockSupport;
 import java.util.stream.Collectors;
 
 public class SolanaDriver
@@ -33,27 +34,27 @@ public class SolanaDriver
 
     public String requestAirdrop(final TestPublicKey address, final long amountLamports)
     {
-        return solanaApi.requestAirdrop(address.getPublicKeyBase58(), amountLamports);
+        return retryingClient(solanaApi.requestAirdrop(address.getPublicKeyBase58(), amountLamports));
     }
 
     public TransactionResponse getTransactionResponse(final String transactionSignature)
     {
-        return solanaApi.getTransaction(transactionSignature);
+        return retryingClient(solanaApi.getTransaction(transactionSignature));
     }
 
     public long getSlot()
     {
-        return solanaApi.getSlot();
+        return retryingClient(solanaApi.getSlot());
     }
 
     public long getBlockHeight()
     {
-        return solanaApi.getBlockHeight();
+        return retryingClient(solanaApi.getBlockHeight());
     }
 
     public AccountInfo getAccountInfo(final TestPublicKey address)
     {
-        return solanaApi.getAccountInfo(address.getPublicKeyBase58());
+        return retryingClient(solanaApi.getAccountInfo(address.getPublicKeyBase58()));
     }
 
     public String createAddressLookupTable(final ProgramDerivedAddress programDerivedAddress,
@@ -61,7 +62,7 @@ public class SolanaDriver
                                            final TestKeyPair payer,
                                            final Slot slot)
     {
-        final Blockhash recentBlockhash = solanaApi.getLatestBlockhash();
+        final Blockhash recentBlockhash = retryingClient(solanaApi.getLatestBlockhash());
 
         final String transactionBlob = getTransactionFactory().createAddressLookupTable(
                 programDerivedAddress,
@@ -71,7 +72,7 @@ public class SolanaDriver
                 payer.getSolana4jPublicKey(),
                 List.of(payer, authority));
 
-        return solanaApi.sendTransaction(transactionBlob);
+        return retryingClient(solanaApi.sendTransaction(transactionBlob));
     }
 
     public String extendAddressLookupTable(final TestPublicKey addressLookupTable,
@@ -80,7 +81,7 @@ public class SolanaDriver
                                            final List<TestPublicKey> addressesToAdd,
                                            final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash recentBlockhash = solanaApi.getLatestBlockhash();
+        final Blockhash recentBlockhash = retryingClient(solanaApi.getLatestBlockhash());
 
         final String transactionBlob = getTransactionFactory().extendAddressLookupTable(
                 addressLookupTable.getSolana4jPublicKey(),
@@ -91,7 +92,7 @@ public class SolanaDriver
                 List.of(payer, authority),
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob);
+        return retryingClient(solanaApi.sendTransaction(transactionBlob));
     }
 
     public String createMintAccount(
@@ -104,8 +105,8 @@ public class SolanaDriver
             final int accountSpan,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash recentBlockhash = solanaApi.getLatestBlockhash();
-        final long rentExemption = solanaApi.getMinimumBalanceForRentExemption(accountSpan);
+        final Blockhash recentBlockhash = retryingClient(solanaApi.getLatestBlockhash());
+        final long rentExemption = retryingClient(solanaApi.getMinimumBalanceForRentExemption(accountSpan));
 
         final String transactionBlob = getTransactionFactory().createMintAccount(
                 tokenProgram,
@@ -121,7 +122,7 @@ public class SolanaDriver
                 addressLookupTables
         );
 
-        return solanaApi.sendTransaction(transactionBlob);
+        return retryingClient(solanaApi.sendTransaction(transactionBlob));
     }
 
     public String mintTo(
@@ -133,7 +134,7 @@ public class SolanaDriver
             final TestKeyPair payer,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash recentBlockhash = solanaApi.getLatestBlockhash();
+        final Blockhash recentBlockhash = retryingClient(solanaApi.getLatestBlockhash());
 
         final String transactionBlob = getTransactionFactory().mintTo(
                 tokenProgram,
@@ -146,7 +147,7 @@ public class SolanaDriver
                 addressLookupTables
         );
 
-        return solanaApi.sendTransaction(transactionBlob);
+        return retryingClient(solanaApi.sendTransaction(transactionBlob));
     }
 
     public String createTokenAccount(
@@ -158,8 +159,8 @@ public class SolanaDriver
             final int accountSpan,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Long rentExemption = solanaApi.getMinimumBalanceForRentExemption(accountSpan);
-        final Blockhash blockhash = solanaApi.getLatestBlockhash();
+        final Long rentExemption = retryingClient(solanaApi.getMinimumBalanceForRentExemption(accountSpan));
+        final Blockhash blockhash = retryingClient(solanaApi.getLatestBlockhash());
 
         final String transactionBlob = getTransactionFactory().createTokenAccount(
                 tokenProgram,
@@ -173,17 +174,17 @@ public class SolanaDriver
                 List.of(payer, account),
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob);
+        return retryingClient(solanaApi.sendTransaction(transactionBlob));
     }
 
     public long getBalance(final String address)
     {
-        return solanaApi.getBalance(address);
+        return retryingClient(solanaApi.getBalance(address));
     }
 
-    public String getTokenBalance(final String address)
+    public TokenAmount getTokenBalance(final String address)
     {
-        return solanaApi.getTokenAccountBalance(address);
+        return retryingClient(solanaApi.getTokenAccountBalance(address));
     }
 
     public String createNonceAccount(
@@ -193,8 +194,8 @@ public class SolanaDriver
             final int accountSpan,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Long rentExemption = solanaApi.getMinimumBalanceForRentExemption(accountSpan);
-        final Blockhash blockhash = solanaApi.getLatestBlockhash();
+        final Long rentExemption = retryingClient(solanaApi.getMinimumBalanceForRentExemption(accountSpan));
+        final Blockhash blockhash = retryingClient(solanaApi.getLatestBlockhash());
 
         final String transactionBlob = getTransactionFactory().createNonce(
                 nonceAccount.getSolana4jPublicKey(),
@@ -206,7 +207,7 @@ public class SolanaDriver
                 List.of(payer, nonceAccount, nonceAuthority),
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob);
+        return retryingClient(solanaApi.sendTransaction(transactionBlob));
     }
 
     public String createMultiSigAccount(
@@ -218,8 +219,8 @@ public class SolanaDriver
             final TestKeyPair payer,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Long rentExemption = solanaApi.getMinimumBalanceForRentExemption(accountSpan);
-        final Blockhash blockhash = solanaApi.getLatestBlockhash();
+        final Long rentExemption = retryingClient(solanaApi.getMinimumBalanceForRentExemption(accountSpan));
+        final Blockhash blockhash = retryingClient(solanaApi.getLatestBlockhash());
 
         final String transactionBlob = getTransactionFactory().createMultiSigAccount(
                 tokenProgram,
@@ -233,7 +234,7 @@ public class SolanaDriver
                 List.of(payer, account),
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob);
+        return retryingClient(solanaApi.sendTransaction(transactionBlob));
     }
 
     public String advanceNonce(
@@ -242,7 +243,7 @@ public class SolanaDriver
             final TestKeyPair payer,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash blockhash = solanaApi.getLatestBlockhash();
+        final Blockhash blockhash = retryingClient(solanaApi.getLatestBlockhash());
 
         final String transactionBlob = getTransactionFactory().advanceNonce(
                 account.getSolana4jPublicKey(),
@@ -252,7 +253,7 @@ public class SolanaDriver
                 List.of(payer, authority),
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob);
+        return retryingClient(solanaApi.sendTransaction(transactionBlob));
     }
 
     public String tokenTransfer(
@@ -265,7 +266,7 @@ public class SolanaDriver
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash blockhash = solanaApi.getLatestBlockhash();
+        final Blockhash blockhash = retryingClient(solanaApi.getLatestBlockhash());
 
         final String transactionBlob = getTransactionFactory().tokenTransfer(
                 tokenProgram,
@@ -278,7 +279,7 @@ public class SolanaDriver
                 signers,
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob);
+        return retryingClient(solanaApi.sendTransaction(transactionBlob));
     }
 
     public String transfer(
@@ -288,7 +289,7 @@ public class SolanaDriver
             final TestKeyPair payer,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash blockhash = solanaApi.getLatestBlockhash();
+        final Blockhash blockhash = retryingClient(solanaApi.getLatestBlockhash());
 
         final String transactionBlob = getTransactionFactory().solTransfer(
                 from.getSolana4jPublicKey(),
@@ -299,7 +300,7 @@ public class SolanaDriver
                 List.of(payer, from),
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob);
+        return retryingClient(solanaApi.sendTransaction(transactionBlob));
     }
 
     public String createAssociatedTokenAccount(
@@ -311,7 +312,7 @@ public class SolanaDriver
             final TestKeyPair payer,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash blockhash = solanaApi.getLatestBlockhash();
+        final Blockhash blockhash = retryingClient(solanaApi.getLatestBlockhash());
 
         final String transactionBlob = getTransactionFactory().createAssociatedTokenAccount(
                 tokenProgram,
@@ -324,7 +325,7 @@ public class SolanaDriver
                 List.of(payer),
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob);
+        return retryingClient(solanaApi.sendTransaction(transactionBlob));
     }
 
     public String setTokenAccountAuthority(
@@ -337,7 +338,7 @@ public class SolanaDriver
             final List<TestKeyPair> signers,
             final List<AddressLookupTable> addressLookupTables)
     {
-        final Blockhash blockhash = solanaApi.getLatestBlockhash();
+        final Blockhash blockhash = retryingClient(solanaApi.getLatestBlockhash());
 
         final String transactionBlob = getTransactionFactory().setTokenAccountAuthority(
                 tokenProgram,
@@ -350,12 +351,12 @@ public class SolanaDriver
                 signers,
                 addressLookupTables);
 
-        return solanaApi.sendTransaction(transactionBlob);
+        return retryingClient(solanaApi.sendTransaction(transactionBlob));
     }
 
     public String setComputeUnits(final int computeUnitLimit, final long computeUnitPrice, final TestKeyPair payer)
     {
-        final Blockhash blockhash = solanaApi.getLatestBlockhash();
+        final Blockhash blockhash = retryingClient(solanaApi.getLatestBlockhash());
 
         final String transactionBlob = getTransactionFactory().setComputeUnits(
                 computeUnitLimit,
@@ -416,6 +417,17 @@ public class SolanaDriver
 
     private <T> T retryingClient(final SolanaClientResponse<T> response)
     {
-        return response.getResponse();
+        for (int i = 0; i < 10; i++)
+        {
+            if (response.getError() == null)
+            {
+                return response.getResponse();
+            }
+            else
+            {
+                LockSupport.parkNanos(100_000);
+            }
+        }
+        throw new RuntimeException("Unable to get a response after retry.");
     }
 }
