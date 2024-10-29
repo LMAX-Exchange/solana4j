@@ -1,4 +1,4 @@
-package com.lmax.solana4j.util;
+package com.lmax.solana4j.encoding;
 
 import java.math.BigInteger;
 
@@ -14,7 +14,7 @@ import static com.lmax.solana4j.util.ByteBufferPrimitiveArray.reverse;
  * The Ed25519 curve equation is:
  * dx^2y^2 + x^2 = y^2 - 1 (mod P), where d is a curve constant.
  */
-public final class Ed25519
+final class Ed25519
 {
     private static final BigInteger P = new BigInteger("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed", 16);
     private static final BigInteger D = new BigInteger("52036cee2b6ffe738cc740797779e89800700a4d4141d8ab75eb4dca135978a3", 16);
@@ -31,7 +31,7 @@ public final class Ed25519
      * @return true if the point is on the curve, false otherwise.
      * @throws IllegalArgumentException if the public key byte array is not 32 bytes long.
      */
-    public static boolean isOnCurve(final byte[] publicKeyBytes)
+    static boolean isOnCurve(final byte[] publicKeyBytes)
     {
         if (publicKeyBytes.length != 32)
         {

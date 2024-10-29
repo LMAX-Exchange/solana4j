@@ -1,6 +1,5 @@
-package com.lmax.solana4j;
+package com.lmax.solana4j.encoding;
 
-import com.lmax.solana4j.util.Ed25519;
 import com.lmax.solana4j.util.TestKeyPairGenerator;
 import net.i2p.crypto.eddsa.math.GroupElement;
 import org.openjdk.jmh.annotations.Benchmark;

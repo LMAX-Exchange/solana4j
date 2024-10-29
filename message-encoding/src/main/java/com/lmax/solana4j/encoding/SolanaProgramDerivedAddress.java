@@ -2,7 +2,6 @@ package com.lmax.solana4j.encoding;
 
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
-import com.lmax.solana4j.util.Ed25519;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;

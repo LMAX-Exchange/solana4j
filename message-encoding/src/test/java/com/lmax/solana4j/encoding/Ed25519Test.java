@@ -1,5 +1,6 @@
-package com.lmax.solana4j.util;
+package com.lmax.solana4j.encoding;
 
+import com.lmax.solana4j.util.TestKeyPairGenerator;
 import net.i2p.crypto.eddsa.math.GroupElement;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
