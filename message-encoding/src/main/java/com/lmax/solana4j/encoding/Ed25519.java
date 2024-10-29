@@ -1,8 +1,7 @@
 package com.lmax.solana4j.encoding;
 
 import java.math.BigInteger;
-
-import static com.lmax.solana4j.util.ByteBufferPrimitiveArray.reverse;
+import java.nio.ByteBuffer;
 
 /**
  * Utility class for performing Ed25519 elliptic curve operations.
@@ -86,5 +85,19 @@ final class Ed25519
         }
 
         return vx12.equals(u.negate().mod(P));
+    }
+
+    static byte[] reverse(final byte[] array)
+    {
+        final ByteBuffer buffer = ByteBuffer.allocate(array.length);
+
+        for (int i = array.length - 1; i >= 0; i--)
+        {
+            buffer.put(array[i]);
+        }
+
+        buffer.flip();
+
+        return buffer.array();
     }
 }

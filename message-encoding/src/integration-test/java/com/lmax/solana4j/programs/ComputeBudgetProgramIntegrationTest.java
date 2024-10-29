@@ -1,6 +1,6 @@
 package com.lmax.solana4j.programs;
 
-import com.lmax.solana4j.parameterization.ParameterizedMessageEncodingTest;
+import com.lmax.solana4j.parameterisation.ParameterizedMessageEncodingTest;
 
 import static org.junit.Assert.assertThrows;
 

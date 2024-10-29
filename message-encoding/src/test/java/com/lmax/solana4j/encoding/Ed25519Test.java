@@ -1,6 +1,6 @@
 package com.lmax.solana4j.encoding;
 
-import com.lmax.solana4j.util.TestKeyPairGenerator;
+import com.lmax.solana4j.domain.TestKeyPairGenerator;
 import net.i2p.crypto.eddsa.math.GroupElement;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import java.math.BigInteger;
 import java.util.Random;
 
+import static com.lmax.solana4j.encoding.Ed25519.reverse;
 import static net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable.ED_25519_CURVE_SPEC;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -81,6 +83,17 @@ class Ed25519Test
         final var invalidPublicKey = new byte[] { 0 };
 
         assertThrows(RuntimeException.class, () -> Ed25519.isOnCurve(invalidPublicKey));
+    }
+
+    @Test
+    void shouldReverseByteArray()
+    {
+        final var sample = new byte[]{10, 20, 30, 40, 50, 60, 70, 80, 90};
+        final var reversedSample = new byte[]{90, 80, 70, 60, 50, 40, 30, 20, 10};
+
+        final var result = reverse(sample);
+
+        assertThat(result).containsExactly(reversedSample);
     }
 
     @Test

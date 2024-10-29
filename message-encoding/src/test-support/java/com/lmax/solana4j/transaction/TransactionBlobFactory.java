@@ -1,4 +1,4 @@
-package com.lmax.solana4j.transactionblobs;
+package com.lmax.solana4j.transaction;
 
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.Blockhash;

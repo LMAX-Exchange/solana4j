@@ -14,9 +14,9 @@ import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TestPublicKey;
 import com.lmax.solana4j.domain.TokenProgram;
 import com.lmax.solana4j.programs.TokenProgramBase;
-import com.lmax.solana4j.transactionblobs.LegacyTransactionBlobFactory;
-import com.lmax.solana4j.transactionblobs.TransactionBlobFactory;
-import com.lmax.solana4j.transactionblobs.V0TransactionBlobFactory;
+import com.lmax.solana4j.transaction.LegacyTransactionBlobFactory;
+import com.lmax.solana4j.transaction.TransactionBlobFactory;
+import com.lmax.solana4j.transaction.V0TransactionBlobFactory;
 
 import java.util.List;
 import java.util.concurrent.locks.LockSupport;

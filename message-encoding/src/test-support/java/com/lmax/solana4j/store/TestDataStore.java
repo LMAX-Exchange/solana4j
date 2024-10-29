@@ -1,4 +1,4 @@
-package com.lmax.solana4j;
+package com.lmax.solana4j.store;
 
 import java.util.HashMap;
 import java.util.Map;

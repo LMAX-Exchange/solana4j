@@ -16,6 +16,7 @@ import com.lmax.solana4j.client.api.TransactionData;
 import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.domain.Sol;
 import com.lmax.solana4j.domain.TestKeyPair;
+import com.lmax.solana4j.domain.TestKeyPairGenerator;
 import com.lmax.solana4j.domain.TestPublicKey;
 import com.lmax.solana4j.domain.TokenProgram;
 import com.lmax.solana4j.encoding.SolanaEncoding;
@@ -24,8 +25,9 @@ import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
 import com.lmax.solana4j.programs.SystemProgram;
 import com.lmax.solana4j.programs.TokenProgramBase;
+import com.lmax.solana4j.store.TestContext;
+import com.lmax.solana4j.store.TestDataType;
 import com.lmax.solana4j.util.Base58;
-import com.lmax.solana4j.util.TestKeyPairGenerator;
 import org.bouncycastle.util.encoders.Base64;
 
 import java.util.ArrayList;

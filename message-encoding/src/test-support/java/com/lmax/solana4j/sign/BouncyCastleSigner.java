@@ -1,4 +1,4 @@
-package com.lmax.solana4j.util;
+package com.lmax.solana4j.sign;
 
 import com.lmax.solana4j.api.ByteBufferSigner;
 import org.bouncycastle.math.ec.rfc8032.Ed25519;

@@ -1,4 +1,4 @@
-package com.lmax.solana4j.parameterization;
+package com.lmax.solana4j.parameterisation;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@ParameterizedTest(name = "{index}: (Message Encoding {0}, Token Program {1})")
-@ArgumentsSource(TokenProgramArgumentsParameter.class)
-public @interface ParameterizedTokenTest
+@ParameterizedTest(name = "{index}: (Message Encoding {0})")
+@ArgumentsSource(MessageEncodingArgumentsParameter.class)
+public @interface ParameterizedMessageEncodingTest
 {
 }

@@ -1,6 +1,6 @@
 package com.lmax.solana4j.programs;
 
-import com.lmax.solana4j.parameterization.ParameterizedTokenTest;
+import com.lmax.solana4j.parameterisation.ParameterizedTokenTest;
 import org.junit.jupiter.api.BeforeEach;
 
 class TokenProgramIntegrationTest extends SolanaProgramsIntegrationTestBase

@@ -1,4 +1,4 @@
-package com.lmax.solana4j.parameterization;
+package com.lmax.solana4j.parameterisation;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;

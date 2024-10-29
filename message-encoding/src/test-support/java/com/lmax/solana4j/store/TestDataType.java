@@ -1,4 +1,4 @@
-package com.lmax.solana4j;
+package com.lmax.solana4j.store;
 
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.domain.TestKeyPair;
