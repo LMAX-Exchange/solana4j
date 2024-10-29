@@ -3,10 +3,11 @@ package com.lmax.solana4j.encoding;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.util.Ed25519;
-import com.lmax.solana4j.util.Sha256;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,7 +38,7 @@ final class SolanaProgramDerivedAddress implements ProgramDerivedAddress
             programId.write(seedsBuffer);
             seedsBuffer.put(PROGRAM_DERIVED_ADDRESS_BYTES);
 
-            final byte[] programAddress = Sha256.hash(seedsBuffer.array());
+            final byte[] programAddress = hash(seedsBuffer.array());
 
             if (isOffCurve(programAddress))
             {
@@ -46,6 +47,20 @@ final class SolanaProgramDerivedAddress implements ProgramDerivedAddress
             bumpSeed--;
         }
         throw new RuntimeException("Could not find a program address off the curve.");
+    }
+
+    private static byte[] hash(final byte[] input)
+    {
+        final MessageDigest digest;
+        try
+        {
+            digest = MessageDigest.getInstance("SHA-256");
+        }
+        catch (final NoSuchAlgorithmException e)
+        {
+            throw new RuntimeException(e);
+        }
+        return digest.digest(input);
     }
 
     private static boolean isOffCurve(final byte[] programAddress)
