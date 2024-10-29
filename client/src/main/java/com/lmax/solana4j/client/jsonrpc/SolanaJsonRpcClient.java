@@ -11,7 +11,6 @@ import com.lmax.solana4j.client.api.SolanaClientError;
 import com.lmax.solana4j.client.api.SolanaClientResponse;
 import com.lmax.solana4j.client.api.TokenAmount;
 import com.lmax.solana4j.client.api.TransactionResponse;
-import com.lmax.solana4j.client.util.Result;
 
 import java.io.IOException;
 import java.net.URI;
