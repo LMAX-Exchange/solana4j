@@ -32,4 +32,10 @@ class SolanaJsonRpcClientResponse<T> implements SolanaClientResponse<T>
     {
         return error;
     }
+
+    @Override
+    public boolean isSuccess()
+    {
+        return error != null;
+    }
 }

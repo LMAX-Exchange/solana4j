@@ -5,4 +5,6 @@ public interface SolanaClientResponse<T>
     T getResponse();
 
     SolanaClientError getError();
+
+    boolean isSuccess();
 }

@@ -419,7 +419,7 @@ public class SolanaDriver
     {
         for (int i = 0; i < 10; i++)
         {
-            if (response.getError() == null)
+            if (response.isSuccess())
             {
                 return response.getResponse();
             }
