@@ -2,7 +2,7 @@ package com.lmax.solana4j.domain;
 
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;
-import com.lmax.solana4j.util.Base58;
+import com.lmax.solana4j.encoding.SolanaEncoding;
 
 public class TestKeyPair
 {
@@ -17,13 +17,8 @@ public class TestKeyPair
 
     public TestKeyPair(final String publicKey, final String privateKey)
     {
-        this.publicKey = Base58.decode(publicKey);
-        this.privateKey = Base58.decode(privateKey);
-    }
-
-    public String getPublicKeyBase58()
-    {
-        return Base58.encode(publicKey);
+        this.publicKey = SolanaEncoding.decodeBase58(publicKey);
+        this.privateKey = SolanaEncoding.decodeBase58(privateKey);
     }
 
     public byte[] getPublicKeyBytes()

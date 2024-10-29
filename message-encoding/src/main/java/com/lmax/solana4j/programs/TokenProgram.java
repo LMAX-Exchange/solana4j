@@ -3,8 +3,7 @@ package com.lmax.solana4j.programs;
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionBuilder;
-import com.lmax.solana4j.util.Base58;;
-
+import com.lmax.solana4j.encoding.SolanaEncoding;
 
 /**
  * Program for managing token operations on the Solana blockchain.
@@ -16,7 +15,7 @@ import com.lmax.solana4j.util.Base58;;
 
 public final class TokenProgram extends TokenProgramBase
 {
-    private static final byte[] TOKEN_PROGRAM_ID = Base58.decode("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
+    private static final byte[] TOKEN_PROGRAM_ID = SolanaEncoding.decodeBase58("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
 
     /**
      * The public key for the token program account.

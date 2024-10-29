@@ -1,5 +1,6 @@
 package com.lmax.solana4j.util;
 
+import com.lmax.solana4j.encoding.SolanaEncoding;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +19,7 @@ class Base58Test
     {
         final var emptyBytes = new byte[0];
 
-        final var encode = Base58.encode(emptyBytes);
+        final var encode = SolanaEncoding.encodeBase58(emptyBytes);
 
         assertThat(encode).isEqualTo("");
     }
@@ -28,7 +29,7 @@ class Base58Test
     {
         final var emptyString = "";
 
-        final var decode = Base58.decode(emptyString);
+        final var decode = SolanaEncoding.decodeBase58(emptyString);
 
         assertThat(decode).isEqualTo(new byte[0]);
     }
@@ -38,7 +39,7 @@ class Base58Test
     {
         final var validBase58String = "abcd";
 
-        final var decode = Base58.decode(validBase58String);
+        final var decode = SolanaEncoding.decodeBase58(validBase58String);
 
         assertThat(decode).isEqualTo(new byte[]{100, 6, 2});
     }
@@ -46,7 +47,7 @@ class Base58Test
     @Test
     void invalidBase58CharacterShouldThrowException()
     {
-        assertThrows(IllegalArgumentException.class, () -> Base58.decode("10lL"));
+        assertThrows(IllegalArgumentException.class, () -> SolanaEncoding.decodeBase58("10lL"));
     }
 
     @Test
@@ -54,8 +55,8 @@ class Base58Test
     {
         final var validBase58String = "abcd";
 
-        final var decode = Base58.decode(validBase58String);
-        final var encode = Base58.encode(decode);
+        final var decode = SolanaEncoding.decodeBase58(validBase58String);
+        final var encode = SolanaEncoding.encodeBase58(decode);
 
         assertThat(encode).isEqualTo(validBase58String);
     }
@@ -65,8 +66,8 @@ class Base58Test
     {
         final var bytes = new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-        final var encode = Base58.encode(bytes);
-        final var decode = Base58.decode(encode);
+        final var encode = SolanaEncoding.encodeBase58(bytes);
+        final var decode = SolanaEncoding.decodeBase58(encode);
 
         assertThat(decode).isEqualTo(bytes);
     }
@@ -76,7 +77,7 @@ class Base58Test
     {
         final var leadingZeros = new byte[]{0, 0, 1};
 
-        final var encode = Base58.encode(leadingZeros);
+        final var encode = SolanaEncoding.encodeBase58(leadingZeros);
 
         assertThat(encode).isEqualTo("112");
     }
@@ -86,7 +87,7 @@ class Base58Test
     {
         final var singleZero = new byte[]{0};
 
-        final var encode = Base58.encode(singleZero);
+        final var encode = SolanaEncoding.encodeBase58(singleZero);
 
         assertThat(encode).isEqualTo("1");
     }
@@ -96,7 +97,7 @@ class Base58Test
     {
         final var largestByteValue = new byte[]{(byte) 0xff};
 
-        final var encode = Base58.encode(largestByteValue);
+        final var encode = SolanaEncoding.encodeBase58(largestByteValue);
 
         assertThat(encode).isEqualTo("5Q");
     }
@@ -109,7 +110,7 @@ class Base58Test
                 (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff
         };
 
-        final var encode = Base58.encode(largestByteValue);
+        final var encode = SolanaEncoding.encodeBase58(largestByteValue);
 
         assertThat(encode).isEqualTo("jpXCZedGfVQ");
     }
@@ -119,8 +120,8 @@ class Base58Test
     {
         final var largeByteArray = createRandomByteArray(1000);
 
-        final var encode = Base58.encode(largeByteArray);
-        final var decode = Base58.decode(encode);
+        final var encode = SolanaEncoding.encodeBase58(largeByteArray);
+        final var decode = SolanaEncoding.decodeBase58(encode);
 
         assertThat(decode).isEqualTo(largeByteArray);
     }
@@ -130,8 +131,8 @@ class Base58Test
     {
         final var helloWorld = "helloWorld".getBytes(StandardCharsets.UTF_8);
 
-        final var encode = Base58.encode(helloWorld);
-        final var decode = Base58.decode(encode);
+        final var encode = SolanaEncoding.encodeBase58(helloWorld);
+        final var decode = SolanaEncoding.decodeBase58(encode);
 
         assertThat(new String(decode, StandardCharsets.UTF_8)).isEqualTo("helloWorld");
     }
@@ -141,8 +142,8 @@ class Base58Test
     {
         final var blah = "测试".getBytes(StandardCharsets.UTF_8);
 
-        final var encode = Base58.encode(blah);
-        final var decode = Base58.decode(encode);
+        final var encode = SolanaEncoding.encodeBase58(blah);
+        final var decode = SolanaEncoding.decodeBase58(encode);
 
         assertThat(new String(decode, StandardCharsets.UTF_8)).isEqualTo("测试");
     }
@@ -155,7 +156,7 @@ class Base58Test
         {
             final var randomByteArray = createRandomByteArray(32);
 
-            final String base58EncodeSolana4jImplementation = Base58.encode(randomByteArray);
+            final String base58EncodeSolana4jImplementation = SolanaEncoding.encodeBase58(randomByteArray);
             final String base58EncodeBitcoinjImplementation = org.bitcoinj.core.Base58.encode(randomByteArray);
 
             assertEquals(base58EncodeSolana4jImplementation, base58EncodeBitcoinjImplementation);
@@ -170,7 +171,7 @@ class Base58Test
         {
             final var randomString = createRandomBase58String();
 
-            final byte[] base58DecodeSolana4jImplementation = Base58.decode(randomString);
+            final byte[] base58DecodeSolana4jImplementation = SolanaEncoding.decodeBase58(randomString);
             final byte[] base58DecodeBitcoinjImplementation = org.bitcoinj.core.Base58.decode(randomString);
 
             assertThat(base58DecodeSolana4jImplementation)

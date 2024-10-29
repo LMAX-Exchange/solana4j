@@ -6,7 +6,6 @@ import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionBuilder;
 import com.lmax.solana4j.api.TransactionInstruction;
 import com.lmax.solana4j.encoding.SolanaEncoding;
-import com.lmax.solana4j.util.Base58;;
 
 import java.nio.ByteOrder;
 import java.util.List;
@@ -24,7 +23,7 @@ public final class BpfLoaderUpgradeableProgram
      * This constant holds the program ID used to identify the BPF Loader Upgradeable program.
      * </p>
      */
-    private static final byte[] PROGRAM_ID = Base58.decode("BPFLoaderUpgradeab1e11111111111111111111111");
+    private static final byte[] PROGRAM_ID = SolanaEncoding.decodeBase58("BPFLoaderUpgradeab1e11111111111111111111111");
 
     /**
      * The public key associated with the BPF Loader Upgradeable program.

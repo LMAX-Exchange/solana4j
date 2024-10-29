@@ -4,7 +4,7 @@ import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionBuilder;
 import com.lmax.solana4j.api.TransactionInstruction;
-import com.lmax.solana4j.util.Base58;;
+import com.lmax.solana4j.encoding.SolanaEncoding;
 
 import java.nio.ByteOrder;
 
@@ -17,7 +17,7 @@ import java.nio.ByteOrder;
  */
 public final class ComputeBudgetProgram
 {
-    private static final byte[] COMPUTE_BUDGET_PROGRAM_ID = Base58.decode("ComputeBudget111111111111111111111111111111");
+    private static final byte[] COMPUTE_BUDGET_PROGRAM_ID = SolanaEncoding.decodeBase58("ComputeBudget111111111111111111111111111111");
 
     /**
      * The public key for the compute budget program account.

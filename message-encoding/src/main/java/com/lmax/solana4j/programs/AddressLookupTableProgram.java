@@ -8,7 +8,6 @@ import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.api.TransactionBuilder;
 import com.lmax.solana4j.api.TransactionInstruction;
 import com.lmax.solana4j.encoding.SolanaEncoding;
-import com.lmax.solana4j.util.Base58;;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -21,7 +20,7 @@ import java.util.List;
 public final class AddressLookupTableProgram
 {
 
-    private static final byte[] ADDRESS_LOOKUP_TABLE_PROGRAM = Base58.decode("AddressLookupTab1e1111111111111111111111111");
+    private static final byte[] ADDRESS_LOOKUP_TABLE_PROGRAM = SolanaEncoding.decodeBase58("AddressLookupTab1e1111111111111111111111111");
 
     /**
      * The public key for the address lookup table program account.

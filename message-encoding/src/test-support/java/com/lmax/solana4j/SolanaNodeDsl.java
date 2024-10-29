@@ -27,7 +27,6 @@ import com.lmax.solana4j.programs.SystemProgram;
 import com.lmax.solana4j.programs.TokenProgramBase;
 import com.lmax.solana4j.store.TestContext;
 import com.lmax.solana4j.store.TestDataType;
-import com.lmax.solana4j.util.Base58;
 import org.bouncycastle.util.encoders.Base64;
 
 import java.util.ArrayList;
@@ -80,7 +79,7 @@ public class SolanaNodeDsl
         final String address = testContext.lookupOrLiteral(params.value("address"), TestDataType.TEST_PUBLIC_KEY);
         final long lamports = Sol.lamports(params.valueAsBigDecimal("amountSol"));
 
-        final String transactionSignature = solanaDriver.requestAirdrop(new TestPublicKey(Base58.decode(address)), lamports);
+        final String transactionSignature = solanaDriver.requestAirdrop(new TestPublicKey(SolanaEncoding.decodeBase58(address)), lamports);
 
         Waiter.waitFor(transactionFinalized(transactionSignature));
     }
@@ -257,8 +256,8 @@ public class SolanaNodeDsl
 
         byte[] accountInfoBytes = Base64.decode(accountInfo.getData().get(0));
 
-        assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, 4, 36))).isEqualTo(mintAuthority.getPublicKeyBase58());
-        assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, 50, 82))).isEqualTo(freezeAuthority.getPublicKeyBase58());
+        assertThat(SolanaEncoding.encodeBase58(Arrays.copyOfRange(accountInfoBytes, 4, 36))).isEqualTo(mintAuthority.getPublicKeyBase58());
+        assertThat(SolanaEncoding.encodeBase58(Arrays.copyOfRange(accountInfoBytes, 50, 82))).isEqualTo(freezeAuthority.getPublicKeyBase58());
         assertThat(accountInfo.getOwner()).isEqualTo(tokenProgram.getProgram().base58());
     }
 
@@ -376,8 +375,8 @@ public class SolanaNodeDsl
 
         byte[] accountInfoBytes = Base64.decode(accountInfo.getData().get(0));
 
-        assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, 0, 32))).isEqualTo(tokenMint.getPublicKeyBase58());
-        assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, 32, 64))).isEqualTo(tokenAccountAuthority.getPublicKeyBase58());
+        assertThat(SolanaEncoding.encodeBase58(Arrays.copyOfRange(accountInfoBytes, 0, 32))).isEqualTo(tokenMint.getPublicKeyBase58());
+        assertThat(SolanaEncoding.encodeBase58(Arrays.copyOfRange(accountInfoBytes, 32, 64))).isEqualTo(tokenAccountAuthority.getPublicKeyBase58());
         assertThat(accountInfo.getOwner()).isEqualTo(tokenProgram.getProgram().base58());
     }
 
@@ -449,7 +448,7 @@ public class SolanaNodeDsl
         {
             final int signerStartIndex = 3 + (32 * i);
             final int signerEndIndex = signerStartIndex + 32;
-            assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, signerStartIndex, signerEndIndex))).isEqualTo(multiSigSigners.get(i).base58());
+            assertThat(SolanaEncoding.encodeBase58(Arrays.copyOfRange(accountInfoBytes, signerStartIndex, signerEndIndex))).isEqualTo(multiSigSigners.get(i).base58());
         }
     }
 
@@ -532,7 +531,7 @@ public class SolanaNodeDsl
 
         final PublicKey actualNonceAccountValue = SystemProgram.getNonceAccountValue(Base64.decode(accountInfo.getData().get(0)));
 
-        assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, 8, 40))).isEqualTo(expectedNonceAuthority.getPublicKeyBase58());
+        assertThat(SolanaEncoding.encodeBase58(Arrays.copyOfRange(accountInfoBytes, 8, 40))).isEqualTo(expectedNonceAuthority.getPublicKeyBase58());
         assertThat(actualNonceAccountValue).isEqualTo((expectedNonceAccountValue.getSolana4jPublicKey()));
     }
 
@@ -620,8 +619,8 @@ public class SolanaNodeDsl
 
         final byte[] accountDataBytes = Base64.decode(accountInfo.getData().get(0));
 
-        assertThat(Base58.encode(Arrays.copyOfRange(accountDataBytes, 0, 32))).isEqualTo(tokenMint.getPublicKeyBase58());
-        assertThat(Base58.encode(Arrays.copyOfRange(accountDataBytes, 32, 64))).isEqualTo(owner.getPublicKeyBase58());
+        assertThat(SolanaEncoding.encodeBase58(Arrays.copyOfRange(accountDataBytes, 0, 32))).isEqualTo(tokenMint.getPublicKeyBase58());
+        assertThat(SolanaEncoding.encodeBase58(Arrays.copyOfRange(accountDataBytes, 32, 64))).isEqualTo(owner.getPublicKeyBase58());
         assertThat(accountInfo.getOwner()).isEqualTo(tokenProgram.getProgram().base58());
     }
 
@@ -739,9 +738,9 @@ public class SolanaNodeDsl
                 .collect(Collectors.toList());
 
         final String transactionSignature = solanaDriver.setBpfUpgradeableProgramUpgradeAuthority(
-                com.lmax.solana4j.Solana.account(Base58.decode(bpfUpgradeableProgram)),
-                com.lmax.solana4j.Solana.account(Base58.decode(oldUpgradeAuthorityPublicKey)),
-                com.lmax.solana4j.Solana.account(Base58.decode(newUpgradeAuthority)),
+                Solana.account(SolanaEncoding.decodeBase58(bpfUpgradeableProgram)),
+                Solana.account(SolanaEncoding.decodeBase58(oldUpgradeAuthorityPublicKey)),
+                Solana.account(SolanaEncoding.decodeBase58(newUpgradeAuthority)),
                 payer.getSolana4jPublicKey(),
                 List.of(payer, new TestKeyPair(oldUpgradeAuthorityPublicKey, oldUpgradeAuthorityPrivateKey)),
                 addressLookupTables);
@@ -760,13 +759,13 @@ public class SolanaNodeDsl
         final String address = testContext.lookupOrLiteral(params.value("address"), TestDataType.TEST_PUBLIC_KEY);
         final String upgradeAuthority = testContext.lookupOrLiteral(params.value("upgradeAuthority"), TestDataType.TEST_PUBLIC_KEY);
 
-        final ProgramDerivedAddress programDataAddress = BpfLoaderUpgradeableProgram.deriveAddress(com.lmax.solana4j.Solana.account(Base58.decode(address)));
+        final ProgramDerivedAddress programDataAddress = BpfLoaderUpgradeableProgram.deriveAddress(Solana.account(SolanaEncoding.decodeBase58(address)));
 
         final AccountInfo accountInfo = Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getAccountInfo(new TestPublicKey(programDataAddress.address().bytes()))));
 
         final byte[] accountInfoBytes = Base64.decode(accountInfo.getData().get(0));
 
-        assertThat(Base58.encode(Arrays.copyOfRange(accountInfoBytes, 13, 45))).isEqualTo(upgradeAuthority);
+        assertThat(SolanaEncoding.encodeBase58(Arrays.copyOfRange(accountInfoBytes, 13, 45))).isEqualTo(upgradeAuthority);
         assertThat(accountInfo.getOwner()).isEqualTo("BPFLoaderUpgradeab1e11111111111111111111111");
     }
 

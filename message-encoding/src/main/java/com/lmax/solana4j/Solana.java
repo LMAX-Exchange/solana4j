@@ -12,7 +12,6 @@ import com.lmax.solana4j.api.SignedMessageBuilder;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.api.TransactionInstruction;
 import com.lmax.solana4j.encoding.SolanaEncoding;
-import com.lmax.solana4j.util.Base58;
 
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -96,6 +95,17 @@ public final class Solana
     }
 
     /**
+     * Creates a new public key from the given string.
+     *
+     * @param accountBase58 the base58 string representing the public key
+     * @return a new instance of {@link PublicKey}
+     */
+    public static PublicKey account(final String accountBase58)
+    {
+        return SolanaEncoding.account(accountBase58);
+    }
+
+    /**
      * Creates an address lookup table for the given lookup table address and list of addresses.
      *
      * @param lookupTableAddress the public key of the lookup table
@@ -138,7 +148,7 @@ public final class Solana
      */
     public static Blockhash blockhash(final String blockhashBase58)
     {
-        return SolanaEncoding.blockhash(Base58.decode(blockhashBase58));
+        return SolanaEncoding.blockhash(blockhashBase58);
     }
 
     /**

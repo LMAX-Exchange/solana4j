@@ -10,12 +10,12 @@ import com.lmax.solana4j.api.SignedMessageBuilder;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TokenProgram;
+import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
 import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
 import com.lmax.solana4j.programs.ComputeBudgetProgram;
 import com.lmax.solana4j.programs.TokenProgramBase;
-import com.lmax.solana4j.util.Base58;
 import com.lmax.solana4j.sign.BouncyCastleSigner;
 
 import java.nio.ByteBuffer;
@@ -564,6 +564,6 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
 
     private static String base58encode(final ByteBuffer bytes)
     {
-        return Base58.encode(ByteBufferPrimitiveArray.copy(bytes));
+        return SolanaEncoding.encodeBase58(ByteBufferPrimitiveArray.copy(bytes));
     }
 }

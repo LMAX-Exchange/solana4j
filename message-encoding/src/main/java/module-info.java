@@ -11,5 +11,4 @@ module com.lmax.solana4j {
     exports com.lmax.solana4j.api;
     exports com.lmax.solana4j.programs;
     exports com.lmax.solana4j.encoding;
-    exports com.lmax.solana4j.util;
 }

@@ -2,7 +2,7 @@ package com.lmax.solana4j.encoding;
 
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import org.assertj.core.api.AssertionsForClassTypes;
-import com.lmax.solana4j.util.Base58;;
+
 import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;

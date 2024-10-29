@@ -1,4 +1,4 @@
-package com.lmax.solana4j.util;
+package com.lmax.solana4j.encoding;
 
 import java.util.Arrays;
 
@@ -9,7 +9,7 @@ import java.util.Arrays;
  * It avoids characters that can cause confusion, such as '0' (zero), 'O' (capital o), 'l' (lowercase L), and 'I' (capital I).
  * </p>
  */
-public final class Base58
+final class Base58
 {
     private static final char[] ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz".toCharArray();
     private static final char ENCODED_ZERO = ALPHABET[0];
@@ -38,7 +38,7 @@ public final class Base58
      * @param input the bytes to encode
      * @return the Base58-encoded string
      */
-    public static String encode(final byte[] input)
+    static String encode(final byte[] input)
     {
         if (input.length == 0)
         {
@@ -88,7 +88,7 @@ public final class Base58
      * @return the decoded byte array
      * @throws IllegalArgumentException if the input contains invalid Base58 characters
      */
-    public static byte[] decode(final String input) throws IllegalArgumentException
+    static byte[] decode(final String input) throws IllegalArgumentException
     {
         if (input.isEmpty())
         {

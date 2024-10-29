@@ -4,8 +4,8 @@ import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionBuilder;
 import com.lmax.solana4j.api.TransactionInstruction;
+import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.encoding.SysVar;
-import com.lmax.solana4j.util.Base58;;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -18,7 +18,7 @@ import java.nio.ByteOrder;
  */
 public final class SystemProgram
 {
-    private static final byte[] SYSTEM_PROGRAM_ID = Base58.decode("11111111111111111111111111111111");
+    private static final byte[] SYSTEM_PROGRAM_ID = SolanaEncoding.decodeBase58("11111111111111111111111111111111");
 
     /**
      * The public key for the system program account.

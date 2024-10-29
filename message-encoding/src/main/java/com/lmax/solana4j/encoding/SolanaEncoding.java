@@ -95,6 +95,17 @@ public final class SolanaEncoding
     }
 
     /**
+     * Creates a new public key from the given string.
+     *
+     * @param accountBase58 the base58 string representing the public key
+     * @return a new instance of {@link PublicKey}
+     */
+    public static PublicKey account(final String accountBase58)
+    {
+        return new SolanaAccount(Base58.decode(accountBase58));
+    }
+
+    /**
      * Derives a program address from the given seeds and program ID.
      *
      * @param seeds     the list of byte arrays representing the seeds
@@ -115,6 +126,17 @@ public final class SolanaEncoding
     public static Blockhash blockhash(final byte[] bytes)
     {
         return new SolanaBlockhash(bytes);
+    }
+
+    /**
+     * Creates a new blockhash from the given string.
+     *
+     * @param blockhashBase58 the string representing the blockhash
+     * @return a new instance of {@link Blockhash}
+     */
+    public static Blockhash blockhash(final String blockhashBase58)
+    {
+        return new SolanaBlockhash(Base58.decode(blockhashBase58));
     }
 
     /**
@@ -154,5 +176,28 @@ public final class SolanaEncoding
     public static AddressLookupTable addressLookupTable(final PublicKey lookupTableAddress, final List<PublicKey> addressLookups)
     {
         return new SolanaAddressLookupTable(lookupTableAddress, addressLookups);
+    }
+
+    /**
+     * Decodes a Base58-encoded string into a byte array.
+     *
+     * @param base58 the Base58-encoded string to decode
+     * @return a byte array representing the decoded value of the Base58 string
+     * @throws IllegalArgumentException if the input string is not a valid Base58 encoded string
+     */
+    public static byte[] decodeBase58(final String base58)
+    {
+        return Base58.decode(base58);
+    }
+
+    /**
+     * Encodes a byte array into a Base58-encoded string.
+     *
+     * @param bytes the byte array to encode into a Base58 string
+     * @return a Base58-encoded string representing the input byte array
+     */
+    public static String encodeBase58(final byte[] bytes)
+    {
+        return Base58.encode(bytes);
     }
 }

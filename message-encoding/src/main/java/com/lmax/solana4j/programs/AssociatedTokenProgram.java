@@ -6,7 +6,6 @@ import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionBuilder;
 import com.lmax.solana4j.api.TransactionInstruction;
 import com.lmax.solana4j.encoding.SolanaEncoding;
-import com.lmax.solana4j.util.Base58;;
 
 import java.nio.ByteOrder;
 import java.util.List;
@@ -26,7 +25,7 @@ public final class AssociatedTokenProgram
      * This constant holds the program ID used to identify the associated token program.
      * </p>
      */
-    private static final byte[] ASSOCIATED_TOKEN_PROGRAM_ID = Base58.decode("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
+    private static final byte[] ASSOCIATED_TOKEN_PROGRAM_ID = SolanaEncoding.decodeBase58("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
 
     /**
      * The public key for the associated token program account.

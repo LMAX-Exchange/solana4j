@@ -1,6 +1,5 @@
-package com.lmax.solana4j;
+package com.lmax.solana4j.encoding;
 
-import com.lmax.solana4j.util.Base58;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;

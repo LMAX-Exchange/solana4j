@@ -4,7 +4,6 @@ import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.ProgramDerivedAddress;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.encoding.SolanaEncoding;
-import com.lmax.solana4j.util.Base58;;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -33,7 +32,7 @@ public final class AssociatedTokenMetadataProgram
      * This constant defines the program ID associated with the Solana account for the associated token metadata program.
      * </p>
      */
-    private static final byte[] ASSOCIATED_TOKEN_METADATA_PROGRAM_ID = Base58.decode("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
+    private static final byte[] ASSOCIATED_TOKEN_METADATA_PROGRAM_ID = SolanaEncoding.decodeBase58("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
 
     /**
      * The public key for the associated token metadata program account.

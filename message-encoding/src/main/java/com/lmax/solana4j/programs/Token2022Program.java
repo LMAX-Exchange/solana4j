@@ -3,7 +3,7 @@ package com.lmax.solana4j.programs;
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.TransactionBuilder;
-import com.lmax.solana4j.util.Base58;;
+import com.lmax.solana4j.encoding.SolanaEncoding;
 
 /**
  * Program for managing Token 2022 operations on the Solana blockchain.
@@ -14,7 +14,7 @@ import com.lmax.solana4j.util.Base58;;
  */
 public final class Token2022Program extends TokenProgramBase
 {
-    private static final byte[] TOKEN_2022_PROGRAM_ID = Base58.decode("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
+    private static final byte[] TOKEN_2022_PROGRAM_ID = SolanaEncoding.decodeBase58("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
 
     /**
      * The public key for the Token 2022 program account.
