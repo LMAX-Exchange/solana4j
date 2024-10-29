@@ -7,7 +7,7 @@ import com.lmax.solana4j.client.api.SolanaClientResponse;
 class SolanaJsonRpcClientResponse<T> implements SolanaClientResponse<T>
 {
     private final T response;
-    private final SolanaJsonRpcClientError error;
+    private final SolanaRecoverableJsonRpcClientError error;
 
     SolanaJsonRpcClientResponse(final T response)
     {
@@ -18,7 +18,7 @@ class SolanaJsonRpcClientResponse<T> implements SolanaClientResponse<T>
     SolanaJsonRpcClientResponse(final ErrorCode errorCode, final String errorMessage)
     {
         this.response = null;
-        this.error = new SolanaJsonRpcClientError(errorCode, errorMessage);
+        this.error = new SolanaRecoverableJsonRpcClientError(errorCode, errorMessage);
     }
 
     @Override

@@ -423,9 +423,15 @@ public class SolanaDriver
             {
                 return response.getResponse();
             }
-            else
+            else if (response.getError().isRecoverable())
             {
                 LockSupport.parkNanos(100_000);
+            }
+            else
+            {
+                throw new RuntimeException(String.format("The error was not recoverable so not retrying. The error code was %s, with message %s.",
+                        response.getError().getErrorMessage(),
+                        response.getError().getErrorCode()));
             }
         }
         throw new RuntimeException("Unable to get a response after retry.");

@@ -60,10 +60,8 @@ public class SolanaJsonRpcClient implements SolanaApi
         {
             return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
         }
-        else
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getSuccess());
-        }
+
+        return new SolanaJsonRpcClientResponse<>(result.getSuccess());
     }
 
     @Override
@@ -84,10 +82,8 @@ public class SolanaJsonRpcClient implements SolanaApi
         {
             return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
         }
-        else
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getSuccess());
-        }
+
+        return new SolanaJsonRpcClientResponse<>(result.getSuccess());
     }
 
     @Override
@@ -105,10 +101,8 @@ public class SolanaJsonRpcClient implements SolanaApi
         {
             return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
         }
-        else
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getSuccess());
-        }
+
+        return new SolanaJsonRpcClientResponse<>(result.getSuccess());
     }
 
     @Override
@@ -124,10 +118,8 @@ public class SolanaJsonRpcClient implements SolanaApi
         {
             return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
         }
-        else
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
-        }
+
+        return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
     }
 
     @Override
@@ -144,10 +136,8 @@ public class SolanaJsonRpcClient implements SolanaApi
         {
             return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
         }
-        else
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
-        }
+
+        return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
     }
 
     @Override
@@ -165,10 +155,8 @@ public class SolanaJsonRpcClient implements SolanaApi
         {
             return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
         }
-        else
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
-        }
+
+        return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
     }
 
     @Override
@@ -182,10 +170,8 @@ public class SolanaJsonRpcClient implements SolanaApi
         {
             return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
         }
-        else
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getSuccess());
-        }
+
+        return new SolanaJsonRpcClientResponse<>(result.getSuccess());
     }
 
     @Override
@@ -199,10 +185,8 @@ public class SolanaJsonRpcClient implements SolanaApi
         {
             return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
         }
-        else
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getSuccess());
-        }
+
+        return new SolanaJsonRpcClientResponse<>(result.getSuccess());
     }
 
     @Override
@@ -216,10 +200,8 @@ public class SolanaJsonRpcClient implements SolanaApi
         {
             return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
         }
-        else
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
-        }
+
+        return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
     }
 
     @Override
@@ -233,10 +215,8 @@ public class SolanaJsonRpcClient implements SolanaApi
         {
             return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
         }
-        else
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getSuccess());
-        }
+
+        return new SolanaJsonRpcClientResponse<>(result.getSuccess());
     }
 
     private <T> Result<SolanaClientError, T> queryForObject(final TypeReference<RpcWrapperDTO<T>> type, final String method, final Object... params)
@@ -262,7 +242,7 @@ public class SolanaJsonRpcClient implements SolanaApi
         }
         catch (final JsonProcessingException e)
         {
-            return Result.error(new SolanaJsonRpcClientError(
+            return Result.error(new SolanaUnrecoverableJsonRpcClientError(
                     ErrorCode.JSON_PROCESSING_ERROR,
                     String.format("Unable to encode JSON RPC request for method %s and params %s.", method, Arrays.toString(params)))
             );
@@ -276,9 +256,13 @@ public class SolanaJsonRpcClient implements SolanaApi
             final HttpResponse<String> httpResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             if (httpResponse.statusCode() != 200)
             {
-                return Result.error(new SolanaJsonRpcClientError(
+                return Result.error(new SolanaUnrecoverableJsonRpcClientError(
                         ErrorCode.JSON_RPC_UNEXPECTED_STATUS_CODE,
-                        String.format("Unexpected status code returned from the JSON RPC for method %s and params %s.", method, Arrays.toString(params)))
+                        String.format("Unexpected status code returned from the JSON RPC for method %s and params %s. The status code was %s with message %s.",
+                                method,
+                                Arrays.toString(params),
+                                httpResponse.statusCode(),
+                                httpResponse.body()))
                 );
             }
             else
@@ -288,7 +272,7 @@ public class SolanaJsonRpcClient implements SolanaApi
         }
         catch (final IOException | InterruptedException e)
         {
-            return Result.error(new SolanaJsonRpcClientError(
+            return Result.error(new SolanaRecoverableJsonRpcClientError(
                     ErrorCode.JSON_RPC_COMMUNICATIONS_FAILURE,
                     String.format("Unable to communicate with the JSON RPC for method %s and params %s.", method, Arrays.toString(params)))
             );
@@ -306,7 +290,7 @@ public class SolanaJsonRpcClient implements SolanaApi
             final RpcWrapperDTO<T> rpcResult = solanaCodec.decodeResponse(httpResponse.body().getBytes(StandardCharsets.UTF_8), type);
             if (rpcResult.getError() != null)
             {
-                return Result.error(new SolanaJsonRpcClientError(
+                return Result.error(new SolanaUnrecoverableJsonRpcClientError(
                         ErrorCode.JSON_RPC_REPORTED_ERROR,
                         String.format("An error was reported by the JSON RPC with code %s and message %s.", rpcResult.getError().getCode(), rpcResult.getError().getMessage()))
                 );
@@ -315,7 +299,7 @@ public class SolanaJsonRpcClient implements SolanaApi
         }
         catch (final IOException e)
         {
-            return Result.error(new SolanaJsonRpcClientError(
+            return Result.error(new SolanaUnrecoverableJsonRpcClientError(
                     ErrorCode.JSON_PROCESSING_ERROR,
                     String.format("Unable to decode JSON RPC response for method %s and params %s.", method, Arrays.toString(params)))
             );

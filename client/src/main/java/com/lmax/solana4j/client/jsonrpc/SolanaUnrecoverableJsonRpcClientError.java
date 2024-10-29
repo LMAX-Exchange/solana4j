@@ -3,12 +3,12 @@ package com.lmax.solana4j.client.jsonrpc;
 import com.lmax.solana4j.client.api.ErrorCode;
 import com.lmax.solana4j.client.api.SolanaClientError;
 
-class SolanaJsonRpcClientError implements SolanaClientError
+class SolanaUnrecoverableJsonRpcClientError implements SolanaClientError
 {
     private final ErrorCode errorCode;
     private final String errorMessage;
 
-    SolanaJsonRpcClientError(final ErrorCode errorCode, final String errorMessage)
+    SolanaUnrecoverableJsonRpcClientError(final ErrorCode errorCode, final String errorMessage)
     {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
@@ -24,5 +24,11 @@ class SolanaJsonRpcClientError implements SolanaClientError
     public String getErrorMessage()
     {
         return errorMessage;
+    }
+
+    @Override
+    public boolean isRecoverable()
+    {
+        return false;
     }
 }

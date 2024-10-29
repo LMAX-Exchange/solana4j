@@ -5,4 +5,6 @@ public interface SolanaClientError
     ErrorCode getErrorCode();
 
     String getErrorMessage();
+
+    boolean isRecoverable();
 }
