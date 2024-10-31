@@ -55,10 +55,7 @@ public class SolanaJsonRpcClient implements SolanaApi
                 new TypeReference<RpcWrapperDTO<String>>()
                 {
                 },
-                "requestAirdrop",
-                dto -> dto,
-                address,
-                amountLamports);
+                dto -> dto, "requestAirdrop", address, amountLamports);
     }
 
     @Override
@@ -67,9 +64,7 @@ public class SolanaJsonRpcClient implements SolanaApi
         return queryForObject(new TypeReference<RpcWrapperDTO<TransactionResponseDTO>>()
                               {
                               },
-                "getTransaction",
-                dto -> dto,
-                transactionSignature,
+                dto -> dto, "getTransaction", transactionSignature,
                 Map.of(
                         "econding", "jsonParsed",
                         "maxSupportedTransactionVersion", 0
@@ -83,9 +78,7 @@ public class SolanaJsonRpcClient implements SolanaApi
         return queryForObject(new TypeReference<RpcWrapperDTO<String>>()
                               {
                               },
-                "sendTransaction",
-                dto -> dto,
-                transactionBlob,
+                dto -> dto, "sendTransaction", transactionBlob,
                 Map.of("preflightCommitment", Commitment.FINALIZED.toString().toLowerCase(Locale.UK))
         );
     }
@@ -96,9 +89,7 @@ public class SolanaJsonRpcClient implements SolanaApi
         return queryForObject(new TypeReference<>()
                               {
                               },
-                "getBalance",
-                BalanceDTO::getValue,
-                address);
+                BalanceDTO::getValue, "getBalance", address);
     }
 
     @Override
@@ -108,9 +99,7 @@ public class SolanaJsonRpcClient implements SolanaApi
                 new TypeReference<>()
                 {
                 },
-                "getTokenAccountBalance",
-                TokenAmountDTO::getValue,
-                address);
+                TokenAmountDTO::getValue, "getTokenAccountBalance", address);
     }
 
     @Override
@@ -119,9 +108,7 @@ public class SolanaJsonRpcClient implements SolanaApi
         return queryForObject(new TypeReference<>()
                               {
                               },
-                "getAccountInfo",
-                AccountInfoDTO::getValue,
-                address,
+                AccountInfoDTO::getValue, "getAccountInfo", address,
                 Map.of("encoding", "base64")
         );
     }
@@ -132,8 +119,8 @@ public class SolanaJsonRpcClient implements SolanaApi
         return queryForObject(new TypeReference<RpcWrapperDTO<Long>>()
                               {
                               },
-                "getBlockHeight",
-                dto -> dto);
+                dto -> dto, "getBlockHeight"
+        );
 
     }
 
@@ -143,8 +130,8 @@ public class SolanaJsonRpcClient implements SolanaApi
         return queryForObject(new TypeReference<RpcWrapperDTO<Long>>()
                               {
                               },
-                "getSlot",
-                dto -> dto);
+                dto -> dto, "getSlot"
+        );
     }
 
     @Override
@@ -153,8 +140,8 @@ public class SolanaJsonRpcClient implements SolanaApi
         return queryForObject(new TypeReference<>()
                               {
                               },
-                "getLatestBlockhash",
-                BlockhashDTO::getValue);
+                BlockhashDTO::getValue, "getLatestBlockhash"
+        );
     }
 
     @Override
@@ -164,9 +151,7 @@ public class SolanaJsonRpcClient implements SolanaApi
                 new TypeReference<RpcWrapperDTO<Long>>()
                 {
                 },
-                "getMinimumBalanceForRentExemption",
-                dto -> dto,
-                size);
+                dto -> dto, "getMinimumBalanceForRentExemption", size);
     }
 
 //    @Override
@@ -184,8 +169,8 @@ public class SolanaJsonRpcClient implements SolanaApi
 
     private <S, T> SolanaClientResponse<S> queryForObject(
             final TypeReference<RpcWrapperDTO<T>> type,
-            final String method,
             final Function<T, S> dtoMapper,
+            final String method,
             final Object... params) throws SolanaJsonRpcClientException
     {
         final HttpRequest request = prepareRequest(method, params);
