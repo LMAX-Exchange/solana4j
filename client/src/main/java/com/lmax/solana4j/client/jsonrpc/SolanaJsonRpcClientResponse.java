@@ -35,6 +35,6 @@ class SolanaJsonRpcClientResponse<T> implements SolanaClientResponse<T>
     @Override
     public boolean isSuccess()
     {
-        return error != null;
+        return error == null;
     }
 }
