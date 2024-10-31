@@ -3,21 +3,25 @@ package com.lmax.solana4j.client.jsonrpc;
 import com.lmax.solana4j.client.api.SolanaClientError;
 import com.lmax.solana4j.client.api.SolanaClientResponse;
 
-class SolanaJsonRpcClientResponse<T> implements SolanaClientResponse<T>
+final class SolanaJsonRpcClientResponse<T> implements SolanaClientResponse<T>
 {
     private final T response;
     private final SolanaClientError error;
 
-    SolanaJsonRpcClientResponse(final T response)
+    private SolanaJsonRpcClientResponse(final T response, final SolanaClientError error)
     {
         this.response = response;
-        this.error = null;
+        this.error = error;
     }
 
-    SolanaJsonRpcClientResponse(final SolanaClientError error)
+    static <T> SolanaClientResponse<T> createSuccessResponse(final T response)
     {
-        this.response = null;
-        this.error = error;
+        return new SolanaJsonRpcClientResponse<>(response, null);
+    }
+
+    static <T> SolanaClientResponse<T> creatErrorResponse(final SolanaClientError error)
+    {
+        return new SolanaJsonRpcClientResponse<>(null, error);
     }
 
     @Override

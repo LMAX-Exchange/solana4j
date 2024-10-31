@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Function;
 
 public class SolanaJsonRpcClient implements SolanaApi
 {
@@ -50,179 +51,153 @@ public class SolanaJsonRpcClient implements SolanaApi
     @Override
     public SolanaClientResponse<String> requestAirdrop(final String address, final long amountLamports) throws SolanaJsonRpcClientException
     {
-        final var result = queryForObject(new TypeReference<RpcWrapperDTO<String>>()
-        {
-        }, "requestAirdrop", address, amountLamports);
-
-        if (result.isError())
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getError());
-        }
-
-        return new SolanaJsonRpcClientResponse<>(result.getSuccess());
+        return queryForObject(
+                new TypeReference<RpcWrapperDTO<String>>()
+                {
+                },
+                "requestAirdrop",
+                dto -> dto,
+                address,
+                amountLamports);
     }
 
     @Override
     public SolanaClientResponse<TransactionResponse> getTransaction(final String transactionSignature) throws SolanaJsonRpcClientException
     {
-        final var result = queryForObject(new TypeReference<RpcWrapperDTO<TransactionResponseDTO>>()
-                                                  {
-                                                  },
+        return queryForObject(new TypeReference<RpcWrapperDTO<TransactionResponseDTO>>()
+                              {
+                              },
                 "getTransaction",
+                dto -> dto,
                 transactionSignature,
                 Map.of(
                         "econding", "jsonParsed",
                         "maxSupportedTransactionVersion", 0
                 )
         );
-
-        if (result.isError())
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getError());
-        }
-
-        return new SolanaJsonRpcClientResponse<>(result.getSuccess());
     }
 
     @Override
     public SolanaClientResponse<String> sendTransaction(final String transactionBlob) throws SolanaJsonRpcClientException
     {
-        final var result = queryForObject(new TypeReference<RpcWrapperDTO<String>>()
-                                          {
-                                          },
+        return queryForObject(new TypeReference<RpcWrapperDTO<String>>()
+                              {
+                              },
                 "sendTransaction",
+                dto -> dto,
                 transactionBlob,
                 Map.of("preflightCommitment", Commitment.FINALIZED.toString().toLowerCase(Locale.UK))
         );
-
-        if (result.isError())
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getError());
-        }
-
-        return new SolanaJsonRpcClientResponse<>(result.getSuccess());
     }
 
     @Override
     public SolanaClientResponse<Long> getBalance(final String address) throws SolanaJsonRpcClientException
     {
-        final var result = queryForObject(new TypeReference<RpcWrapperDTO<BalanceDTO>>()
-                                          {
-                                          },
+        return queryForObject(new TypeReference<>()
+                              {
+                              },
                 "getBalance",
+                BalanceDTO::getValue,
                 address);
-
-        if (result.isError())
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getError());
-        }
-
-        return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
     }
 
     @Override
     public SolanaClientResponse<TokenAmount> getTokenAccountBalance(final String address) throws SolanaJsonRpcClientException
     {
-        final var result = queryForObject(
-                new TypeReference<RpcWrapperDTO<TokenAmountDTO>>()
+        return queryForObject(
+                new TypeReference<>()
                 {
                 },
                 "getTokenAccountBalance",
+                TokenAmountDTO::getValue,
                 address);
-
-        if (result.isError())
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getError());
-        }
-
-        return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
     }
 
     @Override
     public SolanaClientResponse<AccountInfo> getAccountInfo(final String address) throws SolanaJsonRpcClientException
     {
-        final var result = queryForObject(new TypeReference<RpcWrapperDTO<AccountInfoDTO>>()
-                                          {
-                                          },
+        return queryForObject(new TypeReference<RpcWrapperDTO<AccountInfoDTO>>()
+                              {
+                              },
                 "getAccountInfo",
+                AccountInfoDTO::getValue,
                 address,
                 Map.of("encoding", "base64")
         );
-
-        if (result.isError())
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getError());
-        }
-
-        return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
     }
 
     @Override
     public SolanaClientResponse<Long> getBlockHeight() throws SolanaJsonRpcClientException
     {
-        final var result = queryForObject(new TypeReference<RpcWrapperDTO<Long>>()
-        {
-        }, "getBlockHeight");
+        return queryForObject(new TypeReference<RpcWrapperDTO<Long>>()
+                              {
+                              },
+                "getBlockHeight",
+                dto -> dto);
 
-        if (result.isError())
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getError());
-        }
-
-        return new SolanaJsonRpcClientResponse<>(result.getSuccess());
     }
 
     @Override
     public SolanaClientResponse<Long> getSlot() throws SolanaJsonRpcClientException
     {
-        final var result = queryForObject(new TypeReference<RpcWrapperDTO<Long>>()
-        {
-        }, "getSlot");
-
-        if (result.isError())
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getError());
-        }
-
-        return new SolanaJsonRpcClientResponse<>(result.getSuccess());
+        return queryForObject(new TypeReference<RpcWrapperDTO<Long>>()
+                              {
+                              },
+                "getSlot",
+                dto -> dto);
     }
 
     @Override
     public SolanaClientResponse<Blockhash> getLatestBlockhash() throws SolanaJsonRpcClientException
     {
-        final var result = queryForObject(new TypeReference<RpcWrapperDTO<BlockhashDTO>>()
-        {
-        }, "getLatestBlockhash");
-
-        if (result.isError())
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getError());
-        }
-
-        return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
+        return queryForObject(new TypeReference<RpcWrapperDTO<BlockhashDTO>>()
+                              {
+                              },
+                "getLatestBlockhash",
+                BlockhashDTO::getValue);
     }
 
     @Override
     public SolanaClientResponse<Long> getMinimumBalanceForRentExemption(final int size) throws SolanaJsonRpcClientException
     {
-        final var result = queryForObject(new TypeReference<RpcWrapperDTO<Long>>()
-        {
-        }, "getMinimumBalanceForRentExemption", size);
-
-        if (result.isError())
-        {
-            return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode());
-        }
-
-        return new SolanaJsonRpcClientResponse<>(result.getSuccess());
+        return queryForObject(
+                new TypeReference<RpcWrapperDTO<Long>>()
+                {
+                },
+                "getMinimumBalanceForRentExemption",
+                dto -> dto,
+                size);
     }
 
-    private <T> Result<SolanaClientError, T> queryForObject(final TypeReference<RpcWrapperDTO<T>> type, final String method, final Object... params) throws SolanaJsonRpcClientException
+//    @Override
+//    public SolanaClientResponse<SimulateTransactionResponse> simulateTransaction(final String transaction) throws SolanaJsonRpcClientException
+//    {
+//        return queryForObject(
+//                new TypeReference<RpcWrapperDTO<SimulateTransactionResponseDTO>>()
+//                {
+//                },
+//                "simulateTransaction",
+//                SimulateTransactionResponseDTO::getValue,
+//                transaction,
+//                Map.of("encoding", "base64", "replaceRecentBlockhash", true));
+//    }
+
+    private <S, T> SolanaClientResponse<S> queryForObject(
+            final TypeReference<RpcWrapperDTO<T>> type,
+            final String method,
+            final Function<T, S> dtoMapper,
+            final Object... params) throws SolanaJsonRpcClientException
     {
         final HttpRequest request = prepareRequest(method, params);
         final HttpResponse<String> httpResponse = sendRequest(request);
 
-        return decodeResponse(type, httpResponse);
+        final Result<SolanaClientError, T> response = decodeResponse(type, httpResponse);
+        if (response.isError())
+        {
+            return SolanaJsonRpcClientResponse.creatErrorResponse(response.getError());
+        }
+
+        return SolanaJsonRpcClientResponse.createSuccessResponse(dtoMapper.apply(response.getSuccess()));
     }
 
     private HttpRequest prepareRequest(final String method, final Object[] params) throws SolanaJsonRpcClientException

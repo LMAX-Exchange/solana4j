@@ -723,7 +723,7 @@ public class SolanaNodeDsl
         else
         {
             assertThat(solanaClientResponse.isSuccess()).withFailMessage(
-                    "We expected a succes but received a an error from the client."
+                    "We expected a success but received a an error from the client."
             ).isTrue();
             Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(solanaClientResponse.getResponse())));
 
