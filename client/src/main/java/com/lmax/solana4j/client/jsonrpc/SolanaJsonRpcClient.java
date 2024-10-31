@@ -154,19 +154,6 @@ public class SolanaJsonRpcClient implements SolanaApi
                 dto -> dto, "getMinimumBalanceForRentExemption", size);
     }
 
-//    @Override
-//    public SolanaClientResponse<SimulateTransactionResponse> simulateTransaction(final String transaction) throws SolanaJsonRpcClientException
-//    {
-//        return queryForObject(
-//                new TypeReference<RpcWrapperDTO<SimulateTransactionResponseDTO>>()
-//                {
-//                },
-//                "simulateTransaction",
-//                SimulateTransactionResponseDTO::getValue,
-//                transaction,
-//                Map.of("encoding", "base64", "replaceRecentBlockhash", true));
-//    }
-
     private <S, T> SolanaClientResponse<S> queryForObject(
             final TypeReference<RpcWrapperDTO<T>> type,
             final Function<T, S> dtoMapper,

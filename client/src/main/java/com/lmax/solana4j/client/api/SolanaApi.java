@@ -103,6 +103,4 @@ public interface SolanaApi
      * @throws SolanaJsonRpcClientException if there is an error with the JSON-RPC request
      */
     SolanaClientResponse<Long> getMinimumBalanceForRentExemption(int size) throws SolanaJsonRpcClientException;
-
-//    SolanaClientResponse<SimulateTransactionResponse> simulateTransaction(String transaction) throws SolanaJsonRpcClientException;
 }
