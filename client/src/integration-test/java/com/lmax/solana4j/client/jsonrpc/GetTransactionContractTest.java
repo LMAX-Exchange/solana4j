@@ -13,7 +13,7 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
     @Disabled
-    void shouldGetTransaction()
+    void shouldGetTransaction() throws SolanaJsonRpcClientException
     {
         {
 //            "jsonrpc" : "2.0",
@@ -64,7 +64,18 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
 
             final String transactionSignature = api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
 
-            final var transaction = Waiter.waitFor(Condition.isNotNull(() -> api.getTransaction(transactionSignature)));
+            // will need to wait a bit for the transaction above to appear
+            final var transaction = Waiter.waitFor(Condition.isNotNull(() ->
+            {
+                try
+                {
+                    return api.getTransaction(transactionSignature);
+                }
+                catch (SolanaJsonRpcClientException e)
+                {
+                    throw new RuntimeException(e);
+                }
+            }));
         }
     }
 

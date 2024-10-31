@@ -2,8 +2,6 @@ package com.lmax.solana4j.programs;
 
 import com.lmax.solana4j.parameterisation.ParameterizedMessageEncodingTest;
 
-import static org.junit.Assert.assertThrows;
-
 public class ComputeBudgetProgramIntegrationTest extends SolanaProgramsIntegrationTestBase
 {
 
@@ -14,16 +12,16 @@ public class ComputeBudgetProgramIntegrationTest extends SolanaProgramsIntegrati
 
         solana.createKeyPair("payer");
 
-        solana.airdropSol("payer", "1");
+        solana.airdropSol("payer", "0.001");
 
         solana.setComputeUnits("300", "10000", "payer", "tx");
 
         solana.verifyTransactionMetadata("tx", "computeUnitsConsumed: 300");
 
-        // transaction is exactly 300 compute units so this should fail
-        assertThrows(RuntimeException.class, () -> solana.setComputeUnits("299", "10000", "payer"));
+        // -32002 = transaction simulation failed
+        solana.setComputeUnits("299", "10000", "payer", "expectedErrorCode: -32002");
 
-        // let's set the compute unit price so high that we don't have enough sol on the payer account
-        assertThrows(RuntimeException.class, () -> solana.setComputeUnits("300", "100000000000", "payer"));
+        // -32002 = transaction simulation failed
+        solana.setComputeUnits("300", "1000000000", "payer", "expectedErrorCode: -32002");
     }
 }

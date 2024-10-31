@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GetTokenAccountBalanceContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
-    void shouldGetTokenAccountBalance()
+    void shouldGetTokenAccountBalance() throws SolanaJsonRpcClientException
     {
 //        {
 //            "jsonrpc" : "2.0",

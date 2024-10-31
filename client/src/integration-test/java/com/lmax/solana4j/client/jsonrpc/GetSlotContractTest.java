@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GetSlotContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
-    void shouldGetSlot()
+    void shouldGetSlot() throws SolanaJsonRpcClientException
     {
 //        {
 //            "jsonrpc" : "2.0",

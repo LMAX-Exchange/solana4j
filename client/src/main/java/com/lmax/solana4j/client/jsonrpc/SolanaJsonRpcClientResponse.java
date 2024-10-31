@@ -1,13 +1,12 @@
 package com.lmax.solana4j.client.jsonrpc;
 
-import com.lmax.solana4j.client.api.ErrorCode;
 import com.lmax.solana4j.client.api.SolanaClientError;
 import com.lmax.solana4j.client.api.SolanaClientResponse;
 
 class SolanaJsonRpcClientResponse<T> implements SolanaClientResponse<T>
 {
     private final T response;
-    private final SolanaRecoverableJsonRpcClientError error;
+    private final SolanaClientError error;
 
     SolanaJsonRpcClientResponse(final T response)
     {
@@ -15,10 +14,10 @@ class SolanaJsonRpcClientResponse<T> implements SolanaClientResponse<T>
         this.error = null;
     }
 
-    SolanaJsonRpcClientResponse(final ErrorCode errorCode, final String errorMessage)
+    SolanaJsonRpcClientResponse(final SolanaClientError error)
     {
         this.response = null;
-        this.error = new SolanaRecoverableJsonRpcClientError(errorCode, errorMessage);
+        this.error = error;
     }
 
     @Override

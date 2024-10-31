@@ -1,7 +1,5 @@
 package com.lmax.solana4j.client.jsonrpc;
 
-import com.lmax.solana4j.assertion.Condition;
-import com.lmax.solana4j.assertion.Waiter;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
-    void shouldGetAccountInfo()
+    void shouldGetAccountInfo() throws SolanaJsonRpcClientException
     {
 //        {
 //            "jsonrpc" : "2.0",
@@ -32,7 +30,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
 //            "id" : 4
 //        }
 
-        final var accountInfo = Waiter.waitFor(Condition.isNotNull(() -> api.getAccountInfo(payerAccount).getResponse()));
+        final var accountInfo = api.getAccountInfo(payerAccount).getResponse();
 
         assertThat(accountInfo.getOwner()).isEqualTo("11111111111111111111111111111111");
         assertThat(accountInfo.getData().get(0)).isEqualTo("");
@@ -45,7 +43,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
 
     @Test
     @Disabled
-    void shouldGetTokenAccountInfo()
+    void shouldGetTokenAccountInfo() throws SolanaJsonRpcClientException
     {
 //        {
 //            "jsonrpc" : "2.0",
@@ -66,7 +64,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
 //            "id" : 4
 //        }
 
-        final var tokenAccountInfo = Waiter.waitFor(Condition.isNotNull(() -> api.getAccountInfo(tokenAccount)));
+        final var tokenAccountInfo = api.getAccountInfo(tokenAccount).getResponse();
 
 
 //        assertThat(tokenAccountInfo.getOwner()).isEqualTo("11111111111111111111111111111111");

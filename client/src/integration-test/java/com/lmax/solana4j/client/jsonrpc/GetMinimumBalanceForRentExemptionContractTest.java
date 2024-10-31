@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GetMinimumBalanceForRentExemptionContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
-    void shouldGetMinimumBalanceForRentExemption()
+    void shouldGetMinimumBalanceForRentExemption() throws SolanaJsonRpcClientException
     {
 //        {
 //            "jsonrpc" : "2.0",

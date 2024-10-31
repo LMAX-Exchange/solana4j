@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.lmax.solana4j.client.api.AccountInfo;
 import com.lmax.solana4j.client.api.Blockhash;
 import com.lmax.solana4j.client.api.Commitment;
-import com.lmax.solana4j.client.api.ErrorCode;
 import com.lmax.solana4j.client.api.SolanaApi;
 import com.lmax.solana4j.client.api.SolanaClientError;
 import com.lmax.solana4j.client.api.SolanaClientResponse;
@@ -19,7 +18,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 
@@ -50,7 +48,7 @@ public class SolanaJsonRpcClient implements SolanaApi
     }
 
     @Override
-    public SolanaClientResponse<String> requestAirdrop(final String address, final long amountLamports)
+    public SolanaClientResponse<String> requestAirdrop(final String address, final long amountLamports) throws SolanaJsonRpcClientException
     {
         final var result = queryForObject(new TypeReference<RpcWrapperDTO<String>>()
         {
@@ -58,14 +56,14 @@ public class SolanaJsonRpcClient implements SolanaApi
 
         if (result.isError())
         {
-            return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
+            return new SolanaJsonRpcClientResponse<>(result.getError());
         }
 
         return new SolanaJsonRpcClientResponse<>(result.getSuccess());
     }
 
     @Override
-    public SolanaClientResponse<TransactionResponse> getTransaction(final String transactionSignature)
+    public SolanaClientResponse<TransactionResponse> getTransaction(final String transactionSignature) throws SolanaJsonRpcClientException
     {
         final var result = queryForObject(new TypeReference<RpcWrapperDTO<TransactionResponseDTO>>()
                                                   {
@@ -80,14 +78,14 @@ public class SolanaJsonRpcClient implements SolanaApi
 
         if (result.isError())
         {
-            return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
+            return new SolanaJsonRpcClientResponse<>(result.getError());
         }
 
         return new SolanaJsonRpcClientResponse<>(result.getSuccess());
     }
 
     @Override
-    public SolanaClientResponse<String> sendTransaction(final String transactionBlob)
+    public SolanaClientResponse<String> sendTransaction(final String transactionBlob) throws SolanaJsonRpcClientException
     {
         final var result = queryForObject(new TypeReference<RpcWrapperDTO<String>>()
                                           {
@@ -99,14 +97,14 @@ public class SolanaJsonRpcClient implements SolanaApi
 
         if (result.isError())
         {
-            return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
+            return new SolanaJsonRpcClientResponse<>(result.getError());
         }
 
         return new SolanaJsonRpcClientResponse<>(result.getSuccess());
     }
 
     @Override
-    public SolanaClientResponse<Long> getBalance(final String address)
+    public SolanaClientResponse<Long> getBalance(final String address) throws SolanaJsonRpcClientException
     {
         final var result = queryForObject(new TypeReference<RpcWrapperDTO<BalanceDTO>>()
                                           {
@@ -116,14 +114,14 @@ public class SolanaJsonRpcClient implements SolanaApi
 
         if (result.isError())
         {
-            return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
+            return new SolanaJsonRpcClientResponse<>(result.getError());
         }
 
         return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
     }
 
     @Override
-    public SolanaClientResponse<TokenAmount> getTokenAccountBalance(final String address)
+    public SolanaClientResponse<TokenAmount> getTokenAccountBalance(final String address) throws SolanaJsonRpcClientException
     {
         final var result = queryForObject(
                 new TypeReference<RpcWrapperDTO<TokenAmountDTO>>()
@@ -134,14 +132,14 @@ public class SolanaJsonRpcClient implements SolanaApi
 
         if (result.isError())
         {
-            return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
+            return new SolanaJsonRpcClientResponse<>(result.getError());
         }
 
         return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
     }
 
     @Override
-    public SolanaClientResponse<AccountInfo> getAccountInfo(final String address)
+    public SolanaClientResponse<AccountInfo> getAccountInfo(final String address) throws SolanaJsonRpcClientException
     {
         final var result = queryForObject(new TypeReference<RpcWrapperDTO<AccountInfoDTO>>()
                                           {
@@ -153,14 +151,14 @@ public class SolanaJsonRpcClient implements SolanaApi
 
         if (result.isError())
         {
-            return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
+            return new SolanaJsonRpcClientResponse<>(result.getError());
         }
 
         return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
     }
 
     @Override
-    public SolanaClientResponse<Long> getBlockHeight()
+    public SolanaClientResponse<Long> getBlockHeight() throws SolanaJsonRpcClientException
     {
         final var result = queryForObject(new TypeReference<RpcWrapperDTO<Long>>()
         {
@@ -168,14 +166,14 @@ public class SolanaJsonRpcClient implements SolanaApi
 
         if (result.isError())
         {
-            return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
+            return new SolanaJsonRpcClientResponse<>(result.getError());
         }
 
         return new SolanaJsonRpcClientResponse<>(result.getSuccess());
     }
 
     @Override
-    public SolanaClientResponse<Long> getSlot()
+    public SolanaClientResponse<Long> getSlot() throws SolanaJsonRpcClientException
     {
         final var result = queryForObject(new TypeReference<RpcWrapperDTO<Long>>()
         {
@@ -183,14 +181,14 @@ public class SolanaJsonRpcClient implements SolanaApi
 
         if (result.isError())
         {
-            return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
+            return new SolanaJsonRpcClientResponse<>(result.getError());
         }
 
         return new SolanaJsonRpcClientResponse<>(result.getSuccess());
     }
 
     @Override
-    public SolanaClientResponse<Blockhash> getLatestBlockhash()
+    public SolanaClientResponse<Blockhash> getLatestBlockhash() throws SolanaJsonRpcClientException
     {
         final var result = queryForObject(new TypeReference<RpcWrapperDTO<BlockhashDTO>>()
         {
@@ -198,14 +196,14 @@ public class SolanaJsonRpcClient implements SolanaApi
 
         if (result.isError())
         {
-            return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
+            return new SolanaJsonRpcClientResponse<>(result.getError());
         }
 
         return new SolanaJsonRpcClientResponse<>(result.getSuccess().getValue());
     }
 
     @Override
-    public SolanaClientResponse<Long> getMinimumBalanceForRentExemption(final int size)
+    public SolanaClientResponse<Long> getMinimumBalanceForRentExemption(final int size) throws SolanaJsonRpcClientException
     {
         final var result = queryForObject(new TypeReference<RpcWrapperDTO<Long>>()
         {
@@ -213,96 +211,68 @@ public class SolanaJsonRpcClient implements SolanaApi
 
         if (result.isError())
         {
-            return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode(), result.getError().getErrorMessage());
+            return new SolanaJsonRpcClientResponse<>(result.getError().getErrorCode());
         }
 
         return new SolanaJsonRpcClientResponse<>(result.getSuccess());
     }
 
-    private <T> Result<SolanaClientError, T> queryForObject(final TypeReference<RpcWrapperDTO<T>> type, final String method, final Object... params)
+    private <T> Result<SolanaClientError, T> queryForObject(final TypeReference<RpcWrapperDTO<T>> type, final String method, final Object... params) throws SolanaJsonRpcClientException
     {
-        return performRequest(method, params, type);
+        final HttpRequest request = prepareRequest(method, params);
+        final HttpResponse<String> httpResponse = sendRequest(request);
+
+        return decodeResponse(type, httpResponse);
     }
 
-    private <T> Result<SolanaClientError, T> performRequest(
-            final String method,
-            final Object[] params,
-            final TypeReference<RpcWrapperDTO<T>> type)
-    {
-        return prepareRequest(method, params)
-                .onSuccess(success -> sendRequest(method, params, success))
-                .onSuccess(success -> decodeResponse(method, params, type, success));
-    }
-
-    private Result<SolanaClientError, HttpRequest> prepareRequest(final String method, final Object[] params)
+    private HttpRequest prepareRequest(final String method, final Object[] params) throws SolanaJsonRpcClientException
     {
         try
         {
-            return Result.success(buildPostRequest(solanaCodec.encodeRequest(method, params)));
+            return buildPostRequest(solanaCodec.encodeRequest(method, params));
         }
         catch (final JsonProcessingException e)
         {
-            return Result.error(new SolanaUnrecoverableJsonRpcClientError(
-                    ErrorCode.JSON_PROCESSING_ERROR,
-                    String.format("Unable to encode JSON RPC request for method %s and params %s.", method, Arrays.toString(params)))
-            );
+            throw new SolanaJsonRpcClientException(String.format("An error occurred building the JSON RPC request for method %s.", method), e);
         }
     }
 
-    private Result<SolanaClientError, HttpResponse<String>> sendRequest(final String method, final Object[] params, final HttpRequest request)
+    private HttpResponse<String> sendRequest(final HttpRequest request) throws SolanaJsonRpcClientException
     {
         try
         {
             final HttpResponse<String> httpResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             if (httpResponse.statusCode() != 200)
             {
-                return Result.error(new SolanaUnrecoverableJsonRpcClientError(
-                        ErrorCode.JSON_RPC_UNEXPECTED_STATUS_CODE,
-                        String.format("Unexpected status code returned from the JSON RPC for method %s and params %s. The status code was %s with message %s.",
-                                method,
-                                Arrays.toString(params),
-                                httpResponse.statusCode(),
-                                httpResponse.body()))
-                );
+                throw new SolanaJsonRpcClientException(String.format("Unexpected status code %s returned from the JSON RPC for request %s.", httpResponse.statusCode(), request));
             }
             else
             {
-                return Result.success(httpResponse);
+                return httpResponse;
             }
         }
         catch (final IOException | InterruptedException e)
         {
-            return Result.error(new SolanaRecoverableJsonRpcClientError(
-                    ErrorCode.JSON_RPC_COMMUNICATIONS_FAILURE,
-                    String.format("Unable to communicate with the JSON RPC for method %s and params %s.", method, Arrays.toString(params)))
-            );
+            throw new SolanaJsonRpcClientException(String.format("Unable to communicate with the JSON RPC for request %s.", request), e, true);
         }
     }
 
     private <T> Result<SolanaClientError, T> decodeResponse(
-            final String method,
-            final Object[] params,
             final TypeReference<RpcWrapperDTO<T>> type,
-            final HttpResponse<String> httpResponse)
+            final HttpResponse<String> httpResponse) throws SolanaJsonRpcClientException
     {
         try
         {
             final RpcWrapperDTO<T> rpcResult = solanaCodec.decodeResponse(httpResponse.body().getBytes(StandardCharsets.UTF_8), type);
             if (rpcResult.getError() != null)
             {
-                return Result.error(new SolanaUnrecoverableJsonRpcClientError(
-                        ErrorCode.JSON_RPC_REPORTED_ERROR,
-                        String.format("An error was reported by the JSON RPC with code %s and message %s.", rpcResult.getError().getCode(), rpcResult.getError().getMessage()))
-                );
+                return Result.error(new SolanaJsonRpcClientError(rpcResult.getError().getCode(), rpcResult.getError().getMessage()));
             }
             return Result.success(rpcResult.getResult());
         }
         catch (final IOException e)
         {
-            return Result.error(new SolanaUnrecoverableJsonRpcClientError(
-                    ErrorCode.JSON_PROCESSING_ERROR,
-                    String.format("Unable to decode JSON RPC response for method %s and params %s.", method, Arrays.toString(params)))
-            );
+            throw new SolanaJsonRpcClientException(String.format("Unable to decode JSON RPC response %s.", httpResponse), e);
         }
     }
 

@@ -73,6 +73,7 @@ dependencies {
     testSupportImplementation project(path: ':client', configuration: 'default')
     testSupportImplementation project(path: ':shared', configuration: 'sharedTestSupport')
 
+    testSupportImplementation 'org.slf4j:slf4j-api:2.0.9'
     testSupportImplementation 'com.lmax:simple-dsl:3.0.0'
     testSupportImplementation 'org.assertj:assertj-core:3.26.3'
     testSupportImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
@@ -94,7 +95,6 @@ dependencies {
     integrationTestImplementation project(path: ':shared', configuration: 'sharedTestSupport')
 
     integrationTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
-    integrationTestImplementation 'junit:junit:4.13.2'
 
     integrationTestRuntimeOnly 'com.lmax:simple-dsl:3.0.0'
     integrationTestRuntimeOnly 'org.testcontainers:testcontainers:1.20.2'

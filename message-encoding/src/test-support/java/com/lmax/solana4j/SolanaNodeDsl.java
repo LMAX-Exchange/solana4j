@@ -12,7 +12,7 @@ import com.lmax.solana4j.assertion.Condition;
 import com.lmax.solana4j.assertion.Waiter;
 import com.lmax.solana4j.client.SolanaClient;
 import com.lmax.solana4j.client.api.AccountInfo;
-import com.lmax.solana4j.client.api.TransactionData;
+import com.lmax.solana4j.client.api.SolanaClientResponse;
 import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.domain.Sol;
 import com.lmax.solana4j.domain.TestKeyPair;
@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.OptionalInt;
 import java.util.stream.Collectors;
 
 import static com.lmax.solana4j.programs.SystemProgram.MINT_ACCOUNT_LENGTH;
@@ -415,7 +416,7 @@ public class SolanaNodeDsl
                 addressLookupTables
         );
 
-        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature)));
     }
 
     public void verifyMultiSigAccount(final String... args)
@@ -597,7 +598,7 @@ public class SolanaNodeDsl
                 addressLookupTables
         );
 
-        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature)));
     }
 
     public void verifyAssociatedTokenAccount(final String... args)
@@ -686,7 +687,7 @@ public class SolanaNodeDsl
                 List.of(payer, tokenAccountOldAuthority),
                 addressLookupTables);
 
-        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature)));
     }
 
     public void setComputeUnits(final String... args)
@@ -697,19 +698,37 @@ public class SolanaNodeDsl
                 new RequiredArg("computeUnitPrice"),
                 new RequiredArg("payer"),
                 new OptionalArg("rememberTransactionAs"),
-                new OptionalArg("expectedError")
+                new OptionalArg("expectedErrorCode")
         );
 
         final int computeUnitLimit = params.valueAsInt("computeUnitLimit");
         final int computeUnitPrice = params.valueAsInt("computeUnitPrice");
         final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
         final String rememberTransactionAs = params.value("rememberTransactionAs");
+        final OptionalInt expectedErrorCode = params.valuesAsOptionalInt("expectedErrorCode");
 
-        final String transactionSignature = solanaDriver.setComputeUnits(computeUnitLimit, computeUnitPrice, payer);
+        final SolanaClientResponse<String> solanaClientResponse = solanaDriver.setComputeUnits(
+                computeUnitLimit,
+                computeUnitPrice,
+                payer,
+                expectedErrorCode);
 
-        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        if (expectedErrorCode.isPresent())
+        {
+            assertThat(solanaClientResponse.isSuccess()).withFailMessage(
+                    "We expected an error but received a successful response from the client."
+            ).isFalse();
+            assertThat(solanaClientResponse.getError().getErrorCode()).isEqualTo(expectedErrorCode.getAsInt());
+        }
+        else
+        {
+            assertThat(solanaClientResponse.isSuccess()).withFailMessage(
+                    "We expected a succes but received a an error from the client."
+            ).isTrue();
+            Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(solanaClientResponse.getResponse())));
 
-        testContext.data(TestDataType.TRANSACTION_ID).store(rememberTransactionAs, transactionSignature);
+            testContext.data(TestDataType.TRANSACTION_ID).store(rememberTransactionAs, solanaClientResponse.getResponse());
+        }
     }
 
     public void setBpfUpgradeableProgramUpgradeAuthority(final String... args)
@@ -745,7 +764,7 @@ public class SolanaNodeDsl
                 List.of(payer, new TestKeyPair(oldUpgradeAuthorityPublicKey, oldUpgradeAuthorityPrivateKey)),
                 addressLookupTables);
 
-        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction()));
+        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature)));
     }
 
     public void verifyBpfUpgradeableAccount(final String... args)
@@ -791,9 +810,9 @@ public class SolanaNodeDsl
         Waiter.waitFor(Condition.isTrue(() -> solanaDriver.getSlot() > slot));
     }
 
-    private Condition<TransactionData> transactionFinalized(final String transactionSignature)
+    private Condition<TransactionResponse> transactionFinalized(final String transactionSignature)
     {
-        return Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature).getTransaction());
+        return Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature));
     }
 
     private AddressLookupTable storeAddressLookupTable(final TestPublicKey lookupTableAddress, final String lookupTableAlias)

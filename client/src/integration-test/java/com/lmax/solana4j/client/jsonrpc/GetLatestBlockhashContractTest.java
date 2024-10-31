@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GetLatestBlockhashContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
-    void shouldGetLatestBlockhash()
+    void shouldGetLatestBlockhash() throws SolanaJsonRpcClientException
     {
 //        {
 //            "jsonrpc" : "2.0",

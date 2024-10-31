@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class RequestAirdropContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
-    void shouldRequestAirdrop()
+    void shouldRequestAirdrop() throws SolanaJsonRpcClientException
     {
 //        {
 //            "jsonrpc" : "2.0",

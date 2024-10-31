@@ -10,7 +10,7 @@ class SendTransactionContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
     @Disabled
-    void shouldSendTransaction()
+    void shouldSendTransaction() throws SolanaJsonRpcClientException
     {
         final var transactionSignature = api.sendTransaction("blobWellFormed...Not");
         fail();

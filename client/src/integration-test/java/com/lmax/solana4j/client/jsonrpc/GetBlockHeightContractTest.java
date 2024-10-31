@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GetBlockHeightContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
-    void shouldGetBlockHeight()
+    void shouldGetBlockHeight() throws SolanaJsonRpcClientException
     {
 //        {
 //            "jsonrpc" : "2.0",
