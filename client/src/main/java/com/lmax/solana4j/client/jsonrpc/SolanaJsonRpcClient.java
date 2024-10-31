@@ -116,7 +116,7 @@ public class SolanaJsonRpcClient implements SolanaApi
     @Override
     public SolanaClientResponse<AccountInfo> getAccountInfo(final String address) throws SolanaJsonRpcClientException
     {
-        return queryForObject(new TypeReference<RpcWrapperDTO<AccountInfoDTO>>()
+        return queryForObject(new TypeReference<>()
                               {
                               },
                 "getAccountInfo",
@@ -150,7 +150,7 @@ public class SolanaJsonRpcClient implements SolanaApi
     @Override
     public SolanaClientResponse<Blockhash> getLatestBlockhash() throws SolanaJsonRpcClientException
     {
-        return queryForObject(new TypeReference<RpcWrapperDTO<BlockhashDTO>>()
+        return queryForObject(new TypeReference<>()
                               {
                               },
                 "getLatestBlockhash",
