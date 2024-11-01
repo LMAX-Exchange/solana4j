@@ -2,29 +2,31 @@ package com.lmax.solana4j.client.jsonrpc;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.lmax.solana4j.client.api.TransactionData;
 import com.lmax.solana4j.client.api.TransactionMetadata;
 import com.lmax.solana4j.client.api.TransactionResponse;
-
-import java.util.List;
 
 final class TransactionResponseDTO implements TransactionResponse
 {
     private final MetaDTO metaImpl;
     private final long slot;
-    private final List<String> transaction;
+    private final TransactionDataDTO transaction;
     private final Long blockTime;
+    private final String version;
 
     @JsonCreator
     TransactionResponseDTO(
             final @JsonProperty("meta") MetaDTO metaImpl,
             final @JsonProperty("slot") long slot,
-            final @JsonProperty("transaction") List<String> transaction,
-            final @JsonProperty("blockTime") Long blockTime)
+            final @JsonProperty("transaction") TransactionDataDTO transaction,
+            final @JsonProperty("blockTime") Long blockTime,
+            final @JsonProperty("version") String version)
     {
         this.metaImpl = metaImpl;
         this.slot = slot;
         this.transaction = transaction;
         this.blockTime = blockTime;
+        this.version = version;
     }
 
     @Override
@@ -41,7 +43,7 @@ final class TransactionResponseDTO implements TransactionResponse
     }
 
     @Override
-    public List<String> getTransactionData()
+    public TransactionData getTransactionData()
     {
         return transaction;
     }
@@ -53,6 +55,12 @@ final class TransactionResponseDTO implements TransactionResponse
     }
 
     @Override
+    public String getVersion()
+    {
+        return version;
+    }
+
+    @Override
     public String toString()
     {
         return "TransactionResponseDTO{" +
@@ -60,6 +68,7 @@ final class TransactionResponseDTO implements TransactionResponse
                 ", slot=" + slot +
                 ", transaction=" + transaction +
                 ", blockTime=" + blockTime +
+                ", version='" + version + '\'' +
                 '}';
     }
 }

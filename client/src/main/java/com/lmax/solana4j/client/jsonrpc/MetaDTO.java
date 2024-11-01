@@ -3,6 +3,7 @@ package com.lmax.solana4j.client.jsonrpc;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lmax.solana4j.client.api.InnerInstruction;
+import com.lmax.solana4j.client.api.LoadedAddresses;
 import com.lmax.solana4j.client.api.Reward;
 import com.lmax.solana4j.client.api.TokenBalance;
 import com.lmax.solana4j.client.api.TransactionMetadata;
@@ -10,6 +11,7 @@ import com.lmax.solana4j.client.api.TransactionMetadata;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 final class MetaDTO implements TransactionMetadata
@@ -24,6 +26,8 @@ final class MetaDTO implements TransactionMetadata
     public final List<TokenBalanceDTO> preTokenBalances;
     public final List<RewardDTO> rewards;
     public final long computeUnitsConsumed;
+    private final LoadedAddressesDTO loadedAddresses;
+    private final Map.Entry<String, String> status;
 
     @JsonCreator
     MetaDTO(
@@ -36,7 +40,9 @@ final class MetaDTO implements TransactionMetadata
             final @JsonProperty("preBalances") List<Long> preBalances,
             final @JsonProperty("preTokenBalances") List<TokenBalanceDTO> preTokenBalances,
             final @JsonProperty("rewards") List<RewardDTO> rewards,
-            final @JsonProperty("computeUnitsConsumed") long computeUnitsConsumed)
+            final @JsonProperty("computeUnitsConsumed") long computeUnitsConsumed,
+            final @JsonProperty("loadedAddresses") LoadedAddressesDTO loadedAddresses,
+            final @JsonProperty("status") Map.Entry<String, String> status)
     {
         this.err = err;
         this.fee = fee;
@@ -48,6 +54,8 @@ final class MetaDTO implements TransactionMetadata
         this.preTokenBalances = preTokenBalances;
         this.rewards = rewards;
         this.computeUnitsConsumed = computeUnitsConsumed;
+        this.loadedAddresses = loadedAddresses;
+        this.status = status;
     }
 
     @Override
@@ -111,6 +119,19 @@ final class MetaDTO implements TransactionMetadata
     {
         return computeUnitsConsumed;
     }
+
+    @Override
+    public LoadedAddresses getLoadedAddresses()
+    {
+        return loadedAddresses;
+    }
+
+    @Override
+    public Map.Entry<String, String> getStatus()
+    {
+        return status;
+    }
+
 
     @Override
     public String toString()

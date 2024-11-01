@@ -1,7 +1,5 @@
 package com.lmax.solana4j.client.api;
 
-import java.util.List;
-
 /**
  * Represents a transaction on the Solana blockchain.
  * This interface provides access to the metadata of the transaction and the core transaction data.
@@ -22,5 +20,5 @@ public interface Transaction
      *
      * @return a list representing the core transaction data and its encoding
      */
-    List<String> getTransaction();
+    TransactionData getTransaction();
 }

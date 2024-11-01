@@ -4,8 +4,9 @@ import java.util.List;
 
 /**
  * Represents an instruction in a Solana transaction.
- * Instructions define actions that are to be executed on the Solana blockchain, specifying accounts involved,
- * the data for the instruction, and the program to be executed.
+ * Instructions define actions to be executed on the Solana blockchain, specifying accounts involved,
+ * the data for the instruction, and the program responsible for executing the instruction.
+ *
  */
 public interface Instruction
 {
@@ -31,5 +32,34 @@ public interface Instruction
      *
      * @return the integer index of the program ID
      */
-    int getProgramIdIndex();
+    Integer getProgramIdIndex();
+
+    /**
+     * Returns the name or identifier of the program responsible for executing the instruction.
+     * This program is associated with the program ID and specifies the logic that the instruction will follow.
+     *
+     * @return a string representing the program's name or identifier
+     */
+    String getProgram();
+
+    /**
+     * Returns the program ID associated with the instruction.
+     * The program ID is a unique base58-encoded string that identifies the Solana program
+     * responsible for processing the instruction's actions on the blockchain.
+     *
+     * @return the base58-encoded string representing the program ID
+     */
+    String getProgramId();
+
+
+    ParsedInstruction getParsedInstruction();
+
+    /**
+     * Returns the stack height at which this instruction operates, if applicable.
+     * The stack height may indicate the depth or order in which the instruction is processed
+     * within a series of instructions. A null value indicates that the stack height is unspecified.
+     *
+     * @return the stack height as an {@link Integer}, or null if not specified
+     */
+    Integer getStackHeight();
 }

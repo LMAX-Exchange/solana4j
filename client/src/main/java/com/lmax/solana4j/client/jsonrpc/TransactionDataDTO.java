@@ -2,54 +2,99 @@ package com.lmax.solana4j.client.jsonrpc;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lmax.solana4j.client.api.AccountKey;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.lmax.solana4j.client.api.Message;
 import com.lmax.solana4j.client.api.TransactionData;
 
+import java.io.IOException;
 import java.util.List;
 
-final class TransactionDataDTO implements TransactionData
+@JsonDeserialize(using = TransactionDataDTO.TransactionDataDeserializer.class)
+public class TransactionDataDTO implements TransactionData
 {
-    private final MessageDTO message;
-    private final List<AccountKeyDTO> accountKeys;
-    private final List<String> signatures;
+    private final List<String> transactionDataEncoded;
+    private final TransactionDataParsed transactionDataParsed;
 
-    @JsonCreator
-    TransactionDataDTO(
-            final @JsonProperty("message") MessageDTO message,
-            final @JsonProperty("accountKeys") List<AccountKeyDTO> accountKeys,
-            final @JsonProperty("signatures") List<String> signatures)
+    public TransactionDataDTO(
+            final List<String> transactionDataEncoded,
+            final TransactionDataParsed transactionDataParsed)
     {
-        this.message = message;
-        this.accountKeys = accountKeys;
-        this.signatures = signatures;
+        this.transactionDataEncoded = transactionDataEncoded;
+        this.transactionDataParsed = transactionDataParsed;
     }
 
     @Override
-    public Message getMessage()
+    public List<String> getEncodedTransactionData()
     {
-        return message;
+        return transactionDataEncoded;
     }
 
     @Override
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public List<AccountKey> getAccountKeys()
+    public TransactionDataParsed getParsedTransactionData()
     {
-        return (List) accountKeys;
+        return transactionDataParsed;
     }
 
-    @Override
-    public List<String> getSignatures()
+    private static final class TransactionDataParsedDTO implements TransactionDataParsed
     {
-        return signatures;
+        private final MessageDTO message;
+        private final List<String> signatures;
+
+        @JsonCreator
+        TransactionDataParsedDTO(
+                final @JsonProperty("message") MessageDTO message,
+                final @JsonProperty("signatures") List<String> signatures)
+        {
+            this.message = message;
+            this.signatures = signatures;
+        }
+
+        @Override
+        public Message getMessage()
+        {
+            return message;
+        }
+
+        @Override
+        public List<String> getSignatures()
+        {
+            return signatures;
+        }
+
+        @Override
+        public String toString()
+        {
+            return "TransactionData{" +
+                    "message=" + message +
+                    ", signatures=" + signatures +
+                    '}';
+        }
     }
 
-    @Override
-    public String toString()
+    static class TransactionDataDeserializer extends JsonDeserializer<TransactionDataDTO>
     {
-        return "TransactionData{" +
-               "message=" + message +
-               ", signatures=" + signatures +
-               '}';
+        @Override
+        public TransactionDataDTO deserialize(final JsonParser parser, final DeserializationContext context) throws IOException
+        {
+            final ObjectMapper mapper = (ObjectMapper) parser.getCodec();
+            final JsonNode node = mapper.readTree(parser);
+
+            if (node.isArray())
+            {
+                final List<String> transactionDataEncoded = mapper.convertValue(node, mapper.getTypeFactory().constructCollectionType(List.class, String.class));
+                return new TransactionDataDTO(transactionDataEncoded, null);
+            }
+            else if (node.isObject())
+            {
+                final TransactionDataParsed transactionDataParsed = mapper.convertValue(node, TransactionDataParsedDTO.class);
+                return new TransactionDataDTO(null, transactionDataParsed);
+            }
+            throw new IOException("Unable to deserialize Transaction Data.");
+        }
     }
 }

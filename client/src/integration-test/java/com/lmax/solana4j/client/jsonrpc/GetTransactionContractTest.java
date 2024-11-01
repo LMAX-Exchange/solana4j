@@ -2,94 +2,198 @@ package com.lmax.solana4j.client.jsonrpc;
 
 import com.lmax.solana4j.assertion.Condition;
 import com.lmax.solana4j.assertion.Waiter;
+import com.lmax.solana4j.client.api.AccountKeys;
+import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
+import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.domain.Sol;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 // https://solana.com/docs/rpc/http/gettransaction
 class GetTransactionContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
-    @Disabled
-    void shouldGetTransaction() throws SolanaJsonRpcClientException
+    void shouldGetTransactionDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
+        final String transactionSignature = api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+
+        final var response = waitForTransactionSuccess(transactionSignature);
+
+        assertThat(response.getSlot()).isGreaterThan(0);
+        assertThat(response.getBlockTime()).isGreaterThan(0);
+        assertThat(response.getVersion()).isEqualTo("legacy");
+
+        final var encodedTransactionData = response.getTransactionData().getEncodedTransactionData();
+        assertThat(encodedTransactionData.get(0)).isNotEmpty();
+        assertThat(encodedTransactionData.get(1)).isEqualTo("base64");
+
+        final var metadata = response.getMetadata();
+        assertThat(metadata.getErr()).isNull();
+        assertThat(metadata.getFee()).isGreaterThan(0);
+        assertThat(metadata.getInnerInstructions()).isEmpty();
+        assertThat(metadata.getLogMessages()).hasSize(2);
+        assertThat(metadata.getPreBalances()).hasSize(3);
+        assertThat(metadata.getPostBalances()).hasSize(3);
+        assertThat(metadata.getPreTokenBalances()).isEmpty();
+        assertThat(metadata.getPostTokenBalances()).isEmpty();
+        assertThat(metadata.getRewards()).isEmpty();
+        assertThat(metadata.getComputeUnitsConsumed()).isGreaterThan(0);
+        assertThat(metadata.getLoadedAddresses().getReadonly()).isEmpty();
+        assertThat(metadata.getLoadedAddresses().getWritable()).isEmpty();
+        assertThat(metadata.getStatus().getKey()).isEqualTo("Ok");
+    }
+
+    @Test
+    void shouldGetTransactionBase58EncodingOptionalParam() throws SolanaJsonRpcClientException
+    {
+        final String transactionSignature = api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
+        optionalParams.addParam("encoding", "base58");
+
+        final var response = waitForTransactionSuccess(transactionSignature, Optional.of(optionalParams));
+
+        final var encodedTransactionData = response.getTransactionData().getEncodedTransactionData();
+        assertThat(encodedTransactionData.get(0)).isNotEmpty();
+        assertThat(encodedTransactionData.get(1)).isEqualTo("base58");
+    }
+
+    @Test
+    void shouldGetTransactionJsonEncodingOptionalParam() throws SolanaJsonRpcClientException
+    {
+        final String transactionSignature = api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
+        optionalParams.addParam("encoding", "json");
+
+        final var response = waitForTransactionSuccess(transactionSignature, Optional.of(optionalParams));
+
+        final var parsedTransactionData = response.getTransactionData().getParsedTransactionData();
+
+        final var message = parsedTransactionData.getMessage();
+        assertThat(message.getRecentBlockhash()).isNotNull();
+        assertThat(message.getAccountKeys().getEncodedAccountKeys()).hasSize(3);
+
+        final var messageHeader = message.getHeader();
+        assertThat(messageHeader.getNumReadonlySignedAccounts()).isEqualTo(0);
+        assertThat(messageHeader.getNumReadonlyUnsignedAccounts()).isEqualTo(1);
+        assertThat(messageHeader.getNumReadonlySignedAccounts()).isEqualTo(0);
+
+        assertThat(message.getInstructions().size()).isEqualTo(1);
+
+        final var instruction = message.getInstructions().get(0);
+        assertThat(instruction.getData()).isEqualTo("3Bxs3zzLZLuLQEYX");
+        assertThat(instruction.getAccounts()).hasSize(2);
+        assertThat(instruction.getAccounts().get(0)).isEqualTo(0);
+        assertThat(instruction.getAccounts().get(1)).isEqualTo(1);
+        assertThat(instruction.getProgramIdIndex()).isEqualTo(2);
+        assertThat(instruction.getStackHeight()).isEqualTo(null);
+
+        assertThat(message.getRecentBlockhash()).isNotEmpty();
+
+        final var signatures = parsedTransactionData.getSignatures();
+        assertThat(signatures).hasSize(1);
+    }
+
+    @Test
+    void shouldGetTransactionJsonParsedEncodingOptionalParam() throws SolanaJsonRpcClientException
+    {
+        final String transactionSignature = api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
+        optionalParams.addParam("encoding", "jsonParsed");
+
+        final var response = waitForTransactionSuccess(transactionSignature, Optional.of(optionalParams));
+
+        final var parsedTransactionData = response.getTransactionData().getParsedTransactionData();
+
+        final var message = parsedTransactionData.getMessage();
+        assertThat(message.getRecentBlockhash()).isNotNull();
+
+        final var parsedAccountKeys = message.getAccountKeys().getParsedAccountKeys();
+        assertThat(parsedAccountKeys).hasSize(3);
+
+        assertThat(parsedAccountKeys.get(0).isSigner()).isTrue();
+        assertThat(parsedAccountKeys.get(0).isWritable()).isTrue();
+        assertThat(parsedAccountKeys.get(0).getSource()).isEqualTo(AccountKeys.AccountKeyParsed.KeySource.TRANSACTION);
+        assertThat(parsedAccountKeys.get(0).getKey()).isNotEmpty();
+
+        assertThat(parsedAccountKeys.get(1).isSigner()).isFalse();
+        assertThat(parsedAccountKeys.get(1).isWritable()).isTrue();
+        assertThat(parsedAccountKeys.get(1).getSource()).isEqualTo(AccountKeys.AccountKeyParsed.KeySource.TRANSACTION);
+        assertThat(parsedAccountKeys.get(1).getKey()).isNotEmpty();
+
+        assertThat(parsedAccountKeys.get(2).isSigner()).isFalse();
+        assertThat(parsedAccountKeys.get(2).isWritable()).isFalse();
+        assertThat(parsedAccountKeys.get(2).getSource()).isEqualTo(AccountKeys.AccountKeyParsed.KeySource.TRANSACTION);
+        assertThat(parsedAccountKeys.get(2).getKey()).isEqualTo("11111111111111111111111111111111");
+
+        assertThat(message.getHeader()).isNull();
+
+        assertThat(message.getInstructions()).hasSize(1);
+
+        final var instruction = message.getInstructions().get(0);
+        assertThat(instruction.getData()).isNull();
+        assertThat(instruction.getAccounts()).isNull();
+        assertThat(instruction.getProgram()).isEqualTo("system");
+        assertThat(instruction.getProgramId()).isEqualTo("11111111111111111111111111111111");
+        assertThat(instruction.getProgramIdIndex()).isNull();
+        assertThat(instruction.getStackHeight()).isEqualTo(null);
+
+        final var parsedInstruction = instruction.getParsedInstruction();
+        assertThat(parsedInstruction.getType()).isEqualTo("transfer");
+
+        final var parsedInstructionInfo = parsedInstruction.getInfo();
+        assertThat(parsedInstructionInfo.getDestination()).isNotEmpty();
+        assertThat(parsedInstructionInfo.getLamports()).isEqualTo(1000000000L);
+        assertThat(parsedInstructionInfo.getSource()).isNotEmpty();
+
+        assertThat(message.getRecentBlockhash()).isNotEmpty();
+
+        final var signatures = parsedTransactionData.getSignatures();
+        assertThat(signatures).hasSize(1);
+    }
+
+    @Test
+    void shouldReturnNullForUnknownTransactionSignature() throws SolanaJsonRpcClientException
+    {
+        assertThat(api.getTransaction("3wBQpRDgEKgNhbGJGzxfELHTyFas8mvf4x6bLWC989kBpgEVXPnwWS3tg33WEhVxnqbBTVXEQjmHun2tTbxHzSo").getResponse()).isNull();
+    }
+
+    @Test
+    void shouldReturnErrorForMalformedTransactionSignature() throws SolanaJsonRpcClientException
+    {
+        final var transaction = api.getTransaction("iamamalformedtransactionsignature");
+        assertThat(transaction.isSuccess()).isFalse();
+        assertThat(transaction.getError().getErrorCode()).isEqualTo(-32602L);
+        assertThat(transaction.getError().getErrorMessage()).isEqualTo("Invalid param: Invalid");
+    }
+
+    private TransactionResponse waitForTransactionSuccess(final String transactionSignature)
+    {
+        return waitForTransactionSuccess(transactionSignature, Optional.empty());
+    }
+
+    private TransactionResponse waitForTransactionSuccess(final String transactionSignature, final Optional<SolanaClientOptionalParams> maybeOptionalParams)
+    {
+        return Waiter.waitFor(Condition.isNotNull(() ->
         {
-//            "jsonrpc" : "2.0",
-//                "result" : {
-//            "blockTime" : 1729734716,
-//                    "meta" : {
-//                "computeUnitsConsumed" : 150,
-//                        "err" : null,
-//                        "fee" : 5000,
-//                        "innerInstructions" : [ ],
-//                "loadedAddresses" : {
-//                    "readonly" : [ ],
-//                    "writable" : [ ]
-//                },
-//                "logMessages" : [ "Program 11111111111111111111111111111111 invoke [1]", "Program 11111111111111111111111111111111 success" ],
-//                "postBalances" : [ 999998999995000, 1000600000, 1 ],
-//                "postTokenBalances" : [ ],
-//                "preBalances" : [ 1000000000000000, 600000, 1 ],
-//                "preTokenBalances" : [ ],
-//                "rewards" : [ ],
-//                "status" : {
-//                    "Ok" : null
-//                }
-//            },
-//            "slot" : 350,
-//                    "transaction" : {
-//                "message" : {
-//                    "accountKeys" : [ "H7WjSbrW6sdg6yZ6x7KFKxeiKuBqiH4vmgxkQ7aNu32W", "EjmK3LTW8oBSJp14zvQ55PMvPJCuQwRrnjd17P4vrQYo", "11111111111111111111111111111111" ],
-//                    "header" : {
-//                        "numReadonlySignedAccounts" : 0,
-//                                "numReadonlyUnsignedAccounts" : 1,
-//                                "numRequiredSignatures" : 1
-//                    },
-//                    "instructions" : [ {
-//                        "accounts" : [ 0, 1 ],
-//                        "data" : "3Bxs3zzLZLuLQEYX",
-//                                "programIdIndex" : 2,
-//                                "stackHeight" : null
-//                    } ],
-//                    "recentBlockhash" : "Btxp5yqAkyqJ4C17zVmTKjcDkcPD9xvs3fZm9VD1Mxbq"
-//                },
-//                "signatures" : [ "4eZ5dKrog18DTHuqkb7mguksf1LprW7jG4EThCVfMvwcSgnqueMvFx9AibYRh5s52sJRN4gCGPcCSM47s9Ns3s2z" ]
-//            },
-//            "version" : "legacy"
-//        },
-//            "id" : 5
-//        }
-
-            final String transactionSignature = api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
-
-            // will need to wait a bit for the transaction above to appear
-            final var transaction = Waiter.waitFor(Condition.isNotNull(() ->
+            try
             {
-                try
+                if (maybeOptionalParams.isPresent())
                 {
-                    return api.getTransaction(transactionSignature);
+                    return api.getTransaction(transactionSignature, maybeOptionalParams.get()).getResponse();
                 }
-                catch (SolanaJsonRpcClientException e)
+                else
                 {
-                    throw new RuntimeException(e);
+                    return api.getTransaction(transactionSignature).getResponse();
                 }
-            }));
-        }
-    }
-
-    @Test
-    @Disabled
-    void shouldThrowRpcExceptionForUnknownTransactionSignature()
-    {
-
-    }
-
-    @Test
-    @Disabled
-    void shouldThrowRpcExceptionForMalformedTransactionSignature()
-    {
-
+            }
+            catch (SolanaJsonRpcClientException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }));
     }
 }

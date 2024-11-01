@@ -11,12 +11,12 @@ public interface Message
 {
     /**
      * Returns a list of account keys used in the message.
-     * The account keys are base58-encoded strings representing the accounts that are
-     * involved in the transaction defined by the message.
+     * Each account key is a base58-encoded string representing an account involved in the transaction defined by the message.
+     * These account keys identify the accounts that participate in the transaction, either as read-only or writable accounts.
      *
-     * @return a list of base58-encoded account keys
+     * @return an {@link AccountKeys} object containing the base58-encoded account keys involved in the transaction
      */
-    List<String> getAccountKeys();
+    AccountKeys getAccountKeys();
 
     /**
      * Returns the header of the message.
@@ -42,14 +42,5 @@ public interface Message
      *
      * @return the base58-encoded string representing the recent blockhash
      */
-    String getLatestBlockhash();
-
-    /**
-     * Returns the list of address table lookups used in the message.
-     * Address table lookups allow the transaction to reference additional accounts
-     * through lookup tables, reducing the size of the message.
-     *
-     * @return a list of {@link AddressTableLookup} objects representing the address table lookups
-     */
-    List<AddressTableLookup> getAddressTableLookups();
+    String getRecentBlockhash();
 }

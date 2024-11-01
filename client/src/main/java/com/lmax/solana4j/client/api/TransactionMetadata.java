@@ -1,6 +1,7 @@
 package com.lmax.solana4j.client.api;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents metadata associated with a transaction on the Solana blockchain.
@@ -41,22 +42,6 @@ public interface TransactionMetadata
     List<String> getLogMessages();
 
     /**
-     * Returns a list of balances after the transaction was processed.
-     * Each balance corresponds to an account involved in the transaction, represented in lamports.
-     *
-     * @return a list of post-transaction balances in lamports
-     */
-    List<Long> getPostBalances();
-
-    /**
-     * Returns a list of token balances after the transaction was processed.
-     * This provides the post-transaction SPL token balances for accounts that hold tokens.
-     *
-     * @return a list of {@link TokenBalance} objects representing post-transaction token balances
-     */
-    List<TokenBalance> getPostTokenBalances();
-
-    /**
      * Returns a list of balances before the transaction was processed.
      * Each balance corresponds to an account involved in the transaction, represented in lamports.
      *
@@ -65,12 +50,28 @@ public interface TransactionMetadata
     List<Long> getPreBalances();
 
     /**
+     * Returns a list of balances after the transaction was processed.
+     * Each balance corresponds to an account involved in the transaction, represented in lamports.
+     *
+     * @return a list of post-transaction balances in lamports
+     */
+    List<Long> getPostBalances();
+
+    /**
      * Returns a list of token balances before the transaction was processed.
      * This provides the pre-transaction SPL token balances for accounts that hold tokens.
      *
      * @return a list of {@link TokenBalance} objects representing pre-transaction token balances
      */
     List<TokenBalance> getPreTokenBalances();
+
+    /**
+     * Returns a list of token balances after the transaction was processed.
+     * This provides the post-transaction SPL token balances for accounts that hold tokens.
+     *
+     * @return a list of {@link TokenBalance} objects representing post-transaction token balances
+     */
+    List<TokenBalance> getPostTokenBalances();
 
     /**
      * Returns a list of rewards distributed as part of the transaction.
@@ -87,4 +88,20 @@ public interface TransactionMetadata
      * @return the number of compute units consumed
      */
     long getComputeUnitsConsumed();
+
+    /**
+     * Returns the addresses that were loaded during the transaction.
+     * Loaded addresses may include writable or read-only addresses that provide data or permissions necessary for the transaction's execution.
+     *
+     * @return the {@link LoadedAddresses} object representing loaded addresses
+     */
+    LoadedAddresses getLoadedAddresses();
+
+    /**
+     * Returns the transaction status, including the status type and message.
+     * The status provides additional information on whether the transaction was successful and any related messages.
+     *
+     * @return a {@link Map.Entry} containing the status type as the key and the status message as the value
+     */
+    Map.Entry<String, String> getStatus();
 }

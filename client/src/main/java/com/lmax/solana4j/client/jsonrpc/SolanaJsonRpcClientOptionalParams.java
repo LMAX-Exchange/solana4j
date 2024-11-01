@@ -14,11 +14,6 @@ class SolanaJsonRpcClientOptionalParams implements SolanaClientOptionalParams
     @Override
     public void addParam(final String key, final Object value)
     {
-        if (key.equals("encoding") && value.equals("jsonParsed"))
-        {
-            throw new UnsupportedOperationException("If you want 'jsonParsed', you must use" +
-                    "the dedicated endpoint. It can not be provided through SolanaClientOptionalParams.");
-        }
         optionalParams.put(key, value);
     }
 

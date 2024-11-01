@@ -67,7 +67,7 @@ public class SolanaJsonRpcClient implements SolanaApi
                 {
                 },
                 dto -> dto, "requestAirdrop", address, amountLamports,
-                optionalParams);
+                optionalParams.getParams());
     }
 
     @Override
@@ -111,7 +111,7 @@ public class SolanaJsonRpcClient implements SolanaApi
                               {
                               },
                 dto -> dto, "getTransaction", transactionSignature,
-                optionalParams);
+                optionalParams.getParams());
     }
 
     @Override
@@ -131,7 +131,7 @@ public class SolanaJsonRpcClient implements SolanaApi
                               {
                               },
                 BalanceDTO::getValue, "getBalance", address,
-                optionalParams);
+                optionalParams.getParams());
     }
 
     @Override
@@ -153,7 +153,7 @@ public class SolanaJsonRpcClient implements SolanaApi
                 {
                 },
                 TokenAmountDTO::getValue, "getTokenAccountBalance", address,
-                optionalParams);
+                optionalParams.getParams());
     }
 
     @Override
@@ -195,7 +195,7 @@ public class SolanaJsonRpcClient implements SolanaApi
                               {
                               },
                 dto -> dto, "getBlockHeight",
-                optionalParams);
+                optionalParams.getParams());
     }
 
     @Override
@@ -215,7 +215,7 @@ public class SolanaJsonRpcClient implements SolanaApi
                               {
                               },
                 dto -> dto, "getSlot",
-                optionalParams);
+                optionalParams.getParams());
     }
 
     @Override
@@ -235,7 +235,7 @@ public class SolanaJsonRpcClient implements SolanaApi
                               {
                               },
                 BlockhashDTO::getValue, "getLatestBlockhash",
-                optionalParams);
+                optionalParams.getParams());
     }
 
     @Override
@@ -257,7 +257,7 @@ public class SolanaJsonRpcClient implements SolanaApi
                 {
                 },
                 dto -> dto, "getMinimumBalanceForRentExemption", size,
-                optionalParams);
+                optionalParams.getParams());
     }
 
     private <S, T> SolanaClientResponse<S> queryForObject(
