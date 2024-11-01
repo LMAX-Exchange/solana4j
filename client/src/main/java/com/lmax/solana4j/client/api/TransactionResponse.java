@@ -1,5 +1,7 @@
 package com.lmax.solana4j.client.api;
 
+import java.util.List;
+
 /**
  * Represents the response of a transaction on the Solana blockchain.
  * This interface provides access to the transaction's metadata, the slot in which the transaction was confirmed,
@@ -24,12 +26,12 @@ public interface TransactionResponse
     long getSlot();
 
     /**
-     * Returns the core transaction data.
+     * Returns the transaction data and the encoding used.
      * The transaction data contains essential components such as instructions, signatures, and account keys involved in the transaction.
      *
-     * @return the {@link TransactionData} object representing the core transaction data
+     * @return a list representing the core transaction data and its encoding
      */
-    TransactionData getTransaction();
+    List<String> getTransactionData();
 
     /**
      * Returns the block time when the transaction was confirmed.

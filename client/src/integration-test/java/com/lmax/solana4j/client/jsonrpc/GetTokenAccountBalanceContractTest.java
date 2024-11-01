@@ -11,24 +11,8 @@ class GetTokenAccountBalanceContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetTokenAccountBalance() throws SolanaJsonRpcClientException
     {
-//        {
-//            "jsonrpc" : "2.0",
-//                "result" : {
-//            "context" : {
-//                "apiVersion" : "2.0.14",
-//                        "slot" : 258
-//            },
-//            "value" : {
-//                "amount" : "100",
-//                        "decimals" : 18,
-//                        "uiAmount" : 1.0E-16,
-//                        "uiAmountString" : "0.0000000000000001"
-//            }
-//        },
-//            "id" : 4
-//        }
-
         final var tokenAccountBalance = api.getTokenAccountBalance(tokenAccount).getResponse();
+
         assertThat(tokenAccountBalance.getAmount()).isEqualTo("100");
         assertThat(tokenAccountBalance.getDecimals()).isEqualTo(18);
         assertThat(tokenAccountBalance.getUiAmountString()).isEqualTo("0.0000000000000001");

@@ -10,7 +10,6 @@ import com.lmax.solana4j.api.SignedMessageBuilder;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TokenProgram;
-import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
 import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
@@ -19,6 +18,7 @@ import com.lmax.solana4j.programs.TokenProgramBase;
 import com.lmax.solana4j.sign.BouncyCastleSigner;
 
 import java.nio.ByteBuffer;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,7 +58,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         }
         signedMessageBuilder.build();
 
-        return base58encode(buffer);
+        return base64encode(buffer);
     }
 
     @Override
@@ -99,7 +99,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
 
         signedMessageBuilder.build();
 
-        return base58encode(buffer);
+        return base64encode(buffer);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
 
         signedMessageBuilder.build();
 
-        return base58encode(buffer);
+        return base64encode(buffer);
     }
 
     @Override
@@ -183,7 +183,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         }
         signedMessageBuilder.build();
 
-        return base58encode(buffer);
+        return base64encode(buffer);
     }
 
     @Override
@@ -228,7 +228,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         }
         signedMessageBuilder.build();
 
-        return base58encode(buffer);
+        return base64encode(buffer);
     }
 
     @Override
@@ -267,7 +267,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         }
         signedMessageBuilder.build();
 
-        return base58encode(buffer);
+        return base64encode(buffer);
     }
 
     @Override
@@ -312,7 +312,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         }
         signedMessageBuilder.build();
 
-        return base58encode(buffer);
+        return base64encode(buffer);
     }
 
     @Override
@@ -348,7 +348,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         }
         signedMessageBuilder.build();
 
-        return base58encode(buffer);
+        return base64encode(buffer);
     }
 
     @Override
@@ -386,7 +386,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         }
 
         signedMessageBuilder.build();
-        return base58encode(buffer);
+        return base64encode(buffer);
     }
 
     @Override
@@ -416,7 +416,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         }
 
         signedMessageBuilder.build();
-        return base58encode(buffer);
+        return base64encode(buffer);
     }
 
     @Override
@@ -453,7 +453,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         }
 
         signedMessageBuilder.build();
-        return base58encode(buffer);
+        return base64encode(buffer);
     }
 
     @Override
@@ -492,7 +492,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         }
         signedMessageBuilder.build();
 
-        return base58encode(buffer);
+        return base64encode(buffer);
     }
 
     @Override
@@ -522,7 +522,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         }
         signedMessageBuilder.build();
 
-        return base58encode(buffer);
+        return base64encode(buffer);
     }
 
     @Override
@@ -559,11 +559,11 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
         }
         signedMessageBuilder.build();
 
-        return base58encode(buffer);
+        return base64encode(buffer);
     }
 
-    private static String base58encode(final ByteBuffer bytes)
+    private static String base64encode(final ByteBuffer bytes)
     {
-        return SolanaEncoding.encodeBase58(ByteBufferPrimitiveArray.copy(bytes));
+        return Base64.getEncoder().encodeToString(ByteBufferPrimitiveArray.copy(bytes));
     }
 }

@@ -3,18 +3,19 @@ package com.lmax.solana4j.client.jsonrpc;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lmax.solana4j.client.api.Transaction;
-import com.lmax.solana4j.client.api.TransactionData;
 import com.lmax.solana4j.client.api.TransactionMetadata;
+
+import java.util.List;
 
 final class TransactionDTO implements Transaction
 {
     private final MetaDTO metaImpl;
-    private final TransactionDataDTO transaction;
+    private final List<String> transaction;
 
     @JsonCreator
     TransactionDTO(
             final @JsonProperty("meta") MetaDTO metaImpl,
-            final @JsonProperty("transaction") TransactionDataDTO transaction)
+            final @JsonProperty("transaction") List<String> transaction)
     {
         this.metaImpl = metaImpl;
         this.transaction = transaction;
@@ -27,7 +28,7 @@ final class TransactionDTO implements Transaction
     }
 
     @Override
-    public TransactionData getTransaction()
+    public List<String> getTransaction()
     {
         return transaction;
     }

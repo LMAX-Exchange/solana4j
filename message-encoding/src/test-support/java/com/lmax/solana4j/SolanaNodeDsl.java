@@ -757,9 +757,9 @@ public class SolanaNodeDsl
                 .collect(Collectors.toList());
 
         final String transactionSignature = solanaDriver.setBpfUpgradeableProgramUpgradeAuthority(
-                Solana.account(SolanaEncoding.decodeBase58(bpfUpgradeableProgram)),
-                Solana.account(SolanaEncoding.decodeBase58(oldUpgradeAuthorityPublicKey)),
-                Solana.account(SolanaEncoding.decodeBase58(newUpgradeAuthority)),
+                Solana.account(bpfUpgradeableProgram),
+                Solana.account(oldUpgradeAuthorityPublicKey),
+                Solana.account(newUpgradeAuthority),
                 payer.getSolana4jPublicKey(),
                 List.of(payer, new TestKeyPair(oldUpgradeAuthorityPublicKey, oldUpgradeAuthorityPrivateKey)),
                 addressLookupTables);
