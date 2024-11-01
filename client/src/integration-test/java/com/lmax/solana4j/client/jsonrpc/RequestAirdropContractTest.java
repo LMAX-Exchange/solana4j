@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// https://solana.com/docs/rpc/http/requestairdrop
 class RequestAirdropContractTest extends SolanaClientIntegrationTestBase
 {
     @Test

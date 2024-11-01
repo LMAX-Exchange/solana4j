@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// https://solana.com/docs/rpc/http/getminimumbalanceforrentexemption
 class GetMinimumBalanceForRentExemptionContractTest extends SolanaClientIntegrationTestBase
 {
     @Test

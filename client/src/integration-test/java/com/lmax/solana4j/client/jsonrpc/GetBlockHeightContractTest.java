@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// https://solana.com/docs/rpc/http/getblockheight
 class GetBlockHeightContractTest extends SolanaClientIntegrationTestBase
 {
     @Test

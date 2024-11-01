@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.fail;
 
-// https://solana.com/docs/rpc/http/sendtransaction
 class SendTransactionContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
