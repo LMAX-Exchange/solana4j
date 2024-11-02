@@ -51,10 +51,9 @@ public class SolanaJsonRpcClient implements SolanaApi
     @Override
     public SolanaClientResponse<String> requestAirdrop(final String address, final long amountLamports) throws SolanaJsonRpcClientException
     {
-        return queryForObject(
-                new TypeReference<RpcWrapperDTO<String>>()
-                {
-                },
+        return queryForObject(new TypeReference<RpcWrapperDTO<String>>()
+                              {
+                              },
                 dto -> dto, "requestAirdrop", address, amountLamports,
                 defaultOptionalParams());
     }
@@ -62,10 +61,9 @@ public class SolanaJsonRpcClient implements SolanaApi
     @Override
     public SolanaClientResponse<String> requestAirdrop(final String address, final long amountLamports, final SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException
     {
-        return queryForObject(
-                new TypeReference<RpcWrapperDTO<String>>()
-                {
-                },
+        return queryForObject(new TypeReference<RpcWrapperDTO<String>>()
+                              {
+                              },
                 dto -> dto, "requestAirdrop", address, amountLamports,
                 optionalParams.getParams());
     }
@@ -137,10 +135,9 @@ public class SolanaJsonRpcClient implements SolanaApi
     @Override
     public SolanaClientResponse<TokenAmount> getTokenAccountBalance(final String address) throws SolanaJsonRpcClientException
     {
-        return queryForObject(
-                new TypeReference<>()
-                {
-                },
+        return queryForObject(new TypeReference<>()
+                              {
+                              },
                 TokenAmountDTO::getValue, "getTokenAccountBalance", address,
                 defaultOptionalParams());
     }
@@ -148,10 +145,9 @@ public class SolanaJsonRpcClient implements SolanaApi
     @Override
     public SolanaClientResponse<TokenAmount> getTokenAccountBalance(final String address, final SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException
     {
-        return queryForObject(
-                new TypeReference<>()
-                {
-                },
+        return queryForObject(new TypeReference<>()
+                              {
+                              },
                 TokenAmountDTO::getValue, "getTokenAccountBalance", address,
                 optionalParams.getParams());
     }
@@ -241,10 +237,9 @@ public class SolanaJsonRpcClient implements SolanaApi
     @Override
     public SolanaClientResponse<Long> getMinimumBalanceForRentExemption(final int size) throws SolanaJsonRpcClientException
     {
-        return queryForObject(
-                new TypeReference<RpcWrapperDTO<Long>>()
-                {
-                },
+        return queryForObject(new TypeReference<RpcWrapperDTO<Long>>()
+                              {
+                              },
                 dto -> dto, "getMinimumBalanceForRentExemption", size,
                 defaultOptionalParams());
     }
@@ -252,10 +247,9 @@ public class SolanaJsonRpcClient implements SolanaApi
     @Override
     public SolanaClientResponse<Long> getMinimumBalanceForRentExemption(final int size, final SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException
     {
-        return queryForObject(
-                new TypeReference<RpcWrapperDTO<Long>>()
-                {
-                },
+        return queryForObject(new TypeReference<RpcWrapperDTO<Long>>()
+                              {
+                              },
                 dto -> dto, "getMinimumBalanceForRentExemption", size,
                 optionalParams.getParams());
     }
