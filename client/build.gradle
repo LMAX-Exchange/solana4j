@@ -108,6 +108,7 @@ check.dependsOn unitTest
 check.dependsOn integrationTest
 check.dependsOn checkstyleMain
 check.dependsOn checkstyleTest
+check.dependsOn checkstyleIntegrationTest
 
 javadoc {
     title = 'solana4j-json-rpc'

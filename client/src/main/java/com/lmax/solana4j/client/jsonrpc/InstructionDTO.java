@@ -3,14 +3,14 @@ package com.lmax.solana4j.client.jsonrpc;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lmax.solana4j.client.api.Instruction;
-import com.lmax.solana4j.client.api.InstructionParsed;
 
 import java.util.List;
+import java.util.Map;
 
 final class InstructionDTO implements Instruction
 {
     private final List<Integer> accounts;
-    private final InstructionParsedDTO instructionParsed;
+    private final Map<String, Object> instructionParsed;
     private final String data;
     private final String program;
     private final String programId;
@@ -20,7 +20,7 @@ final class InstructionDTO implements Instruction
     @JsonCreator
     InstructionDTO(
             final @JsonProperty("accounts") List<Integer> accounts,
-            final @JsonProperty("parsed") InstructionParsedDTO instructionParsed,
+            final @JsonProperty("parsed") Map<String, Object> instructionParsed,
             final @JsonProperty("data") String data,
             final @JsonProperty("program") String program,
             final @JsonProperty("programId") String programId,
@@ -67,7 +67,7 @@ final class InstructionDTO implements Instruction
     }
 
     @Override
-    public InstructionParsed getInstructionParsed()
+    public Map<String, Object> getInstructionParsed()
     {
         return instructionParsed;
     }
@@ -83,75 +83,12 @@ final class InstructionDTO implements Instruction
     {
         return "InstructionDTO{" +
                 "accounts=" + accounts +
-                ", parsedInstruction=" + instructionParsed +
+                ", instructionParsed=" + instructionParsed +
                 ", data='" + data + '\'' +
                 ", program='" + program + '\'' +
                 ", programId='" + programId + '\'' +
                 ", programIdIndex=" + programIdIndex +
                 ", stackHeight=" + stackHeight +
                 '}';
-    }
-
-    static final class InstructionParsedDTO implements InstructionParsed
-    {
-        private final InstructionInfoParsed info;
-        private final String type;
-
-        @JsonCreator
-        InstructionParsedDTO(
-                final @JsonProperty("info") InstructionInfoParsedDTO info,
-                final @JsonProperty("type") String type)
-        {
-            this.info = info;
-            this.type = type;
-        }
-
-        @Override
-        public InstructionInfoParsed getInfo()
-        {
-            return info;
-        }
-
-        @Override
-        public String getType()
-        {
-            return type;
-        }
-
-        static class InstructionInfoParsedDTO implements InstructionInfoParsed
-        {
-            private final String destination;
-            private final long lamports;
-            private final String source;
-
-            @JsonCreator
-            InstructionInfoParsedDTO(
-                    final @JsonProperty("destination") String destination,
-                    final @JsonProperty("lamports") long lamports,
-                    final @JsonProperty("source") String source)
-            {
-                this.destination = destination;
-                this.lamports = lamports;
-                this.source = source;
-            }
-
-            @Override
-            public String getDestination()
-            {
-                return destination;
-            }
-
-            @Override
-            public long getLamports()
-            {
-                return lamports;
-            }
-
-            @Override
-            public String getSource()
-            {
-                return source;
-            }
-        }
     }
 }

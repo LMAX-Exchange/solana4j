@@ -9,6 +9,7 @@ import com.lmax.solana4j.domain.Sol;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,7 +20,7 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetTransactionDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
-        final String transactionSignature = api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final String transactionSignature = api.requestAirdrop(dummyAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
 
         final var response = waitForTransactionSuccess(transactionSignature);
 
@@ -50,7 +51,7 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetTransactionBase58EncodingOptionalParam() throws SolanaJsonRpcClientException
     {
-        final String transactionSignature = api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final String transactionSignature = api.requestAirdrop(dummyAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "base58");
 
@@ -64,7 +65,7 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetTransactionJsonEncodingOptionalParam() throws SolanaJsonRpcClientException
     {
-        final String transactionSignature = api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final String transactionSignature = api.requestAirdrop(dummyAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "json");
 
@@ -100,7 +101,7 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetTransactionJsonParsedEncodingOptionalParam() throws SolanaJsonRpcClientException
     {
-        final String transactionSignature = api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final String transactionSignature = api.requestAirdrop(dummyAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "jsonParsed");
 
@@ -135,28 +136,28 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
 
         final var instruction = message.getInstructions().get(0);
 
-        // json
+        // would have been present if encoding json not jsonParsed
         assertThat(instruction.getData()).isNull();
         assertThat(instruction.getAccounts()).isNull();
         assertThat(instruction.getProgramIdIndex()).isNull();
         assertThat(instruction.getStackHeight()).isEqualTo(null);
 
-        // jsonParsed
+        // i think the best we can do here is really just return a Map<String, Object> and let the user do their own parsing
+        // since the parsing is very much program specific
         assertThat(instruction.getProgram()).isEqualTo("system");
         assertThat(instruction.getProgramId()).isEqualTo("11111111111111111111111111111111");
 
         final var parsedInstruction = instruction.getInstructionParsed();
-        assertThat(parsedInstruction.getType()).isEqualTo("transfer");
-
-        final var parsedInstructionInfo = parsedInstruction.getInfo();
-        assertThat(parsedInstructionInfo.getDestination()).isNotEmpty();
-        assertThat(parsedInstructionInfo.getLamports()).isEqualTo(1000000000L);
-        assertThat(parsedInstructionInfo.getSource()).isNotEmpty();
-
-        assertThat(message.getRecentBlockhash()).isNotEmpty();
-
-        final var signatures = parsedTransactionData.getSignatures();
-        assertThat(signatures).hasSize(1);
+        assertThat(parsedInstruction.get("type")).isEqualTo("transfer");
+        assertThat(parsedInstruction.get("info"))
+                .usingRecursiveComparison()
+                .ignoringFields("source")
+                .isEqualTo(Map.of(
+                        "destination", "4Nd1mnszWRVFzzsxMgcTzdFoC8Wx5mPQD9KZx3qtDr1M",
+                        "lamports", 1000000000,
+                        "source", "ignoredAsItChanges"
+                )
+        );
     }
 
     @Test

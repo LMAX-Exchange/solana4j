@@ -1,6 +1,7 @@
 package com.lmax.solana4j.client.api;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents an instruction in a Solana transaction.
@@ -52,7 +53,20 @@ public interface Instruction
     String getProgramId();
 
 
-    InstructionParsed getInstructionParsed();
+    /**
+     * Returns a map representation of the parsed instruction data.
+     * The parsed instruction data is represented as a {@link Map} with string keys and object values,
+     * allowing dynamic access to the fields of the instruction without a predefined structure.
+     * <p>
+     * This method is useful for cases where the instruction data may have a variable or unknown format.
+     * Nested objects within the instruction data will also be represented as maps,
+     * providing a flexible way to query the instruction's content.
+     * </p>
+     *
+     * @return a {@link Map} where keys are field names and values are the corresponding data,
+     *         potentially nested as {@code Map<String, Object>} for complex structures
+     */
+    Map<String, Object> getInstructionParsed();
 
     /**
      * Returns the stack height at which this instruction operates, if applicable.

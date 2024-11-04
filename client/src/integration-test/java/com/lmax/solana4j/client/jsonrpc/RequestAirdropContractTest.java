@@ -13,7 +13,7 @@ class RequestAirdropContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldRequestAirdrop() throws SolanaJsonRpcClientException
     {
-        assertThat(api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse()).isNotBlank();
+        assertThat(api.requestAirdrop(dummyAccount, Sol.lamports(BigDecimal.ONE)).getResponse()).isNotBlank();
     }
 
     @Test

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class SolanaClientIntegrationTestBase extends IntegrationTestBase
 {
+    protected final String dummyAccount = "4Nd1mnszWRVFzzsxMgcTzdFoC8Wx5mPQD9KZx3qtDr1M";
     // found in shared/src/test-support/resources/testcontainers/accounts
     protected final String payerAccount = "EjmK3LTW8oBSJp14zvQ55PMvPJCuQwRrnjd17P4vrQYo";
     protected final String tokenAccount = "BxoHF6TfQYXkpThMC7hVeex37U3duprVZuFAa7Akortf";
