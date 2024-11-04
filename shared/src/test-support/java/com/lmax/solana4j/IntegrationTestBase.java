@@ -40,10 +40,9 @@ public abstract class IntegrationTestBase
             copyResourceToTempFile(parentDirectory, "accounts/payer.json");
             copyResourceToTempFile(parentDirectory, "accounts/token_account.json");
             copyResourceToTempFile(parentDirectory, "accounts/token_mint.json");
-            // currently unused and therefore untested
-//            copyResourceToTempFile(parentDirectory, "accounts/associated_token_account.json");
-//            copyResourceToTempFile(parentDirectory, "accounts/multisig.json");
-//            copyResourceToTempFile(parentDirectory, "accounts/nonce_account.json");
+            copyResourceToTempFile(parentDirectory, "accounts/nonce_account.json");
+            copyResourceToTempFile(parentDirectory, "accounts/associated_token_account.json");
+            copyResourceToTempFile(parentDirectory, "accounts/multisig.json");
 
             final String solanaVersion = System.getProperty("solana.version");
             if (arch.equals("aarch64"))

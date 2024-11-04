@@ -21,7 +21,7 @@ class GetBalanceContractTest extends SolanaClientIntegrationTestBase
     }
 
     @Test
-    void shouldThrowRpcExceptionForMalformedAccount() throws SolanaJsonRpcClientException
+    void shouldReturnErrorForMalformedAccount() throws SolanaJsonRpcClientException
     {
         final var response = api.getBalance("iamnotarealaccount");
 

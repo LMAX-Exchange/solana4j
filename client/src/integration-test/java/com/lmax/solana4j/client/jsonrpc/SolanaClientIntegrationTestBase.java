@@ -12,10 +12,9 @@ public class SolanaClientIntegrationTestBase extends IntegrationTestBase
     protected final String payerAccount = "EjmK3LTW8oBSJp14zvQ55PMvPJCuQwRrnjd17P4vrQYo";
     protected final String tokenAccount = "BxoHF6TfQYXkpThMC7hVeex37U3duprVZuFAa7Akortf";
     protected final String tokenMintAccount = "x9wKn11SwXuSgYf3AyUgmw1vLq1XawuqxeXNwbda4Kg";
-    // currently unused and therefore untested
-//    protected final String associatedTokenAccount = "4swkJXi9iwk1sRB4QAk4ZmX1WCWfpP9ButmqCfkEyaqC";
-//    protected final String multiSigAccount = "13SkCFWQiqAN4YTdH3SxNoUNL4RvcxCxMXXQxpJue1UW";
-//    protected final String nonceAccount = "6qS7fCwPYCSJ6msth7h1AB6g8aGe6rro1agHAamM4rAM"
+    protected final String nonceAccount = "6qS7fCwPYCSJ6msth7h1AB6g8aGe6rro1agHAamM4rAM";
+    protected final String associatedTokenAccount = "4swkJXi9iwk1sRB4QAk4ZmX1WCWfpP9ButmqCfkEyaqC";
+    protected final String multiSigAccount = "13SkCFWQiqAN4YTdH3SxNoUNL4RvcxCxMXXQxpJue1UW";
 
     protected SolanaApi api;
 

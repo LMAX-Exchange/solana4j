@@ -3,12 +3,9 @@ package com.lmax.solana4j.client.jsonrpc;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lmax.solana4j.client.api.AccountInfo;
+import com.lmax.solana4j.client.api.AccountInfoData;
 import com.lmax.solana4j.client.api.Context;
 import com.lmax.solana4j.client.api.SolanaRpcResponse;
-
-import java.util.List;
-
-import static java.util.Collections.unmodifiableList;
 
 final class AccountInfoDTO implements SolanaRpcResponse<AccountInfo>
 {
@@ -49,7 +46,7 @@ final class AccountInfoDTO implements SolanaRpcResponse<AccountInfo>
     {
         private final long lamports;
         private final String owner;
-        private final List<String> data;
+        private final AccountInfoData data;
         private final boolean executable;
         private final String rentEpoch;
         private final int space;
@@ -58,14 +55,14 @@ final class AccountInfoDTO implements SolanaRpcResponse<AccountInfo>
         AccountInfoValueDTO(
                 final @JsonProperty("lamports") long lamports,
                 final @JsonProperty("owner") String owner,
-                final @JsonProperty("data") List<String> data,
+                final @JsonProperty("data") AccountInfoDataDTO data,
                 final @JsonProperty("executable") boolean executable,
                 final @JsonProperty("rentEpoch") String rentEpoch,
                 final @JsonProperty("space") int space)
         {
             this.lamports = lamports;
             this.owner = owner;
-            this.data = unmodifiableList(data);
+            this.data = data;
             this.executable = executable;
             this.rentEpoch = rentEpoch;
             this.space = space;
@@ -84,7 +81,7 @@ final class AccountInfoDTO implements SolanaRpcResponse<AccountInfo>
         }
 
         @Override
-        public List<String> getData()
+        public AccountInfoData getData()
         {
             return data;
         }
@@ -115,7 +112,7 @@ final class AccountInfoDTO implements SolanaRpcResponse<AccountInfo>
                     ", owner='" + owner + '\'' +
                     ", data=" + data +
                     ", executable=" + executable +
-                    ", rentEpoch=" + rentEpoch +
+                    ", rentEpoch='" + rentEpoch + '\'' +
                     ", space=" + space +
                     '}';
         }

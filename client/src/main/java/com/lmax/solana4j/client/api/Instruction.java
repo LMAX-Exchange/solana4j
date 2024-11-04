@@ -52,7 +52,7 @@ public interface Instruction
     String getProgramId();
 
 
-    ParsedInstruction getParsedInstruction();
+    InstructionParsed getInstructionParsed();
 
     /**
      * Returns the stack height at which this instruction operates, if applicable.

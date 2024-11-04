@@ -134,14 +134,18 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
         assertThat(message.getInstructions()).hasSize(1);
 
         final var instruction = message.getInstructions().get(0);
+
+        // json
         assertThat(instruction.getData()).isNull();
         assertThat(instruction.getAccounts()).isNull();
-        assertThat(instruction.getProgram()).isEqualTo("system");
-        assertThat(instruction.getProgramId()).isEqualTo("11111111111111111111111111111111");
         assertThat(instruction.getProgramIdIndex()).isNull();
         assertThat(instruction.getStackHeight()).isEqualTo(null);
 
-        final var parsedInstruction = instruction.getParsedInstruction();
+        // jsonParsed
+        assertThat(instruction.getProgram()).isEqualTo("system");
+        assertThat(instruction.getProgramId()).isEqualTo("11111111111111111111111111111111");
+
+        final var parsedInstruction = instruction.getInstructionParsed();
         assertThat(parsedInstruction.getType()).isEqualTo("transfer");
 
         final var parsedInstructionInfo = parsedInstruction.getInfo();

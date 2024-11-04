@@ -1,7 +1,5 @@
 package com.lmax.solana4j.client.api;
 
-import java.util.List;
-
 /**
  * Represents the information of an account on the Solana blockchain.
  * This interface provides access to key properties of a Solana account, such as
@@ -25,14 +23,7 @@ public interface AccountInfo
      */
     String getOwner();
 
-    /**
-     * Returns the data stored in the account as a list of base64-encoded strings.
-     * The account's data may be program-specific and is serialized according to the
-     * owning program's specifications.
-     *
-     * @return a list of base64-encoded strings representing the account's data
-     */
-    List<String> getData();
+    AccountInfoData getData();
 
     /**
      * Indicates whether the account is marked as executable.
