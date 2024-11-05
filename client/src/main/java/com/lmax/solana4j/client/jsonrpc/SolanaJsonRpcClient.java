@@ -263,6 +263,15 @@ public class SolanaJsonRpcClient implements SolanaApi
                 dto -> dto, "minimumLedgerSlot");
     }
 
+    @Override
+    public SolanaClientResponse<String> getHealth() throws SolanaJsonRpcClientException
+    {
+        return queryForObject(new TypeReference<RpcWrapperDTO<String>>()
+                              {
+                              },
+                dto -> dto, "getHealth");
+    }
+
     private <S, T> SolanaClientResponse<S> queryForObject(
             final TypeReference<RpcWrapperDTO<T>> type,
             final Function<T, S> dtoMapper,

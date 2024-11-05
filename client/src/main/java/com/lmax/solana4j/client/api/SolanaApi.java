@@ -214,4 +214,15 @@ public interface SolanaApi
      * @throws SolanaJsonRpcClientException if there is an error in the JSON-RPC request or response.
      */
     SolanaClientResponse<Long> minimumLedgerSlot() throws SolanaJsonRpcClientException;
+
+
+    /**
+     * Returns the current health of the node. A healthy node is one that is within
+     *   HEALTH_CHECK_SLOT_DISTANCE slots of the latest cluster confirmed slot.
+     *
+     * @return a {@link SolanaClientResponse} containing the health status as a {@link String}. A
+     *     response of "ok" typically indicates a healthy node.
+     * @throws SolanaJsonRpcClientException if there is an error in the JSON-RPC request or response.
+     */
+    SolanaClientResponse<String> getHealth() throws SolanaJsonRpcClientException;
 }

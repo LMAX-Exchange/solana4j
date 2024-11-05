@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MinimumLedgerSlotContractTest extends SolanaClientIntegrationTestBase
+// https://solana.com/docs/rpc/http/minimumledgerslot
+class MinimumLedgerSlotContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
     void shouldGetMinimumLedgerSlot() throws SolanaJsonRpcClientException
