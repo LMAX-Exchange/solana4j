@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.fail;
 
 @Disabled
-class SendTransactionContractTest extends SolanaClientIntegrationTestBase
+class GetSignatureStatuesContractTest
 {
     @Test
-    void shouldSendTransactionDefaultParams()
+    void shouldGetSignatureStatusesDefaultParams()
     {
         fail();
     }
