@@ -1,6 +1,10 @@
 package com.lmax.solana4j.client.jsonrpc;
 
+import com.lmax.solana4j.client.api.Commitment;
+import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import org.junit.jupiter.api.Test;
+
+import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,7 +20,10 @@ class GetMinimumBalanceForRentExemptionContractTest extends SolanaClientIntegrat
     @Test
     void shouldReturnErrorForNegativeSize() throws SolanaJsonRpcClientException
     {
-        final var response = api.getMinimumBalanceForRentExemption(-1);
+        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
+        optionalParams.addParam("commitment", Commitment.PROCESSED.name().toLowerCase(Locale.UK));
+
+        final var response = api.getMinimumBalanceForRentExemption(-1, optionalParams);
 
         assertThat(response.isSuccess()).isFalse();
         assertThat(response.getError().getErrorCode()).isEqualTo(-32602L);

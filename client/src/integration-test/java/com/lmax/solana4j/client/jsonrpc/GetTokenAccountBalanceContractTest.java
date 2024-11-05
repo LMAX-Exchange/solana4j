@@ -1,6 +1,10 @@
 package com.lmax.solana4j.client.jsonrpc;
 
+import com.lmax.solana4j.client.api.Commitment;
+import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import org.junit.jupiter.api.Test;
+
+import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -41,7 +45,10 @@ class GetTokenAccountBalanceContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldReturnErrorForMalformedTokenAccount() throws SolanaJsonRpcClientException
     {
-        final var response = api.getTokenAccountBalance("iamnotarealaccount");
+        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
+        optionalParams.addParam("commitment", Commitment.PROCESSED.name().toLowerCase(Locale.UK));
+
+        final var response = api.getTokenAccountBalance("iamnotarealaccount", optionalParams);
 
         assertThat(response.isSuccess()).isFalse();
         assertThat(response.getError().getErrorCode()).isEqualTo(-32602L);
