@@ -205,4 +205,13 @@ public interface SolanaApi
      * @throws SolanaJsonRpcClientException if there is an error with the JSON-RPC request
      */
     SolanaClientResponse<Long> getMinimumBalanceForRentExemption(int size, SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException;
+
+    /**
+     * Returns the lowest slot that the node has information about in its ledger.
+     *
+     * @return a {@link SolanaClientResponse} containing the minimum slot as a {@link Long}, or an error
+     *     if the operation was unsuccessful.
+     * @throws SolanaJsonRpcClientException if there is an error in the JSON-RPC request or response.
+     */
+    SolanaClientResponse<Long> minimumLedgerSlot() throws SolanaJsonRpcClientException;
 }

@@ -254,6 +254,15 @@ public class SolanaJsonRpcClient implements SolanaApi
                 optionalParams.getParams());
     }
 
+    @Override
+    public SolanaClientResponse<Long> minimumLedgerSlot() throws SolanaJsonRpcClientException
+    {
+        return queryForObject(new TypeReference<RpcWrapperDTO<Long>>()
+                              {
+                              },
+                dto -> dto, "minimumLedgerSlot");
+    }
+
     private <S, T> SolanaClientResponse<S> queryForObject(
             final TypeReference<RpcWrapperDTO<T>> type,
             final Function<T, S> dtoMapper,
