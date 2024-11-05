@@ -3,7 +3,6 @@ package com.lmax.solana4j.client.jsonrpc;
 import com.lmax.solana4j.client.api.Commitment;
 import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import com.lmax.solana4j.domain.Sol;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -13,25 +12,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class GetSignaturesForAddressContractTest extends SolanaClientIntegrationTestBase
 {
-    private String transactionSignature1;
-    private String transactionSignature2;
-    private String transactionSignature3;
-
-    @BeforeEach
-    void beforeAll() throws SolanaJsonRpcClientException
-    {
-        transactionSignature1 = api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
-        waitForTransactionSuccess(transactionSignature1);
-        transactionSignature2 = api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
-        waitForTransactionSuccess(transactionSignature2);
-        transactionSignature3 = api.requestAirdrop(payerAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
-        waitForTransactionSuccess(transactionSignature3);
-    }
 
     @Test
     void shouldGetSignaturesForAddressDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
-        final var signaturesForAddress = api.getSignaturesForAddress(payerAccount).getResponse();
+        final var randomAccount = "4Nd1mnszWRVFzzsxMgcTzdFoC8Wx5mPQD9KZx3qtDr1M";
+        final var transactionSignature1 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        waitForTransactionSuccess(transactionSignature1);
+        final var transactionSignature2 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        waitForTransactionSuccess(transactionSignature2);
+        final var transactionSignature3 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        waitForTransactionSuccess(transactionSignature3);
+
+        final var signaturesForAddress = api.getSignaturesForAddress(randomAccount).getResponse();
 
         assertThat(signaturesForAddress).hasSize(3);
 
@@ -64,10 +57,18 @@ class GetSignaturesForAddressContractTest extends SolanaClientIntegrationTestBas
     @Test
     void shouldGetSignaturesForAddressWithLimitOptionalParam() throws SolanaJsonRpcClientException
     {
+        final var randomAccount = "3n5wa3Qk1Qd5t8w6ZyV2FPRK1VVzNSLy2LhJ4LuoxXJX";
+        final var transactionSignature1 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        waitForTransactionSuccess(transactionSignature1);
+        final var transactionSignature2 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        waitForTransactionSuccess(transactionSignature2);
+        final var transactionSignature3 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        waitForTransactionSuccess(transactionSignature3);
+
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("limit", 2);
 
-        final var signaturesForAddress = api.getSignaturesForAddress(payerAccount, optionalParams).getResponse();
+        final var signaturesForAddress = api.getSignaturesForAddress(randomAccount, optionalParams).getResponse();
 
         assertThat(signaturesForAddress).hasSize(2);
     }
@@ -75,10 +76,18 @@ class GetSignaturesForAddressContractTest extends SolanaClientIntegrationTestBas
     @Test
     void shouldGetSignaturesForAddressWithBeforeOptionalParam() throws SolanaJsonRpcClientException
     {
+        final var randomAccount = "C5D9ZEFnv3ZoFxSnFqXsMHR3HQykPj4Vb1pZc2PbWuyM";
+        final var transactionSignature1 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        waitForTransactionSuccess(transactionSignature1);
+        final var transactionSignature2 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        waitForTransactionSuccess(transactionSignature2);
+        final var transactionSignature3 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        waitForTransactionSuccess(transactionSignature3);
+
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("before", transactionSignature2);
 
-        final var signaturesForAddress = api.getSignaturesForAddress(payerAccount, optionalParams).getResponse();
+        final var signaturesForAddress = api.getSignaturesForAddress(randomAccount, optionalParams).getResponse();
 
         // does not include the before point
         assertThat(signaturesForAddress).hasSize(1);
@@ -88,10 +97,18 @@ class GetSignaturesForAddressContractTest extends SolanaClientIntegrationTestBas
     @Test
     void shouldGetSignaturesForAddressWithUntilOptionalParam() throws SolanaJsonRpcClientException
     {
+        final var randomAccount = "5uUghVUNUFRf6P7QJqMeMAyxXTzT1U7jkkT8Tm7U9ZAT";
+        final var transactionSignature1 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        waitForTransactionSuccess(transactionSignature1);
+        final var transactionSignature2 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        waitForTransactionSuccess(transactionSignature2);
+        final var transactionSignature3 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        waitForTransactionSuccess(transactionSignature3);
+
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("until", transactionSignature1);
 
-        final var signaturesForAddress = api.getSignaturesForAddress(payerAccount, optionalParams).getResponse();
+        final var signaturesForAddress = api.getSignaturesForAddress(randomAccount, optionalParams).getResponse();
 
         // does not include the until point
         assertThat(signaturesForAddress).hasSize(2);
@@ -105,7 +122,7 @@ class GetSignaturesForAddressContractTest extends SolanaClientIntegrationTestBas
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("minContextSlot", 10000000000L);
 
-        final var response = api.getSignaturesForAddress(payerAccount, optionalParams);
+        final var response = api.getSignaturesForAddress(dummyAccount, optionalParams);
 
         assertThat(response.isSuccess()).isFalse();
         assertThat(response.getError().getErrorCode()).isEqualTo(-32016L);
