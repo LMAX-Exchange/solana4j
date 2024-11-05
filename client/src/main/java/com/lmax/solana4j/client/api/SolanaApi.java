@@ -2,6 +2,8 @@ package com.lmax.solana4j.client.api;
 
 import com.lmax.solana4j.client.jsonrpc.SolanaJsonRpcClientException;
 
+import java.util.List;
+
 /**
  * Represents the API for interacting with the Solana blockchain.
  * This interface provides methods for sending transactions, querying account balances, requesting airdrops,
@@ -225,4 +227,8 @@ public interface SolanaApi
      * @throws SolanaJsonRpcClientException if there is an error in the JSON-RPC request or response.
      */
     SolanaClientResponse<String> getHealth() throws SolanaJsonRpcClientException;
+
+    SolanaClientResponse<List<SignatureForAddress>> getSignaturesForAddress(String addressBase58) throws SolanaJsonRpcClientException;
+
+    SolanaClientResponse<List<SignatureForAddress>> getSignaturesForAddress(String addressBase58, SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException;
 }

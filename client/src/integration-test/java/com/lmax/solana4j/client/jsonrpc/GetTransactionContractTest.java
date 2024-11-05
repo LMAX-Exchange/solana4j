@@ -1,10 +1,7 @@
 package com.lmax.solana4j.client.jsonrpc;
 
-import com.lmax.solana4j.assertion.Condition;
-import com.lmax.solana4j.assertion.Waiter;
 import com.lmax.solana4j.client.api.AccountKeys;
 import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
-import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.domain.Sol;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -184,32 +181,5 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
         assertThat(transaction.isSuccess()).isFalse();
         assertThat(transaction.getError().getErrorCode()).isEqualTo(-32602L);
         assertThat(transaction.getError().getErrorMessage()).isEqualTo("Invalid param: Invalid");
-    }
-
-    private TransactionResponse waitForTransactionSuccess(final String transactionSignature)
-    {
-        return waitForTransactionSuccess(transactionSignature, Optional.empty());
-    }
-
-    private TransactionResponse waitForTransactionSuccess(final String transactionSignature, final Optional<SolanaClientOptionalParams> maybeOptionalParams)
-    {
-        return Waiter.waitFor(Condition.isNotNull(() ->
-        {
-            try
-            {
-                if (maybeOptionalParams.isPresent())
-                {
-                    return api.getTransaction(transactionSignature, maybeOptionalParams.get()).getResponse();
-                }
-                else
-                {
-                    return api.getTransaction(transactionSignature).getResponse();
-                }
-            }
-            catch (SolanaJsonRpcClientException e)
-            {
-                throw new RuntimeException(e);
-            }
-        }));
     }
 }

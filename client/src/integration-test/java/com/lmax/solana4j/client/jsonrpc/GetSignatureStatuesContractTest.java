@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.fail;
 
 @Disabled
-class GetSignatureStatuesContractTest
+class GetSignatureStatuesContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
     void shouldGetSignatureStatusesDefaultOptionalParams()

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.lmax.solana4j.client.api.AccountInfo;
 import com.lmax.solana4j.client.api.Blockhash;
+import com.lmax.solana4j.client.api.SignatureForAddress;
 import com.lmax.solana4j.client.api.SolanaApi;
 import com.lmax.solana4j.client.api.SolanaClientError;
 import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
@@ -18,6 +19,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 import static com.lmax.solana4j.client.jsonrpc.SolanaJsonRpcClientOptionalParams.defaultOptionalParams;
@@ -270,6 +273,25 @@ public class SolanaJsonRpcClient implements SolanaApi
                               {
                               },
                 dto -> dto, "getHealth");
+    }
+
+    @Override
+    public SolanaClientResponse<List<SignatureForAddress>> getSignaturesForAddress(final String addressBase58) throws SolanaJsonRpcClientException
+    {
+        return queryForObject(new TypeReference<RpcWrapperDTO<List<SignatureForAddressDTO>>>()
+                              {
+                              },
+                ArrayList::new, "getSignaturesForAddress", addressBase58);
+    }
+
+    @Override
+    public SolanaClientResponse<List<SignatureForAddress>> getSignaturesForAddress(final String addressBase58, final SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException
+    {
+        return queryForObject(new TypeReference<RpcWrapperDTO<List<SignatureForAddressDTO>>>()
+                              {
+                              },
+                ArrayList::new, "getSignaturesForAddress", addressBase58,
+                optionalParams.getParams());
     }
 
     private <S, T> SolanaClientResponse<S> queryForObject(

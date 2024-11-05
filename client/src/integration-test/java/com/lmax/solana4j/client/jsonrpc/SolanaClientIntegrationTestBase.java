@@ -4,7 +4,11 @@ import com.lmax.solana4j.IntegrationTestBase;
 import com.lmax.solana4j.assertion.Condition;
 import com.lmax.solana4j.assertion.Waiter;
 import com.lmax.solana4j.client.api.SolanaApi;
+import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
+import com.lmax.solana4j.client.api.TransactionResponse;
 import org.junit.jupiter.api.BeforeEach;
+
+import java.util.Optional;
 
 public class SolanaClientIntegrationTestBase extends IntegrationTestBase
 {
@@ -33,6 +37,33 @@ public class SolanaClientIntegrationTestBase extends IntegrationTestBase
             catch (SolanaJsonRpcClientException e)
             {
                 throw new RuntimeException("Something went wrong in the test setup.", e);
+            }
+        }));
+    }
+
+    protected TransactionResponse waitForTransactionSuccess(final String transactionSignature)
+    {
+        return waitForTransactionSuccess(transactionSignature, Optional.empty());
+    }
+
+    protected TransactionResponse waitForTransactionSuccess(final String transactionSignature, final Optional<SolanaClientOptionalParams> maybeOptionalParams)
+    {
+        return Waiter.waitFor(Condition.isNotNull(() ->
+        {
+            try
+            {
+                if (maybeOptionalParams.isPresent())
+                {
+                    return api.getTransaction(transactionSignature, maybeOptionalParams.get()).getResponse();
+                }
+                else
+                {
+                    return api.getTransaction(transactionSignature).getResponse();
+                }
+            }
+            catch (SolanaJsonRpcClientException e)
+            {
+                throw new RuntimeException(e);
             }
         }));
     }
