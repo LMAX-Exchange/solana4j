@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.fail;
 class GetSignatureStatuesContractTest
 {
     @Test
-    void shouldGetSignatureStatusesDefaultParams()
+    void shouldGetSignatureStatusesDefaultOptionalParams()
     {
         fail();
     }

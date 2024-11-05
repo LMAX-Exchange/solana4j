@@ -6,6 +6,7 @@ import com.lmax.solana4j.client.api.AccountKeys;
 import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.domain.Sol;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 // https://solana.com/docs/rpc/http/gettransaction
 class GetTransactionContractTest extends SolanaClientIntegrationTestBase
@@ -46,6 +48,15 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
         assertThat(metadata.getLoadedAddresses().getReadonly()).isEmpty();
         assertThat(metadata.getLoadedAddresses().getWritable()).isEmpty();
         assertThat(metadata.getStatus().getKey()).isEqualTo("Ok");
+    }
+
+    @Test
+    @Disabled
+    void shouldGetTokenTransactionDefaultOptionalParams()
+    {
+        // need to contstruct a transaction between token accounts
+        // might need to reconstruct token accounts in /accounts for this ...
+        fail();
     }
 
     @Test

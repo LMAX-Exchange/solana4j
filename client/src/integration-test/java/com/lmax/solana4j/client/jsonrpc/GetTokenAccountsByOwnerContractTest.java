@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.fail;
 class GetTokenAccountsByOwnerContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
-    void shouldGetTokenAccountsByOwnerDefaultParams()
+    void shouldGetTokenAccountsByOwnerDefaultOptionalParams()
     {
         fail();
     }

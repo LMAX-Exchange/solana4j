@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.fail;
 class SimulateTransactionContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
-    void shouldSimulateTransactionDefaultParams()
+    void shouldSimulateTransactionDefaultOptionalParams()
     {
         fail();
     }

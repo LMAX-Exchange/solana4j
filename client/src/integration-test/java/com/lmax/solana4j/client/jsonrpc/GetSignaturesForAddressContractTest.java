@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.fail;
 class GetSignaturesForAddressContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
-    void shouldGetSignaturesForAddressDefaultParams()
+    void shouldGetSignaturesForAddressDefaultOptionalParams()
     {
         fail();
     }
