@@ -16,7 +16,7 @@ class GetSignaturesForAddressContractTest extends SolanaClientIntegrationTestBas
     @Test
     void shouldGetSignaturesForAddressDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
-        final var randomAccount = "4Nd1mnszWRVFzzsxMgcTzdFoC8Wx5mPQD9KZx3qtDr1M";
+        final var randomAccount = "3NyZjyEsExBWVp4C62MMSTGgS6crChPxvjyzF9e1D8Y7";
         final var transactionSignature1 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
         waitForTransactionSuccess(transactionSignature1);
         final var transactionSignature2 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
