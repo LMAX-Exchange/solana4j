@@ -27,7 +27,7 @@ final class MetaDTO implements TransactionMetadata
     public final List<RewardDTO> rewards;
     public final long computeUnitsConsumed;
     private final LoadedAddressesDTO loadedAddresses;
-    private final Map.Entry<String, String> status;
+    private final Map.Entry<String, Object> status;
 
     @JsonCreator
     MetaDTO(
@@ -42,7 +42,7 @@ final class MetaDTO implements TransactionMetadata
             final @JsonProperty("rewards") List<RewardDTO> rewards,
             final @JsonProperty("computeUnitsConsumed") long computeUnitsConsumed,
             final @JsonProperty("loadedAddresses") LoadedAddressesDTO loadedAddresses,
-            final @JsonProperty("status") Map.Entry<String, String> status)
+            final @JsonProperty("status") Map.Entry<String, Object> status)
     {
         this.err = err;
         this.fee = fee;
@@ -127,7 +127,7 @@ final class MetaDTO implements TransactionMetadata
     }
 
     @Override
-    public Map.Entry<String, String> getStatus()
+    public Map.Entry<String, Object> getStatus()
     {
         return status;
     }
@@ -136,16 +136,19 @@ final class MetaDTO implements TransactionMetadata
     @Override
     public String toString()
     {
-        return "Meta{" +
-               "err=" + err +
-               ", fee=" + fee +
-               ", innerInstructions=" + innerInstructions +
-               ", logMessages=" + logMessages +
-               ", postBalances=" + postBalances +
-               ", postTokenBalances=" + postTokenBalances +
-               ", preBalances=" + preBalances +
-               ", preTokenBalances=" + preTokenBalances +
-               ", rewards=" + rewards +
-               '}';
+        return "MetaDTO{" +
+                "err=" + err +
+                ", fee=" + fee +
+                ", innerInstructions=" + innerInstructions +
+                ", logMessages=" + logMessages +
+                ", postBalances=" + postBalances +
+                ", postTokenBalances=" + postTokenBalances +
+                ", preBalances=" + preBalances +
+                ", preTokenBalances=" + preTokenBalances +
+                ", rewards=" + rewards +
+                ", computeUnitsConsumed=" + computeUnitsConsumed +
+                ", loadedAddresses=" + loadedAddresses +
+                ", status=" + status +
+                '}';
     }
 }

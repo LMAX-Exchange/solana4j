@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -73,5 +74,29 @@ class GetSignatureStatuesContractTest extends SolanaClientIntegrationTestBase
         final var response = api.getSignatureStatuses(List.of(transactionSignature1, transactionSignature2, transactionSignature3), optionalParams).getResponse();
 
         assertThat(response).hasSize(3);
+    }
+
+    @Test
+    void shouldReturnErrorIfTransactionFailed() throws SolanaJsonRpcClientException
+    {
+        final var randomAccount = "8LZ4rT2Dq3vnqN6W9wqfhEDzJhKjsiD2AX1cZ1vLkXeZ";
+        // this should create an error - there is an airdrop limit
+        final var transactionSignature1 = api.requestAirdrop(randomAccount, Sol.lamports(new BigDecimal("100000000000000"))).getResponse();
+        waitForTransactionSuccess(transactionSignature1);
+
+        final var response = api.getSignatureStatuses(List.of(transactionSignature1)).getResponse();
+
+        assertThat(response).hasSize(1);
+        // some random error
+        assertThat(response.get(0).getErr()).isEqualTo(Map.of("InstructionError", List.of(0, Map.of("Custom", 1))));
+    }
+
+    @Test
+    void shouldReturnNullResponseForUnknownTransactions() throws SolanaJsonRpcClientException
+    {
+        final var response = api.getSignatureStatuses(List.of("5F3u76cRyDHyWcHkFdRq1p8JLpJK8G8Z1uFbMhsyhRThNxWe4VjhYdLEyaM1wWqGqVt2aZyKPMPj9CMKo4nLhAhN"));
+
+        assertThat(response.isSuccess()).isTrue();
+        assertThat(response.getResponse().get(0)).isNull();
     }
 }

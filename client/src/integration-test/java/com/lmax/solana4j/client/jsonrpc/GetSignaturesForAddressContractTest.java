@@ -6,6 +6,8 @@ import com.lmax.solana4j.domain.Sol;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -52,6 +54,21 @@ class GetSignaturesForAddressContractTest extends SolanaClientIntegrationTestBas
         assertThat(signature1.getErr()).isNull();
         assertThat(signature1.getSlot()).isGreaterThan(0L);
         assertThat(signature1.getBlockTime()).isGreaterThan(0L);
+    }
+
+    @Test
+    void shouldReturnErrorIfTransactionFailed() throws SolanaJsonRpcClientException
+    {
+        final var randomAccount = "3xjY7TP9gbZx8iLWbFE2fDSfpRcW9k5mSLR5nFu4qUxT";
+        // this should create an error - there is an airdrop limit
+        final var transactionSignature1 = api.requestAirdrop(randomAccount, Sol.lamports(new BigDecimal("100000000000000"))).getResponse();
+        waitForTransactionSuccess(transactionSignature1);
+
+        final var response = api.getSignaturesForAddress(randomAccount).getResponse();
+
+        assertThat(response).hasSize(1);
+        // some random error
+        assertThat(response.get(0).getErr()).isEqualTo(Map.of("InstructionError", List.of(0, Map.of("Custom", 1))));
     }
 
     @Test

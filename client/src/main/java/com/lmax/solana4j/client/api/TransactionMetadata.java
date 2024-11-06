@@ -103,5 +103,5 @@ public interface TransactionMetadata
      *
      * @return a {@link Map.Entry} containing the status type as the key and the status message as the value
      */
-    Map.Entry<String, String> getStatus();
+    Map.Entry<String, Object> getStatus();
 }
