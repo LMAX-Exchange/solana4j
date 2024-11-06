@@ -6,10 +6,12 @@ import com.lmax.solana4j.client.api.AccountInfo;
 import com.lmax.solana4j.client.api.Blockhash;
 import com.lmax.solana4j.client.api.SignatureForAddress;
 import com.lmax.solana4j.client.api.SignatureStatus;
+import com.lmax.solana4j.client.api.SimulateTransactionResponse;
 import com.lmax.solana4j.client.api.SolanaApi;
 import com.lmax.solana4j.client.api.SolanaClientError;
 import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import com.lmax.solana4j.client.api.SolanaClientResponse;
+import com.lmax.solana4j.client.api.TokenAccount;
 import com.lmax.solana4j.client.api.TokenAmount;
 import com.lmax.solana4j.client.api.TransactionResponse;
 
@@ -22,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 import static com.lmax.solana4j.client.jsonrpc.SolanaJsonRpcClientOptionalParams.defaultOptionalParams;
@@ -320,6 +323,49 @@ public class SolanaJsonRpcClient implements SolanaApi
                               {
                               },
                 SignatureStatusesDTO::getValue, "getSignatureStatuses", transactionSignatures,
+                optionalParams.getParams());
+    }
+
+    @Override
+    public SolanaClientResponse<List<TokenAccount>> getTokenAccountsByOwner(final String accountDelegate, final Map.Entry<String, String> filter) throws SolanaJsonRpcClientException
+    {
+        return queryForObject(new TypeReference<>()
+                              {
+                              },
+                TokenAccountsByOwnerDTO::getValue, "getTokenAccountsByOwner", accountDelegate, filter,
+                defaultOptionalParams());
+    }
+
+    @Override
+    public SolanaClientResponse<List<TokenAccount>> getTokenAccountsByOwner(
+            final String accountDelegate,
+            final Map.Entry<String, String> filter,
+            final SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException
+    {
+        return queryForObject(new TypeReference<>()
+                              {
+                              },
+                TokenAccountsByOwnerDTO::getValue, "getTokenAccountsByOwner", accountDelegate, filter,
+                optionalParams);
+    }
+
+    @Override
+    public SolanaClientResponse<SimulateTransactionResponse> simulateTransaction(final String transaction) throws SolanaJsonRpcClientException
+    {
+        return queryForObject(new TypeReference<>()
+                              {
+                              },
+                SimulateTransactionResponseDTO::getValue, "simulateTransaction", transaction,
+                defaultOptionalParams());
+    }
+
+    @Override
+    public SolanaClientResponse<SimulateTransactionResponse> simulateTransaction(final String transaction, final SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException
+    {
+        return queryForObject(new TypeReference<>()
+                              {
+                              },
+                SimulateTransactionResponseDTO::getValue, "simulateTransaction", transaction,
                 optionalParams.getParams());
     }
 

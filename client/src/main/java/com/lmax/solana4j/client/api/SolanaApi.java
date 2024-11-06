@@ -3,6 +3,7 @@ package com.lmax.solana4j.client.api;
 import com.lmax.solana4j.client.jsonrpc.SolanaJsonRpcClientException;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents the API for interacting with the Solana blockchain.
@@ -237,4 +238,15 @@ public interface SolanaApi
     SolanaClientResponse<List<SignatureStatus>> getSignatureStatuses(List<String> transactionSignatures) throws SolanaJsonRpcClientException;
 
     SolanaClientResponse<List<SignatureStatus>> getSignatureStatuses(List<String> transactionSignatures, SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException;
+
+    SolanaClientResponse<List<TokenAccount>> getTokenAccountsByOwner(String accountDelegate, Map.Entry<String, String> filter) throws SolanaJsonRpcClientException;
+
+    SolanaClientResponse<List<TokenAccount>> getTokenAccountsByOwner(
+            String accountDelegate,
+            Map.Entry<String, String> filter,
+            SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException;
+
+    SolanaClientResponse<SimulateTransactionResponse> simulateTransaction(String transaction) throws SolanaJsonRpcClientException;
+
+    SolanaClientResponse<SimulateTransactionResponse> simulateTransaction(String transaction, SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException;
 }

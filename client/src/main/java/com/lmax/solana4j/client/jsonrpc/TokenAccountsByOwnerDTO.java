@@ -11,12 +11,12 @@ import java.util.List;
 public class TokenAccountsByOwnerDTO implements SolanaRpcResponse<List<TokenAccount>>
 {
     private final Context context;
-    private final List<TokenAccount> value;
+    private final List<TokenAccountDTO> value;
 
     @JsonCreator
     TokenAccountsByOwnerDTO(
-            final @JsonProperty("context") Context context,
-            final @JsonProperty("value") List<TokenAccount> value)
+            final @JsonProperty("context") ContextDTO context,
+            final @JsonProperty("value") List<TokenAccountDTO> value)
     {
         this.context = context;
         this.value = value;
@@ -31,7 +31,7 @@ public class TokenAccountsByOwnerDTO implements SolanaRpcResponse<List<TokenAcco
     @Override
     public List<TokenAccount> getValue()
     {
-        return value;
+        return (List) value;
     }
 
     static final class TokenAccountDTO implements TokenAccount
