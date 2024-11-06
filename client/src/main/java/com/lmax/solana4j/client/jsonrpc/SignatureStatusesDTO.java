@@ -31,6 +31,7 @@ final class SignatureStatusesDTO implements SolanaRpcResponse<List<SignatureStat
     }
 
     @Override
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public List<SignatureStatus> getValue()
     {
         return (List) value;

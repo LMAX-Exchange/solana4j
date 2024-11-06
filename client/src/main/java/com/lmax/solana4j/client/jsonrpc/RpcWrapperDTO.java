@@ -33,11 +33,6 @@ final class RpcWrapperDTO<T>
         return jsonrpc;
     }
 
-    public int getId()
-    {
-        return id;
-    }
-
     public Error getError()
     {
         return error;
@@ -58,7 +53,6 @@ final class RpcWrapperDTO<T>
     {
         private final long code;
         private final String message;
-        // it can be String or Map<String, Object>
         private final Object data;
 
         @JsonCreator

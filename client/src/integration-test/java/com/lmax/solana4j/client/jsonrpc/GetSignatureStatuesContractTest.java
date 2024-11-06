@@ -31,6 +31,7 @@ class GetSignatureStatuesContractTest extends SolanaClientIntegrationTestBase
         assertThat(signatureStatus1.getErr()).isNull();
         assertThat(signatureStatus1.getSlot()).isGreaterThan(0L);
         assertThat(signatureStatus1.getConfirmationStatus()).isEqualTo(Commitment.FINALIZED);
+        assertThat(signatureStatus1.getStatus().getKey()).isEqualTo("Ok");
         // number of blocks since signature confirmation, null if rooted, as well as finalized by a supermajority of the cluster
         // since we're finalized this is going to be null
         assertThat(signatureStatus1.getConfirmations()).isNull();
@@ -39,6 +40,7 @@ class GetSignatureStatuesContractTest extends SolanaClientIntegrationTestBase
         assertThat(signatureStatus2.getErr()).isNull();
         assertThat(signatureStatus2.getSlot()).isGreaterThan(0L);
         assertThat(signatureStatus2.getConfirmationStatus()).isEqualTo(Commitment.FINALIZED);
+        assertThat(signatureStatus2.getStatus().getKey()).isEqualTo("Ok");
         // number of blocks since signature confirmation, null if rooted, as well as finalized by a supermajority of the cluster
         // since we're finalized this is going to be null
         assertThat(signatureStatus2.getConfirmations()).isNull();
@@ -47,6 +49,7 @@ class GetSignatureStatuesContractTest extends SolanaClientIntegrationTestBase
         assertThat(signatureStatus3.getErr()).isNull();
         assertThat(signatureStatus3.getSlot()).isGreaterThan(0L);
         assertThat(signatureStatus3.getConfirmationStatus()).isEqualTo(Commitment.FINALIZED);
+        assertThat(signatureStatus3.getStatus().getKey()).isEqualTo("Ok");
         // number of blocks since signature confirmation, null if rooted, as well as finalized by a supermajority of the cluster
         // since we're finalized this is going to be null
         assertThat(signatureStatus3.getConfirmations()).isNull();
