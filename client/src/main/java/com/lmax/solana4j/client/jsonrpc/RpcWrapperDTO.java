@@ -3,8 +3,6 @@ package com.lmax.solana4j.client.jsonrpc;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Map;
-
 final class RpcWrapperDTO<T>
 {
     private final String jsonrpc;
@@ -60,13 +58,14 @@ final class RpcWrapperDTO<T>
     {
         private final long code;
         private final String message;
-        private final Map<String, Object> data;
+        // it can be String or Map<String, Object>
+        private final Object data;
 
         @JsonCreator
         Error(
                 final @JsonProperty("code") long code,
                 final @JsonProperty("message") String message,
-                final @JsonProperty("data") Map<String, Object> data)
+                final @JsonProperty("data") Object data)
         {
             this.code = code;
             this.message = message;

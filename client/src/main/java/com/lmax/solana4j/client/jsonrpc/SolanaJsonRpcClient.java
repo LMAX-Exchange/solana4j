@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.lmax.solana4j.client.api.AccountInfo;
 import com.lmax.solana4j.client.api.Blockhash;
 import com.lmax.solana4j.client.api.SignatureForAddress;
+import com.lmax.solana4j.client.api.SignatureStatus;
 import com.lmax.solana4j.client.api.SolanaApi;
 import com.lmax.solana4j.client.api.SolanaClientError;
 import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
@@ -285,12 +286,40 @@ public class SolanaJsonRpcClient implements SolanaApi
     }
 
     @Override
-    public SolanaClientResponse<List<SignatureForAddress>> getSignaturesForAddress(final String addressBase58, final SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException
+    public SolanaClientResponse<List<SignatureForAddress>> getSignaturesForAddress(
+            final String addressBase58,
+            final SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException
     {
         return queryForObject(new TypeReference<RpcWrapperDTO<List<SignatureForAddressDTO>>>()
                               {
                               },
                 ArrayList::new, "getSignaturesForAddress", addressBase58,
+                optionalParams.getParams());
+    }
+
+    @Override
+    public SolanaClientResponse<List<SignatureStatus>> getSignatureStatuses(final List<String> transactionSignatures) throws SolanaJsonRpcClientException
+    {
+        final var defaultOptionalParams = defaultOptionalParams();
+        // it's not such an optional field, apparently
+        defaultOptionalParams.put("searchTransactionHistory", false);
+
+        return queryForObject(new TypeReference<>()
+                              {
+                              },
+                SignatureStatusesDTO::getValue, "getSignatureStatuses", transactionSignatures,
+                defaultOptionalParams);
+    }
+
+    @Override
+    public SolanaClientResponse<List<SignatureStatus>> getSignatureStatuses(
+            final List<String> transactionSignatures,
+            final SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException
+    {
+        return queryForObject(new TypeReference<>()
+                              {
+                              },
+                SignatureStatusesDTO::getValue, "getSignatureStatuses", transactionSignatures,
                 optionalParams.getParams());
     }
 

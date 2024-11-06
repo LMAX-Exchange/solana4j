@@ -8,16 +8,17 @@ import com.lmax.solana4j.client.api.SignatureStatus;
 import com.lmax.solana4j.client.api.SolanaRpcResponse;
 
 import java.util.List;
+import java.util.Map;
 
 final class SignatureStatusesDTO implements SolanaRpcResponse<List<SignatureStatus>>
 {
     private final ContextDTO context;
-    private final List<SignatureStatus> value;
+    private final List<SignatureStatusesDataDTO> value;
 
     @JsonCreator
     SignatureStatusesDTO(
             final @JsonProperty("context") ContextDTO context,
-            final @JsonProperty("value") List<SignatureStatus> value)
+            final @JsonProperty("value") List<SignatureStatusesDataDTO> value)
     {
         this.context = context;
         this.value = value;
@@ -32,7 +33,7 @@ final class SignatureStatusesDTO implements SolanaRpcResponse<List<SignatureStat
     @Override
     public List<SignatureStatus> getValue()
     {
-        return value;
+        return (List) value;
     }
 
     static final class SignatureStatusesDataDTO implements SignatureStatus
@@ -41,18 +42,21 @@ final class SignatureStatusesDTO implements SolanaRpcResponse<List<SignatureStat
         private final long slot;
         private final Object err;
         private final Commitment confirmationStatus;
+        private final Map.Entry<String, Object> status;
 
         @JsonCreator
         SignatureStatusesDataDTO(
                 final @JsonProperty("confirmations") Long confirmations,
                 final @JsonProperty("slot") long slot,
                 final @JsonProperty("err") Object err,
-                final @JsonProperty("confirmationStatus") Commitment confirmationStatus)
+                final @JsonProperty("confirmationStatus") Commitment confirmationStatus,
+                final @JsonProperty("status") Map.Entry<String, Object> status)
         {
             this.confirmations = confirmations;
             this.slot = slot;
             this.err = err;
             this.confirmationStatus = confirmationStatus;
+            this.status = status;
         }
 
         @Override
@@ -77,6 +81,12 @@ final class SignatureStatusesDTO implements SolanaRpcResponse<List<SignatureStat
         public Commitment getConfirmationStatus()
         {
             return confirmationStatus;
+        }
+
+        @Override
+        public Map.Entry<String, Object> getStatus()
+        {
+            return status;
         }
     }
 }

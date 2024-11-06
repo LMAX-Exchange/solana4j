@@ -228,7 +228,13 @@ public interface SolanaApi
      */
     SolanaClientResponse<String> getHealth() throws SolanaJsonRpcClientException;
 
+    // probably refactor this to a parent object
     SolanaClientResponse<List<SignatureForAddress>> getSignaturesForAddress(String addressBase58) throws SolanaJsonRpcClientException;
 
     SolanaClientResponse<List<SignatureForAddress>> getSignaturesForAddress(String addressBase58, SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException;
+
+    // probably refactor this to a parent object
+    SolanaClientResponse<List<SignatureStatus>> getSignatureStatuses(List<String> transactionSignatures) throws SolanaJsonRpcClientException;
+
+    SolanaClientResponse<List<SignatureStatus>> getSignatureStatuses(List<String> transactionSignatures, SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException;
 }

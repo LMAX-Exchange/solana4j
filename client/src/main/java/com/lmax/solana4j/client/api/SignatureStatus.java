@@ -1,5 +1,7 @@
 package com.lmax.solana4j.client.api;
 
+import java.util.Map;
+
 /**
  * Represents the status of a transaction signature on the Solana blockchain.
  * This interface provides details about the confirmation status, including the number of confirmations,
@@ -41,4 +43,6 @@ public interface SignatureStatus
      * @return the {@link Commitment} representing the confirmation status of the transaction
      */
     Commitment getConfirmationStatus();
+
+    Map.Entry<String, Object> getStatus();
 }
