@@ -11,6 +11,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+// https://solana.com/docs/rpc/http/getsignaturestatuses
 class GetSignatureStatuesContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
