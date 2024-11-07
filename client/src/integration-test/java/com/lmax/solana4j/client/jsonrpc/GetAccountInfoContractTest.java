@@ -86,6 +86,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
         optionalParams.addParam("encoding", "jsonParsed");
 
         final var accountInfo = api.getAccountInfo(tokenAccount, optionalParams).getResponse();
+        assertThat(accountInfo.getOwner()).isEqualTo("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
 
         // program specific parser so we can try and read the data that's returned
         assertThat(accountInfo.getData().getAccountInfoEncoded()).isNull();
@@ -118,6 +119,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
         optionalParams.addParam("encoding", "jsonParsed");
 
         final var accountInfo = api.getAccountInfo(associatedTokenAccount, optionalParams).getResponse();
+        assertThat(accountInfo.getOwner()).isEqualTo("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
 
         // no program specific parser defaults to base64
         assertThat(accountInfo.getData().getAccountInfoParsed()).isNull();
@@ -135,6 +137,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
         optionalParams.addParam("encoding", "jsonParsed");
 
         final var accountInfo = api.getAccountInfo(multiSigAccount, optionalParams).getResponse();
+        assertThat(accountInfo.getOwner()).isEqualTo("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
 
         // no program specific parser defaults to base64
         assertThat(accountInfo.getData().getAccountInfoParsed()).isNull();

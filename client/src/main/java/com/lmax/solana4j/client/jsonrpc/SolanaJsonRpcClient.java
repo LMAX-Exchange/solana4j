@@ -346,7 +346,7 @@ public class SolanaJsonRpcClient implements SolanaApi
                               {
                               },
                 TokenAccountsByOwnerDTO::getValue, "getTokenAccountsByOwner", accountDelegate, filter,
-                optionalParams);
+                optionalParams.getParams());
     }
 
     @Override
