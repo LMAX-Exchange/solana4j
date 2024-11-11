@@ -54,6 +54,7 @@ dependencies {
 
     // integration test dependencies
     integrationTestImplementation project(path: ':shared', configuration: 'sharedTestSupport')
+    integrationTestImplementation project(path: ':message-encoding', configuration: 'default')
 
     integrationTestImplementation 'org.assertj:assertj-core:3.26.3'
     integrationTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'

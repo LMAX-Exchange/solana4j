@@ -21,6 +21,7 @@ public class SolanaClientIntegrationTestBase extends IntegrationTestBase
     // i kind of only want one set of token accounts
     protected final String tokenAccountAlt1 = "CZJWrh6o1tchnKB1UkGn2f65DDD7BbA1u6Nz6bZfTTNC";
     protected final String tokenAccountAlt2 = "7uy6uq8nz3GikmAnrULr7bRfxJKeqQ1SrfeVKtu1YLyy";
+    protected final String tokenMintAlt = "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS";
 
     protected SolanaApi api;
 
