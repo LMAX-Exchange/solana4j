@@ -113,46 +113,6 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
     }
 
     @Test
-    void shouldGetAssociatedTokenAccountInfoJsonParsedEncodingOptionalParam() throws SolanaJsonRpcClientException
-    {
-        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
-        optionalParams.addParam("encoding", "jsonParsed");
-
-        final var accountInfo = api.getAccountInfo(associatedTokenAccount, optionalParams).getResponse();
-        assertThat(accountInfo.getOwner()).isEqualTo("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
-
-        // no program specific parser defaults to base64
-        assertThat(accountInfo.getData().getAccountInfoParsed()).isNull();
-        assertThat(accountInfo.getData().getAccountInfoEncoded().get(0)).isEqualTo(
-                "xXyb/Pp4GvdAvHw1VaWrTztH643kq1qJmSF1BCr3lAo0LuCZ23gzm/GK2+lyoRzQOfumbsW3RpLC" +
-                        "/2vwv+LS/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA" +
-                        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==");
-        assertThat(accountInfo.getData().getAccountInfoEncoded().get(1)).isEqualTo("base64");
-    }
-
-    @Test
-    void shouldGetMultiSigAccountInfoJsonParsedEncodingOptionalParam() throws SolanaJsonRpcClientException
-    {
-        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
-        optionalParams.addParam("encoding", "jsonParsed");
-
-        final var accountInfo = api.getAccountInfo(multiSigAccount, optionalParams).getResponse();
-        assertThat(accountInfo.getOwner()).isEqualTo("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
-
-        // no program specific parser defaults to base64
-        assertThat(accountInfo.getData().getAccountInfoParsed()).isNull();
-        assertThat(accountInfo.getData().getAccountInfoEncoded().get(0)).isEqualTo(
-                "AwUBcVto0sFH7UdVWpC/7lUXilk/lyHA/07a+si5uLjxF0fsuGdXLxKiOL7Bo50KT" +
-                        "WX5z0Ih4yPW7HBXpX6cPS60ZzmXUswuOWhUOBzmerzPb4OyC7MarinH9ukLzXBYxBvU/" +
-                        "J+8Zz94sWKDajmiBdER8ECeAXfBVf4V4KvhapejV7PbYZSzg95i+mlo9MqiMQA19Imn3a" +
-                        "sahqKtjA4RCoYbFwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
-                        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
-                        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
-                        "AAAAAAAAAAAAAAAAAAA");
-        assertThat(accountInfo.getData().getAccountInfoEncoded().get(1)).isEqualTo("base64");
-    }
-
-    @Test
     void shouldGetAccountInfoDataSliceOptionalParam() throws SolanaJsonRpcClientException
     {
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();

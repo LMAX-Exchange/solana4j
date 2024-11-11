@@ -14,12 +14,13 @@ public class SolanaClientIntegrationTestBase extends IntegrationTestBase
 {
     protected final String dummyAccount = "4Nd1mnszWRVFzzsxMgcTzdFoC8Wx5mPQD9KZx3qtDr1M";
     // found in shared/src/test-support/resources/testcontainers/accounts
-    protected final String payerAccount = "EjmK3LTW8oBSJp14zvQ55PMvPJCuQwRrnjd17P4vrQYo";
+    protected final String payerAccount = "sCR7NonpU3TrqvusEiA4MAwDMLfiY1gyVPqw2b36d8V";
     protected final String tokenAccount = "BxoHF6TfQYXkpThMC7hVeex37U3duprVZuFAa7Akortf";
-    protected final String tokenMintAccount = "x9wKn11SwXuSgYf3AyUgmw1vLq1XawuqxeXNwbda4Kg";
+    // i want to ditch nonce account, it's kind of arbitrary
     protected final String nonceAccount = "6qS7fCwPYCSJ6msth7h1AB6g8aGe6rro1agHAamM4rAM";
-    protected final String associatedTokenAccount = "4swkJXi9iwk1sRB4QAk4ZmX1WCWfpP9ButmqCfkEyaqC";
-    protected final String multiSigAccount = "13SkCFWQiqAN4YTdH3SxNoUNL4RvcxCxMXXQxpJue1UW";
+    // i kind of only want one set of token accounts
+    protected final String tokenAccountAlt1 = "CZJWrh6o1tchnKB1UkGn2f65DDD7BbA1u6Nz6bZfTTNC";
+    protected final String tokenAccountAlt2 = "7uy6uq8nz3GikmAnrULr7bRfxJKeqQ1SrfeVKtu1YLyy";
 
     protected SolanaApi api;
 

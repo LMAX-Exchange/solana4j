@@ -38,11 +38,12 @@ public abstract class IntegrationTestBase
             copyResourceToTempFile(parentDirectory, "upgrade_authority.json");
             copyResourceToTempFile(parentDirectory, "bpf_program.json");
             copyResourceToTempFile(parentDirectory, "accounts/payer.json");
-            copyResourceToTempFile(parentDirectory, "accounts/token_account.json");
             copyResourceToTempFile(parentDirectory, "accounts/token_mint.json");
+            copyResourceToTempFile(parentDirectory, "accounts/token_account.json");
             copyResourceToTempFile(parentDirectory, "accounts/nonce_account.json");
-            copyResourceToTempFile(parentDirectory, "accounts/associated_token_account.json");
-            copyResourceToTempFile(parentDirectory, "accounts/multisig.json");
+            copyResourceToTempFile(parentDirectory, "accounts/token_mint_alt.json");
+            copyResourceToTempFile(parentDirectory, "accounts/token_account_alt_1.json");
+            copyResourceToTempFile(parentDirectory, "accounts/token_account_alt_2.json");
 
             final String solanaVersion = System.getProperty("solana.version");
             if (arch.equals("aarch64"))
