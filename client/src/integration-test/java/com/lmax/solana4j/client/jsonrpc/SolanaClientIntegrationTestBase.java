@@ -15,6 +15,7 @@ public class SolanaClientIntegrationTestBase extends IntegrationTestBase
     protected final String dummyAccount = "4Nd1mnszWRVFzzsxMgcTzdFoC8Wx5mPQD9KZx3qtDr1M";
     // found in shared/src/test-support/resources/testcontainers/accounts
     protected final String payerAccount = "sCR7NonpU3TrqvusEiA4MAwDMLfiY1gyVPqw2b36d8V";
+    protected final String payerAccountPriv = "C3y41jMdtQeaF9yMBRLcZhMNoWhJNTS6neAR8fdT7CBR";
     protected final String tokenAccount = "BxoHF6TfQYXkpThMC7hVeex37U3duprVZuFAa7Akortf";
     // i want to ditch nonce account, it's kind of arbitrary
     protected final String nonceAccount = "6qS7fCwPYCSJ6msth7h1AB6g8aGe6rro1agHAamM4rAM";
@@ -22,6 +23,9 @@ public class SolanaClientIntegrationTestBase extends IntegrationTestBase
     protected final String tokenAccountAlt1 = "CZJWrh6o1tchnKB1UkGn2f65DDD7BbA1u6Nz6bZfTTNC";
     protected final String tokenAccountAlt2 = "7uy6uq8nz3GikmAnrULr7bRfxJKeqQ1SrfeVKtu1YLyy";
     protected final String tokenMintAlt = "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS";
+    protected final String tokenMintAltAuthority = "6Q6XBfRrdf6jrK2DraQ8XnYzkGsFz9c15DdUKS5aJHoJ";
+    protected final String tokenMintAltAuthorityPriv = "5DJqyvfAjjkhsT8sPNkRBmDfbhgvxeTMys8m4YKZ2u2z";
+
 
     protected SolanaApi api;
 
