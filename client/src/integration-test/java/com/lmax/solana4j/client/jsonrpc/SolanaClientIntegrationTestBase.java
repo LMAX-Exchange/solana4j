@@ -12,6 +12,10 @@ import java.util.Optional;
 
 public class SolanaClientIntegrationTestBase extends IntegrationTestBase
 {
+    // TODO: sort out the below accounts - we do not need them all
+    // TODO: bring in some kind of key generator as hard coding them in some tests is a bit nasty
+    // TODO: ensure all fields are being read in at least a single test
+    // TODO: refactor interfaces - perhaps combine them into logical units per endpoint
     protected final String dummyAccount = "4Nd1mnszWRVFzzsxMgcTzdFoC8Wx5mPQD9KZx3qtDr1M";
     // found in shared/src/test-support/resources/testcontainers/accounts
     protected final String payerAccount = "sCR7NonpU3TrqvusEiA4MAwDMLfiY1gyVPqw2b36d8V";

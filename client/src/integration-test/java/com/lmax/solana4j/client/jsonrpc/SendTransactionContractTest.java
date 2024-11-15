@@ -1,22 +1,29 @@
 package com.lmax.solana4j.client.jsonrpc;
 
 import com.lmax.solana4j.Solana;
+import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import com.lmax.solana4j.client.api.SolanaClientResponse;
 import com.lmax.solana4j.encoding.SolanaEncoding;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class SendTransactionContractTest extends SolanaClientIntegrationTestBase
 {
-    @Test
-    void shouldSendTransactionDefaultOptionalParams() throws SolanaJsonRpcClientException
+    private String transactionBlob;
+
+    @BeforeEach
+    void beforeEach() throws SolanaJsonRpcClientException
     {
         final String latestBlockhash = api.getLatestBlockhash().getResponse().getBlockhashBase58();
 
-        final String mintToTransactionBlob = Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
+        transactionBlob = Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
                 Solana.account(payerAccount),
                 Solana.blockhash(latestBlockhash),
                 Solana.account(tokenMintAlt),
@@ -27,9 +34,69 @@ class SendTransactionContractTest extends SolanaClientIntegrationTestBase
                         new Solana4jJsonRpcTestHelper.Signer(Solana.account(tokenMintAltAuthority), SolanaEncoding.decodeBase58(tokenMintAltAuthorityPriv))
                 )
         );
+    }
 
-        final SolanaClientResponse<String> response = api.sendTransaction(mintToTransactionBlob);
+    @Test
+    void shouldSendTransactionDefaultOptionalParams() throws SolanaJsonRpcClientException
+    {
+        final SolanaClientResponse<String> response = api.sendTransaction(transactionBlob);
 
         assertThat(response.isSuccess()).isTrue();
+    }
+
+    @Test
+    @Disabled
+    void shouldSendTransactionEncodingBase58OptionalParam() throws SolanaJsonRpcClientException
+    {
+        fail();
+    }
+
+    @Test
+    @Disabled
+    void shouldSendTransactionSkipPreflightOptionalParam() throws SolanaJsonRpcClientException
+    {
+        fail();
+    }
+
+    @Test
+    @Disabled
+    void shouldSendTransactionSetPreflightCommitmentProcessed() throws SolanaJsonRpcClientException
+    {
+        fail();
+    }
+
+    @Test
+    @Disabled
+    void shouldSendTransactionSetPreflightCommitmentConfirmed() throws SolanaJsonRpcClientException
+    {
+        fail();
+    }
+
+    @Test
+    @Disabled
+    void shouldSendTransactionSetPreflightCommitmentFinalized() throws SolanaJsonRpcClientException
+    {
+        fail();
+    }
+
+    @Test
+    @Disabled
+    void shouldSendTransactionMaxRetriesOptionalParam()
+    {
+        fail();
+    }
+
+    @Test
+    void shouldReturnErrorForMinContextSlotNotReached() throws SolanaJsonRpcClientException
+    {
+        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
+        optionalParams.addParam("minContextSlot", 10000000000L);
+        optionalParams.addParam("encoding", "base64");
+
+        final var response = api.sendTransaction(transactionBlob, optionalParams);
+
+        Assertions.assertThat(response.isSuccess()).isFalse();
+        Assertions.assertThat(response.getError().getErrorCode()).isEqualTo(-32016L);
+        Assertions.assertThat(response.getError().getErrorMessage()).isEqualTo("Minimum context slot has not been reached");
     }
 }
