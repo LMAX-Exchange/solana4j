@@ -10,12 +10,12 @@ import com.lmax.solana4j.programs.Token2022Program;
 import com.lmax.solana4j.sign.BouncyCastleSigner;
 
 import java.nio.ByteBuffer;
-import java.util.Base64;
 import java.util.List;
+import java.util.stream.Collectors;
 
 class Solana4jJsonRpcTestHelper
 {
-    static String createMintToTransactionBlob(
+    static byte[] createMintToTransactionBlob(
             final PublicKey payer,
             final Blockhash recentBlockhash,
             final PublicKey tokenMint,
@@ -45,7 +45,42 @@ class Solana4jJsonRpcTestHelper
 
         signedMessageBuilder.build();
 
-        return Base64.getEncoder().encodeToString(ByteBufferPrimitiveArray.copy(buffer));
+        return ByteBufferPrimitiveArray.copy(buffer);
+    }
+
+    public static byte[] createTransferTokenTransactionBlob(
+            final PublicKey payer,
+            final Blockhash recentBlockhash,
+            final Destination destination,
+            final PublicKey from,
+            final PublicKey owner,
+            final List<Signer> signers)
+    {
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+        Solana.builder(buffer)
+                .v0()
+                .recent(recentBlockhash)
+                .instructions(
+                        tb -> Token2022Program.factory(tb)
+                                .transfer(
+                                        from,
+                                        destination.getDestination(),
+                                        owner,
+                                        destination.getAmount(),
+                                        signers.stream().map(x -> x.signer).collect(Collectors.toList()))
+                )
+                .payer(payer)
+                .seal();
+
+        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
+        for (final Signer signer : signers)
+        {
+            signedMessageBuilder.by(signer.signer, (transaction, signature) -> BouncyCastleSigner.sign(signer.privateKey, transaction, signature));
+        }
+
+        signedMessageBuilder.build();
+
+        return ByteBufferPrimitiveArray.copy(buffer);
     }
 
     static class Signer

@@ -8,20 +8,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.Base64;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.fail;
 
 class SimulateTransactionContractTest extends SolanaClientIntegrationTestBase
 {
-    private String transactionBlob;
+    private String transactionBlobBase64;
+    private String transactionBlobBase58;
 
     @BeforeEach
     void beforeEach() throws SolanaJsonRpcClientException
     {
         final String latestBlockhash = api.getLatestBlockhash().getResponse().getBlockhashBase58();
 
-        transactionBlob = Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
+        final byte[] transactionBytes = Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
                 Solana.account(payerAccount),
                 Solana.blockhash(latestBlockhash),
                 Solana.account(tokenMintAlt),
@@ -32,6 +34,9 @@ class SimulateTransactionContractTest extends SolanaClientIntegrationTestBase
                         new Solana4jJsonRpcTestHelper.Signer(Solana.account(tokenMintAltAuthority), SolanaEncoding.decodeBase58(tokenMintAltAuthorityPriv))
                 )
         );
+
+        transactionBlobBase64 = Base64.getEncoder().encodeToString(transactionBytes);
+        transactionBlobBase58 = SolanaEncoding.encodeBase58(transactionBytes);
     }
 
     @Test
@@ -83,7 +88,7 @@ class SimulateTransactionContractTest extends SolanaClientIntegrationTestBase
         optionalParams.addParam("minContextSlot", 10000000000L);
         optionalParams.addParam("encoding", "base64");
 
-        final var response = api.sendTransaction(transactionBlob, optionalParams);
+        final var response = api.sendTransaction(transactionBlobBase64, optionalParams);
 
         Assertions.assertThat(response.isSuccess()).isFalse();
         Assertions.assertThat(response.getError().getErrorCode()).isEqualTo(-32016L);

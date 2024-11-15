@@ -82,7 +82,7 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.requestAirdrop(new TestPublicKey(SolanaEncoding.decodeBase58(address)), lamports);
 
-        Waiter.waitFor(transactionFinalized(transactionSignature));
+        Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
     }
 
     public void verifyAddressLookupTable(final String... args)
@@ -124,7 +124,7 @@ public class SolanaNodeDsl
         // intermittency caused by slot not moving on to the next slot before including in the sent transaction
         waitForSlot(recentSlot + 1);
         final String transactionSignature = solanaDriver.createAddressLookupTable(programDerivedAddress, authority, payer, SolanaEncoding.slot(recentSlot));
-        Waiter.waitFor(transactionFinalized(transactionSignature));
+        Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
 
         storeAddressLookupTable(lookupTableAddress, params.value("lookupTableAddress"));
     }
@@ -156,7 +156,7 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.extendAddressLookupTable(lookupTableAddress, authority, payer, addresses, addressLookupTables);
 
-        Waiter.waitFor(transactionFinalized(transactionSignature));
+        Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
 
         storeAddressLookupTable(lookupTableAddress, params.value("lookupTableAddress"));
     }
@@ -168,7 +168,7 @@ public class SolanaNodeDsl
                 new RequiredArg("slot")
         );
 
-        Waiter.waitFor(Condition.isTrue(() -> solanaDriver.getSlot() > params.valueAsLong("slot")));
+        Waiter.waitForConditionMet(Condition.isTrue(() -> solanaDriver.getSlot() > params.valueAsLong("slot")));
     }
 
     public void createMintAccount(final String... args)
@@ -205,7 +205,7 @@ public class SolanaNodeDsl
                 MINT_ACCOUNT_LENGTH,
                 addressLookupTables);
 
-        Waiter.waitFor(transactionFinalized(transactionSignature));
+        Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
     }
 
     public void mintTo(final String... args)
@@ -234,7 +234,7 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.mintTo(tokenProgram, tokenMint, to, amount, authority, payer, addressLookupTables);
 
-        Waiter.waitFor(transactionFinalized(transactionSignature));
+        Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
     }
 
     public void verifyMintAccount(final String... args)
@@ -293,7 +293,7 @@ public class SolanaNodeDsl
                 ACCOUNT_LAYOUT_SPAN,
                 addressLookupTables);
 
-        Waiter.waitFor(transactionFinalized(transactionSignature));
+        Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
     }
 
     public void tokenBalance(final String... args)
@@ -306,7 +306,7 @@ public class SolanaNodeDsl
         final TestPublicKey address = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("address"));
         final String amount = params.value("amount");
 
-        Waiter.waitFor(Condition.isEqualTo(amount, () -> solanaDriver.getTokenBalance(address.getPublicKeyBase58()).getUiAmountString()));
+        Waiter.waitForConditionMet(Condition.isEqualTo(amount, () -> solanaDriver.getTokenBalance(address.getPublicKeyBase58()).getUiAmountString()));
     }
 
     public void solBalance(final String... args)
@@ -319,7 +319,7 @@ public class SolanaNodeDsl
         final TestPublicKey address = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("address"));
         final long lamports = Sol.lamports(params.valueAsBigDecimal("amountSol"));
 
-        Waiter.waitFor(Condition.isEqualTo(lamports, () -> solanaDriver.getBalance(address.getPublicKeyBase58())));
+        Waiter.waitForConditionMet(Condition.isEqualTo(lamports, () -> solanaDriver.getBalance(address.getPublicKeyBase58())));
     }
 
     public void tokenTransfer(final String... args)
@@ -353,7 +353,7 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.tokenTransfer(tokenProgram, from, to, owner, amount, payer, signers, addressLookupTables);
 
-        Waiter.waitFor(transactionFinalized(transactionSignature));
+        Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
     }
 
     public void verifyTokenAccount(final String... args)
@@ -416,7 +416,7 @@ public class SolanaNodeDsl
                 addressLookupTables
         );
 
-        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature)));
+        Waiter.waitForConditionMet(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature)));
     }
 
     public void verifyMultiSigAccount(final String... args)
@@ -474,7 +474,7 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.createNonceAccount(nonceAccount, nonceAuthority, payer, NONCE_ACCOUNT_LENGTH, addressLookupTables);
 
-        Waiter.waitFor(transactionFinalized(transactionSignature));
+        Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
 
         final PublicKey nonceAccountValue = SystemProgram.getNonceAccountValue(
                 Base64.decode(solanaDriver.getAccountInfo(nonceAccount.getPublicKey()).getData().getAccountInfoEncoded().get(0))
@@ -504,7 +504,7 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.advanceNonce(nonceAccount, nonceAuthority, payer, addressLookupTables);
 
-        Waiter.waitFor(transactionFinalized(transactionSignature));
+        Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
 
         final PublicKey newNonceAccountValue = SystemProgram.getNonceAccountValue(
                 Base64.decode(solanaDriver.getAccountInfo(nonceAccount.getPublicKey()).getData().getAccountInfoEncoded().get(0))
@@ -559,7 +559,7 @@ public class SolanaNodeDsl
 
         final String transactionSignature = solanaDriver.transfer(from, to, lamports, payer, addressLookupTables);
 
-        Waiter.waitFor(transactionFinalized(transactionSignature));
+        Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
     }
 
     public void createAssociatedTokenAccount(final String... args)
@@ -598,7 +598,7 @@ public class SolanaNodeDsl
                 addressLookupTables
         );
 
-        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature)));
+        Waiter.waitForConditionMet(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature)));
     }
 
     public void verifyAssociatedTokenAccount(final String... args)
@@ -687,7 +687,7 @@ public class SolanaNodeDsl
                 List.of(payer, tokenAccountOldAuthority),
                 addressLookupTables);
 
-        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature)));
+        Waiter.waitForConditionMet(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature)));
     }
 
     public void setComputeUnits(final String... args)
@@ -725,7 +725,7 @@ public class SolanaNodeDsl
             assertThat(solanaClientResponse.isSuccess()).withFailMessage(
                     "We expected a success but received a an error from the client."
             ).isTrue();
-            Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(solanaClientResponse.getResponse())));
+            Waiter.waitForConditionMet(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(solanaClientResponse.getResponse())));
 
             testContext.data(TestDataType.TRANSACTION_ID).store(rememberTransactionAs, solanaClientResponse.getResponse());
         }
@@ -764,7 +764,7 @@ public class SolanaNodeDsl
                 List.of(payer, new TestKeyPair(oldUpgradeAuthorityPublicKey, oldUpgradeAuthorityPrivateKey)),
                 addressLookupTables);
 
-        Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature)));
+        Waiter.waitForConditionMet(Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature)));
     }
 
     public void verifyBpfUpgradeableAccount(final String... args)
@@ -780,7 +780,7 @@ public class SolanaNodeDsl
 
         final ProgramDerivedAddress programDataAddress = BpfLoaderUpgradeableProgram.deriveAddress(Solana.account(SolanaEncoding.decodeBase58(address)));
 
-        final AccountInfo accountInfo = Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getAccountInfo(new TestPublicKey(programDataAddress.address().bytes()))));
+        final AccountInfo accountInfo = Waiter.waitForConditionMet(Condition.isNotNull(() -> solanaDriver.getAccountInfo(new TestPublicKey(programDataAddress.address().bytes()))));
 
         final byte[] accountInfoBytes = Base64.decode(accountInfo.getData().getAccountInfoEncoded().get(0));
 
@@ -807,7 +807,7 @@ public class SolanaNodeDsl
 
     private void waitForSlot(final long slot)
     {
-        Waiter.waitFor(Condition.isTrue(() -> solanaDriver.getSlot() > slot));
+        Waiter.waitForConditionMet(Condition.isTrue(() -> solanaDriver.getSlot() > slot));
     }
 
     private Condition<TransactionResponse> transactionFinalized(final String transactionSignature)
@@ -817,7 +817,7 @@ public class SolanaNodeDsl
 
     private AddressLookupTable storeAddressLookupTable(final TestPublicKey lookupTableAddress, final String lookupTableAlias)
     {
-        final AccountInfo accountInfo = Waiter.waitFor(Condition.isNotNull(() -> solanaDriver.getAccountInfo(lookupTableAddress)));
+        final AccountInfo accountInfo = Waiter.waitForConditionMet(Condition.isNotNull(() -> solanaDriver.getAccountInfo(lookupTableAddress)));
         final AddressLookupTable addressLookupTable = AddressLookupTableProgram.deserializeAddressLookupTable(
                 lookupTableAddress.getSolana4jPublicKey(),
                 Base64.decode(accountInfo.getData().getAccountInfoEncoded().get(0)));

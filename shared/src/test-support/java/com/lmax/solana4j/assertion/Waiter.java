@@ -37,7 +37,7 @@ public final class Waiter
         return new Waiter(initialDelay, timeout, pollingInterval);
     }
 
-    public <T> T waitForCondition(final Condition<T> condition)
+    public <T> T waitForCondition(final Condition<T> condition) throws AssertionError
     {
         final long endTimeMillis = System.currentTimeMillis() + timeout.toMillis();
 
@@ -63,8 +63,21 @@ public final class Waiter
         return DEFAULT_WAITER;
     }
 
-    public static <T> T waitFor(final Condition<T> condition)
+    public static <T> T waitForConditionMet(final Condition<T> condition)
     {
         return waiter().waitForCondition(condition);
+    }
+
+    public static <T> void waitForConditionNotMet(final Condition<T> condition)
+    {
+        try
+        {
+            waiter().waitForCondition(condition);
+            throw new AssertionError("We expected the condition to never happen, but it did!");
+        }
+        catch (final AssertionError e)
+        {
+            // we want this assertion error as it tells us our condition was not met
+        }
     }
 }
