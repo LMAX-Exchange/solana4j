@@ -14,10 +14,12 @@ class GetTokenAccountsByOwnerContractTest extends SolanaClientIntegrationTestBas
     void shouldGetTokenAccountsByOwnerWithMintDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
         // 9Hf5hHKtt8ghuZRN3WfivSjVCS2fveRrkr6NHtFS6dhG - (is the owner of the token account - see shouldGetTokenAccountInfoJsonParsedEncodingOptionalParam)
-        final var response = api.getTokenAccountsByOwner("9Hf5hHKtt8ghuZRN3WfivSjVCS2fveRrkr6NHtFS6dhG", Map.entry("mint", "x9wKn11SwXuSgYf3AyUgmw1vLq1XawuqxeXNwbda4Kg")).getResponse();
+        final var response = api.getTokenAccountsByOwner("7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr", Map.entry("mint", "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS")).getResponse();
 
-        assertThat(response).hasSize(1);
-        assertThat(response.get(0).getPublicKey()).isEqualTo(tokenAccount);
+        assertThat(response).hasSize(2);
+        assertThat(response.get(1).getPublicKey()).isEqualTo(tokenAccount1);
+        assertThat(response.get(1).getAccountInfo().getOwner()).isEqualTo("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
+        assertThat(response.get(0).getPublicKey()).isEqualTo(tokenAccount2);
         assertThat(response.get(0).getAccountInfo().getOwner()).isEqualTo("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
     }
 
@@ -29,12 +31,12 @@ class GetTokenAccountsByOwnerContractTest extends SolanaClientIntegrationTestBas
         optionalParams.addParam("encoding", "base64");
 
         final var response = api.getTokenAccountsByOwner(
-                        "9Hf5hHKtt8ghuZRN3WfivSjVCS2fveRrkr6NHtFS6dhG",
-                        Map.entry("mint", "x9wKn11SwXuSgYf3AyUgmw1vLq1XawuqxeXNwbda4Kg"),
+                        "7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr",
+                        Map.entry("mint", "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS"),
                         optionalParams)
                 .getResponse();
 
-        assertThat(response.get(0).getAccountInfo().getData().getAccountInfoEncoded().get(0)).isEqualTo("ABdCsbDj/eGDhA==");
+        assertThat(response.get(0).getAccountInfo().getData().getAccountInfoEncoded().get(0)).isEqualTo("qewjDybPQ4VCjw==");
         assertThat(response.get(0).getAccountInfo().getData().getAccountInfoEncoded().get(1)).isEqualTo("base64");
         assertThat(response.get(0).getAccountInfo().getData().getAccountInfoParsed()).isNull();
     }
@@ -46,8 +48,8 @@ class GetTokenAccountsByOwnerContractTest extends SolanaClientIntegrationTestBas
         optionalParams.addParam("encoding", "base58");
 
         final var response = api.getTokenAccountsByOwner(
-                "9Hf5hHKtt8ghuZRN3WfivSjVCS2fveRrkr6NHtFS6dhG",
-                Map.entry("mint", "x9wKn11SwXuSgYf3AyUgmw1vLq1XawuqxeXNwbda4Kg"),
+                "7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr",
+                Map.entry("mint", "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS"),
                 optionalParams);
 
         // base58 encoding account data to be less than 128 bytes - wouldn't this always basically be the case for token accounts?
@@ -64,14 +66,13 @@ class GetTokenAccountsByOwnerContractTest extends SolanaClientIntegrationTestBas
         optionalParams.addParam("encoding", "base64+zstd");
 
         final var response = api.getTokenAccountsByOwner(
-                        "9Hf5hHKtt8ghuZRN3WfivSjVCS2fveRrkr6NHtFS6dhG",
-                        Map.entry("mint", "x9wKn11SwXuSgYf3AyUgmw1vLq1XawuqxeXNwbda4Kg"),
+                        "7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr",
+                        Map.entry("mint", "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS"),
                         optionalParams)
                 .getResponse();
 
         assertThat(response.get(0).getAccountInfo().getData().getAccountInfoEncoded().get(0)).isEqualTo(
-                "KLUv/QBYdQIARAQOIQyV8SAd6UAQABdCsbDj/eGDhMPKA10+BoTUkxpqT" +
-                        "3sh2LuPD5boNKtrPUQ0F5ESGbgV0/8EAn2sHCpFC2QHZAABAAIABCcKIXAG");
+                "KLUv/QBYbQIANAQcISzCHy60JdAGqewjDybPQ4VCj03tsvHdZNXHmjqXi11AOymqthEW3kDjLUvosc102c5Dsh08e2SpgX9n5rTVAAEAAgAEJwaY4Aw=");
         assertThat(response.get(0).getAccountInfo().getData().getAccountInfoEncoded().get(1)).isEqualTo("base64+zstd");
         assertThat(response.get(0).getAccountInfo().getData().getAccountInfoParsed()).isNull();
     }
@@ -83,8 +84,8 @@ class GetTokenAccountsByOwnerContractTest extends SolanaClientIntegrationTestBas
         optionalParams.addParam("encoding", "jsonParsed");
 
         final var response = api.getTokenAccountsByOwner(
-                        "9Hf5hHKtt8ghuZRN3WfivSjVCS2fveRrkr6NHtFS6dhG",
-                        Map.entry("mint", "x9wKn11SwXuSgYf3AyUgmw1vLq1XawuqxeXNwbda4Kg"),
+                        "7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr",
+                        Map.entry("mint", "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS"),
                         optionalParams)
                 .getResponse();
 
@@ -97,12 +98,14 @@ class GetTokenAccountsByOwnerContractTest extends SolanaClientIntegrationTestBas
     void shouldGetTokenAccountsByOwnerWithProgramIdDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
         final var response = api.getTokenAccountsByOwner(
-                        "9Hf5hHKtt8ghuZRN3WfivSjVCS2fveRrkr6NHtFS6dhG",
+                        "7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr",
                         Map.entry("programId", "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"))
                 .getResponse();
 
-        assertThat(response).hasSize(1);
-        assertThat(response.get(0).getPublicKey()).isEqualTo(tokenAccount);
+        assertThat(response).hasSize(2);
+        assertThat(response.get(1).getPublicKey()).isEqualTo(tokenAccount1);
+        assertThat(response.get(1).getAccountInfo().getOwner()).isEqualTo("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
+        assertThat(response.get(0).getPublicKey()).isEqualTo(tokenAccount2);
         assertThat(response.get(0).getAccountInfo().getOwner()).isEqualTo("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
     }
 
@@ -110,7 +113,7 @@ class GetTokenAccountsByOwnerContractTest extends SolanaClientIntegrationTestBas
     void shouldReturnErrorForUnrecognisedTokenMint() throws SolanaJsonRpcClientException
     {
         final var response = api.getTokenAccountsByOwner(
-                "9Hf5hHKtt8ghuZRN3WfivSjVCS2fveRrkr6NHtFS6dhG",
+                "7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr",
                 Map.entry("mint", "FakeMintwXuSgYf3AyUgmw1vLq1XawuqxeXNwbda4Kg"));
 
         assertThat(response.isSuccess()).isFalse();
@@ -122,7 +125,7 @@ class GetTokenAccountsByOwnerContractTest extends SolanaClientIntegrationTestBas
     void shouldReturnErrorForUnrecognisedTokenProgramId() throws SolanaJsonRpcClientException
     {
         final var response = api.getTokenAccountsByOwner(
-                "9Hf5hHKtt8ghuZRN3WfivSjVCS2fveRrkr6NHtFS6dhG",
+                "7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr",
                 Map.entry("programId", "TokenFakeNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"));
 
         assertThat(response.isSuccess()).isFalse();
@@ -147,8 +150,8 @@ class GetTokenAccountsByOwnerContractTest extends SolanaClientIntegrationTestBas
         optionalParams.addParam("minContextSlot", 10000000000L);
 
         final var response = api.getTokenAccountsByOwner(
-                "9Hf5hHKtt8ghuZRN3WfivSjVCS2fveRrkr6NHtFS6dhG",
-                Map.entry("mint", "x9wKn11SwXuSgYf3AyUgmw1vLq1XawuqxeXNwbda4Kg"),
+                "7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr",
+                Map.entry("mint", "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS"),
                 optionalParams);
 
         assertThat(response.isSuccess()).isFalse();

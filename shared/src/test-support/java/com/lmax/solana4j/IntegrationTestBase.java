@@ -1,6 +1,7 @@
 package com.lmax.solana4j;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.images.builder.ImageFromDockerfile;
@@ -13,6 +14,7 @@ import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class IntegrationTestBase
 {
     public static final int SOLANA_HTTP_PORT = 8899;
@@ -39,11 +41,8 @@ public abstract class IntegrationTestBase
             copyResourceToTempFile(parentDirectory, "bpf_program.json");
             copyResourceToTempFile(parentDirectory, "accounts/payer.json");
             copyResourceToTempFile(parentDirectory, "accounts/token_mint.json");
-            copyResourceToTempFile(parentDirectory, "accounts/token_account.json");
-            copyResourceToTempFile(parentDirectory, "accounts/nonce_account.json");
-            copyResourceToTempFile(parentDirectory, "accounts/token_mint_alt.json");
-            copyResourceToTempFile(parentDirectory, "accounts/token_account_alt_1.json");
-            copyResourceToTempFile(parentDirectory, "accounts/token_account_alt_2.json");
+            copyResourceToTempFile(parentDirectory, "accounts/token_account_1.json");
+            copyResourceToTempFile(parentDirectory, "accounts/token_account_2.json");
 
             final String solanaVersion = System.getProperty("solana.version");
             if (arch.equals("aarch64"))
@@ -92,8 +91,8 @@ public abstract class IntegrationTestBase
         return tempFile;
     }
 
-    @BeforeEach
-    public void setup()
+    @BeforeAll
+    public void setupOnceBase()
     {
         try
         {
@@ -107,4 +106,5 @@ public abstract class IntegrationTestBase
             throw new RuntimeException("Something went wrong in the test set-up", e);
         }
     }
+
 }

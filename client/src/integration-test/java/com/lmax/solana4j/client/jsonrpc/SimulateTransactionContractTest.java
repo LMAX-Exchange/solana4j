@@ -26,12 +26,12 @@ class SimulateTransactionContractTest extends SolanaClientIntegrationTestBase
         final byte[] transactionBytes = Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
                 Solana.account(payerAccount),
                 Solana.blockhash(latestBlockhash),
-                Solana.account(tokenMintAlt),
-                Solana.account(tokenMintAltAuthority),
-                Solana.destination(Solana.account(tokenAccountAlt1), 10),
+                Solana.account(tokenMint),
+                Solana.account(tokenMintAuthority),
+                Solana.destination(Solana.account(tokenAccount1), 10),
                 List.of(
                         new Solana4jJsonRpcTestHelper.Signer(Solana.account(payerAccount), SolanaEncoding.decodeBase58(payerAccountPriv)),
-                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(tokenMintAltAuthority), SolanaEncoding.decodeBase58(tokenMintAltAuthorityPriv))
+                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(tokenMintAuthority), SolanaEncoding.decodeBase58(tokenMintAuthorityPriv))
                 )
         );
 

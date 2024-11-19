@@ -13,17 +13,17 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetAccountInfoDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
-        final var accountInfo = api.getAccountInfo(nonceAccount).getResponse();
+        final var accountInfo = api.getAccountInfo(tokenMint).getResponse();
 
-        assertThat(accountInfo.getOwner()).isEqualTo("11111111111111111111111111111111");
+        assertThat(accountInfo.getOwner()).isEqualTo("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
         assertThat(accountInfo.getData().getAccountInfoEncoded().get(0)).isEqualTo(
-                "AQAAAAEAAAAYN7fDgyW630LDtnup4nlG5uUrhnBS077hAkv" +
-                        "7jaK5U/Z1Da4WA4qlaCl2RvtERjayxzWWD30+4/7zXET6S+5XiBMAAAAAAAA=");
+                "AQAAAFA1CQIm+hHzTXNa/YZ1Z19+UKIaAOLFJLLDvQODwCs1Cg" +
+                        "AAAAAAAAASAQEAAAB6OXSiO1mUI304QU8IJGTYsmjXkEECbyV3Ar74PD8D6Q==");
         assertThat(accountInfo.getData().getAccountInfoEncoded().get(1)).isEqualTo("base64");
-        assertThat(accountInfo.getLamports()).isEqualTo(300000L);
+        assertThat(accountInfo.getLamports()).isEqualTo(500000L);
         assertThat(accountInfo.isExecutable()).isEqualTo(false);
         assertThat(accountInfo.getRentEpoch()).isEqualTo("18446744073709551615");
-        assertThat(accountInfo.getSpace()).isEqualTo(80L);
+        assertThat(accountInfo.getSpace()).isEqualTo(82L);
     }
 
     @Test
@@ -32,11 +32,11 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "base58");
 
-        final var accountInfo = api.getAccountInfo(nonceAccount, optionalParams).getResponse();
+        final var accountInfo = api.getAccountInfo(tokenMint, optionalParams).getResponse();
 
         assertThat(accountInfo.getData().getAccountInfoEncoded().get(0)).isEqualTo(
-                "df8aQUMTjFJyzt5AbTh4pvdagb6bKFTrhMcdQzDgPTruv" +
-                        "sohU21nv5AkScqeYZwoUgJEkKK91g76GGeGSaFF5kHZRDZQewePtXrSQCr4Vt79");
+                "DK9N1s2buYcYyPKFQH2cEHDY4vjQAfXCXCs6YvHFPJRB52sVXJr" +
+                        "Wzn4WR9zajYpY4tzroKfpkqCbx3KL9QnuS6oL7PYWUbxsYPovr4KKChSMbMi");
         assertThat(accountInfo.getData().getAccountInfoEncoded().get(1)).isEqualTo("base58");
     }
 
@@ -46,37 +46,12 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "base64+zstd");
 
-        final var accountInfo = api.getAccountInfo(nonceAccount, optionalParams).getResponse();
+        final var accountInfo = api.getAccountInfo(tokenMint, optionalParams).getResponse();
 
         assertThat(accountInfo.getData().getAccountInfoEncoded().get(0)).isEqualTo(
-                "KLUv/QBYgQIAAQAAAAEAAAAYN7fDgyW630LDtnup4nlG5uUrhnBS077hA" +
-                        "kv7jaK5U/Z1Da4WA4qlaCl2RvtERjayxzWWD30+4/7zXET6S+5XiBMAAAAAAAA=");
+                "KLUv/QBYkQIAAQAAAFA1CQIm+hHzTXNa/YZ1Z19+UKIaAOLFJLLDvQODwC" +
+                        "s1CgAAAAAAAAASAQEAAAB6OXSiO1mUI304QU8IJGTYsmjXkEECbyV3Ar74PD8D6Q==");
         assertThat(accountInfo.getData().getAccountInfoEncoded().get(1)).isEqualTo("base64+zstd");
-    }
-
-    @Test
-    void shouldGetNonceAccountInfoJsonParsedEncodingOptionalParam() throws SolanaJsonRpcClientException
-    {
-        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
-        optionalParams.addParam("encoding", "jsonParsed");
-
-        final var accountInfo = api.getAccountInfo(nonceAccount, optionalParams).getResponse();
-
-        // program specific parser so we can try and read the data that's returned
-        assertThat(accountInfo.getData().getAccountInfoEncoded()).isNull();
-
-        final var parsedAccountInfo = accountInfo.getData().getAccountInfoParsed();
-        assertThat(parsedAccountInfo.getProgram()).isEqualTo("nonce");
-        assertThat(parsedAccountInfo.getSpace()).isEqualTo(80);
-
-        // i think the best we can do here is really just return a Map<String, Object> and let the user do their own parsing
-        // since the parsing is very much program specific
-        assertThat(parsedAccountInfo.getParsedData().get("type")).isEqualTo("initialized");
-        assertThat(parsedAccountInfo.getParsedData().get("info")).usingRecursiveComparison().isEqualTo(
-                Map.of("authority", "2dY4b9YdnHaURDVJj339q7eczTdxnVyiGifA5yXG4yQN",
-                        "blockhash", "Hb4pM3V4j9ipCsFNpymzViHZPiDMUH2KwLzrpSchiYVU",
-                        "feeCalculator", Map.of("lamportsPerSignature", "5000"))
-        );
     }
 
     @Test
@@ -85,7 +60,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "jsonParsed");
 
-        final var accountInfo = api.getAccountInfo(tokenAccount, optionalParams).getResponse();
+        final var accountInfo = api.getAccountInfo(tokenAccount1, optionalParams).getResponse();
         assertThat(accountInfo.getOwner()).isEqualTo("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
 
         // program specific parser so we can try and read the data that's returned
@@ -100,14 +75,14 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
         assertThat(parsedAccountInfo.getParsedData().get("type")).isEqualTo("account");
         assertThat(parsedAccountInfo.getParsedData().get("info")).usingRecursiveComparison().isEqualTo(
                 Map.of("isNative", false,
-                        "mint", "x9wKn11SwXuSgYf3AyUgmw1vLq1XawuqxeXNwbda4Kg",
-                        "owner", "9Hf5hHKtt8ghuZRN3WfivSjVCS2fveRrkr6NHtFS6dhG",
+                        "mint", "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS",
+                        "owner", "7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr",
                         "state", "initialized",
                         "tokenAmount", Map.of(
-                                "amount", "100",
+                                "amount", "10",
                                 "decimals", 18,
-                                "uiAmount", 1.0E-16,
-                                "uiAmountString", "0.0000000000000001"
+                                "uiAmount", 1.0E-17,
+                                "uiAmountString", "0.00000000000000001"
                         ))
         );
     }
@@ -119,9 +94,9 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
         optionalParams.addParam("encoding", "base58");
         optionalParams.addParam("dataSlice", Map.of("length", 10, "offset", 10));
 
-        final var accountInfo = api.getAccountInfo(nonceAccount, optionalParams).getResponse();
+        final var accountInfo = api.getAccountInfo(tokenMint, optionalParams).getResponse();
 
-        assertThat(accountInfo.getData().getAccountInfoEncoded().get(0)).isEqualTo("BKoYJaZaeRehAi");
+        assertThat(accountInfo.getData().getAccountInfoEncoded().get(0)).isEqualTo("21VYjtQD6JiatN");
         assertThat(accountInfo.getData().getAccountInfoEncoded().get(1)).isEqualTo("base58");
     }
 
@@ -149,7 +124,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("minContextSlot", 10000000000L);
 
-        final var response = api.getAccountInfo(nonceAccount, optionalParams);
+        final var response = api.getAccountInfo(tokenMint, optionalParams);
 
         assertThat(response.isSuccess()).isFalse();
         assertThat(response.getError().getErrorCode()).isEqualTo(-32016L);

@@ -11,7 +11,7 @@ class GetBalanceContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetBalance() throws SolanaJsonRpcClientException
     {
-        assertThat(api.getBalance(payerAccount).getResponse()).isEqualTo(600000L);
+        assertThat(api.getBalance(payerAccount).getResponse()).isEqualTo(590000L);
     }
 
     @Test
