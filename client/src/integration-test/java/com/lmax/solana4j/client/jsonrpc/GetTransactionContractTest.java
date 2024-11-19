@@ -3,7 +3,6 @@ package com.lmax.solana4j.client.jsonrpc;
 import com.lmax.solana4j.client.api.AccountKeys;
 import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import com.lmax.solana4j.domain.Sol;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -11,7 +10,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 
 // https://solana.com/docs/rpc/http/gettransaction
 class GetTransactionContractTest extends SolanaClientIntegrationTestBase
@@ -48,12 +46,34 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
     }
 
     @Test
-    @Disabled
-    void shouldGetTokenTransactionDefaultOptionalParams()
+    void shouldGetTokenTransactionDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
-        // need to contstruct a transaction between token accounts
-        // might need to reconstruct token accounts in /accounts for this ...
-        fail();
+        final String transactionSignature = api.sendTransaction(mintToTokenAccount1TransactionBlobBase64).getResponse();
+
+        final var response = waitForTransactionSuccess(transactionSignature);
+
+        final var preTokenBalances = response.getMetadata().getPreTokenBalances();
+        assertThat(preTokenBalances).hasSize(1);
+        final var preTokenBalance = preTokenBalances.get(0);
+        assertThat(preTokenBalance.getAccountIndex()).isEqualTo(3);
+        assertThat(preTokenBalance.getOwner()).isEqualTo("7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr");
+        assertThat(preTokenBalance.getMint()).isEqualTo("2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS");
+        assertThat(preTokenBalance.getProgramId()).isEqualTo("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
+        final var preUiTokenAmount = preTokenBalance.getUiTokenAmount();
+        assertThat(preUiTokenAmount.getDecimals()).isEqualTo(18);
+
+        final var postTokenBalances = response.getMetadata().getPostTokenBalances();
+        assertThat(postTokenBalances).hasSize(1);
+        final var postTokenBalance = postTokenBalances.get(0);
+        assertThat(postTokenBalance.getAccountIndex()).isEqualTo(3);
+        assertThat(postTokenBalance.getOwner()).isEqualTo("7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr");
+        assertThat(postTokenBalance.getMint()).isEqualTo("2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS");
+        assertThat(postTokenBalance.getProgramId()).isEqualTo("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
+        final var postUiTokenAmount = postTokenBalance.getUiTokenAmount();
+        assertThat(postUiTokenAmount.getDecimals()).isEqualTo(18);
+        assertThat(postUiTokenAmount.getUiAmount()).isEqualTo(0.0f);
+        assertThat(postUiTokenAmount.getUiAmountString()).isEqualTo("0.00000000000000001");
+        assertThat(postUiTokenAmount.getAmount()).isEqualTo("10");
     }
 
     @Test
