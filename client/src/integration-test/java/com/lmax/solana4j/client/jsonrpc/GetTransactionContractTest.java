@@ -17,7 +17,7 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetTransactionDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
-        final String transactionSignature = api.requestAirdrop(blackHoleAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final String transactionSignature = api.requestAirdrop(payer, Sol.lamports(BigDecimal.ONE)).getResponse();
 
         final var response = waitForTransactionSuccess(transactionSignature);
 
@@ -77,7 +77,7 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetTransactionBase58EncodingOptionalParam() throws SolanaJsonRpcClientException
     {
-        final String transactionSignature = api.requestAirdrop(blackHoleAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final String transactionSignature = api.requestAirdrop(payer, Sol.lamports(BigDecimal.ONE)).getResponse();
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "base58");
 
@@ -91,7 +91,7 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetTransactionJsonEncodingOptionalParam() throws SolanaJsonRpcClientException
     {
-        final String transactionSignature = api.requestAirdrop(blackHoleAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final String transactionSignature = api.requestAirdrop(payer, Sol.lamports(BigDecimal.ONE)).getResponse();
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "json");
 
@@ -127,7 +127,7 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetTransactionJsonParsedEncodingOptionalParam() throws SolanaJsonRpcClientException
     {
-        final String transactionSignature = api.requestAirdrop(blackHoleAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final String transactionSignature = api.requestAirdrop(payer, Sol.lamports(BigDecimal.ONE)).getResponse();
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "jsonParsed");
 
@@ -179,7 +179,7 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
                 .usingRecursiveComparison()
                 .ignoringFields("source")
                 .isEqualTo(Map.of(
-                        "destination", "4Nd1mnszWRVFzzsxMgcTzdFoC8Wx5mPQD9KZx3qtDr1M",
+                        "destination", "sCR7NonpU3TrqvusEiA4MAwDMLfiY1gyVPqw2b36d8V",
                         "lamports", 1000000000,
                         "source", "ignoredAsItChanges"
                 )

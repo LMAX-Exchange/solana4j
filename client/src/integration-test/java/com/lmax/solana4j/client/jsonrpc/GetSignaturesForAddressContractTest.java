@@ -139,7 +139,7 @@ class GetSignaturesForAddressContractTest extends SolanaClientIntegrationTestBas
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("minContextSlot", 10000000000L);
 
-        final var response = api.getSignaturesForAddress(blackHoleAccount, optionalParams);
+        final var response = api.getSignaturesForAddress(payer, optionalParams);
 
         assertThat(response.isSuccess()).isFalse();
         assertThat(response.getError().getErrorCode()).isEqualTo(-32016L);

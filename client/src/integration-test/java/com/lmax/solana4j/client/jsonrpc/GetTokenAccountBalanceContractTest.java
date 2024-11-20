@@ -35,7 +35,7 @@ class GetTokenAccountBalanceContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldReturnErrorForNonTokenAccount() throws SolanaJsonRpcClientException
     {
-        final var response = api.getTokenAccountBalance(payerAccount);
+        final var response = api.getTokenAccountBalance(solAccount);
 
         assertThat(response.isSuccess()).isFalse();
         assertThat(response.getError().getErrorCode()).isEqualTo(-32602L);

@@ -21,14 +21,13 @@ public abstract class SolanaClientIntegrationTestBase extends IntegrationTestBas
     // TODO: bring in some kind of key generator as hard coding them in some tests is a bit nasty
     // TODO: ensure all fields are being read in at least a single test
     // TODO: refactor interfaces - perhaps combine them into logical units per endpoint
-
-    protected final String blackHoleAccount = "4Nd1mnszWRVFzzsxMgcTzdFoC8Wx5mPQD9KZx3qtDr1M";
+    protected final String payer = "sCR7NonpU3TrqvusEiA4MAwDMLfiY1gyVPqw2b36d8V";
+    protected final String payerPriv = "C3y41jMdtQeaF9yMBRLcZhMNoWhJNTS6neAR8fdT7CBR";
 
     // below accounts found in shared/src/test-support/resources/testcontainers/accounts
 
-    // payer account
-    protected final String payerAccount = "sCR7NonpU3TrqvusEiA4MAwDMLfiY1gyVPqw2b36d8V";
-    protected final String payerAccountPriv = "C3y41jMdtQeaF9yMBRLcZhMNoWhJNTS6neAR8fdT7CBR";
+    // solana account
+    protected final String solAccount = "4Nd1mnszWRVFzzsxMgcTzdFoC8Wx5mPQD9KZx3qtDr1M";
 
     // token accounts
     protected final String tokenMint = "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS";
@@ -54,6 +53,9 @@ public abstract class SolanaClientIntegrationTestBase extends IntegrationTestBas
 
         waitForSlot(35);
 
+        final var airdropTransactionSignature = api.requestAirdrop(payer, 1000000).getResponse();
+        waitForTransactionSuccess(airdropTransactionSignature);
+
         final byte[] mintToTokenAccount1TransactionBytes = createMintToTransactionBytes(tokenAccount1);
         mintToTokenAccount1TransactionSignature = api.sendTransaction(Base64.getEncoder().encodeToString(mintToTokenAccount1TransactionBytes)).getResponse();
         waitForTransactionSuccess(mintToTokenAccount1TransactionSignature);
@@ -76,13 +78,13 @@ public abstract class SolanaClientIntegrationTestBase extends IntegrationTestBas
         Waiter.waitForConditionNotMet(transactionResponseIsNotNull(transactionSignature, maybeOptionalParams));
     }
 
-    private void waitForSlot(final int slot)
+    private void waitForSlot(final int slotNumber)
     {
         Waiter.waitForConditionMet(Condition.isTrue(() ->
         {
             try
             {
-                return api.getSlot().getResponse() > slot;
+                return api.getSlot().getResponse() > slotNumber;
             }
             catch (SolanaJsonRpcClientException e)
             {
@@ -116,13 +118,13 @@ public abstract class SolanaClientIntegrationTestBase extends IntegrationTestBas
     private byte[] createMintToTransactionBytes(final String tokenAccountAlt1) throws SolanaJsonRpcClientException
     {
         return Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
-                Solana.account(payerAccount),
+                Solana.account(payer),
                 Solana.blockhash(api.getLatestBlockhash().getResponse().getBlockhashBase58()),
                 Solana.account(tokenMint),
                 Solana.account(tokenMintAuthority),
                 Solana.destination(Solana.account(tokenAccountAlt1), 10),
                 List.of(
-                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(payerAccount), SolanaEncoding.decodeBase58(payerAccountPriv)),
+                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(payer), SolanaEncoding.decodeBase58(payerPriv)),
                         new Solana4jJsonRpcTestHelper.Signer(Solana.account(tokenMintAuthority), SolanaEncoding.decodeBase58(tokenMintAuthorityPriv))
                 )
         );

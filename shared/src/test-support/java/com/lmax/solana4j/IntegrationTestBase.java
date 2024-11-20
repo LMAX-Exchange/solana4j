@@ -39,7 +39,7 @@ public abstract class IntegrationTestBase
             copyResourceToTempFile(parentDirectory, "lmax_multisig.so");
             copyResourceToTempFile(parentDirectory, "upgrade_authority.json");
             copyResourceToTempFile(parentDirectory, "bpf_program.json");
-            copyResourceToTempFile(parentDirectory, "accounts/payer.json");
+            copyResourceToTempFile(parentDirectory, "accounts/sol_address.json");
             copyResourceToTempFile(parentDirectory, "accounts/token_mint.json");
             copyResourceToTempFile(parentDirectory, "accounts/token_account_1.json");
             copyResourceToTempFile(parentDirectory, "accounts/token_account_2.json");

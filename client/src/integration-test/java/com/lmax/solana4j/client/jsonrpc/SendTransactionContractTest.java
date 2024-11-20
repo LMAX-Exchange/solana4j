@@ -28,13 +28,13 @@ class SendTransactionContractTest extends SolanaClientIntegrationTestBase
         final String latestBlockhash = api.getLatestBlockhash().getResponse().getBlockhashBase58();
 
         final byte[] successfulTransactionBytes = Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
-                Solana.account(payerAccount),
+                Solana.account(payer),
                 Solana.blockhash(api.getLatestBlockhash().getResponse().getBlockhashBase58()),
                 Solana.account(tokenMint),
                 Solana.account(tokenMintAuthority),
                 Solana.destination(Solana.account(tokenAccount2), 10),
                 List.of(
-                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(payerAccount), SolanaEncoding.decodeBase58(payerAccountPriv)),
+                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(payer), SolanaEncoding.decodeBase58(payerPriv)),
                         new Solana4jJsonRpcTestHelper.Signer(Solana.account(tokenMintAuthority), SolanaEncoding.decodeBase58(tokenMintAuthorityPriv))
                 )
         );
@@ -43,13 +43,13 @@ class SendTransactionContractTest extends SolanaClientIntegrationTestBase
         successfulTransactionBlobBase64 = Base64.getEncoder().encodeToString(successfulTransactionBytes);
 
         final byte[] failPreflightCheckTransactionBytes = Solana4jJsonRpcTestHelper.createTransferTokenTransactionBlob(
-                Solana.account(payerAccount),
+                Solana.account(payer),
                 Solana.blockhash(latestBlockhash),
                 Solana.destination(Solana.account(tokenAccount1), 100000),
                 Solana.account(tokenAccount2),
                 Solana.account(tokenAccountOwner),
                 List.of(
-                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(payerAccount), SolanaEncoding.decodeBase58(payerAccountPriv)),
+                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(payer), SolanaEncoding.decodeBase58(payerPriv)),
                         new Solana4jJsonRpcTestHelper.Signer(Solana.account(tokenAccountOwner), SolanaEncoding.decodeBase58(tokenAccountAltPriv))
                 )
         );

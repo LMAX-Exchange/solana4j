@@ -11,7 +11,7 @@ class GetBalanceContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetBalance() throws SolanaJsonRpcClientException
     {
-        assertThat(api.getBalance(payerAccount).getResponse()).isEqualTo(590000L);
+        assertThat(api.getBalance(solAccount).getResponse()).isEqualTo(600000L);
     }
 
     @Test
@@ -36,7 +36,7 @@ class GetBalanceContractTest extends SolanaClientIntegrationTestBase
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("minContextSlot", 10000000000L);
 
-        final var response = api.getBalance(payerAccount, optionalParams);
+        final var response = api.getBalance(solAccount, optionalParams);
 
         assertThat(response.isSuccess()).isFalse();
         assertThat(response.getError().getErrorCode()).isEqualTo(-32016L);
