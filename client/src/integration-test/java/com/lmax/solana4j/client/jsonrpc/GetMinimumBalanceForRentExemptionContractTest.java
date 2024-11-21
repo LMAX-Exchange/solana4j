@@ -9,12 +9,12 @@ import java.util.Locale;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // https://solana.com/docs/rpc/http/getminimumbalanceforrentexemption
-class GetMinimumBalanceForRentExemptionContractTest extends SolanaClientIntegrationTestBase
+final class GetMinimumBalanceForRentExemptionContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
     void shouldGetMinimumBalanceForRentExemption() throws SolanaJsonRpcClientException
     {
-        assertThat(api.getMinimumBalanceForRentExemption(1000).getResponse()).isGreaterThan(0L);
+        assertThat(SOLANA_API.getMinimumBalanceForRentExemption(1000).getResponse()).isGreaterThan(0L);
     }
 
     @Test
@@ -23,7 +23,7 @@ class GetMinimumBalanceForRentExemptionContractTest extends SolanaClientIntegrat
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("commitment", Commitment.PROCESSED.name().toLowerCase(Locale.UK));
 
-        final var response = api.getMinimumBalanceForRentExemption(-1, optionalParams);
+        final var response = SOLANA_API.getMinimumBalanceForRentExemption(-1, optionalParams);
 
         assertThat(response.isSuccess()).isFalse();
         assertThat(response.getError().getErrorCode()).isEqualTo(-32602L);

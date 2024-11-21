@@ -13,24 +13,24 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.fail;
 
-class SimulateTransactionContractTest extends SolanaClientIntegrationTestBase
+final class SimulateTransactionContractTest extends SolanaClientIntegrationTestBase
 {
     private String transactionBlobBase64;
 
     @BeforeEach
     void beforeEach() throws SolanaJsonRpcClientException
     {
-        final String latestBlockhash = api.getLatestBlockhash().getResponse().getBlockhashBase58();
+        final String latestBlockhash = SOLANA_API.getLatestBlockhash().getResponse().getBlockhashBase58();
 
         final byte[] transactionBytes = Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
-                Solana.account(payer),
+                Solana.account(PAYER),
                 Solana.blockhash(latestBlockhash),
-                Solana.account(tokenMint),
-                Solana.account(tokenMintAuthority),
-                Solana.destination(Solana.account(tokenAccount1), 10),
+                Solana.account(TOKEN_MINT),
+                Solana.account(TOKEN_MINT_AUTHORITY),
+                Solana.destination(Solana.account(TOKEN_ACCOUNT_1), 10),
                 List.of(
-                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(payer), SolanaEncoding.decodeBase58(payerPriv)),
-                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(tokenMintAuthority), SolanaEncoding.decodeBase58(tokenMintAuthorityPriv))
+                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(PAYER), SolanaEncoding.decodeBase58(PAYER_PRIV)),
+                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(TOKEN_MINT_AUTHORITY), SolanaEncoding.decodeBase58(TOKEN_MINT_AUTHORITY_PRIV))
                 )
         );
 
@@ -86,7 +86,7 @@ class SimulateTransactionContractTest extends SolanaClientIntegrationTestBase
         optionalParams.addParam("minContextSlot", 10000000000L);
         optionalParams.addParam("encoding", "base64");
 
-        final var response = api.sendTransaction(transactionBlobBase64, optionalParams);
+        final var response = SOLANA_API.sendTransaction(transactionBlobBase64, optionalParams);
 
         Assertions.assertThat(response.isSuccess()).isFalse();
         Assertions.assertThat(response.getError().getErrorCode()).isEqualTo(-32016L);

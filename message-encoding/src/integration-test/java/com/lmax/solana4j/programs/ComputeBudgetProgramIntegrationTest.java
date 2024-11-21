@@ -2,7 +2,7 @@ package com.lmax.solana4j.programs;
 
 import com.lmax.solana4j.parameterisation.ParameterizedMessageEncodingTest;
 
-public class ComputeBudgetProgramIntegrationTest extends SolanaProgramsIntegrationTestBase
+final class ComputeBudgetProgramIntegrationTest extends SolanaProgramsIntegrationTestBase
 {
 
     @ParameterizedMessageEncodingTest

@@ -8,12 +8,12 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // https://solana.com/docs/rpc/http/getaccountinfo
-class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
+final class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
     void shouldGetAccountInfoDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
-        final var accountInfo = api.getAccountInfo(tokenMint).getResponse();
+        final var accountInfo = SOLANA_API.getAccountInfo(TOKEN_MINT).getResponse();
 
         assertThat(accountInfo.getOwner()).isEqualTo("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
         assertThat(accountInfo.getData().getAccountInfoEncoded().get(0)).isEqualTo(
@@ -32,7 +32,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "base58");
 
-        final var accountInfo = api.getAccountInfo(tokenMint, optionalParams).getResponse();
+        final var accountInfo = SOLANA_API.getAccountInfo(TOKEN_MINT, optionalParams).getResponse();
 
         assertThat(accountInfo.getData().getAccountInfoEncoded().get(0)).isEqualTo(
                 "DK9N1s2buYcYyPKFQH2cEHDY4vjQAfXCXCs6YvHFPJRB52sVXJr" +
@@ -46,7 +46,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "base64+zstd");
 
-        final var accountInfo = api.getAccountInfo(tokenMint, optionalParams).getResponse();
+        final var accountInfo = SOLANA_API.getAccountInfo(TOKEN_MINT, optionalParams).getResponse();
 
         assertThat(accountInfo.getData().getAccountInfoEncoded().get(0)).isEqualTo(
                 "KLUv/QBYkQIAAQAAAFA1CQIm+hHzTXNa/YZ1Z19+UKIaAOLFJLLDvQODwC" +
@@ -60,7 +60,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "jsonParsed");
 
-        final var accountInfo = api.getAccountInfo(tokenAccount1, optionalParams).getResponse();
+        final var accountInfo = SOLANA_API.getAccountInfo(TOKEN_ACCOUNT_1, optionalParams).getResponse();
         assertThat(accountInfo.getOwner()).isEqualTo("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
 
         // program specific parser so we can try and read the data that's returned
@@ -94,7 +94,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
         optionalParams.addParam("encoding", "base58");
         optionalParams.addParam("dataSlice", Map.of("length", 10, "offset", 10));
 
-        final var accountInfo = api.getAccountInfo(tokenMint, optionalParams).getResponse();
+        final var accountInfo = SOLANA_API.getAccountInfo(TOKEN_MINT, optionalParams).getResponse();
 
         assertThat(accountInfo.getData().getAccountInfoEncoded().get(0)).isEqualTo("21VYjtQD6JiatN");
         assertThat(accountInfo.getData().getAccountInfoEncoded().get(1)).isEqualTo("base58");
@@ -103,7 +103,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldReturnNullForUnknownAccount() throws SolanaJsonRpcClientException
     {
-        final var response = api.getAccountInfo("9yznQg77FHgGqrcf5V9CMKXQ9tcCt4omVW6NbHesWyog");
+        final var response = SOLANA_API.getAccountInfo("9yznQg77FHgGqrcf5V9CMKXQ9tcCt4omVW6NbHesWyog");
         assertThat(response.isSuccess()).isTrue();
         assertThat(response.getResponse()).isNull();
     }
@@ -111,7 +111,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldReturnErrorForMalformedAccount() throws SolanaJsonRpcClientException
     {
-        final var response = api.getAccountInfo("iamnotarealaccount");
+        final var response = SOLANA_API.getAccountInfo("iamnotarealaccount");
 
         assertThat(response.isSuccess()).isFalse();
         assertThat(response.getError().getErrorCode()).isEqualTo(-32602L);
@@ -124,7 +124,7 @@ class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("minContextSlot", 10000000000L);
 
-        final var response = api.getAccountInfo(tokenMint, optionalParams);
+        final var response = SOLANA_API.getAccountInfo(TOKEN_MINT, optionalParams);
 
         assertThat(response.isSuccess()).isFalse();
         assertThat(response.getError().getErrorCode()).isEqualTo(-32016L);

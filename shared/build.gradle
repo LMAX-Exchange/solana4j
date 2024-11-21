@@ -33,7 +33,6 @@ dependencies {
 
     testSupportImplementation 'org.testcontainers:testcontainers:1.20.2'
     testSupportImplementation 'org.assertj:assertj-core:3.26.3'
-    testSupportImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
     testSupportImplementation 'org.slf4j:slf4j-api:2.0.9'
     testSupportImplementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
 

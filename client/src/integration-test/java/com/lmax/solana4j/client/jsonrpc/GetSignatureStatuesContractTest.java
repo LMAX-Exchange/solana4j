@@ -12,20 +12,20 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // https://solana.com/docs/rpc/http/getsignaturestatuses
-class GetSignatureStatuesContractTest extends SolanaClientIntegrationTestBase
+final class GetSignatureStatuesContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
     void shouldGetSignatureStatusesDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
         final var randomAccount = "GZ3kNvLp4nW9VLnRTQLMPv5pPgjTruHVWwYZUevDfi3p";
-        final var transactionSignature1 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final var transactionSignature1 = SOLANA_API.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
         waitForTransactionSuccess(transactionSignature1);
-        final var transactionSignature2 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final var transactionSignature2 = SOLANA_API.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
         waitForTransactionSuccess(transactionSignature2);
-        final var transactionSignature3 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final var transactionSignature3 = SOLANA_API.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
         waitForTransactionSuccess(transactionSignature3);
 
-        final var response = api.getSignatureStatuses(List.of(transactionSignature1, transactionSignature2, transactionSignature3)).getResponse();
+        final var response = SOLANA_API.getSignatureStatuses(List.of(transactionSignature1, transactionSignature2, transactionSignature3)).getResponse();
 
         assertThat(response).hasSize(3);
 
@@ -65,14 +65,14 @@ class GetSignatureStatuesContractTest extends SolanaClientIntegrationTestBase
         optionalParams.addParam("searchTransactionHistory", true);
 
         final var randomAccount = "H3mn8y54jLo8dPfNV6eRxBphgWBzMdQJYme3NxYXm3uB";
-        final var transactionSignature1 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final var transactionSignature1 = SOLANA_API.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
         waitForTransactionSuccess(transactionSignature1);
-        final var transactionSignature2 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final var transactionSignature2 = SOLANA_API.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
         waitForTransactionSuccess(transactionSignature2);
-        final var transactionSignature3 = api.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final var transactionSignature3 = SOLANA_API.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
         waitForTransactionSuccess(transactionSignature3);
 
-        final var response = api.getSignatureStatuses(List.of(transactionSignature1, transactionSignature2, transactionSignature3), optionalParams).getResponse();
+        final var response = SOLANA_API.getSignatureStatuses(List.of(transactionSignature1, transactionSignature2, transactionSignature3), optionalParams).getResponse();
 
         assertThat(response).hasSize(3);
     }
@@ -82,10 +82,10 @@ class GetSignatureStatuesContractTest extends SolanaClientIntegrationTestBase
     {
         final var randomAccount = "8LZ4rT2Dq3vnqN6W9wqfhEDzJhKjsiD2AX1cZ1vLkXeZ";
         // this should create an error - there is an airdrop limit
-        final var transactionSignature1 = api.requestAirdrop(randomAccount, Sol.lamports(new BigDecimal("100000000000000"))).getResponse();
+        final var transactionSignature1 = SOLANA_API.requestAirdrop(randomAccount, Sol.lamports(new BigDecimal("100000000000000"))).getResponse();
         waitForTransactionSuccess(transactionSignature1);
 
-        final var response = api.getSignatureStatuses(List.of(transactionSignature1)).getResponse();
+        final var response = SOLANA_API.getSignatureStatuses(List.of(transactionSignature1)).getResponse();
 
         assertThat(response).hasSize(1);
         // some random error
@@ -95,7 +95,7 @@ class GetSignatureStatuesContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldReturnNullResponseForUnknownTransactions() throws SolanaJsonRpcClientException
     {
-        final var response = api.getSignatureStatuses(List.of("5F3u76cRyDHyWcHkFdRq1p8JLpJK8G8Z1uFbMhsyhRThNxWe4VjhYdLEyaM1wWqGqVt2aZyKPMPj9CMKo4nLhAhN"));
+        final var response = SOLANA_API.getSignatureStatuses(List.of("5F3u76cRyDHyWcHkFdRq1p8JLpJK8G8Z1uFbMhsyhRThNxWe4VjhYdLEyaM1wWqGqVt2aZyKPMPj9CMKo4nLhAhN"));
 
         assertThat(response.isSuccess()).isTrue();
         assertThat(response.getResponse().get(0)).isNull();

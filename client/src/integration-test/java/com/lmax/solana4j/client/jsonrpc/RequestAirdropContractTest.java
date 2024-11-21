@@ -11,12 +11,12 @@ import java.util.Locale;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // https://solana.com/docs/rpc/http/requestairdrop
-class RequestAirdropContractTest extends SolanaClientIntegrationTestBase
+final class RequestAirdropContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
     void shouldRequestAirdrop() throws SolanaJsonRpcClientException
     {
-        assertThat(api.requestAirdrop(payer, Sol.lamports(BigDecimal.ONE)).getResponse()).isNotBlank();
+        assertThat(SOLANA_API.requestAirdrop(PAYER, Sol.lamports(BigDecimal.ONE)).getResponse()).isNotBlank();
     }
 
     @Test
@@ -25,7 +25,7 @@ class RequestAirdropContractTest extends SolanaClientIntegrationTestBase
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("commitment", Commitment.PROCESSED.name().toLowerCase(Locale.UK));
 
-        final var response = api.requestAirdrop("iamnotarealaccount", Sol.lamports(BigDecimal.ONE), optionalParams);
+        final var response = SOLANA_API.requestAirdrop("iamnotarealaccount", Sol.lamports(BigDecimal.ONE), optionalParams);
 
         assertThat(response.isSuccess()).isFalse();
         assertThat(response.getError().getErrorCode()).isEqualTo(-32602L);

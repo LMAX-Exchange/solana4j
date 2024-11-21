@@ -12,12 +12,12 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // https://solana.com/docs/rpc/http/gettransaction
-class GetTransactionContractTest extends SolanaClientIntegrationTestBase
+final class GetTransactionContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
     void shouldGetTransactionDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
-        final String transactionSignature = api.requestAirdrop(payer, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final String transactionSignature = SOLANA_API.requestAirdrop(PAYER, Sol.lamports(BigDecimal.ONE)).getResponse();
 
         final var response = waitForTransactionSuccess(transactionSignature);
 
@@ -48,7 +48,7 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetTokenTransactionDefaultOptionalParams()
     {
-        final var response = waitForTransactionSuccess(mintToTokenAccount1TransactionSignature);
+        final var response = waitForTransactionSuccess(tokenMintTransactionSignature1);
 
         final var preTokenBalances = response.getMetadata().getPreTokenBalances();
         assertThat(preTokenBalances).hasSize(1);
@@ -77,7 +77,7 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetTransactionBase58EncodingOptionalParam() throws SolanaJsonRpcClientException
     {
-        final String transactionSignature = api.requestAirdrop(payer, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final String transactionSignature = SOLANA_API.requestAirdrop(PAYER, Sol.lamports(BigDecimal.ONE)).getResponse();
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "base58");
 
@@ -91,7 +91,7 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetTransactionJsonEncodingOptionalParam() throws SolanaJsonRpcClientException
     {
-        final String transactionSignature = api.requestAirdrop(payer, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final String transactionSignature = SOLANA_API.requestAirdrop(PAYER, Sol.lamports(BigDecimal.ONE)).getResponse();
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "json");
 
@@ -127,7 +127,7 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetTransactionJsonParsedEncodingOptionalParam() throws SolanaJsonRpcClientException
     {
-        final String transactionSignature = api.requestAirdrop(payer, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final String transactionSignature = SOLANA_API.requestAirdrop(PAYER, Sol.lamports(BigDecimal.ONE)).getResponse();
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "jsonParsed");
 
@@ -189,13 +189,13 @@ class GetTransactionContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldReturnNullForUnknownTransactionSignature() throws SolanaJsonRpcClientException
     {
-        assertThat(api.getTransaction("3wBQpRDgEKgNhbGJGzxfELHTyFas8mvf4x6bLWC989kBpgEVXPnwWS3tg33WEhVxnqbBTVXEQjmHun2tTbxHzSo").getResponse()).isNull();
+        assertThat(SOLANA_API.getTransaction("3wBQpRDgEKgNhbGJGzxfELHTyFas8mvf4x6bLWC989kBpgEVXPnwWS3tg33WEhVxnqbBTVXEQjmHun2tTbxHzSo").getResponse()).isNull();
     }
 
     @Test
     void shouldReturnErrorForMalformedTransactionSignature() throws SolanaJsonRpcClientException
     {
-        final var transaction = api.getTransaction("iamamalformedtransactionsignature");
+        final var transaction = SOLANA_API.getTransaction("iamamalformedtransactionsignature");
         assertThat(transaction.isSuccess()).isFalse();
         assertThat(transaction.getError().getErrorCode()).isEqualTo(-32602L);
         assertThat(transaction.getError().getErrorMessage()).isEqualTo("Invalid param: Invalid");

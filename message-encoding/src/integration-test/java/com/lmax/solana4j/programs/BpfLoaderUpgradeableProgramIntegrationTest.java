@@ -7,7 +7,7 @@ import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 
 @Execution(ExecutionMode.SAME_THREAD)
-public class BpfLoaderUpgradeableProgramIntegrationTest extends SolanaProgramsIntegrationTestBase
+final class BpfLoaderUpgradeableProgramIntegrationTest extends SolanaProgramsIntegrationTestBase
 {
     @BeforeEach
     void beforeEachTest()

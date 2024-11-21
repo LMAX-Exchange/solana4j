@@ -9,82 +9,98 @@ import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.encoding.SolanaEncoding;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestInstance;
 
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public abstract class SolanaClientIntegrationTestBase extends IntegrationTestBase
+abstract class SolanaClientIntegrationTestBase extends IntegrationTestBase
 {
     // TODO: bring in some kind of key generator as hard coding them in some tests is a bit nasty
     // TODO: ensure all fields are being read in at least a single test
     // TODO: refactor interfaces - perhaps combine them into logical units per endpoint
-    protected final String payer = "sCR7NonpU3TrqvusEiA4MAwDMLfiY1gyVPqw2b36d8V";
-    protected final String payerPriv = "C3y41jMdtQeaF9yMBRLcZhMNoWhJNTS6neAR8fdT7CBR";
+
+    protected static final String PAYER = "sCR7NonpU3TrqvusEiA4MAwDMLfiY1gyVPqw2b36d8V";
+    protected static final String PAYER_PRIV = "C3y41jMdtQeaF9yMBRLcZhMNoWhJNTS6neAR8fdT7CBR";
 
     // below accounts found in shared/src/test-support/resources/testcontainers/accounts
 
-    // solana account
-    protected final String solAccount = "4Nd1mnszWRVFzzsxMgcTzdFoC8Wx5mPQD9KZx3qtDr1M";
+    protected static final String SOL_ACCOUNT = "4Nd1mnszWRVFzzsxMgcTzdFoC8Wx5mPQD9KZx3qtDr1M";
 
-    // token accounts
-    protected final String tokenMint = "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS";
+    protected static final String TOKEN_MINT = "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS";
 
-    protected final String tokenAccount1 = "CZJWrh6o1tchnKB1UkGn2f65DDD7BbA1u6Nz6bZfTTNC";
-    protected String mintToTokenAccount1TransactionSignature;
+    protected static final String TOKEN_ACCOUNT_1 = "CZJWrh6o1tchnKB1UkGn2f65DDD7BbA1u6Nz6bZfTTNC";
+    protected static String tokenMintTransactionSignature1;
 
-    protected final String tokenAccount2 = "7uy6uq8nz3GikmAnrULr7bRfxJKeqQ1SrfeVKtu1YLyy";
-    protected byte[] mintToTokenAccount2TransactionBytes;
+    protected static final String TOKEN_ACCOUNT_2 = "7uy6uq8nz3GikmAnrULr7bRfxJKeqQ1SrfeVKtu1YLyy";
+    protected static byte[] tokenMintTransactionBytes2;
 
-    protected final String tokenAccountOwner = "7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr";
-    protected final String tokenAccountAltPriv = "9pwyogLpuStHt7Hmuhe3Yh4PJJWw7jvTutfnM5ndQjHo";
+    protected static final String TOKEN_ACCOUNT_OWNER = "7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr";
+    protected static final String TOKEN_ACCOUNT_OWNER_PRIV = "9pwyogLpuStHt7Hmuhe3Yh4PJJWw7jvTutfnM5ndQjHo";
 
-    protected final String tokenMintAuthority = "6Q6XBfRrdf6jrK2DraQ8XnYzkGsFz9c15DdUKS5aJHoJ";
-    protected final String tokenMintAuthorityPriv = "5DJqyvfAjjkhsT8sPNkRBmDfbhgvxeTMys8m4YKZ2u2z";
+    protected static final String TOKEN_MINT_AUTHORITY = "6Q6XBfRrdf6jrK2DraQ8XnYzkGsFz9c15DdUKS5aJHoJ";
+    protected static final String TOKEN_MINT_AUTHORITY_PRIV = "5DJqyvfAjjkhsT8sPNkRBmDfbhgvxeTMys8m4YKZ2u2z";
 
-    protected SolanaApi api;
+    protected static final SolanaApi SOLANA_API = new SolanaJsonRpcClient(solanaRpcUrl, true);
 
     @BeforeAll
-    void setupOnceSolanaClientBase() throws SolanaJsonRpcClientException
+    static void baseSetup() throws SolanaJsonRpcClientException
     {
-        api = new SolanaJsonRpcClient(rpcUrl, true);
-
         waitForSlot(35);
 
-        final var airdropTransactionSignature = api.requestAirdrop(payer, 1000000).getResponse();
+        final var airdropTransactionSignature = SOLANA_API.requestAirdrop(PAYER, 1000000).getResponse();
         waitForTransactionSuccess(airdropTransactionSignature);
 
-        final byte[] mintToTokenAccount1TransactionBytes = createMintToTransactionBytes(tokenAccount1);
-        mintToTokenAccount1TransactionSignature = api.sendTransaction(Base64.getEncoder().encodeToString(mintToTokenAccount1TransactionBytes)).getResponse();
-        waitForTransactionSuccess(mintToTokenAccount1TransactionSignature);
+        final byte[] mintToTokenAccount1TransactionBytes = Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
+                Solana.account(PAYER),
+                Solana.blockhash(SOLANA_API.getLatestBlockhash().getResponse().getBlockhashBase58()),
+                Solana.account(TOKEN_MINT),
+                Solana.account(TOKEN_MINT_AUTHORITY),
+                SolanaEncoding.destination(Solana.account(TOKEN_ACCOUNT_1), 10),
+                List.of(
+                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(PAYER), SolanaEncoding.decodeBase58(PAYER_PRIV)),
+                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(TOKEN_MINT_AUTHORITY), SolanaEncoding.decodeBase58(TOKEN_MINT_AUTHORITY_PRIV))
+                )
+        );
 
-        mintToTokenAccount2TransactionBytes = createMintToTransactionBytes(tokenAccount2);
+        tokenMintTransactionSignature1 = SOLANA_API.sendTransaction(Base64.getEncoder().encodeToString(mintToTokenAccount1TransactionBytes)).getResponse();
+        waitForTransactionSuccess(tokenMintTransactionSignature1);
+
+        tokenMintTransactionBytes2 = Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
+                Solana.account(PAYER),
+                Solana.blockhash(SOLANA_API.getLatestBlockhash().getResponse().getBlockhashBase58()),
+                Solana.account(TOKEN_MINT),
+                Solana.account(TOKEN_MINT_AUTHORITY),
+                SolanaEncoding.destination(Solana.account(TOKEN_ACCOUNT_2), 10),
+                List.of(
+                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(PAYER), SolanaEncoding.decodeBase58(PAYER_PRIV)),
+                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(TOKEN_MINT_AUTHORITY), SolanaEncoding.decodeBase58(TOKEN_MINT_AUTHORITY_PRIV))
+                )
+        );
     }
 
-    protected TransactionResponse waitForTransactionSuccess(final String transactionSignature)
+    protected static TransactionResponse waitForTransactionSuccess(final String transactionSignature)
     {
         return waitForTransactionSuccess(transactionSignature, Optional.empty());
     }
 
-    protected TransactionResponse waitForTransactionSuccess(final String transactionSignature, final Optional<SolanaClientOptionalParams> maybeOptionalParams)
+    protected static TransactionResponse waitForTransactionSuccess(final String transactionSignature, final Optional<SolanaClientOptionalParams> maybeOptionalParams)
     {
         return Waiter.waitForConditionMet(transactionResponseIsNotNull(transactionSignature, maybeOptionalParams));
     }
 
-    protected void waitForTransactionFailure(final String transactionSignature, final Optional<SolanaClientOptionalParams> maybeOptionalParams)
+    protected static void waitForTransactionFailure(final String transactionSignature, final Optional<SolanaClientOptionalParams> maybeOptionalParams)
     {
         Waiter.waitForConditionNotMet(transactionResponseIsNotNull(transactionSignature, maybeOptionalParams));
     }
 
-    private void waitForSlot(final int slotNumber)
+    private static void waitForSlot(final int slotNumber)
     {
         Waiter.waitForConditionMet(Condition.isTrue(() ->
         {
             try
             {
-                return api.getSlot().getResponse() > slotNumber;
+                return SOLANA_API.getSlot().getResponse() > slotNumber;
             }
             catch (SolanaJsonRpcClientException e)
             {
@@ -93,7 +109,7 @@ public abstract class SolanaClientIntegrationTestBase extends IntegrationTestBas
         }));
     }
 
-    private Condition<TransactionResponse> transactionResponseIsNotNull(final String transactionSignature, final Optional<SolanaClientOptionalParams> maybeOptionalParams)
+    private static Condition<TransactionResponse> transactionResponseIsNotNull(final String transactionSignature, final Optional<SolanaClientOptionalParams> maybeOptionalParams)
     {
         return Condition.isNotNull(() ->
         {
@@ -101,11 +117,11 @@ public abstract class SolanaClientIntegrationTestBase extends IntegrationTestBas
             {
                 if (maybeOptionalParams.isPresent())
                 {
-                    return api.getTransaction(transactionSignature, maybeOptionalParams.get()).getResponse();
+                    return SOLANA_API.getTransaction(transactionSignature, maybeOptionalParams.get()).getResponse();
                 }
                 else
                 {
-                    return api.getTransaction(transactionSignature).getResponse();
+                    return SOLANA_API.getTransaction(transactionSignature).getResponse();
                 }
             }
             catch (SolanaJsonRpcClientException e)
@@ -113,20 +129,5 @@ public abstract class SolanaClientIntegrationTestBase extends IntegrationTestBas
                 throw new RuntimeException(e);
             }
         });
-    }
-
-    private byte[] createMintToTransactionBytes(final String tokenAccountAlt1) throws SolanaJsonRpcClientException
-    {
-        return Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
-                Solana.account(payer),
-                Solana.blockhash(api.getLatestBlockhash().getResponse().getBlockhashBase58()),
-                Solana.account(tokenMint),
-                Solana.account(tokenMintAuthority),
-                Solana.destination(Solana.account(tokenAccountAlt1), 10),
-                List.of(
-                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(payer), SolanaEncoding.decodeBase58(payerPriv)),
-                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(tokenMintAuthority), SolanaEncoding.decodeBase58(tokenMintAuthorityPriv))
-                )
-        );
     }
 }

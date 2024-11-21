@@ -13,7 +13,7 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class Solana4jJsonRpcTestHelper
+final class Solana4jJsonRpcTestHelper
 {
     static byte[] createMintToTransactionBlob(
             final PublicKey payer,

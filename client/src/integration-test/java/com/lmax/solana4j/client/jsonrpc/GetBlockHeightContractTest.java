@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // https://solana.com/docs/rpc/http/getblockheight
-class GetBlockHeightContractTest extends SolanaClientIntegrationTestBase
+final class GetBlockHeightContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
     void shouldGetBlockHeight() throws SolanaJsonRpcClientException
     {
-        assertThat(api.getBlockHeight().getResponse()).isGreaterThan(0L);
+        assertThat(SOLANA_API.getBlockHeight().getResponse()).isGreaterThan(0L);
     }
 
     @Test
@@ -20,7 +20,7 @@ class GetBlockHeightContractTest extends SolanaClientIntegrationTestBase
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("minContextSlot", 10000000000L);
 
-        final var response = api.getBlockHeight(optionalParams);
+        final var response = SOLANA_API.getBlockHeight(optionalParams);
 
         assertThat(response.isSuccess()).isFalse();
         assertThat(response.getError().getErrorCode()).isEqualTo(-32016L);

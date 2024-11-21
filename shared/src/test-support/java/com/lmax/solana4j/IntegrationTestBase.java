@@ -1,7 +1,5 @@
 package com.lmax.solana4j;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestInstance;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.images.builder.ImageFromDockerfile;
@@ -14,15 +12,14 @@ import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class IntegrationTestBase
 {
-    public static final int SOLANA_HTTP_PORT = 8899;
-    public static final int SOLANA_WS_PORT = 8900;
-    public static final Network NETWORK = Network.newNetwork();
-    protected static final GenericContainer<?> SOLANA_VALIDATOR;
+    private static final int SOLANA_HTTP_PORT = 8899;
+    private static final int SOLANA_WS_PORT = 8900;
+    private static final Network NETWORK = Network.newNetwork();
+    private static final GenericContainer<?> SOLANA_VALIDATOR;
 
-    protected String rpcUrl;
+    protected static String solanaRpcUrl;
 
     static
     {
@@ -55,7 +52,7 @@ public abstract class IntegrationTestBase
                 {
                     throw new RuntimeException(
                             String.format("Cannot find solana-release-aarch64-unknown-linux-gnu-%s.tar.bz2, " +
-                            "are you sure you've run BuildMeAnAarch64CompliantSolanaDockerImagePleaseDockerfile?", solanaVersion));
+                                    "are you sure you've run BuildMeAnAarch64CompliantSolanaDockerImagePleaseDockerfile?", solanaVersion));
                 }
             }
 
@@ -66,6 +63,11 @@ public abstract class IntegrationTestBase
                     .withStartupTimeout(Duration.of(10, ChronoUnit.MINUTES));
 
             SOLANA_VALIDATOR.start();
+
+            final Integer mappedPort = SOLANA_VALIDATOR.getMappedPort(SOLANA_HTTP_PORT);
+            final String solanaHost = SOLANA_VALIDATOR.getHost();
+
+            solanaRpcUrl = "http://" + solanaHost + ':' + mappedPort;
         }
         catch (final RuntimeException | IOException e)
         {
@@ -90,21 +92,4 @@ public abstract class IntegrationTestBase
         }
         return tempFile;
     }
-
-    @BeforeAll
-    public void setupOnceBase()
-    {
-        try
-        {
-            final Integer mappedPort = SOLANA_VALIDATOR.getMappedPort(SOLANA_HTTP_PORT);
-            final String solanaHost = SOLANA_VALIDATOR.getHost();
-
-            rpcUrl = "http://" + solanaHost + ':' + mappedPort;
-        }
-        catch (final Exception e)
-        {
-            throw new RuntimeException("Something went wrong in the test set-up", e);
-        }
-    }
-
 }

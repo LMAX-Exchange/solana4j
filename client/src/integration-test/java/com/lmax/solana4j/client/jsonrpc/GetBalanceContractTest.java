@@ -6,24 +6,24 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // https://solana.com/docs/rpc/http/getbalance
-class GetBalanceContractTest extends SolanaClientIntegrationTestBase
+final class GetBalanceContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
     void shouldGetBalance() throws SolanaJsonRpcClientException
     {
-        assertThat(api.getBalance(solAccount).getResponse()).isEqualTo(600000L);
+        assertThat(SOLANA_API.getBalance(SOL_ACCOUNT).getResponse()).isEqualTo(600000L);
     }
 
     @Test
     void shouldReturnZeroBalanceForUnknownAccount() throws SolanaJsonRpcClientException
     {
-        assertThat(api.getBalance("9yznQg77FHgGqrcf5V9CMKXQ9tcCt4omVW6NbHesWyog").getResponse()).isEqualTo(0);
+        assertThat(SOLANA_API.getBalance("9yznQg77FHgGqrcf5V9CMKXQ9tcCt4omVW6NbHesWyog").getResponse()).isEqualTo(0);
     }
 
     @Test
     void shouldReturnErrorForMalformedAccount() throws SolanaJsonRpcClientException
     {
-        final var response = api.getBalance("iamnotarealaccount");
+        final var response = SOLANA_API.getBalance("iamnotarealaccount");
 
         assertThat(response.isSuccess()).isFalse();
         assertThat(response.getError().getErrorCode()).isEqualTo(-32602L);
@@ -36,7 +36,7 @@ class GetBalanceContractTest extends SolanaClientIntegrationTestBase
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("minContextSlot", 10000000000L);
 
-        final var response = api.getBalance(solAccount, optionalParams);
+        final var response = SOLANA_API.getBalance(SOL_ACCOUNT, optionalParams);
 
         assertThat(response.isSuccess()).isFalse();
         assertThat(response.getError().getErrorCode()).isEqualTo(-32016L);

@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // https://solana.com/docs/rpc/http/getslot
-class GetSlotContractTest extends SolanaClientIntegrationTestBase
+final class GetSlotContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
     void shouldGetSlotDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
-        assertThat(api.getSlot().getResponse()).isGreaterThan(0L);
+        assertThat(SOLANA_API.getSlot().getResponse()).isGreaterThan(0L);
     }
 
     @Test
@@ -20,7 +20,7 @@ class GetSlotContractTest extends SolanaClientIntegrationTestBase
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("minContextSlot", 10000000000L);
 
-        final var response = api.getSlot(optionalParams);
+        final var response = SOLANA_API.getSlot(optionalParams);
 
         assertThat(response.isSuccess()).isFalse();
         assertThat(response.getError().getErrorCode()).isEqualTo(-32016L);
