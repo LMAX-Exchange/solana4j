@@ -8,7 +8,6 @@ import com.lmax.solana4j.client.api.SolanaApi;
 import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.encoding.SolanaEncoding;
-import org.junit.jupiter.api.BeforeAll;
 
 import java.util.Base64;
 import java.util.List;
@@ -39,40 +38,46 @@ abstract class SolanaClientIntegrationTestBase extends IntegrationTestBase
 
     protected static final SolanaApi SOLANA_API = new SolanaJsonRpcClient(solanaRpcUrl, true);
 
-    @BeforeAll
-    static void baseSetup() throws SolanaJsonRpcClientException
+    static
     {
-        waitForSlot(35);
+        try
+        {
+            waitForSlot(35);
 
-        final var airdropTransactionSignature = SOLANA_API.requestAirdrop(PAYER, 1000000).getResponse();
-        waitForTransactionSuccess(airdropTransactionSignature);
+            final var airdropTransactionSignature = SOLANA_API.requestAirdrop(PAYER, 1000000).getResponse();
+            waitForTransactionSuccess(airdropTransactionSignature);
 
-        final byte[] mintToTokenAccount1TransactionBytes = Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
-                Solana.account(PAYER),
-                Solana.blockhash(SOLANA_API.getLatestBlockhash().getResponse().getBlockhashBase58()),
-                Solana.account(TOKEN_MINT),
-                Solana.account(TOKEN_MINT_AUTHORITY),
-                SolanaEncoding.destination(Solana.account(TOKEN_ACCOUNT_1), 10),
-                List.of(
-                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(PAYER), SolanaEncoding.decodeBase58(PAYER_PRIV)),
-                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(TOKEN_MINT_AUTHORITY), SolanaEncoding.decodeBase58(TOKEN_MINT_AUTHORITY_PRIV))
-                )
-        );
+            final byte[] mintToTokenAccount1TransactionBytes = Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
+                    Solana.account(PAYER),
+                    Solana.blockhash(SOLANA_API.getLatestBlockhash().getResponse().getBlockhashBase58()),
+                    Solana.account(TOKEN_MINT),
+                    Solana.account(TOKEN_MINT_AUTHORITY),
+                    SolanaEncoding.destination(Solana.account(TOKEN_ACCOUNT_1), 10),
+                    List.of(
+                            new Solana4jJsonRpcTestHelper.Signer(Solana.account(PAYER), SolanaEncoding.decodeBase58(PAYER_PRIV)),
+                            new Solana4jJsonRpcTestHelper.Signer(Solana.account(TOKEN_MINT_AUTHORITY), SolanaEncoding.decodeBase58(TOKEN_MINT_AUTHORITY_PRIV))
+                    )
+            );
 
-        tokenMintTransactionSignature1 = SOLANA_API.sendTransaction(Base64.getEncoder().encodeToString(mintToTokenAccount1TransactionBytes)).getResponse();
-        waitForTransactionSuccess(tokenMintTransactionSignature1);
+            tokenMintTransactionSignature1 = SOLANA_API.sendTransaction(Base64.getEncoder().encodeToString(mintToTokenAccount1TransactionBytes)).getResponse();
+            waitForTransactionSuccess(tokenMintTransactionSignature1);
 
-        tokenMintTransactionBytes2 = Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
-                Solana.account(PAYER),
-                Solana.blockhash(SOLANA_API.getLatestBlockhash().getResponse().getBlockhashBase58()),
-                Solana.account(TOKEN_MINT),
-                Solana.account(TOKEN_MINT_AUTHORITY),
-                SolanaEncoding.destination(Solana.account(TOKEN_ACCOUNT_2), 10),
-                List.of(
-                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(PAYER), SolanaEncoding.decodeBase58(PAYER_PRIV)),
-                        new Solana4jJsonRpcTestHelper.Signer(Solana.account(TOKEN_MINT_AUTHORITY), SolanaEncoding.decodeBase58(TOKEN_MINT_AUTHORITY_PRIV))
-                )
-        );
+            tokenMintTransactionBytes2 = Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
+                    Solana.account(PAYER),
+                    Solana.blockhash(SOLANA_API.getLatestBlockhash().getResponse().getBlockhashBase58()),
+                    Solana.account(TOKEN_MINT),
+                    Solana.account(TOKEN_MINT_AUTHORITY),
+                    SolanaEncoding.destination(Solana.account(TOKEN_ACCOUNT_2), 10),
+                    List.of(
+                            new Solana4jJsonRpcTestHelper.Signer(Solana.account(PAYER), SolanaEncoding.decodeBase58(PAYER_PRIV)),
+                            new Solana4jJsonRpcTestHelper.Signer(Solana.account(TOKEN_MINT_AUTHORITY), SolanaEncoding.decodeBase58(TOKEN_MINT_AUTHORITY_PRIV))
+                    )
+            );
+        }
+        catch (final SolanaJsonRpcClientException e)
+        {
+            throw new RuntimeException("Something went wrong in the test set-up.", e);
+        }
     }
 
     protected static TransactionResponse waitForTransactionSuccess(final String transactionSignature)

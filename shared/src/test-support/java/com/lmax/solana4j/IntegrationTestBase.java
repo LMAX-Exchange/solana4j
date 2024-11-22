@@ -69,7 +69,7 @@ public abstract class IntegrationTestBase
 
             solanaRpcUrl = "http://" + solanaHost + ':' + mappedPort;
         }
-        catch (final RuntimeException | IOException e)
+        catch (final IOException e)
         {
             throw new RuntimeException("Something went wrong in the test set-up.", e);
         }

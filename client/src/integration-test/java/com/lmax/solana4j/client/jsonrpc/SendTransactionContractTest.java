@@ -45,8 +45,8 @@ final class SendTransactionContractTest extends SolanaClientIntegrationTestBase
         final byte[] failPreflightCheckTransactionBytes = Solana4jJsonRpcTestHelper.createTransferTokenTransactionBlob(
                 Solana.account(PAYER),
                 Solana.blockhash(latestBlockhash),
-                Solana.destination(Solana.account(TOKEN_ACCOUNT_1), 100000),
-                Solana.account(TOKEN_ACCOUNT_2),
+                Solana.destination(Solana.account(PAYER), 100000),
+                Solana.account(PAYER),
                 Solana.account(TOKEN_ACCOUNT_OWNER),
                 List.of(
                         new Solana4jJsonRpcTestHelper.Signer(Solana.account(PAYER), SolanaEncoding.decodeBase58(PAYER_PRIV)),
