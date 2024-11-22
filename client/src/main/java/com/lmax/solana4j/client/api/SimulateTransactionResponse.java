@@ -8,5 +8,13 @@ public interface SimulateTransactionResponse
 
     List<String> getLogs();
 
+    AccountInfoData getAccounts();
+
+    List<Instruction> getInnerInstructions();
+
+    Blockhash getReplacementBlockhash();
+
+    Data getReturnData();
+
     int getUnitsConsumed();
 }

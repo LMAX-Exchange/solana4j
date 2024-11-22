@@ -2,7 +2,11 @@ package com.lmax.solana4j.client.jsonrpc;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.lmax.solana4j.client.api.AccountInfoData;
+import com.lmax.solana4j.client.api.Blockhash;
 import com.lmax.solana4j.client.api.Context;
+import com.lmax.solana4j.client.api.Instruction;
+import com.lmax.solana4j.client.api.Data;
 import com.lmax.solana4j.client.api.SimulateTransactionResponse;
 import com.lmax.solana4j.client.api.SolanaRpcResponse;
 
@@ -47,16 +51,28 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
     {
         private final Object err;
         private final List<String> logs;
+        private final AccountInfoData accounts;
+        private final List<Instruction> innerInstructions;
+        private final BlockhashDTO.BlockhashValueDTO replacementBlockhash;
+        private final DataDTO returnData;
         private final int unitsConsumed;
 
         @JsonCreator
         SimulateTransactionValueDTO(
                 final @JsonProperty("err") Object err,
                 final @JsonProperty("logs") List<String> logs,
+                final @JsonProperty("accounts") AccountInfoData accounts,
+                final @JsonProperty("innerInstructions") List<Instruction> innerInstructions,
+                final @JsonProperty("replacementBlockhash") BlockhashDTO.BlockhashValueDTO replacementBlockhash,
+                final @JsonProperty("returnData") DataDTO returnData,
                 final @JsonProperty("unitsConsumed") int unitsConsumed)
         {
             this.err = err;
             this.logs = logs;
+            this.accounts = accounts;
+            this.innerInstructions = innerInstructions;
+            this.replacementBlockhash = replacementBlockhash;
+            this.returnData = returnData;
             this.unitsConsumed = unitsConsumed;
         }
 
@@ -73,6 +89,30 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
         }
 
         @Override
+        public AccountInfoData getAccounts()
+        {
+            return accounts;
+        }
+
+        @Override
+        public List<Instruction> getInnerInstructions()
+        {
+            return innerInstructions;
+        }
+
+        @Override
+        public Blockhash getReplacementBlockhash()
+        {
+            return replacementBlockhash;
+        }
+
+        @Override
+        public Data getReturnData()
+        {
+            return returnData;
+        }
+
+        @Override
         public int getUnitsConsumed()
         {
             return unitsConsumed;
@@ -81,11 +121,15 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
         @Override
         public String toString()
         {
-            return "SimulateTransactionResponseDTO{" +
-                   "err='" + err + '\'' +
-                   ", logs=" + logs +
-                   ", unitsConsumed=" + unitsConsumed +
-                   '}';
+            return "SimulateTransactionValueDTO{" +
+                    "err=" + err +
+                    ", logs=" + logs +
+                    ", accounts=" + accounts +
+                    ", innerInstructions=" + innerInstructions +
+                    ", replacementBlockhash=" + replacementBlockhash +
+                    ", returnData=" + returnData +
+                    ", unitsConsumed=" + unitsConsumed +
+                    '}';
         }
     }
 }
