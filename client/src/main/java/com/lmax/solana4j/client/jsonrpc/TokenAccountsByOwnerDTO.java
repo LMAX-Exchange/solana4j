@@ -29,6 +29,7 @@ public class TokenAccountsByOwnerDTO implements SolanaRpcResponse<List<TokenAcco
     }
 
     @Override
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public List<TokenAccount> getValue()
     {
         return (List) value;

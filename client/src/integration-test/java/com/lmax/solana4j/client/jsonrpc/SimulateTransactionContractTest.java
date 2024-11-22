@@ -1,7 +1,6 @@
 package com.lmax.solana4j.client.jsonrpc;
 
 import com.lmax.solana4j.Solana;
-import com.lmax.solana4j.client.api.SimulateTransactionResponse;
 import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import com.lmax.solana4j.encoding.SolanaEncoding;
 import org.assertj.core.api.Assertions;
@@ -13,7 +12,6 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 // https://solana.com/docs/rpc/http/simulatetransaction
