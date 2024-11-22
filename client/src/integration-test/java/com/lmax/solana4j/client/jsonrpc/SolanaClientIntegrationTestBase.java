@@ -28,7 +28,6 @@ abstract class SolanaClientIntegrationTestBase extends IntegrationTestBase
     protected static String tokenMintTransactionSignature1;
 
     protected static final String TOKEN_ACCOUNT_2 = "7uy6uq8nz3GikmAnrULr7bRfxJKeqQ1SrfeVKtu1YLyy";
-    protected static byte[] tokenMintTransactionBytes2;
 
     protected static final String TOKEN_ACCOUNT_OWNER = "7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr";
     protected static final String TOKEN_ACCOUNT_OWNER_PRIV = "9pwyogLpuStHt7Hmuhe3Yh4PJJWw7jvTutfnM5ndQjHo";
@@ -61,18 +60,6 @@ abstract class SolanaClientIntegrationTestBase extends IntegrationTestBase
 
             tokenMintTransactionSignature1 = SOLANA_API.sendTransaction(Base64.getEncoder().encodeToString(mintToTokenAccount1TransactionBytes)).getResponse();
             waitForTransactionSuccess(tokenMintTransactionSignature1);
-
-            tokenMintTransactionBytes2 = Solana4jJsonRpcTestHelper.createMintToTransactionBlob(
-                    Solana.account(PAYER),
-                    Solana.blockhash(SOLANA_API.getLatestBlockhash().getResponse().getBlockhashBase58()),
-                    Solana.account(TOKEN_MINT),
-                    Solana.account(TOKEN_MINT_AUTHORITY),
-                    SolanaEncoding.destination(Solana.account(TOKEN_ACCOUNT_2), 10),
-                    List.of(
-                            new Solana4jJsonRpcTestHelper.Signer(Solana.account(PAYER), SolanaEncoding.decodeBase58(PAYER_PRIV)),
-                            new Solana4jJsonRpcTestHelper.Signer(Solana.account(TOKEN_MINT_AUTHORITY), SolanaEncoding.decodeBase58(TOKEN_MINT_AUTHORITY_PRIV))
-                    )
-            );
         }
         catch (final SolanaJsonRpcClientException e)
         {
