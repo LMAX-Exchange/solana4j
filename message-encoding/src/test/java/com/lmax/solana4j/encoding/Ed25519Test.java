@@ -72,7 +72,7 @@ class Ed25519Test
     @Test
     void generatedPublicKeyValidPointOnTheCurve()
     {
-        final var pointOnCurve = TestKeyPairGenerator.generateSolanaKeyPair().getPublicKeyBytes();
+        final var pointOnCurve = TestKeyPairGenerator.generateTestKeyPair().getPublicKeyBytes();
 
         assertTrue(Ed25519.isOnCurve(pointOnCurve));
     }

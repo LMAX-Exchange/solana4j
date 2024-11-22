@@ -2,7 +2,10 @@ package com.lmax.solana4j.client.jsonrpc;
 
 import com.lmax.solana4j.client.api.Commitment;
 import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
+import com.lmax.solana4j.domain.KeyPairGenerator;
 import com.lmax.solana4j.domain.Sol;
+import com.lmax.solana4j.encoding.SolanaEncoding;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -14,15 +17,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 // https://solana.com/docs/rpc/http/getsignaturestatuses
 final class GetSignatureStatuesContractTest extends SolanaClientIntegrationTestBase
 {
+    private String address;
+
+    @BeforeEach
+    void beforeEach()
+    {
+        address = SolanaEncoding.encodeBase58(KeyPairGenerator.generateKeyPair().getPublicKey());
+    }
+
+
     @Test
     void shouldGetSignatureStatusesDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
-        final var randomAccount = "GZ3kNvLp4nW9VLnRTQLMPv5pPgjTruHVWwYZUevDfi3p";
-        final var transactionSignature1 = SOLANA_API.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final var transactionSignature1 = SOLANA_API.requestAirdrop(address, Sol.lamports(BigDecimal.ONE)).getResponse();
         waitForTransactionSuccess(transactionSignature1);
-        final var transactionSignature2 = SOLANA_API.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final var transactionSignature2 = SOLANA_API.requestAirdrop(address, Sol.lamports(BigDecimal.ONE)).getResponse();
         waitForTransactionSuccess(transactionSignature2);
-        final var transactionSignature3 = SOLANA_API.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final var transactionSignature3 = SOLANA_API.requestAirdrop(address, Sol.lamports(BigDecimal.ONE)).getResponse();
         waitForTransactionSuccess(transactionSignature3);
 
         final var response = SOLANA_API.getSignatureStatuses(List.of(transactionSignature1, transactionSignature2, transactionSignature3)).getResponse();
@@ -64,12 +75,11 @@ final class GetSignatureStatuesContractTest extends SolanaClientIntegrationTestB
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("searchTransactionHistory", true);
 
-        final var randomAccount = "H3mn8y54jLo8dPfNV6eRxBphgWBzMdQJYme3NxYXm3uB";
-        final var transactionSignature1 = SOLANA_API.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final var transactionSignature1 = SOLANA_API.requestAirdrop(address, Sol.lamports(BigDecimal.ONE)).getResponse();
         waitForTransactionSuccess(transactionSignature1);
-        final var transactionSignature2 = SOLANA_API.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final var transactionSignature2 = SOLANA_API.requestAirdrop(address, Sol.lamports(BigDecimal.ONE)).getResponse();
         waitForTransactionSuccess(transactionSignature2);
-        final var transactionSignature3 = SOLANA_API.requestAirdrop(randomAccount, Sol.lamports(BigDecimal.ONE)).getResponse();
+        final var transactionSignature3 = SOLANA_API.requestAirdrop(address, Sol.lamports(BigDecimal.ONE)).getResponse();
         waitForTransactionSuccess(transactionSignature3);
 
         final var response = SOLANA_API.getSignatureStatuses(List.of(transactionSignature1, transactionSignature2, transactionSignature3), optionalParams).getResponse();
@@ -80,9 +90,8 @@ final class GetSignatureStatuesContractTest extends SolanaClientIntegrationTestB
     @Test
     void shouldReturnErrorIfTransactionFailed() throws SolanaJsonRpcClientException
     {
-        final var randomAccount = "8LZ4rT2Dq3vnqN6W9wqfhEDzJhKjsiD2AX1cZ1vLkXeZ";
         // this should create an error - there is an airdrop limit
-        final var transactionSignature1 = SOLANA_API.requestAirdrop(randomAccount, Sol.lamports(new BigDecimal("100000000000000"))).getResponse();
+        final var transactionSignature1 = SOLANA_API.requestAirdrop(address, Sol.lamports(new BigDecimal("100000000000000"))).getResponse();
         waitForTransactionSuccess(transactionSignature1);
 
         final var response = SOLANA_API.getSignatureStatuses(List.of(transactionSignature1)).getResponse();

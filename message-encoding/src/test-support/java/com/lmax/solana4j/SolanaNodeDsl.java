@@ -64,7 +64,7 @@ public class SolanaNodeDsl
                 args,
                 new RequiredArg("alias"));
 
-        final TestKeyPair testKeyPair = TestKeyPairGenerator.generateSolanaKeyPair();
+        final TestKeyPair testKeyPair = TestKeyPairGenerator.generateTestKeyPair();
 
         testContext.data(TestDataType.TEST_KEY_PAIR).store(params.value("alias"), testKeyPair);
         testContext.data(TestDataType.TEST_PUBLIC_KEY).store(params.value("alias"), new TestPublicKey(testKeyPair.getPublicKeyBytes()));

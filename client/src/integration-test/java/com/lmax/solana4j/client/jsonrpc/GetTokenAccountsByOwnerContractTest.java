@@ -13,7 +13,7 @@ final class GetTokenAccountsByOwnerContractTest extends SolanaClientIntegrationT
     @Test
     void shouldGetTokenAccountsByOwnerWithMintDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
-        // 9Hf5hHKtt8ghuZRN3WfivSjVCS2fveRrkr6NHtFS6dhG - (is the owner of the token account - see shouldGetTokenAccountInfoJsonParsedEncodingOptionalParam)
+        // 7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr - (is the owner of the token account - see shouldGetTokenAccountInfoJsonParsedEncodingOptionalParam)
         final var response = SOLANA_API.getTokenAccountsByOwner("7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr", Map.entry("mint", "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS")).getResponse();
 
         assertThat(response).hasSize(2);

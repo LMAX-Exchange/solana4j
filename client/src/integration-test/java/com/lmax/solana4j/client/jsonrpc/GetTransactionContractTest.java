@@ -46,9 +46,9 @@ final class GetTransactionContractTest extends SolanaClientIntegrationTestBase
     }
 
     @Test
-    void shouldGetTokenTransactionDefaultOptionalParams()
+    void shouldGetTokenTransactionDefaultOptionalParams() throws SolanaJsonRpcClientException
     {
-        final var response = waitForTransactionSuccess(tokenMintTransactionSignature1);
+        final var response = SOLANA_API.getTransaction(tokenMintTransactionSignature1).getResponse();
 
         final var preTokenBalances = response.getMetadata().getPreTokenBalances();
         assertThat(preTokenBalances).hasSize(1);

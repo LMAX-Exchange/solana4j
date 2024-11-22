@@ -16,10 +16,6 @@ import java.util.Optional;
 
 abstract class SolanaClientIntegrationTestBase extends IntegrationTestBase
 {
-    // TODO: bring in some kind of key generator as hard coding them in some tests is a bit nasty
-    // TODO: ensure all fields are being read in at least a single test
-    // TODO: refactor interfaces - perhaps combine them into logical units per endpoint
-
     protected static final String PAYER = "sCR7NonpU3TrqvusEiA4MAwDMLfiY1gyVPqw2b36d8V";
     protected static final String PAYER_PRIV = "C3y41jMdtQeaF9yMBRLcZhMNoWhJNTS6neAR8fdT7CBR";
 

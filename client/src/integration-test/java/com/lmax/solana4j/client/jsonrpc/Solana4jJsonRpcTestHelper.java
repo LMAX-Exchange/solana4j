@@ -48,7 +48,7 @@ final class Solana4jJsonRpcTestHelper
         return ByteBufferPrimitiveArray.copy(buffer);
     }
 
-    public static byte[] createTransferTokenTransactionBlob(
+    static byte[] createTransferTokenTransactionBlob(
             final PublicKey payer,
             final Blockhash recentBlockhash,
             final Destination destination,

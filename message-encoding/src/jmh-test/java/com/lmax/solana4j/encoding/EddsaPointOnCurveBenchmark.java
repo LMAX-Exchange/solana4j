@@ -35,7 +35,7 @@ public class EddsaPointOnCurveBenchmark
                     4, 8
             };
 
-    private static final byte[] POINT_ON_CURVE = TestKeyPairGenerator.generateSolanaKeyPair().getPublicKeyBytes();
+    private static final byte[] POINT_ON_CURVE = TestKeyPairGenerator.generateTestKeyPair().getPublicKeyBytes();
 
     @Benchmark
     public void pointOnCurveSolana4jImplementation(final Blackhole bh)
