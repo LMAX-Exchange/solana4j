@@ -1,12 +1,12 @@
 package com.lmax.solana4j.client.jsonrpc;
 
 import com.lmax.solana4j.Solana;
+import com.lmax.solana4j.client.api.Commitment;
 import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import com.lmax.solana4j.client.api.SolanaClientResponse;
 import com.lmax.solana4j.encoding.SolanaEncoding;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Base64;
@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
 
+// https://solana.com/docs/rpc/http/sendtransaction
 final class SendTransactionContractTest extends SolanaClientIntegrationTestBase
 {
     private String failPreflightCheckTransactionBlobBase64;
@@ -106,31 +106,38 @@ final class SendTransactionContractTest extends SolanaClientIntegrationTestBase
     }
 
     @Test
-    @Disabled
     void shouldSendTransactionSetPreflightCommitmentProcessed() throws SolanaJsonRpcClientException
     {
-        fail();
+        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
+        optionalParams.addParam("skipPreflight", false);
+        optionalParams.addParam("preflightCommitment", Commitment.PROCESSED.name().toLowerCase());
+
+        final SolanaClientResponse<String> response = SOLANA_API.sendTransaction(failPreflightCheckTransactionBlobBase64, optionalParams);
+
+        assertThat(response.isSuccess()).isFalse();
     }
 
     @Test
-    @Disabled
     void shouldSendTransactionSetPreflightCommitmentConfirmed() throws SolanaJsonRpcClientException
     {
-        fail();
+        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
+        optionalParams.addParam("skipPreflight", false);
+        optionalParams.addParam("preflightCommitment", Commitment.CONFIRMED.name().toLowerCase());
+
+        final SolanaClientResponse<String> response = SOLANA_API.sendTransaction(failPreflightCheckTransactionBlobBase64, optionalParams);
+
+        assertThat(response.isSuccess()).isFalse();
     }
 
     @Test
-    @Disabled
-    void shouldSendTransactionSetPreflightCommitmentFinalized() throws SolanaJsonRpcClientException
+    void shouldSendTransactionMaxRetriesOptionalParams() throws SolanaJsonRpcClientException
     {
-        fail();
-    }
+        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
+        optionalParams.addParam("maxRetries", 10);
 
-    @Test
-    @Disabled
-    void shouldSendTransactionMaxRetriesOptionalParam()
-    {
-        fail();
+        final SolanaClientResponse<String> response = SOLANA_API.sendTransaction(successfulTransactionBlobBase58, optionalParams);
+
+        assertThat(response.isSuccess()).isTrue();
     }
 
     @Test

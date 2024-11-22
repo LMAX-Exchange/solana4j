@@ -2,6 +2,7 @@ package com.lmax.solana4j.assertion;
 
 import java.time.Duration;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.locks.LockSupport;
 
 public final class Waiter
@@ -72,7 +73,7 @@ public final class Waiter
     {
         try
         {
-            waiter().waitForCondition(condition);
+            waiter().withTimeout(Duration.of(15, ChronoUnit.SECONDS)).waitForCondition(condition);
             throw new AssertionError("We expected the condition to never happen, but it did!");
         }
         catch (final AssertionError e)
