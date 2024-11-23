@@ -35,14 +35,15 @@ final class Solana4jJsonRpcTestHelper
                                         List.of(destination))
                 )
                 .payer(payer)
-                .seal();
+                .seal()
+                .unsigned()
+                .build();
 
         final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
         for (final Signer signer : signers)
         {
             signedMessageBuilder.by(signer.signer, (transaction, signature) -> BouncyCastleSigner.sign(signer.privateKey, transaction, signature));
         }
-
         signedMessageBuilder.build();
 
         return ByteBufferPrimitiveArray.copy(buffer);
@@ -70,14 +71,15 @@ final class Solana4jJsonRpcTestHelper
                                         signers.stream().map(x -> x.signer).collect(Collectors.toList()))
                 )
                 .payer(payer)
-                .seal();
+                .seal()
+                .unsigned()
+                .build();
 
         final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
         for (final Signer signer : signers)
         {
             signedMessageBuilder.by(signer.signer, (transaction, signature) -> BouncyCastleSigner.sign(signer.privateKey, transaction, signature));
         }
-
         signedMessageBuilder.build();
 
         return ByteBufferPrimitiveArray.copy(buffer);
