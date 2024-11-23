@@ -5,12 +5,12 @@ import com.lmax.solana4j.client.api.Data;
 
 import java.util.List;
 
-public class DataDTO implements Data
+final class DataDTO implements Data
 {
     private final String programId;
     private final List<String> data;
 
-    public DataDTO(final @JsonProperty("programId") String programId, final @JsonProperty("data") List<String> data)
+    DataDTO(final @JsonProperty("programId") String programId, final @JsonProperty("data") List<String> data)
     {
         this.programId = programId;
         this.data = data;

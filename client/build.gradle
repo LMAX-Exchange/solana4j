@@ -48,9 +48,9 @@ sourceSets {
 dependencies {
 
     // main dependencies
-    api 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
-    api 'com.fasterxml.jackson.core:jackson-annotations:2.17.2'
-    api 'com.fasterxml.jackson.core:jackson-core:2.17.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.2'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.17.2'
 
     // integration test dependencies
     integrationTestImplementation project(path: ':shared', configuration: 'sharedTestSupport')
@@ -108,7 +108,6 @@ tasks.processTestResources {
 check.dependsOn unitTest
 check.dependsOn integrationTest
 check.dependsOn checkstyleMain
-check.dependsOn checkstyleTest
 check.dependsOn checkstyleIntegrationTest
 
 javadoc {

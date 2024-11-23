@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lmax.solana4j.client.api.Commitment;
 import com.lmax.solana4j.client.api.SignatureForAddress;
 
-public class SignatureForAddressDTO implements SignatureForAddress
+final class SignatureForAddressDTO implements SignatureForAddress
 {
     private final Object err;
     private final String memo;
@@ -15,7 +15,7 @@ public class SignatureForAddressDTO implements SignatureForAddress
     private final Commitment confirmationStatus;
 
     @JsonCreator
-    public SignatureForAddressDTO(
+    SignatureForAddressDTO(
             final @JsonProperty("err") Object err,
             final @JsonProperty("memo") String memo,
             final @JsonProperty("signature") String signature,

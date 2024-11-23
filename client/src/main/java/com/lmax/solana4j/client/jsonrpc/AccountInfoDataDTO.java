@@ -15,7 +15,7 @@ import java.util.Map;
 
 
 @JsonDeserialize(using = AccountInfoDataDTO.AccountInfoDataDeserializer.class)
-class AccountInfoDataDTO implements AccountInfoData
+final class AccountInfoDataDTO implements AccountInfoData
 {
     private final List<String> accountInfoEncoded;
     private final AccountInfoParsedData accountInfoParsed;

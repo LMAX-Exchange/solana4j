@@ -15,12 +15,12 @@ import java.io.IOException;
 import java.util.List;
 
 @JsonDeserialize(using = TransactionDataDTO.TransactionDataDeserializer.class)
-public class TransactionDataDTO implements TransactionData
+class TransactionDataDTO implements TransactionData
 {
     private final List<String> transactionDataEncoded;
     private final TransactionDataParsed transactionDataParsed;
 
-    public TransactionDataDTO(
+    TransactionDataDTO(
             final List<String> transactionDataEncoded,
             final TransactionDataParsed transactionDataParsed)
     {

@@ -10,7 +10,7 @@ public interface SimulateTransactionResponse
 
     AccountInfoData getAccounts();
 
-    List<Instruction> getInnerInstructions();
+    List<InnerInstruction> getInnerInstructions();
 
     Blockhash getReplacementBlockhash();
 

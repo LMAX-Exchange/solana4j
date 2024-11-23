@@ -14,12 +14,12 @@ import java.io.IOException;
 import java.util.List;
 
 @JsonDeserialize(using = AccountKeysDTO.AccountKeyDeserializer.class)
-public class AccountKeysDTO implements AccountKeys
+final class AccountKeysDTO implements AccountKeys
 {
     private final List<String> accountKeysEncoded;
     private final List<AccountKeyParsed> accountKeysParsed;
 
-    public AccountKeysDTO(final List<String> accountKeysEncoded, final List<AccountKeyParsed> accountKeysParsed)
+    AccountKeysDTO(final List<String> accountKeysEncoded, final List<AccountKeyParsed> accountKeysParsed)
     {
         this.accountKeysEncoded = accountKeysEncoded;
         this.accountKeysParsed = accountKeysParsed;
@@ -93,7 +93,7 @@ public class AccountKeysDTO implements AccountKeys
         }
     }
 
-    public static class AccountKeyDeserializer extends JsonDeserializer<AccountKeysDTO>
+    static class AccountKeyDeserializer extends JsonDeserializer<AccountKeysDTO>
     {
         @Override
         public AccountKeysDTO deserialize(final JsonParser parser, final DeserializationContext context) throws IOException

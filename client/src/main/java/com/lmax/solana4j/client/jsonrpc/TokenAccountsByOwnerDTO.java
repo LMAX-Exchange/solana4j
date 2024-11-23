@@ -8,7 +8,7 @@ import com.lmax.solana4j.client.api.TokenAccount;
 
 import java.util.List;
 
-public class TokenAccountsByOwnerDTO implements SolanaRpcResponse<List<TokenAccount>>
+final class TokenAccountsByOwnerDTO implements SolanaRpcResponse<List<TokenAccount>>
 {
     private final Context context;
     private final List<TokenAccountDTO> value;
