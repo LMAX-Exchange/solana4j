@@ -1,8 +1,8 @@
 package com.lmax.solana4j.client.jsonrpc;
 
-import com.lmax.solana4j.client.api.SolanaClientError;
+import com.lmax.solana4j.client.api.SolanaClientResponse;
 
-class SolanaJsonRpcClientError implements SolanaClientError
+class SolanaJsonRpcClientError implements SolanaClientResponse.SolanaClientError
 {
     private final long errorCode;
     private final String errorMessage;

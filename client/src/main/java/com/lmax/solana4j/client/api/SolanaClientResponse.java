@@ -7,4 +7,11 @@ public interface SolanaClientResponse<T>
     SolanaClientError getError();
 
     boolean isSuccess();
+
+    interface SolanaClientError
+    {
+        long getErrorCode();
+
+        String getErrorMessage();
+    }
 }

@@ -1,7 +1,7 @@
 package com.lmax.solana4j.client.jsonrpc;
 
-import com.lmax.solana4j.client.api.AccountKeys;
 import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
+import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.domain.Sol;
 import org.junit.jupiter.api.Test;
 
@@ -143,17 +143,17 @@ final class GetTransactionContractTest extends SolanaClientIntegrationTestBase
 
         assertThat(parsedAccountKeys.get(0).isSigner()).isTrue();
         assertThat(parsedAccountKeys.get(0).isWritable()).isTrue();
-        assertThat(parsedAccountKeys.get(0).getSource()).isEqualTo(AccountKeys.AccountKeyParsed.KeySource.TRANSACTION);
+        assertThat(parsedAccountKeys.get(0).getSource()).isEqualTo(TransactionResponse.Message.AccountKeys.AccountKeyParsed.KeySource.TRANSACTION);
         assertThat(parsedAccountKeys.get(0).getKey()).isNotEmpty();
 
         assertThat(parsedAccountKeys.get(1).isSigner()).isFalse();
         assertThat(parsedAccountKeys.get(1).isWritable()).isTrue();
-        assertThat(parsedAccountKeys.get(1).getSource()).isEqualTo(AccountKeys.AccountKeyParsed.KeySource.TRANSACTION);
+        assertThat(parsedAccountKeys.get(1).getSource()).isEqualTo(TransactionResponse.Message.AccountKeys.AccountKeyParsed.KeySource.TRANSACTION);
         assertThat(parsedAccountKeys.get(1).getKey()).isNotEmpty();
 
         assertThat(parsedAccountKeys.get(2).isSigner()).isFalse();
         assertThat(parsedAccountKeys.get(2).isWritable()).isFalse();
-        assertThat(parsedAccountKeys.get(2).getSource()).isEqualTo(AccountKeys.AccountKeyParsed.KeySource.TRANSACTION);
+        assertThat(parsedAccountKeys.get(2).getSource()).isEqualTo(TransactionResponse.Message.AccountKeys.AccountKeyParsed.KeySource.TRANSACTION);
         assertThat(parsedAccountKeys.get(2).getKey()).isEqualTo("11111111111111111111111111111111");
 
         assertThat(message.getHeader()).isNull();

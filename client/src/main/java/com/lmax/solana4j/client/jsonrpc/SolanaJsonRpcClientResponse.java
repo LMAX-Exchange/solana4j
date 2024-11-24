@@ -1,6 +1,5 @@
 package com.lmax.solana4j.client.jsonrpc;
 
-import com.lmax.solana4j.client.api.SolanaClientError;
 import com.lmax.solana4j.client.api.SolanaClientResponse;
 
 final class SolanaJsonRpcClientResponse<T> implements SolanaClientResponse<T>

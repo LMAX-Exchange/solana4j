@@ -2,9 +2,9 @@ package com.lmax.solana4j.client.jsonrpc;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lmax.solana4j.client.api.Context;
+import com.lmax.solana4j.client.api.SolanaRpcResponse;
 
-final class ContextDTO implements Context
+final class ContextDTO implements SolanaRpcResponse.Context
 {
     private final long slot;
     private final String apiVersion;

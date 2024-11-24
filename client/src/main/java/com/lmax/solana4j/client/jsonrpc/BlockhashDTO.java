@@ -3,7 +3,6 @@ package com.lmax.solana4j.client.jsonrpc;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lmax.solana4j.client.api.Blockhash;
-import com.lmax.solana4j.client.api.Context;
 import com.lmax.solana4j.client.api.SolanaRpcResponse;
 
 final class BlockhashDTO implements SolanaRpcResponse<Blockhash>

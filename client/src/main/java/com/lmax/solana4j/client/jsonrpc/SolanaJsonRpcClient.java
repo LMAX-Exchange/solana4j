@@ -8,7 +8,6 @@ import com.lmax.solana4j.client.api.SignatureForAddress;
 import com.lmax.solana4j.client.api.SignatureStatus;
 import com.lmax.solana4j.client.api.SimulateTransactionResponse;
 import com.lmax.solana4j.client.api.SolanaApi;
-import com.lmax.solana4j.client.api.SolanaClientError;
 import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import com.lmax.solana4j.client.api.SolanaClientResponse;
 import com.lmax.solana4j.client.api.TokenAccount;
@@ -378,7 +377,7 @@ public class SolanaJsonRpcClient implements SolanaApi
         final HttpRequest request = prepareRequest(method, params);
         final HttpResponse<String> httpResponse = sendRequest(request);
 
-        final Result<SolanaClientError, T> response = decodeResponse(type, httpResponse);
+        final Result<SolanaClientResponse.SolanaClientError, T> response = decodeResponse(type, httpResponse);
         if (response.isError())
         {
             return SolanaJsonRpcClientResponse.creatErrorResponse(response.getError());
@@ -419,7 +418,7 @@ public class SolanaJsonRpcClient implements SolanaApi
         }
     }
 
-    private <T> Result<SolanaClientError, T> decodeResponse(
+    private <T> Result<SolanaClientResponse.SolanaClientError, T> decodeResponse(
             final TypeReference<RpcWrapperDTO<T>> type,
             final HttpResponse<String> httpResponse) throws SolanaJsonRpcClientException
     {

@@ -8,13 +8,20 @@ public interface SimulateTransactionResponse
 
     List<String> getLogs();
 
-    AccountInfoData getAccounts();
+    AccountInfo.AccountInfoData getAccounts();
 
-    List<InnerInstruction> getInnerInstructions();
+    List<TransactionResponse.InnerInstruction> getInnerInstructions();
 
     Blockhash getReplacementBlockhash();
 
     Data getReturnData();
 
     int getUnitsConsumed();
+
+    interface Data
+    {
+        String getProgramId();
+
+        List<String> getData();
+    }
 }
