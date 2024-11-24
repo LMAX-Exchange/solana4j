@@ -261,7 +261,7 @@ public interface MessageVisitor<T>
 
         /**
          * Returns the list of accounts for the instruction, using the address lookup tables to map
-         * the indexes stored in the message to actual addresses
+         * the indexes stored in the message to actual addresses.
          *
          * @param addressLookupTables the list of address lookup tables
          * @return a list of {@link PublicKey} objects representing the accounts
@@ -272,7 +272,7 @@ public interface MessageVisitor<T>
 
         /**
          * Returns the public key of the program for the instruction, using the address lookup tables to map
-         * the indexes stored in the message to actual addresses
+         * the indexes stored in the message to actual addresses.
          *
          * @param addressLookupTables the list of address lookup tables
          * @return the {@link PublicKey} of the program
@@ -311,7 +311,7 @@ public interface MessageVisitor<T>
 
         /**
          * Finds the address lookup table, using the address lookup tables to map
-         * the indexes stored in the message to actual addresses
+         * the indexes stored in the message to actual addresses.
          *
          * @param addressLookupTables the list of address lookup tables
          * @return an {@link Optional} containing the matching {@link AddressLookupTable}, if found
@@ -354,7 +354,7 @@ public interface MessageVisitor<T>
 
         /**
          * Returns the list of all accounts, using the address lookup tables to map
-         * the indexes stored in the message to actual addresses
+         * the indexes stored in the message to actual addresses.
          *
          * @param addressLookupTables the list of address lookup tables to include
          * @return a list of {@link PublicKey} objects representing all accounts

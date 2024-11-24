@@ -202,7 +202,7 @@ public interface SolanaApi
      * with additional parameters to customize the request.
      * This is the minimum balance needed to ensure the account is rent-exempt.
      *
-     * @param size the size of the account in bytes
+     * @param size           the size of the account in bytes
      * @param optionalParams additional parameters to customize the rent exemption query
      * @return the minimum balance in lamports for rent exemption
      * @throws SolanaJsonRpcClientException if there is an error with the JSON-RPC request
@@ -213,7 +213,7 @@ public interface SolanaApi
      * Returns the lowest slot that the node has information about in its ledger.
      *
      * @return a {@link SolanaClientResponse} containing the minimum slot as a {@link Long}, or an error
-     *     if the operation was unsuccessful.
+     * if the operation was unsuccessful.
      * @throws SolanaJsonRpcClientException if there is an error in the JSON-RPC request or response.
      */
     SolanaClientResponse<Long> minimumLedgerSlot() throws SolanaJsonRpcClientException;
@@ -221,32 +221,100 @@ public interface SolanaApi
 
     /**
      * Returns the current health of the node. A healthy node is one that is within
-     *   HEALTH_CHECK_SLOT_DISTANCE slots of the latest cluster confirmed slot.
+     * HEALTH_CHECK_SLOT_DISTANCE slots of the latest cluster confirmed slot.
      *
      * @return a {@link SolanaClientResponse} containing the health status as a {@link String}. A
-     *     response of "ok" typically indicates a healthy node.
+     * response of "ok" typically indicates a healthy node.
      * @throws SolanaJsonRpcClientException if there is an error in the JSON-RPC request or response.
      */
     SolanaClientResponse<String> getHealth() throws SolanaJsonRpcClientException;
 
-    // probably refactor this to a parent object
+    /**
+     * Retrieves a list of transaction signatures for a specified address.
+     * This method is used to query the transaction history of the given address.
+     *
+     * @param addressBase58 the base58-encoded public key of the address.
+     * @return a {@link SolanaClientResponse} containing a list of {@link SignatureForAddress} objects.
+     * @throws SolanaJsonRpcClientException if the request fails.
+     */
     SolanaClientResponse<List<SignatureForAddress>> getSignaturesForAddress(String addressBase58) throws SolanaJsonRpcClientException;
 
+    /**
+     * Retrieves a list of transaction signatures for a specified address with optional parameters.
+     * Allows for additional filters or customizations when querying the transaction history.
+     *
+     * @param addressBase58  the base58-encoded public key of the address.
+     * @param optionalParams optional parameters for the query, such as limiting results or setting commitment levels.
+     * @return a {@link SolanaClientResponse} containing a list of {@link SignatureForAddress} objects.
+     * @throws SolanaJsonRpcClientException if the request fails.
+     */
     SolanaClientResponse<List<SignatureForAddress>> getSignaturesForAddress(String addressBase58, SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException;
 
-    // probably refactor this to a parent object
+    /**
+     * Retrieves the statuses of one or more transaction signatures.
+     * The statuses include confirmation levels, error information, and slot numbers.
+     *
+     * @param transactionSignatures a list of base58-encoded transaction signatures.
+     * @return a {@link SolanaClientResponse} containing a list of {@link SignatureStatus} objects.
+     * @throws SolanaJsonRpcClientException if the request fails.
+     */
     SolanaClientResponse<List<SignatureStatus>> getSignatureStatuses(List<String> transactionSignatures) throws SolanaJsonRpcClientException;
 
+    /**
+     * Retrieves the statuses of one or more transaction signatures with optional parameters.
+     * Allows for additional filters or customizations when querying transaction statuses.
+     *
+     * @param transactionSignatures a list of base58-encoded transaction signatures.
+     * @param optionalParams        optional parameters for the query, such as searching transaction history.
+     * @return a {@link SolanaClientResponse} containing a list of {@link SignatureStatus} objects.
+     * @throws SolanaJsonRpcClientException if the request fails.
+     */
     SolanaClientResponse<List<SignatureStatus>> getSignatureStatuses(List<String> transactionSignatures, SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException;
 
+    /**
+     * Retrieves token accounts owned by a specific address, filtered by criteria.
+     * Useful for finding SPL token accounts based on token mint or program ID.
+     *
+     * @param accountDelegate the base58-encoded public key of the account owner.
+     * @param filter          a key-value pair specifying the filter criteria (e.g., token mint or program ID).
+     * @return a {@link SolanaClientResponse} containing a list of {@link TokenAccount} objects.
+     * @throws SolanaJsonRpcClientException if the request fails.
+     */
     SolanaClientResponse<List<TokenAccount>> getTokenAccountsByOwner(String accountDelegate, Map.Entry<String, String> filter) throws SolanaJsonRpcClientException;
 
+    /**
+     * Retrieves token accounts owned by a specific address, filtered by criteria, with optional parameters.
+     * Allows for additional customization, such as setting a specific commitment level.
+     *
+     * @param accountDelegate the base58-encoded public key of the account owner.
+     * @param filter          a key-value pair specifying the filter criteria (e.g., token mint or program ID).
+     * @param optionalParams  optional parameters for the query.
+     * @return a {@link SolanaClientResponse} containing a list of {@link TokenAccount} objects.
+     * @throws SolanaJsonRpcClientException if the request fails.
+     */
     SolanaClientResponse<List<TokenAccount>> getTokenAccountsByOwner(
             String accountDelegate,
             Map.Entry<String, String> filter,
             SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException;
 
+    /**
+     * Simulates a transaction without broadcasting it to the Solana blockchain.
+     * This method is useful for debugging or testing transaction execution.
+     *
+     * @param transaction the base64-encoded string representing the transaction.
+     * @return a {@link SolanaClientResponse} containing a {@link SimulateTransactionResponse} object with the simulation results.
+     * @throws SolanaJsonRpcClientException if the request fails.
+     */
     SolanaClientResponse<SimulateTransactionResponse> simulateTransaction(String transaction) throws SolanaJsonRpcClientException;
 
+    /**
+     * Simulates a transaction without broadcasting it to the Solana blockchain, with optional parameters.
+     * This allows for additional customizations, such as setting the commitment level or enabling signature verification.
+     *
+     * @param transaction    the base64-encoded string representing the transaction.
+     * @param optionalParams additional parameters for the simulation.
+     * @return a {@link SolanaClientResponse} containing a {@link SimulateTransactionResponse} object with the simulation results.
+     * @throws SolanaJsonRpcClientException if the request fails.
+     */
     SolanaClientResponse<SimulateTransactionResponse> simulateTransaction(String transaction, SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException;
 }

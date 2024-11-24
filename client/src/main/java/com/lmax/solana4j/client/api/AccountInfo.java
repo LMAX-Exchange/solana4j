@@ -26,6 +26,12 @@ public interface AccountInfo
      */
     String getOwner();
 
+    /**
+     * Retrieves the data associated with the account.
+     * This data includes both encoded and parsed representations of the account's information.
+     *
+     * @return an instance of {@link AccountInfoData} containing the account's data
+     */
     AccountInfoData getData();
 
     /**
@@ -48,15 +54,12 @@ public interface AccountInfo
     /**
      * Returns the amount of space, in bytes, allocated to the account.
      * The space is used to store data for the account, and the size is determined by the
-     * program that owns the account. The amount of space is a key factor in determining
-     * the rent required to keep the account alive, as larger accounts typically require
-     * more rent.
+     * program that owns the account.
      *
      * @return the number of bytes allocated for the account's data
      */
     long getSpace();
 
-    /**
     /**
      * Represents account information data in a Solana transaction.
      * This interface provides access to both encoded and parsed account information,

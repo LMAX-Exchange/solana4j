@@ -44,5 +44,11 @@ public interface SignatureStatus
      */
     Commitment getConfirmationStatus();
 
+    /**
+     * Returns the status of the transaction as a key-value pair.
+     * The key represents the status type, and the value provides additional information about the status.
+     *
+     * @return a {@link Map.Entry} containing the status type and corresponding information
+     */
     Map.Entry<String, Object> getStatus();
 }

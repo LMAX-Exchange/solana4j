@@ -57,7 +57,6 @@ public interface TransactionResponse
     /**
      * Represents the core data of a transaction on the Solana blockchain.
      * This interface provides access to both encoded and parsed transaction data.
-     *
      */
     interface TransactionData
     {
@@ -192,7 +191,8 @@ public interface TransactionResponse
 
         /**
          * Returns the addresses that were loaded during the transaction.
-         * Loaded addresses may include writable or read-only addresses that provide data or permissions necessary for the transaction's execution.
+         * Loaded addresses may include writable or read-only addresses that provide data
+         * or permissions necessary for the transaction's execution.
          *
          * @return the {@link LoadedAddresses} object representing loaded addresses
          */
@@ -200,16 +200,34 @@ public interface TransactionResponse
 
         /**
          * Returns the transaction status, including the status type and message.
-         * The status provides additional information on whether the transaction was successful and any related messages.
+         * The status provides additional information on whether the transaction was successful
+         * and any related messages.
          *
          * @return a {@link Map.Entry} containing the status type as the key and the status message as the value
          */
         Map.Entry<String, Object> getStatus();
 
+        /**
+         * Represents the addresses loaded during a Solana transaction.
+         * This interface provides access to lists of read-only and writable addresses.
+         */
         interface LoadedAddresses
         {
+
+            /**
+             * Returns a list of read-only addresses loaded during the transaction.
+             * These addresses provide data necessary for the transaction's execution but cannot be modified.
+             *
+             * @return a list of base58-encoded strings representing read-only addresses
+             */
             List<String> getReadonly();
 
+            /**
+             * Returns a list of writable addresses loaded during the transaction.
+             * These addresses can be modified during the transaction's execution.
+             *
+             * @return a list of base58-encoded strings representing writable addresses
+             */
             List<String> getWritable();
         }
 
@@ -220,6 +238,7 @@ public interface TransactionResponse
          */
         interface Reward
         {
+
             /**
              * Returns the public key of the account or validator receiving the reward.
              * The public key is a base58-encoded string representing the recipient's account.
@@ -269,6 +288,7 @@ public interface TransactionResponse
          */
         interface TokenBalance
         {
+
             /**
              * Returns the index of the account in the transaction or account list.
              * The account index represents the position of the account within the transaction or account list.
@@ -295,7 +315,8 @@ public interface TransactionResponse
 
             /**
              * Returns the program ID managing the token.
-             * The program ID is the base58-encoded public key of the program responsible for managing the token, typically the SPL token program.
+             * The program ID is the base58-encoded public key of the program responsible for managing the token,
+             * typically the SPL token program.
              *
              * @return the base58-encoded string representing the program ID managing the token
              */
@@ -318,6 +339,7 @@ public interface TransactionResponse
      */
     interface Message
     {
+
         /**
          * Returns a list of account keys used in the message.
          * Each account key is a base58-encoded string representing an account involved in the transaction defined by the message.
@@ -361,6 +383,7 @@ public interface TransactionResponse
          */
         interface AccountKeys
         {
+
             /**
              * Returns a list of parsed account keys, each providing detailed information on
              * the account's role in the transaction, including its source, signing status, and write permissions.
@@ -384,6 +407,7 @@ public interface TransactionResponse
              */
             interface AccountKeyParsed
             {
+
                 /**
                  * Enum representing the source of the account key.
                  * The key can originate either from the transaction itself or from a lookup table.
@@ -439,6 +463,7 @@ public interface TransactionResponse
          */
         interface Header
         {
+
             /**
              * Returns the number of readonly signed accounts in the transaction.
              * Readonly accounts cannot be modified during the transaction but must sign it.
@@ -472,6 +497,7 @@ public interface TransactionResponse
      */
     interface InnerInstruction
     {
+
         /**
          * Returns the index of the inner instruction within the transaction.
          * The index indicates the position of this inner instruction in the list of instructions in the transaction.

@@ -28,6 +28,11 @@ import java.util.function.Function;
 
 import static com.lmax.solana4j.client.jsonrpc.SolanaJsonRpcClientOptionalParams.defaultOptionalParams;
 
+/**
+ * Implementation of the {@link SolanaApi} interface for interacting with the Solana blockchain via JSON-RPC.
+ * This client provides methods to perform various operations such as requesting airdrops, sending transactions,
+ * retrieving account information, and more.
+ */
 public class SolanaJsonRpcClient implements SolanaApi
 {
     private final String rpcUrl;
@@ -35,6 +40,13 @@ public class SolanaJsonRpcClient implements SolanaApi
     private final SolanaCodec solanaCodec;
     private final Duration requestTimeout;
 
+    /**
+     * Constructs a new {@code SolanaJsonRpcClient} with the specified RPC URL, connection timeout, and request timeout.
+     *
+     * @param rpcUrl            the URL of the Solana JSON-RPC endpoint
+     * @param connectionTimeout the timeout duration for establishing connections
+     * @param requestTimeout    the timeout duration for completing requests
+     */
     public SolanaJsonRpcClient(final String rpcUrl, final Duration connectionTimeout, final Duration requestTimeout)
     {
         this.rpcUrl = rpcUrl;
@@ -46,6 +58,13 @@ public class SolanaJsonRpcClient implements SolanaApi
         this.solanaCodec = new SolanaCodec(false);
     }
 
+    /**
+     * Constructs a new {@code SolanaJsonRpcClient} with the specified RPC URL and a flag indicating whether to fail
+     * on unknown properties during JSON deserialization.
+     *
+     * @param rpcUrl                   the URL of the Solana JSON-RPC endpoint
+     * @param failOnUnknownProperties  if {@code true}, unknown properties in JSON responses will cause deserialization to fail
+     */
     SolanaJsonRpcClient(final String rpcUrl, final boolean failOnUnknownProperties)
     {
         this.rpcUrl = rpcUrl;
