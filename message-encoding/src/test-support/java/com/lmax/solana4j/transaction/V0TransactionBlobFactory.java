@@ -52,12 +52,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .unsigned()
                 .build();
 
-        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
-        for (final TestKeyPair signer : signers)
-        {
-            signedMessageBuilder.by(signer.getSolana4jPublicKey(), (transaction, signature) -> BouncyCastleSigner.sign(signer.getPrivateKeyBytes(), transaction, signature));
-        }
-        signedMessageBuilder.build();
+        sign(buffer, signers);
 
         return base64encode(buffer);
     }
@@ -92,13 +87,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .unsigned()
                 .build();
 
-        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
-        for (final TestKeyPair signer : signers)
-        {
-            signedMessageBuilder.by(signer.getSolana4jPublicKey(), (transaction, signature) -> BouncyCastleSigner.sign(signer.getPrivateKeyBytes(), transaction, signature));
-        }
-
-        signedMessageBuilder.build();
+        sign(buffer, signers);
 
         return base64encode(buffer);
     }
@@ -129,13 +118,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .unsigned()
                 .build();
 
-        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
-        for (final TestKeyPair signer : signers)
-        {
-            signedMessageBuilder.by(signer.getSolana4jPublicKey(), (transaction, signature) -> BouncyCastleSigner.sign(signer.getPrivateKeyBytes(), transaction, signature));
-        }
-
-        signedMessageBuilder.build();
+        sign(buffer, signers);
 
         return base64encode(buffer);
     }
@@ -177,12 +160,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .unsigned()
                 .build();
 
-        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
-        for (final TestKeyPair signer : signers)
-        {
-            signedMessageBuilder.by(signer.getSolana4jPublicKey(), (transaction, signature) -> BouncyCastleSigner.sign(signer.getPrivateKeyBytes(), transaction, signature));
-        }
-        signedMessageBuilder.build();
+        sign(buffer, signers);
 
         return base64encode(buffer);
     }
@@ -222,12 +200,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .unsigned()
                 .build();
 
-        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
-        for (final TestKeyPair signer : signers)
-        {
-            signedMessageBuilder.by(signer.getSolana4jPublicKey(), (transaction, signature) -> BouncyCastleSigner.sign(signer.getPrivateKeyBytes(), transaction, signature));
-        }
-        signedMessageBuilder.build();
+        sign(buffer, signers);
 
         return base64encode(buffer);
     }
@@ -261,12 +234,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .unsigned()
                 .build();
 
-        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
-        for (final TestKeyPair signer : signers)
-        {
-            signedMessageBuilder.by(signer.getSolana4jPublicKey(), (transaction, signature) -> BouncyCastleSigner.sign(signer.getPrivateKeyBytes(), transaction, signature));
-        }
-        signedMessageBuilder.build();
+        sign(buffer, signers);
 
         return base64encode(buffer);
     }
@@ -306,12 +274,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .unsigned()
                 .build();
 
-        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
-        for (final TestKeyPair signer : signers)
-        {
-            signedMessageBuilder.by(signer.getSolana4jPublicKey(), (transaction, signature) -> BouncyCastleSigner.sign(signer.getPrivateKeyBytes(), transaction, signature));
-        }
-        signedMessageBuilder.build();
+        sign(buffer, signers);
 
         return base64encode(buffer);
     }
@@ -342,12 +305,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .unsigned()
                 .build();
 
-        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
-        for (final TestKeyPair signer : signers)
-        {
-            signedMessageBuilder.by(signer.getSolana4jPublicKey(), (transaction, signature) -> BouncyCastleSigner.sign(signer.getPrivateKeyBytes(), transaction, signature));
-        }
-        signedMessageBuilder.build();
+        sign(buffer, signers);
 
         return base64encode(buffer);
     }
@@ -380,13 +338,8 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .unsigned()
                 .build();
 
-        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
-        for (final TestKeyPair signer : signers)
-        {
-            signedMessageBuilder.by(signer.getSolana4jPublicKey(), (transaction, signature) -> BouncyCastleSigner.sign(signer.getPrivateKeyBytes(), transaction, signature));
-        }
+        sign(buffer, signers);
 
-        signedMessageBuilder.build();
         return base64encode(buffer);
     }
 
@@ -410,13 +363,8 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .unsigned()
                 .build();
 
-        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
-        for (final TestKeyPair signer : signers)
-        {
-            signedMessageBuilder.by(signer.getSolana4jPublicKey(), (transaction, signature) -> BouncyCastleSigner.sign(signer.getPrivateKeyBytes(), transaction, signature));
-        }
+        sign(buffer, signers);
 
-        signedMessageBuilder.build();
         return base64encode(buffer);
     }
 
@@ -447,13 +395,8 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .unsigned()
                 .build();
 
-        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
-        for (final TestKeyPair signer : signers)
-        {
-            signedMessageBuilder.by(signer.getSolana4jPublicKey(), (transaction, signature) -> BouncyCastleSigner.sign(signer.getPrivateKeyBytes(), transaction, signature));
-        }
+        sign(buffer, signers);
 
-        signedMessageBuilder.build();
         return base64encode(buffer);
     }
 
@@ -486,12 +429,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .unsigned()
                 .build();
 
-        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
-        for (final TestKeyPair signer : signers)
-        {
-            signedMessageBuilder.by(signer.getSolana4jPublicKey(), (transaction, signature) -> BouncyCastleSigner.sign(signer.getPrivateKeyBytes(), transaction, signature));
-        }
-        signedMessageBuilder.build();
+        sign(buffer, signers);
 
         return base64encode(buffer);
     }
@@ -516,12 +454,7 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .unsigned()
                 .build();
 
-        final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
-        for (final TestKeyPair signer : signers)
-        {
-            signedMessageBuilder.by(signer.getSolana4jPublicKey(), (transaction, signature) -> BouncyCastleSigner.sign(signer.getPrivateKeyBytes(), transaction, signature));
-        }
-        signedMessageBuilder.build();
+        sign(buffer, signers);
 
         return base64encode(buffer);
     }
@@ -553,14 +486,19 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
                 .unsigned()
                 .build();
 
+        sign(buffer, signers);
+
+        return base64encode(buffer);
+    }
+
+    private static void sign(final ByteBuffer buffer, final List<TestKeyPair> signers)
+    {
         final SignedMessageBuilder signedMessageBuilder = Solana.forSigning(buffer);
         for (final TestKeyPair signer : signers)
         {
             signedMessageBuilder.by(signer.getSolana4jPublicKey(), (transaction, signature) -> BouncyCastleSigner.sign(signer.getPrivateKeyBytes(), transaction, signature));
         }
         signedMessageBuilder.build();
-
-        return base64encode(buffer);
     }
 
     private static String base64encode(final ByteBuffer bytes)
