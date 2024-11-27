@@ -172,6 +172,12 @@
 
         <module name="JavadocParagraph"/>
         <module name="SingleLineJavadoc"/>
+        <module name="MissingJavadocMethod"/>
+        <module name="MissingJavadocPackage"/>
+        <module name="MissingJavadocType"/>
+        <module name="JavadocMissingWhitespaceAfterAsterisk"/>
+        <module name="JavadocMissingLeadingAsterisk"/>
+        <module name="SummaryJavadoc"/>
         <module name="JavadocMethod">
             <property name="accessModifiers" value="public"/>
         </module>

@@ -1,0 +1,194 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'maven-publish'
+    id 'checkstyle'
+    id 'org.jreleaser' version '1.14.0'
+    id 'com.autonomousapps.dependency-analysis' version '2.2.0'
+}
+
+def solanaVersion = project.rootProject.property('SOLANA_VERSION')
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+    withJavadocJar()
+    withSourcesJar()
+}
+
+jar {
+    archiveBaseName.set('solana4j-json-rpc')
+}
+
+tasks.named('sourcesJar') {
+    archiveBaseName.set('solana4j-json-rpc')
+}
+
+tasks.named('javadocJar') {
+    archiveBaseName.set('solana4j-json-rpc')
+}
+
+sourceSets {
+    integrationTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+        java {
+            srcDir file('src/integration-test/java')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
+}
+
+dependencies {
+
+    // main dependencies
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.2'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.17.2'
+
+    // integration test dependencies
+    integrationTestImplementation project(path: ':shared', configuration: 'sharedTestSupport')
+    integrationTestImplementation project(path: ':message-encoding', configuration: 'default')
+
+    integrationTestImplementation 'org.assertj:assertj-core:3.26.3'
+    integrationTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+
+    integrationTestRuntimeOnly project(path: ':message-encoding', configuration: 'default')
+
+    integrationTestRuntimeOnly 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+    integrationTestRuntimeOnly 'org.testcontainers:testcontainers:1.20.2'
+    integrationTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+    integrationTestRuntimeOnly 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+    integrationTestRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
+}
+
+task unitTest(type: Test) {
+    useJUnitPlatform()
+    description = 'Runs the solana client unit tests .'
+    group = 'verification'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showExceptions true
+        showCauses true
+        showStackTraces true
+    }
+}
+
+task integrationTest(type: Test) {
+    useJUnitPlatform()
+    description = 'Runs the solana client integration tests.'
+    group = 'verification'
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    shouldRunAfter test
+    systemProperty 'solana.version', solanaVersion
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showExceptions true
+        showCauses true
+        showStackTraces true
+    }
+    maxHeapSize = "1g"
+}
+
+tasks.processTestResources {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+check.dependsOn unitTest
+check.dependsOn integrationTest
+check.dependsOn checkstyleMain
+check.dependsOn checkstyleIntegrationTest
+
+javadoc {
+    title = 'solana4j-json-rpc'
+
+    source = fileTree('src/main/java').include('**/*.java')
+
+    options.addStringOption('XDignore.symbol.file', '-quiet')
+    options.author = true
+    options.bottom = "<i>Copyright &#169; 2011 - ${Calendar.instance[Calendar.YEAR]} LMAX Ltd. All Rights Reserved.</i>"
+    options.use = true
+    options.version = true
+    options.showFromPublic()
+    options.overview = file('overview.html').absolutePath
+}
+
+jreleaser {
+    files {
+        active = 'ALWAYS'
+        glob {
+            pattern = 'build/staging-deploy/**/*.jar'
+            pattern = 'build/staging-deploy/**/*.pom'
+            pattern = 'build/staging-deploy/**/*.module'
+        }
+    }
+    signing {
+        active = 'ALWAYS'
+        armored = true
+        mode = 'MEMORY'
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                sonatype {
+                    active = 'ALWAYS'
+                    url = 'https://central.sonatype.com/api/v1/publisher'
+                    stagingRepository('build/staging-deploy')
+                    applyMavenCentralRules = true
+                }
+            }
+        }
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.lmax'
+            artifactId = 'solana4j-json-rpc'
+
+            from components.java
+
+            pom {
+                name = 'solana4j-json-rpc'
+                description = 'A Java library for communicating with the Solana blockchain.'
+                url = 'https://github.com/LMAX-Exchange/solana4j'
+                inceptionYear = '2023'
+                licenses {
+                    license {
+                        name = 'Apache-2.0'
+                        url = 'https://spdx.org/licenses/Apache-2.0.html'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'jamesm'
+                        name = 'Matthew James'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/LMAX-Exchange/solana4j.git'
+                    developerConnection = 'scm:git:ssh://github.com/LMAX-Exchange/solana4j.git'
+                    url = 'https://github.com/LMAX-Exchange/solana4j'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url = layout.buildDirectory.dir('staging-deploy')
+        }
+    }
+}

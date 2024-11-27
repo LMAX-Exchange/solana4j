@@ -1,0 +1,242 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'maven-publish'
+    id 'checkstyle'
+    id 'org.jreleaser' version '1.14.0'
+    id 'com.autonomousapps.dependency-analysis' version '2.2.0'
+}
+
+def solanaVersion = project.rootProject.property('SOLANA_VERSION')
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+    withJavadocJar()
+    withSourcesJar()
+}
+
+jar {
+    archiveBaseName.set('solana4j')
+}
+
+tasks.named('sourcesJar') {
+    archiveBaseName.set('solana4j')
+}
+
+tasks.named('javadocJar') {
+    archiveBaseName.set('solana4j')
+}
+
+sourceSets {
+    testSupport {
+        java {
+            compileClasspath += sourceSets.main.output + sourceSets.main.output
+            srcDir file('src/test-support/java')
+        }
+    }
+    test {
+        java {
+            compileClasspath += sourceSets.main.output + sourceSets.testSupport.output
+            runtimeClasspath += sourceSets.main.output + sourceSets.testSupport.output
+            srcDir file('message-encoding/src/test/java')
+        }
+        resources.srcDir file('src/test/resources')
+    }
+    integrationTest {
+        java {
+            compileClasspath += sourceSets.testSupport.output + sourceSets.main.output
+            runtimeClasspath += sourceSets.main.output + sourceSets.testSupport.output + sourceSets.main.output
+            srcDir file('src/integration-test/java')
+        }
+        resources.srcDir file('src/test/resources')
+    }
+    jmhTest {
+        java {
+            compileClasspath += sourceSets.main.output + sourceSets.testSupport.output
+            runtimeClasspath += sourceSets.main.output + sourceSets.testSupport.output
+            srcDir file('src/jmh-test/java')
+        }
+    }
+}
+
+dependencies {
+
+    // test support dependencies
+
+    testSupportImplementation project(path: ':client', configuration: 'default')
+    testSupportImplementation project(path: ':shared', configuration: 'sharedTestSupport')
+
+    testSupportImplementation 'org.slf4j:slf4j-api:2.0.9'
+    testSupportImplementation 'com.lmax:simple-dsl:3.0.0'
+    testSupportImplementation 'org.assertj:assertj-core:3.26.3'
+    testSupportImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+    testSupportImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.2'
+    testSupportImplementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+
+    // test dependencies
+
+    testImplementation 'org.assertj:assertj-core:3.26.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+    testImplementation 'net.i2p.crypto:eddsa:0.3.0'
+    testImplementation 'org.bitcoinj:bitcoinj-core:0.16.3'
+    testRuntimeOnly project(path: ':shared', configuration: 'sharedTestSupport')
+
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+    testRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
+
+    // integration test dependencies
+
+    integrationTestImplementation project(path: ':shared', configuration: 'sharedTestSupport')
+
+    integrationTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+
+    integrationTestRuntimeOnly 'com.lmax:simple-dsl:3.0.0'
+    integrationTestRuntimeOnly 'org.testcontainers:testcontainers:1.20.2'
+    integrationTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+    integrationTestRuntimeOnly 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+    integrationTestRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
+
+    // jmh test dependencies
+
+    jmhTestImplementation 'org.openjdk.jmh:jmh-core:1.37'
+    jmhTestImplementation 'net.i2p.crypto:eddsa:0.3.0'
+    jmhTestImplementation 'org.bitcoinj:bitcoinj-core:0.16.3'
+
+    jmhTestRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
+
+    jmhTestAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.36'
+}
+
+task unitTest(type: Test) {
+    useJUnitPlatform()
+    description = 'Runs the solana message encoding unit tests .'
+    group = 'verification'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showExceptions true
+        showCauses true
+        showStackTraces true
+    }
+}
+
+task integrationTest(type: Test) {
+    useJUnitPlatform()
+    description = 'Runs the solana message encoding integration tests.'
+    group = 'verification'
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath + sourceSets.testSupport.runtimeClasspath
+    shouldRunAfter test
+    systemProperty 'solana.version', solanaVersion
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showExceptions true
+        showCauses true
+        showStackTraces true
+    }
+    maxHeapSize = "1g"
+}
+
+check.dependsOn unitTest
+check.dependsOn integrationTest
+check.dependsOn checkstyleMain
+check.dependsOn checkstyleTest
+check.dependsOn checkstyleTestSupport
+check.dependsOn checkstyleIntegrationTest
+
+tasks.processTestResources {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+javadoc {
+    title = 'solana4j'
+
+    source = fileTree('src/main/java').include('**/*.java')
+
+    options.addStringOption('XDignore.symbol.file', '-quiet')
+    options.author = true
+    options.bottom = "<i>Copyright &#169; 2011 - ${Calendar.instance[Calendar.YEAR]} LMAX Ltd. All Rights Reserved.</i>"
+    options.use = true
+    options.version = true
+    options.showFromPublic()
+    options.overview = file('overview.html').absolutePath
+}
+
+jreleaser {
+    files {
+        active = 'ALWAYS'
+        glob {
+            pattern = 'build/staging-deploy/**/*.jar'
+            pattern = 'build/staging-deploy/**/*.pom'
+            pattern = 'build/staging-deploy/**/*.module'
+        }
+    }
+    signing {
+        active = 'ALWAYS'
+        armored = true
+        mode = 'MEMORY'
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                sonatype {
+                    active = 'ALWAYS'
+                    url = 'https://central.sonatype.com/api/v1/publisher'
+                    stagingRepository('build/staging-deploy')
+                    applyMavenCentralRules = true
+                }
+            }
+        }
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.lmax'
+            artifactId = 'solana4j'
+
+            from components.java
+
+            pom {
+                name = 'solana4j'
+                description = 'A Java library for reading and writing Solana messages.'
+                url = 'https://github.com/LMAX-Exchange/solana4j'
+                inceptionYear = '2023'
+                licenses {
+                    license {
+                        name = 'Apache-2.0'
+                        url = 'https://spdx.org/licenses/Apache-2.0.html'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'jamesm'
+                        name = 'Matthew James'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/LMAX-Exchange/solana4j.git'
+                    developerConnection = 'scm:git:ssh://github.com/LMAX-Exchange/solana4j.git'
+                    url = 'https://github.com/LMAX-Exchange/solana4j'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url = layout.buildDirectory.dir('staging-deploy')
+        }
+    }
+}

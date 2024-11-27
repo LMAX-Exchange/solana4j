@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+    id 'com.autonomousapps.dependency-analysis' version '2.2.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+    withJavadocJar()
+    withSourcesJar()
+}
+
+sourceSets {
+    testSupport {
+        java {
+            srcDir file('src/test-support/java')
+        }
+        resources.srcDir file('src/test-support/resources')
+    }
+}
+
+dependencies {
+
+    // test support dependencies
+
+    testSupportImplementation 'org.testcontainers:testcontainers:1.20.2'
+    testSupportImplementation 'org.assertj:assertj-core:3.26.3'
+    testSupportImplementation 'org.slf4j:slf4j-api:2.0.9'
+    testSupportImplementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+
+    testSupportRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
+}
+
+configurations {
+    sharedTestSupport
+}
+
+task testSupportJar(type: Jar) {
+    from sourceSets.testSupport.output
+}
+
+artifacts {
+    sharedTestSupport testSupportJar
+}
