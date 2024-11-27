@@ -33,7 +33,7 @@ import static com.lmax.solana4j.client.jsonrpc.SolanaJsonRpcClientOptionalParams
  * This client provides methods to perform various operations such as requesting airdrops, sending transactions,
  * retrieving account information, and more.
  */
-public class SolanaJsonRpcClient implements SolanaApi
+public final class SolanaJsonRpcClient implements SolanaApi
 {
     private final String rpcUrl;
     private final HttpClient httpClient;
@@ -58,13 +58,6 @@ public class SolanaJsonRpcClient implements SolanaApi
         this.solanaCodec = new SolanaCodec(false);
     }
 
-    /**
-     * Constructs a new {@code SolanaJsonRpcClient} with the specified RPC URL and a flag indicating whether to fail
-     * on unknown properties during JSON deserialization.
-     *
-     * @param rpcUrl                   the URL of the Solana JSON-RPC endpoint
-     * @param failOnUnknownProperties  if {@code true}, unknown properties in JSON responses will cause deserialization to fail
-     */
     SolanaJsonRpcClient(final String rpcUrl, final boolean failOnUnknownProperties)
     {
         this.rpcUrl = rpcUrl;

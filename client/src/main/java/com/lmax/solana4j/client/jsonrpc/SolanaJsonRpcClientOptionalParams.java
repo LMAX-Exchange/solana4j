@@ -10,27 +10,16 @@ import java.util.Map;
  * Implementation of {@link SolanaClientOptionalParams} that provides support for adding
  * and retrieving optional parameters to be used in Solana JSON-RPC requests.
  */
-public class SolanaJsonRpcClientOptionalParams implements SolanaClientOptionalParams
+public final class SolanaJsonRpcClientOptionalParams implements SolanaClientOptionalParams
 {
     private final Map<String, Object> optionalParams = new HashMap<>();
 
-    /**
-     * Adds a parameter to the set of optional parameters.
-     *
-     * @param key   the name of the parameter
-     * @param value the value of the parameter
-     */
     @Override
     public void addParam(final String key, final Object value)
     {
         optionalParams.put(key, value);
     }
 
-    /**
-     * Retrieves the current set of optional parameters.
-     *
-     * @return a {@link Map} containing the optional parameters
-     */
     @Override
     public Map<String, Object> getParams()
     {
