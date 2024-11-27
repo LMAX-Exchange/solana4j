@@ -14,7 +14,7 @@
 <!--[if IE]>
 <script type="text/javascript" src="../../../../jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="../../../../jquery/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../../../../jquery/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../../../../jquery/jquery-ui.min.js"></script>
 </head>
 <body>
@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9};
+var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -193,6 +193,13 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>static <a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#account(java.lang.String)">account</a></span>&#8203;(java.lang.String&nbsp;accountBase58)</code></th>
+<td class="colLast">
+<div class="block">Creates a new public key from the given string.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>static <a href="api/AddressLookupTable.html" title="interface in com.lmax.solana4j.api">AddressLookupTable</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addressLookupTable(com.lmax.solana4j.api.PublicKey,java.util.List)">addressLookupTable</a></span>&#8203;(<a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;lookupTableAddress,
                   java.util.List&lt;<a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;addresses)</code></th>
@@ -200,35 +207,50 @@ extends java.lang.Object</pre>
 <div class="block">Creates an address lookup table for the given lookup table address and list of addresses.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>static <a href="api/Blockhash.html" title="interface in com.lmax.solana4j.api">Blockhash</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#blockhash(byte%5B%5D)">blockhash</a></span>&#8203;(byte[]&nbsp;bytes)</code></th>
 <td class="colLast">
 <div class="block">Creates a new Blockhash from the given byte array.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>static <a href="api/Blockhash.html" title="interface in com.lmax.solana4j.api">Blockhash</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#blockhash(java.lang.String)">blockhash</a></span>&#8203;(java.lang.String&nbsp;blockhashBase58)</code></th>
+<td class="colLast">
+<div class="block">Creates a new Blockhash from the given Base58-encoded string.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>static <a href="api/MessageBuilder.html" title="interface in com.lmax.solana4j.api">MessageBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#builder(java.nio.ByteBuffer)">builder</a></span>&#8203;(java.nio.ByteBuffer&nbsp;buffer)</code></th>
 <td class="colLast">
 <div class="block">Creates a new message builder for the given buffer.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>static <a href="api/Destination.html" title="interface in com.lmax.solana4j.api">Destination</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#destination(com.lmax.solana4j.api.PublicKey,long)">destination</a></span>&#8203;(<a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;destination,
+           long&nbsp;amount)</code></th>
+<td class="colLast">
+<div class="block">Creates a new destination for a token transfer.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>static <a href="api/SignedMessageBuilder.html" title="interface in com.lmax.solana4j.api">SignedMessageBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#forSigning(java.nio.ByteBuffer)">forSigning</a></span>&#8203;(java.nio.ByteBuffer&nbsp;message)</code></th>
 <td class="colLast">
 <div class="block">Creates a new signed message builder for the given message buffer.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>static <a href="api/TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#instruction(java.util.function.Consumer)">instruction</a></span>&#8203;(java.util.function.Consumer&lt;<a href="api/InstructionBuilderBase.html" title="interface in com.lmax.solana4j.api">InstructionBuilderBase</a>&gt;&nbsp;instructionBuilder)</code></th>
 <td class="colLast">
 <div class="block">Creates a new transaction instruction using the builder provided.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>static <a href="api/ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#programDerivedAddress(java.util.List,com.lmax.solana4j.api.PublicKey)">programDerivedAddress</a></span>&#8203;(java.util.List&lt;byte[]&gt;&nbsp;seeds,
                      <a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;programId)</code></th>
@@ -236,14 +258,14 @@ extends java.lang.Object</pre>
 <div class="block">Derives a program address from the given seeds and program ID.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>static <a href="api/Message.html" title="interface in com.lmax.solana4j.api">Message</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#read(java.nio.ByteBuffer)">read</a></span>&#8203;(java.nio.ByteBuffer&nbsp;message)</code></th>
 <td class="colLast">
 <div class="block">Reads a message from the given buffer.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>static <a href="api/Slot.html" title="interface in com.lmax.solana4j.api">Slot</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#slot(long)">slot</a></span>&#8203;(long&nbsp;slot)</code></th>
 <td class="colLast">
@@ -382,6 +404,22 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
+<a id="account(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>account</h4>
+<pre class="methodSignature">public static&nbsp;<a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account&#8203;(java.lang.String&nbsp;accountBase58)</pre>
+<div class="block">Creates a new public key from the given string.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>accountBase58</code> - the base58 string representing the public key</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new instance of <a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api"><code>PublicKey</code></a></dd>
+</dl>
+</li>
+</ul>
 <a id="addressLookupTable(com.lmax.solana4j.api.PublicKey,java.util.List)">
 <!--   -->
 </a>
@@ -434,10 +472,26 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
+<a id="blockhash(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>blockhash</h4>
+<pre class="methodSignature">public static&nbsp;<a href="api/Blockhash.html" title="interface in com.lmax.solana4j.api">Blockhash</a>&nbsp;blockhash&#8203;(java.lang.String&nbsp;blockhashBase58)</pre>
+<div class="block">Creates a new Blockhash from the given Base58-encoded string.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>blockhashBase58</code> - the Base58-encoded string representing the Blockhash</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new instance of <a href="api/Blockhash.html" title="interface in com.lmax.solana4j.api"><code>Blockhash</code></a></dd>
+</dl>
+</li>
+</ul>
 <a id="slot(long)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>slot</h4>
 <pre class="methodSignature">public static&nbsp;<a href="api/Slot.html" title="interface in com.lmax.solana4j.api">Slot</a>&nbsp;slot&#8203;(long&nbsp;slot)</pre>
@@ -447,6 +501,24 @@ extends java.lang.Object</pre>
 <dd><code>slot</code> - the slot number</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a new instance of <a href="api/Slot.html" title="interface in com.lmax.solana4j.api"><code>Slot</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="destination(com.lmax.solana4j.api.PublicKey,long)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>destination</h4>
+<pre class="methodSignature">public static&nbsp;<a href="api/Destination.html" title="interface in com.lmax.solana4j.api">Destination</a>&nbsp;destination&#8203;(<a href="api/PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;destination,
+                                      long&nbsp;amount)</pre>
+<div class="block">Creates a new destination for a token transfer.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>destination</code> - the public key of the destination</dd>
+<dd><code>amount</code> - the amount to transfer</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a new instance of <a href="api/Destination.html" title="interface in com.lmax.solana4j.api"><code>Destination</code></a></dd>
 </dl>
 </li>
 </ul>

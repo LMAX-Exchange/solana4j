@@ -14,7 +14,7 @@
 <!--[if IE]>
 <script type="text/javascript" src="../../../../../../jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="../../../../../../jquery/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../../../../../../jquery/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../../../../../../jquery/jquery-ui.min.js"></script>
 </head>
 <body>
@@ -110,19 +110,19 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr class="altColor">
 <th class="colFirst" scope="row"><a href="#com.lmax.solana4j">com.lmax.solana4j</a></th>
 <td class="colLast">
-<div class="block">This package is the base package and is the entrypoint to the library's APIs.</div>
+<div class="block">This package is the base package and is the entrypoint to the solana message encoding library's APIs.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <th class="colFirst" scope="row"><a href="#com.lmax.solana4j.api">com.lmax.solana4j.api</a></th>
 <td class="colLast">
-<div class="block">This package defines the library's API.</div>
+<div class="block">This package defines the solana message encoding library's API.</div>
 </td>
 </tr>
 <tr class="altColor">
 <th class="colFirst" scope="row"><a href="#com.lmax.solana4j.encoding">com.lmax.solana4j.encoding</a></th>
 <td class="colLast">
-<div class="block">This package exposes the library's API.</div>
+<div class="block">This package exposes the solana message encoding library's API.</div>
 </td>
 </tr>
 </tbody>
@@ -148,6 +148,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><span class="typeNameLabel">Solana.</span><code><span class="memberNameLink"><a href="../../Solana.html#blockhash(byte%5B%5D)">blockhash</a></span>&#8203;(byte[]&nbsp;bytes)</code></th>
 <td class="colLast">
 <div class="block">Creates a new Blockhash from the given byte array.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../Blockhash.html" title="interface in com.lmax.solana4j.api">Blockhash</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">Solana.</span><code><span class="memberNameLink"><a href="../../Solana.html#blockhash(java.lang.String)">blockhash</a></span>&#8203;(java.lang.String&nbsp;blockhashBase58)</code></th>
+<td class="colLast">
+<div class="block">Creates a new Blockhash from the given Base58-encoded string.</div>
 </td>
 </tr>
 </tbody>
@@ -220,6 +227,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaEncoding.</span><code><span class="memberNameLink"><a href="../../encoding/SolanaEncoding.html#blockhash(byte%5B%5D)">blockhash</a></span>&#8203;(byte[]&nbsp;bytes)</code></th>
 <td class="colLast">
 <div class="block">Creates a new blockhash from the given byte array.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../Blockhash.html" title="interface in com.lmax.solana4j.api">Blockhash</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">SolanaEncoding.</span><code><span class="memberNameLink"><a href="../../encoding/SolanaEncoding.html#blockhash(java.lang.String)">blockhash</a></span>&#8203;(java.lang.String&nbsp;blockhashBase58)</code></th>
+<td class="colLast">
+<div class="block">Creates a new blockhash from the given string.</div>
 </td>
 </tr>
 </tbody>

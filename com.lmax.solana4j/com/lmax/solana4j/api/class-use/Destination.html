@@ -14,7 +14,7 @@
 <!--[if IE]>
 <script type="text/javascript" src="../../../../../../jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="../../../../../../jquery/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../../../../../../jquery/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../../../../../../jquery/jquery-ui.min.js"></script>
 </head>
 <body>
@@ -108,12 +108,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="#com.lmax.solana4j.encoding">com.lmax.solana4j.encoding</a></th>
+<th class="colFirst" scope="row"><a href="#com.lmax.solana4j">com.lmax.solana4j</a></th>
 <td class="colLast">
-<div class="block">This package exposes the library's API.</div>
+<div class="block">This package is the base package and is the entrypoint to the solana message encoding library's APIs.</div>
 </td>
 </tr>
 <tr class="rowColor">
+<th class="colFirst" scope="row"><a href="#com.lmax.solana4j.encoding">com.lmax.solana4j.encoding</a></th>
+<td class="colLast">
+<div class="block">This package exposes the solana message encoding library's API.</div>
+</td>
+</tr>
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="#com.lmax.solana4j.programs">com.lmax.solana4j.programs</a></th>
 <td class="colLast">
 <div class="block">This package contains implementations of interactions with Solana Programs on the Solana Blockchain.</div>
@@ -124,6 +130,31 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </li>
 <li class="blockList">
 <ul class="blockList">
+<li class="blockList">
+<section><a id="com.lmax.solana4j">
+<!--   -->
+</a>
+<h3>Uses of <a href="../Destination.html" title="interface in com.lmax.solana4j.api">Destination</a> in <a href="../../package-summary.html">com.lmax.solana4j</a></h3>
+<table class="useSummary">
+<caption><span>Methods in <a href="../../package-summary.html">com.lmax.solana4j</a> that return <a href="../Destination.html" title="interface in com.lmax.solana4j.api">Destination</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../Destination.html" title="interface in com.lmax.solana4j.api">Destination</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">Solana.</span><code><span class="memberNameLink"><a href="../../Solana.html#destination(com.lmax.solana4j.api.PublicKey,long)">destination</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;destination,
+           long&nbsp;amount)</code></th>
+<td class="colLast">
+<div class="block">Creates a new destination for a token transfer.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</li>
 <li class="blockList">
 <section><a id="com.lmax.solana4j.encoding">
 <!--   -->
