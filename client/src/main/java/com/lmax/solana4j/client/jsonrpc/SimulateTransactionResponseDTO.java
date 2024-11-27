@@ -49,7 +49,7 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
     {
         private final Object err;
         private final List<String> logs;
-        private final AccountInfo.AccountInfoData accounts;
+        private final List<AccountInfoDTO.AccountInfoValueDTO> accounts;
         private final List<TransactionResponseDTO.MetaDTO.InnerInstructionDTO> innerInstructions;
         private final BlockhashDTO.BlockhashValueDTO replacementBlockhash;
         private final DataDTO returnData;
@@ -59,7 +59,7 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
         SimulateTransactionValueDTO(
                 final @JsonProperty("err") Object err,
                 final @JsonProperty("logs") List<String> logs,
-                final @JsonProperty("accounts") AccountInfo.AccountInfoData accounts,
+                final @JsonProperty("accounts") List<AccountInfoDTO.AccountInfoValueDTO> accounts,
                 final @JsonProperty("innerInstructions") List<TransactionResponseDTO.MetaDTO.InnerInstructionDTO> innerInstructions,
                 final @JsonProperty("replacementBlockhash") BlockhashDTO.BlockhashValueDTO replacementBlockhash,
                 final @JsonProperty("returnData") DataDTO returnData,
@@ -87,9 +87,10 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
         }
 
         @Override
-        public AccountInfo.AccountInfoData getAccounts()
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        public List<AccountInfo> getAccounts()
         {
-            return accounts;
+            return (List) accounts;
         }
 
         @Override

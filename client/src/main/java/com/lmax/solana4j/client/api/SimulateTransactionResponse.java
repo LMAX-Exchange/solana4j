@@ -29,11 +29,12 @@ public interface SimulateTransactionResponse
 
     /**
      * Retrieves the account information data resulting from the transaction simulation.
-     * This includes details about the accounts involved in the transaction.
+     * This includes details about the accounts involved in the transaction, such as balances,
+     * ownership, and other relevant metadata.
      *
-     * @return an {@link AccountInfo.AccountInfoData} object representing the account information
+     * @return a list of {@link AccountInfo} objects representing the account information.
      */
-    AccountInfo.AccountInfoData getAccounts();
+    List<AccountInfo> getAccounts();
 
     /**
      * Retrieves the list of inner instructions executed during the transaction simulation.

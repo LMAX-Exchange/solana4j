@@ -5,7 +5,6 @@ import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import com.lmax.solana4j.encoding.SolanaEncoding;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Base64;
@@ -171,17 +170,103 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
     }
 
     @Test
-    @Disabled
-    void shouldSimulateTransactionAccountsConfigurationOptionalParam() throws SolanaJsonRpcClientException
+    void shouldSimulateTransactionAccountsConfigurationBase64OptionalParam() throws SolanaJsonRpcClientException
     {
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
         optionalParams.addParam("encoding", "base64");
-        optionalParams.addParam("accounts", Map.of("encoding", "base64", "address", List.of(TOKEN_ACCOUNT_1)));
+        optionalParams.addParam("accounts", Map.of("encoding", "base64", "addresses", List.of(TOKEN_ACCOUNT_1)));
 
         final var response = SOLANA_API.simulateTransaction(mintToTransactionBlobBase64, optionalParams);
 
         assertThat(response.isSuccess()).isTrue();
+
+        Assertions.assertThat(response.getResponse().getAccounts()).hasSize(1);
+
+        final var accountInfo = response.getResponse().getAccounts().get(0);
+        assertThat(accountInfo.getSpace()).isEqualTo(165L);
+        assertThat(accountInfo.getRentEpoch()).isEqualTo("18446744073709551615");
+        assertThat(accountInfo.getOwner()).isEqualTo("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
+        assertThat(accountInfo.getLamports()).isEqualTo(400000L);
+
+        final var data = accountInfo.getData();
+        assertThat(data.getAccountInfoParsed()).isNull();
+        assertThat(data.getAccountInfoEncoded().get(0)).isEqualTo(
+                "HCEswh8utCXQBqnsIw8mz0OFQo9N7bLx3WTVx5o6l4tdQDspqrYRFt5A4y1L6LHNdNnOQ7IdPHtkqYF/Z+a01" +
+                        "RQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA" +
+                        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        assertThat(data.getAccountInfoEncoded().get(1)).isEqualTo("base64");
     }
+
+    @Test
+    void shouldSimulateTransactionAccountsConfigurationBase58OptionalParam() throws SolanaJsonRpcClientException
+    {
+        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
+        optionalParams.addParam("encoding", "base64");
+        optionalParams.addParam("accounts", Map.of("encoding", "base58", "addresses", List.of(TOKEN_ACCOUNT_1)));
+
+        final var response = SOLANA_API.simulateTransaction(mintToTransactionBlobBase64, optionalParams);
+
+        assertThat(response.isSuccess()).isFalse();
+        assertThat(response.getError().getErrorCode()).isEqualTo(-32602L);
+        assertThat(response.getError().getErrorMessage()).isEqualTo("base58 encoding not supported");
+    }
+
+    @Test
+    void shouldSimulateTransactionAccountsConfigurationBase64ZstdOptionalParam() throws SolanaJsonRpcClientException
+    {
+        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
+        optionalParams.addParam("encoding", "base64");
+        optionalParams.addParam("accounts", Map.of("encoding", "base64+zstd", "addresses", List.of(TOKEN_ACCOUNT_1)));
+
+        final var response = SOLANA_API.simulateTransaction(mintToTransactionBlobBase64, optionalParams);
+
+        assertThat(response.isSuccess()).isTrue();
+
+        Assertions.assertThat(response.getResponse().getAccounts()).hasSize(1);
+
+        final var data = response.getResponse().getAccounts().get(0).getData();
+        assertThat(data.getAccountInfoParsed()).isNull();
+        assertThat(data.getAccountInfoEncoded().get(0)).isEqualTo(
+                "KLUv/QBYdQIARAQcISzCHy60JdAGqewjDybPQ4VCj03tsvHdZNXHmjqXi11A" +
+                        "OymqthEW3kDjLUvosc102c5Dsh08e2SpgX9n5rTVFAABAAIABCcKIXAG");
+        assertThat(data.getAccountInfoEncoded().get(1)).isEqualTo("base64+zstd");
+    }
+
+    @Test
+    void shouldSimulateTransactionAccountsConfigurationJsonParsedOptionalParam() throws SolanaJsonRpcClientException
+    {
+        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
+        optionalParams.addParam("encoding", "base64");
+        optionalParams.addParam("accounts", Map.of("encoding", "jsonParsed", "addresses", List.of(TOKEN_ACCOUNT_1)));
+
+        final var response = SOLANA_API.simulateTransaction(mintToTransactionBlobBase64, optionalParams);
+
+        assertThat(response.isSuccess()).isTrue();
+
+        Assertions.assertThat(response.getResponse().getAccounts()).hasSize(1);
+
+        final var data = response.getResponse().getAccounts().get(0).getData();
+        assertThat(data.getAccountInfoEncoded()).isNull();
+
+        final var parsedAccountInfo = data.getAccountInfoParsed();
+        assertThat(parsedAccountInfo.getProgram()).isEqualTo("spl-token-2022");
+        assertThat(parsedAccountInfo.getSpace()).isEqualTo(165);
+
+        // i think the best we can do here is really just return a Map<String, Object> and let the user do their own parsing
+        // since the parsing is very much program specific
+        Assertions.assertThat(parsedAccountInfo.getParsedData().get("type")).isEqualTo("account");
+        Assertions.assertThat(parsedAccountInfo.getParsedData().get("info")).usingRecursiveComparison().isEqualTo(
+                Map.of("isNative", false,
+                        "mint", "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS",
+                        "owner", "7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr",
+                        "state", "initialized",
+                        "tokenAmount", Map.of(
+                                "amount", "20",
+                                "decimals", 18,
+                                "uiAmount", 2.0E-17,
+                                "uiAmountString", "0.00000000000000002"
+                        ))
+        );    }
 
     @Test
     void shouldReturnErrorForMinContextSlotNotReached() throws SolanaJsonRpcClientException
