@@ -1,5 +1,4 @@
-module:com.lmax.solana4j
-com.lmax.solana4j
-com.lmax.solana4j.api
-com.lmax.solana4j.encoding
-com.lmax.solana4j.programs
+module:com.lmax.solana4j.client
+com.lmax.solana4j.client
+com.lmax.solana4j.client.api
+com.lmax.solana4j.client.jsonrpc
