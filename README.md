@@ -35,7 +35,7 @@ If running on an `M[1,2,3,4] Mac` please read `shared/src/test-support/resources
 * Make your amazing changes. 
 * Push your amazing changes to your "amazing-new-feature-branch" branch.
 * Raise a PR.
-* Wait patiently for comments.
+* Wait patiently.
 * Receive praise.
 
 The integration tests written act as living documentation. If you're making any changes, such
