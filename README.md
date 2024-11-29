@@ -21,12 +21,12 @@ at `https://solana.com/docs/rpc`. This library requires the following dependenci
 * `com.fasterxml.jackson.core:jackson-annotations:2.17.2`
 * `com.fasterxml.jackson.core:jackson-core:2.17.2`
 
-#### Requirements
+#### Local Development Requirements
 
 * `jdk11` installation
 * `docker` (for `testcontainers`)
 
-If running on an `M[1,2,3,4] Mac` please read `shared/src/test-support/resources/README.md`
+If running on an `M[1,2,3,4] Mac` please read `shared/src/test-support/resources/README.md`.
 
 #### Contributions
 
