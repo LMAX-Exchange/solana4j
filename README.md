@@ -2,56 +2,44 @@
 
 ### Background
 
-At `LMAX` we are all `Java` developers. We are not `Javascript` developers. We are not `Rust` developers. To support our needs
-as a business we needed a way to read and write transactions from and to the `Solana Blockchain`. We challenged ourselves to 
-encapsulate the `Solana` encoding scheme with a `Java` library rather than use any kind of shim calling the `Javascript` or `Rust` 
-libraries supported by `Solana Labs`. This project is the product of that challenge.
+At LMAX we are all Java developers. We are not Javascript developers. We are not Rust developers. To support our needs 
+as a business we needed to read and write from and to the Solana blockchain from within our Java ecosystem. There was
+no mature Java library that met our needs at the time our project started. We therefore challenged ourselves to write 
+our own. This repository is the product of that challenge.
 
-This `solana4j` library supports both the `Legacy` and `VO` encoding schemes. It has support for interaction with some 
-of the core `Solana Programs`, such as the `SystemProgram`, `TokenProgram` and `AssociatedTokenProgram`. The library can be 
-trivially extended to support more native programs as the user needs. The scope of the current implemented programs simply encompasses
-what we needed to implement for our needs as a business. 
+### `solana4j`
 
-We hope that people will use the library and extend it to their needs, so that together we can build a `Java` library with parity
-to the aforementioned `Rust` and `Javascript` libraries. 
+A pure Java library that encapsulates both the `Legacy` and `V0` encoding schemes, with support for many of 
+the core Solana programs.
 
-All the `Solana Programs` that have been implemented have been conformance tested against a real `Solana Test Validator`. The hope
-is that these tests act as living documentation of how the library can be used. Any future implemented programs should also
-have accompanying integration tests so that we can carry on extending this living documentation!
+### `solana4j-json-rpc`
 
-A note about the integration tests. If you're running on a shiny `Apple M[1,2,3,4]` machine, then 
-there are extra steps you need to take in order to run them locally. Please find the `README.md` in `shared/src/test-support/resources/README.md`!
+A Java client library to communicate with the Solana blockchain, with support for many of the endpoints documented
+at `https://solana.com/docs/rpc`. This library requires the following dependencies:
 
-We hope that you enjoy using the library, and we welcome any feedback. We especially welcome PRs!
+* `com.fasterxml.jackson.core:jackson-databind:2.17.2`
+* `com.fasterxml.jackson.core:jackson-annotations:2.17.2`
+* `com.fasterxml.jackson.core:jackson-core:2.17.2`
 
-### Features
-
-##### Core Functionality
-
-* Reading and Writing Legacy & V0 Solana Messages.
-* Building Solana Messages for signing.
-* Appending signatures to Solana Messages for transaction submission.
-
-##### Programs
-
-  * `AddressLookupTableProgram`
-  * `AssociatedTokenMetadataProgram`
-  * `AssociatedTokenProgram`
-  * `BpfLoaderUpgradeableProgram`
-  * `ComputeBudgetProgram`
-  * `SystemProgram`
-  * `Token2022Program`
-  * `TokenProgram`
-
-### Useful Commands
-
-* `./gradlew build` - build the project
-* `./gradlew javadocs` - build javadocs
-* `./gradlew jar` - build jar
-* `./gradlew sourcesJar` - build sources jar
-* `./gradlew setupGitHooks` - create a git hook to prevent locally committing bad changes
-
-### Local Requirements
+### Requirements
 
 * `jdk11` installation
 * `docker` (for `testcontainers`)
+
+If running on an `M[1,2,3,4] Mac` please read `shared/src/test-support/resources/README.md`
+
+### PRs
+
+* Fork the repository.
+* Create a branch, for example: "amazing-new-feature-branch".
+* Make your amazing changes. 
+* Push your amazing changes to your "amazing-new-feature-branch" branch.
+* Raise a PR.
+* Wait patiently for comments.
+* Receive praise.
+
+The integration tests written act as living documentation. If you're making any changes, such
+as extending the programs or endpoints supported, please can you continue extending this documentation!
+
+Thanks.
+MJ.
