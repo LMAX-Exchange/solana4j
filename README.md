@@ -7,7 +7,7 @@ our own. This repository is the product of that challenge.
 
 #### Libraries
 
-##### solana4j
+##### solana4j (https://central.sonatype.com/artifact/com.lmax/solana4j/overview)
 
 A pure Java library that encapsulates both the `Legacy` and `V0` encoding schemes, with support for many of 
 the core Solana programs.
