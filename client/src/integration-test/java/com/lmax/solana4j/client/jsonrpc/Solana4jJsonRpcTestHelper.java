@@ -5,7 +5,7 @@ import com.lmax.solana4j.api.Blockhash;
 import com.lmax.solana4j.api.Destination;
 import com.lmax.solana4j.api.PublicKey;
 import com.lmax.solana4j.api.SignedMessageBuilder;
-import com.lmax.solana4j.buffer.ByteBufferPrimitiveArray;
+import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.programs.Token2022Program;
 import com.lmax.solana4j.sign.BouncyCastleSigner;
 
@@ -46,7 +46,7 @@ final class Solana4jJsonRpcTestHelper
         }
         signedMessageBuilder.build();
 
-        return ByteBufferPrimitiveArray.copy(buffer);
+        return SolanaEncoding.copyBuffer(buffer);
     }
 
     static byte[] createTransferTokenTransactionBlob(
@@ -82,7 +82,7 @@ final class Solana4jJsonRpcTestHelper
         }
         signedMessageBuilder.build();
 
-        return ByteBufferPrimitiveArray.copy(buffer);
+        return SolanaEncoding.copyBuffer(buffer);
     }
 
     static class Signer

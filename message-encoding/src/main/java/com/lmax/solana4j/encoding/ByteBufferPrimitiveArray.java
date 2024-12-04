@@ -1,16 +1,16 @@
-package com.lmax.solana4j.buffer;
+package com.lmax.solana4j.encoding;
 
 import java.nio.ByteBuffer;
 
 import static java.util.Objects.requireNonNull;
 
-public final class ByteBufferPrimitiveArray
+final class ByteBufferPrimitiveArray
 {
     private ByteBufferPrimitiveArray()
     {
     }
 
-    public static byte[] copy(final ByteBuffer buffer)
+    static byte[] copy(final ByteBuffer buffer)
     {
         requireNonNull(buffer);
         if (!buffer.hasArray())

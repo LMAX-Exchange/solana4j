@@ -200,4 +200,21 @@ public final class SolanaEncoding
     {
         return Base58.encode(bytes);
     }
+
+
+    /**
+     * Copies the contents of a {@link ByteBuffer} into a new byte array.
+     * <p>
+     * This method creates a new byte array that contains the exact content of the provided {@code ByteBuffer}.
+     * The position, limit, and capacity of the original {@code ByteBuffer} are not modified.
+     * </p>
+     *
+     * @param buffer the {@code ByteBuffer} to copy. Must not be {@code null}.
+     * @return a byte array containing the copied data from the {@code ByteBuffer}.
+     * @throws NullPointerException if the provided {@code buffer} is {@code null}.
+     */
+    public static byte[] copyBuffer(final ByteBuffer buffer)
+    {
+        return ByteBufferPrimitiveArray.copy(buffer);
+    }
 }

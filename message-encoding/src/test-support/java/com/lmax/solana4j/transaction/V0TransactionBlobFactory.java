@@ -1,6 +1,5 @@
 package com.lmax.solana4j.transaction;
 
-import com.lmax.solana4j.buffer.ByteBufferPrimitiveArray;
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.api.AddressLookupTable;
 import com.lmax.solana4j.api.Blockhash;
@@ -11,6 +10,7 @@ import com.lmax.solana4j.api.SignedMessageBuilder;
 import com.lmax.solana4j.api.Slot;
 import com.lmax.solana4j.domain.TestKeyPair;
 import com.lmax.solana4j.domain.TokenProgram;
+import com.lmax.solana4j.encoding.SolanaEncoding;
 import com.lmax.solana4j.programs.AddressLookupTableProgram;
 import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
@@ -503,6 +503,6 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
 
     private static String base64encode(final ByteBuffer bytes)
     {
-        return Base64.getEncoder().encodeToString(ByteBufferPrimitiveArray.copy(bytes));
+        return Base64.getEncoder().encodeToString(SolanaEncoding.copyBuffer(bytes));
     }
 }
