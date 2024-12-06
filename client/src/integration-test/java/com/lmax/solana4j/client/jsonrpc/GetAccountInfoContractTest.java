@@ -88,6 +88,36 @@ final class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
     }
 
     @Test
+    void shouldGetMintAccountInfoJsonParsedEncodingOptionalParam() throws SolanaJsonRpcClientException
+    {
+        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
+        optionalParams.addParam("encoding", "jsonParsed");
+
+        final var accountInfo = SOLANA_API.getAccountInfo(TOKEN_MINT, optionalParams).getResponse();
+        assertThat(accountInfo.getOwner()).isEqualTo("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
+
+        // program specific parser so we can try and read the data that's returned
+        assertThat(accountInfo.getData().getAccountInfoEncoded()).isNull();
+
+        final var parsedAccountInfo = accountInfo.getData().getAccountInfoParsed();
+        assertThat(parsedAccountInfo.getProgram()).isEqualTo("spl-token-2022");
+        assertThat(parsedAccountInfo.getSpace()).isEqualTo(82);
+
+        // i think the best we can do here is really just return a Map<String, Object> and let the user do their own parsing
+        // since the parsing is very much program specific
+        assertThat(parsedAccountInfo.getParsedData().get("type")).isEqualTo("mint");
+        assertThat(parsedAccountInfo.getParsedData().get("info"))
+                .usingRecursiveComparison()
+                .ignoringFields("supply").isEqualTo(
+                Map.of("decimals", 18,
+                        "freezeAuthority", "9E7Z5oSAiwBvchbUjm3E9x2BTn8RzXyyZdaAjpBJvuUc",
+                        "isInitialized", true,
+                        "mintAuthority", "6Q6XBfRrdf6jrK2DraQ8XnYzkGsFz9c15DdUKS5aJHoJ",
+                        "supply", "10")
+        );
+    }
+
+    @Test
     void shouldGetAccountInfoDataSliceOptionalParam() throws SolanaJsonRpcClientException
     {
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
