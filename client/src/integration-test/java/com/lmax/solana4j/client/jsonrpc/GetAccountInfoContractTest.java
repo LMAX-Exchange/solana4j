@@ -118,6 +118,33 @@ final class GetAccountInfoContractTest extends SolanaClientIntegrationTestBase
     }
 
     @Test
+    void shouldGetNonceAccountInfoJsonParsedEncodingOptionalParam() throws SolanaJsonRpcClientException
+    {
+        final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();
+        optionalParams.addParam("encoding", "jsonParsed");
+
+        final var accountInfo = SOLANA_API.getAccountInfo(NONCE_ACCOUNT, optionalParams).getResponse();
+        assertThat(accountInfo.getOwner()).isEqualTo("11111111111111111111111111111111");
+
+        // program specific parser so we can try and read the data that's returned
+        assertThat(accountInfo.getData().getAccountInfoEncoded()).isNull();
+
+        final var parsedAccountInfo = accountInfo.getData().getAccountInfoParsed();
+        assertThat(parsedAccountInfo.getProgram()).isEqualTo("nonce");
+        assertThat(parsedAccountInfo.getSpace()).isEqualTo(80);
+
+        // i think the best we can do here is really just return a Map<String, Object> and let the user do their own parsing
+        // since the parsing is very much program specific
+        assertThat(parsedAccountInfo.getParsedData().get("type")).isEqualTo("initialized");
+        assertThat(parsedAccountInfo.getParsedData().get("info"))
+                .usingRecursiveComparison()
+                .isEqualTo(Map.of("authority", "2dY4b9YdnHaURDVJj339q7eczTdxnVyiGifA5yXG4yQN",
+                                "blockhash", "Hb4pM3V4j9ipCsFNpymzViHZPiDMUH2KwLzrpSchiYVU",
+                                "feeCalculator", Map.of("lamportsPerSignature", "5000"))
+                );
+    }
+
+    @Test
     void shouldGetAccountInfoDataSliceOptionalParam() throws SolanaJsonRpcClientException
     {
         final SolanaClientOptionalParams optionalParams = new SolanaJsonRpcClientOptionalParams();

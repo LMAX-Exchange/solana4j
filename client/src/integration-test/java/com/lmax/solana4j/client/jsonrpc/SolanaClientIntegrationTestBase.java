@@ -22,6 +22,8 @@ abstract class SolanaClientIntegrationTestBase extends IntegrationTestBase
 
     protected static final String SOL_ACCOUNT = "4Nd1mnszWRVFzzsxMgcTzdFoC8Wx5mPQD9KZx3qtDr1M";
 
+    protected static final String NONCE_ACCOUNT = "6qS7fCwPYCSJ6msth7h1AB6g8aGe6rro1agHAamM4rAM";
+
     protected static final String TOKEN_MINT = "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS";
 
     protected static final String TOKEN_ACCOUNT_1 = "CZJWrh6o1tchnKB1UkGn2f65DDD7BbA1u6Nz6bZfTTNC";

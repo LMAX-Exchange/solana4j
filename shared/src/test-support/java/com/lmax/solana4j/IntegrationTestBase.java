@@ -40,6 +40,7 @@ public abstract class IntegrationTestBase
             copyResourceToTempFile(parentDirectory, "accounts/token_mint.json");
             copyResourceToTempFile(parentDirectory, "accounts/token_account_1.json");
             copyResourceToTempFile(parentDirectory, "accounts/token_account_2.json");
+            copyResourceToTempFile(parentDirectory, "accounts/nonce_account.json");
 
             final String solanaVersion = System.getProperty("solana.version");
             if (arch.equals("aarch64"))
