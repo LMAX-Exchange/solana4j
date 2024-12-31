@@ -1,1 +1,1 @@
-moduleSearchIndex = [{"l":"com.lmax.solana4j.client"}]
+moduleSearchIndex = [{"l":"com.lmax.solana4j"}]
