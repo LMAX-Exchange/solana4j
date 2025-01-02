@@ -1,6 +1,6 @@
 package com.lmax.solana4j.encoding;
 
-import com.lmax.solana4j.domain.TestKeyPairGenerator;
+import com.lmax.solana4j.domain.KeyPairGenerator;
 import net.i2p.crypto.eddsa.math.GroupElement;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
@@ -35,7 +35,7 @@ public class EddsaPointOnCurveBenchmark
                     4, 8
             };
 
-    private static final byte[] POINT_ON_CURVE = TestKeyPairGenerator.generateTestKeyPair().getPublicKeyBytes();
+    private static final byte[] POINT_ON_CURVE = KeyPairGenerator.generateKeyPair().getPublicKey();
 
     @Benchmark
     public void pointOnCurveSolana4jImplementation(final Blackhole bh)

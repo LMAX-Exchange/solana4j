@@ -105,6 +105,8 @@ dependencies {
 
     // jmh test dependencies
 
+    jmhTestImplementation project(path: ':shared', configuration: 'sharedTestSupport')
+
     jmhTestImplementation 'org.openjdk.jmh:jmh-core:1.37'
     jmhTestImplementation 'net.i2p.crypto:eddsa:0.3.0'
     jmhTestImplementation 'org.bitcoinj:bitcoinj-core:0.16.3'
