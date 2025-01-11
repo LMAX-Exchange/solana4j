@@ -29,6 +29,7 @@ import com.lmax.solana4j.store.TestContext;
 import com.lmax.solana4j.store.TestDataType;
 import org.bouncycastle.util.encoders.Base64;
 
+import java.net.http.HttpClient;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,7 +50,7 @@ public class SolanaNodeDsl
 
     public SolanaNodeDsl(final String rpcUrl)
     {
-        this.solanaDriver = new SolanaDriver(SolanaClient.create(rpcUrl));
+        this.solanaDriver = new SolanaDriver(SolanaClient.create(HttpClient.newHttpClient(), rpcUrl));
         this.testContext = new TestContext();
     }
 

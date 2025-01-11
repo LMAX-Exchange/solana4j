@@ -20,7 +20,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,31 +37,31 @@ public final class SolanaJsonRpcClient implements SolanaApi
     private final String rpcUrl;
     private final HttpClient httpClient;
     private final SolanaCodec solanaCodec;
-    private final Duration requestTimeout;
 
     /**
-     * Constructs a new {@code SolanaJsonRpcClient} with the specified RPC URL, connection timeout, and request timeout.
+     * Constructs a new {@code SolanaJsonRpcClient} with the specified HTTP client and RPC URL.
      *
-     * @param rpcUrl            the URL of the Solana JSON-RPC endpoint
-     * @param connectionTimeout the timeout duration for establishing connections
-     * @param requestTimeout    the timeout duration for completing requests
+     * @param httpClient      the {@link HttpClient} instance to use for sending requests.
+     *                        This allows customization of HTTP settings such as connection pooling,
+     *                        SSL context, and timeout configurations.
+     * @param rpcUrl          the URL of the Solana JSON-RPC node.
      */
-    public SolanaJsonRpcClient(final String rpcUrl, final Duration connectionTimeout, final Duration requestTimeout)
+    public SolanaJsonRpcClient(
+            final HttpClient httpClient,
+            final String rpcUrl)
     {
         this.rpcUrl = rpcUrl;
-        this.httpClient = HttpClient
-                .newBuilder()
-                .connectTimeout(connectionTimeout)
-                .build();
-        this.requestTimeout = requestTimeout;
+        this.httpClient = httpClient;
         this.solanaCodec = new SolanaCodec(false);
     }
 
-    SolanaJsonRpcClient(final String rpcUrl, final boolean failOnUnknownProperties)
+    SolanaJsonRpcClient(
+            final HttpClient httpClient,
+            final String rpcUrl,
+            final boolean failOnUnknownProperties)
     {
         this.rpcUrl = rpcUrl;
-        this.httpClient = HttpClient.newHttpClient();
-        this.requestTimeout = Duration.ofSeconds(30);
+        this.httpClient = httpClient;
         this.solanaCodec = new SolanaCodec(failOnUnknownProperties);
     }
 
@@ -452,7 +451,6 @@ public final class SolanaJsonRpcClient implements SolanaApi
     private HttpRequest buildPostRequest(final String payload)
     {
         final HttpRequest.Builder request = HttpRequest.newBuilder();
-        request.timeout(requestTimeout);
         request.uri(URI.create(rpcUrl));
         request.setHeader("Content-Type", "application/json");
         request.POST(HttpRequest.BodyPublishers.ofString(payload));

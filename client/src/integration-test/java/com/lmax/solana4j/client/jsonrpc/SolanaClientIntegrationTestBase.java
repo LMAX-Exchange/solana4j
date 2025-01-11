@@ -9,6 +9,7 @@ import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.encoding.SolanaEncoding;
 
+import java.net.http.HttpClient;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +38,7 @@ abstract class SolanaClientIntegrationTestBase extends IntegrationTestBase
     protected static final String TOKEN_MINT_AUTHORITY = "6Q6XBfRrdf6jrK2DraQ8XnYzkGsFz9c15DdUKS5aJHoJ";
     protected static final String TOKEN_MINT_AUTHORITY_PRIV = "5DJqyvfAjjkhsT8sPNkRBmDfbhgvxeTMys8m4YKZ2u2z";
 
-    protected static final SolanaApi SOLANA_API = new SolanaJsonRpcClient(solanaRpcUrl, true);
+    protected static final SolanaApi SOLANA_API = new SolanaJsonRpcClient(HttpClient.newHttpClient(), solanaRpcUrl, true);
 
     static
     {
