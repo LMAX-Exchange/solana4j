@@ -15,7 +15,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // https://solana.com/docs/rpc/http/getsignaturestatuses
-final class GetSignatureStatuesContractTest extends SolanaClientIntegrationTestBase
+final class GetSignatureStatusesContractTest extends SolanaClientIntegrationTestBase
 {
     private String address;
 
