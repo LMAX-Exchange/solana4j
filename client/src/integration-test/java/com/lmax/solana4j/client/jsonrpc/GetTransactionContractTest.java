@@ -112,9 +112,10 @@ final class GetTransactionContractTest extends SolanaClientIntegrationTestBase
 
         final var instruction = message.getInstructions().get(0);
         assertThat(instruction.getData()).isEqualTo("3Bxs3zzLZLuLQEYX");
-        assertThat(instruction.getAccounts()).hasSize(2);
-        assertThat(instruction.getAccounts().get(0)).isEqualTo(0);
-        assertThat(instruction.getAccounts().get(1)).isEqualTo(1);
+        assertThat(instruction.getAccounts().getIndexes()).hasSize(2);
+        assertThat(instruction.getAccounts().getAddresses()).isNull();
+        assertThat(instruction.getAccounts().getIndexes().get(0)).isEqualTo(0);
+        assertThat(instruction.getAccounts().getIndexes().get(1)).isEqualTo(1);
         assertThat(instruction.getProgramIdIndex()).isEqualTo(2);
         assertThat(instruction.getStackHeight()).isEqualTo(null);
 
@@ -164,6 +165,7 @@ final class GetTransactionContractTest extends SolanaClientIntegrationTestBase
 
         // would have been present if encoding json not jsonParsed
         assertThat(instruction.getData()).isNull();
+        // jsonParsed so getAccounts().getIndexes() is null (as expected) but i _would_ expect getAccounts().getAddresses() to NOT be null ...
         assertThat(instruction.getAccounts()).isNull();
         assertThat(instruction.getProgramIdIndex()).isNull();
         assertThat(instruction.getStackHeight()).isEqualTo(null);

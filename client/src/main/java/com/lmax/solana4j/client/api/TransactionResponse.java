@@ -491,6 +491,31 @@ public interface TransactionResponse
     }
 
     /**
+     * Represents an inner instruction in a Solana transaction.
+     * Inner instructions are instructions that are executed within a broader transaction and can involve program invocations.
+     * This interface provides access to the index of the inner instruction and the list of associated instructions.
+     */
+    interface InnerInstruction
+    {
+
+        /**
+         * Returns the index of the inner instruction within the transaction.
+         * The index indicates the position of this inner instruction in the list of instructions in the transaction.
+         *
+         * @return the index of the inner instruction
+         */
+        long getIndex();
+
+        /**
+         * Returns the list of instructions that are part of this inner instruction.
+         * Each instruction represents an action or a program invocation that is part of the inner transaction.
+         *
+         * @return a list of {@link Instruction} objects representing the inner instructions
+         */
+        List<Instruction> getInstructions();
+    }
+
+    /**
      * Represents an instruction in a Solana transaction.
      * Instructions define actions to be executed on the Solana blockchain, specifying accounts involved,
      * the data for the instruction, and the program responsible for executing the instruction.
@@ -499,12 +524,15 @@ public interface TransactionResponse
     interface Instruction
     {
         /**
-         * Returns a list of account indices involved in the instruction.
-         * Each index refers to an account in the transaction's account list that is affected by this instruction.
+         * Retrieves information about the accounts involved in this instruction.
+         * Each account is referenced by its index within the transaction's account list
+         * and is associated with its corresponding Solana address.
          *
-         * @return a list of integers representing account indices
+         * @return an {@link InstructionAccounts} instance containing the index and address
+         *         of the affected account.
          */
-        List<Integer> getAccounts();
+        InstructionAccounts getAccounts();
+
 
         /**
          * Returns the base58-encoded data associated with the instruction.
@@ -563,31 +591,30 @@ public interface TransactionResponse
          * @return the stack height as an {@link Integer}, or null if not specified
          */
         Integer getStackHeight();
-    }
-
-
-    /**
-     * Represents an inner instruction in a Solana transaction.
-     * Inner instructions are instructions that are executed within a broader transaction and can involve program invocations.
-     * This interface provides access to the index of the inner instruction and the list of associated instructions.
-     */
-    interface InnerInstruction
-    {
 
         /**
-         * Returns the index of the inner instruction within the transaction.
-         * The index indicates the position of this inner instruction in the list of instructions in the transaction.
-         *
-         * @return the index of the inner instruction
+         * Represents an account involved in an instruction within a Solana transaction.
+         * This interface provides access to both the account index within the transaction's
+         * account list and its corresponding address.
          */
-        long getIndex();
+        interface InstructionAccounts
+        {
+            /**
+             * Retrieves the index of the account within the transaction's account list.
+             * This index is used to reference the account in the transaction's account array.
+             *
+             * @return the zero-based index of the account in the transaction's account list.
+             */
+            List<Integer> getIndexes();
 
-        /**
-         * Returns the list of instructions that are part of this inner instruction.
-         * Each instruction represents an action or a program invocation that is part of the inner transaction.
-         *
-         * @return a list of {@link Instruction} objects representing the inner instructions
-         */
-        List<Instruction> getInstructions();
+            /**
+             * Retrieves the address of the account involved in the instruction.
+             * This is a Base58-encoded string representing the Solana account.
+             *
+             * @return the Solana account address as a string.
+             */
+            List<String> getAddresses();
+        }
+
     }
 }

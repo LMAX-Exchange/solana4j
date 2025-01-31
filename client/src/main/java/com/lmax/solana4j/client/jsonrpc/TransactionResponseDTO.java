@@ -691,7 +691,7 @@ final class TransactionResponseDTO implements TransactionResponse
 
         static final class InstructionDTO implements Instruction
         {
-            private final List<Integer> accounts;
+            private final InstructionAccountsDTO accounts;
             private final Map<String, Object> instructionParsed;
             private final String data;
             private final String program;
@@ -701,7 +701,7 @@ final class TransactionResponseDTO implements TransactionResponse
 
             @JsonCreator
             InstructionDTO(
-                    final @JsonProperty("accounts") List<Integer> accounts,
+                    final @JsonProperty("accounts") InstructionAccountsDTO accounts,
                     final @JsonProperty("parsed") Map<String, Object> instructionParsed,
                     final @JsonProperty("data") String data,
                     final @JsonProperty("program") String program,
@@ -719,7 +719,7 @@ final class TransactionResponseDTO implements TransactionResponse
             }
 
             @Override
-            public List<Integer> getAccounts()
+            public InstructionAccounts getAccounts()
             {
                 return accounts;
             }
@@ -774,6 +774,59 @@ final class TransactionResponseDTO implements TransactionResponse
                         '}';
             }
         }
+
+
+        @JsonDeserialize(using = InstructionAccountsDTO.InstructionAccountsDeserializer.class)
+        static final class InstructionAccountsDTO implements Instruction.InstructionAccounts
+        {
+            private final List<Integer> indexes;
+            private final List<String> addresses;
+
+            InstructionAccountsDTO(final List<Integer> indexes, final List<String> addresses)
+            {
+                this.indexes = indexes;
+                this.addresses = addresses;
+            }
+
+            @Override
+            public List<Integer> getIndexes()
+            {
+                return indexes;
+            }
+
+            @Override
+            public List<String> getAddresses()
+            {
+                return addresses;
+            }
+
+            static class InstructionAccountsDeserializer extends JsonDeserializer<InstructionAccountsDTO>
+            {
+                @Override
+                public InstructionAccountsDTO deserialize(final JsonParser parser, final DeserializationContext context) throws IOException
+                {
+                    final ObjectMapper mapper = (ObjectMapper) parser.getCodec();
+                    final JsonNode node = mapper.readTree(parser);
+
+                    if (node.isArray())
+                    {
+                        if (!node.isEmpty() && node.get(0).isTextual())
+                        {
+                            final List<String> addresses = mapper.convertValue(node, mapper.getTypeFactory().constructCollectionType(List.class, String.class));
+                            return new InstructionAccountsDTO(null, addresses);
+                        }
+                        else
+                        {
+                            final List<Integer> indexes = mapper.convertValue(node, mapper.getTypeFactory().constructCollectionType(List.class, Integer.class));
+                            return new InstructionAccountsDTO(indexes, null);
+                        }
+                    }
+
+                    throw new IOException("Unable to deserialize instruction accounts.");
+                }
+            }
+        }
+
     }
 
     static final class LoadedAddressesDTO implements TransactionMetadata.LoadedAddresses
