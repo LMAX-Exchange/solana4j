@@ -10,6 +10,7 @@ import com.lmax.solana4j.client.api.SimulateTransactionResponse;
 import com.lmax.solana4j.client.api.SolanaApi;
 import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import com.lmax.solana4j.client.api.SolanaClientResponse;
+import com.lmax.solana4j.client.api.SolanaVersion;
 import com.lmax.solana4j.client.api.TokenAccount;
 import com.lmax.solana4j.client.api.TokenAmount;
 import com.lmax.solana4j.client.api.TransactionResponse;
@@ -377,6 +378,15 @@ public final class SolanaJsonRpcClient implements SolanaApi
                               },
                 SimulateTransactionResponseDTO::getValue, "simulateTransaction", transaction,
                 optionalParams.getParams());
+    }
+
+    @Override
+    public SolanaClientResponse<SolanaVersion> getVersion() throws SolanaJsonRpcClientException
+    {
+        return queryForObject(new TypeReference<RpcWrapperDTO<SolanaVersionDTO>>()
+                              {
+                              },
+                dto -> dto, "getVersion");
     }
 
     private <S, T> SolanaClientResponse<S> queryForObject(

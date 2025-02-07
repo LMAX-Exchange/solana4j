@@ -317,4 +317,11 @@ public interface SolanaApi
      * @throws SolanaJsonRpcClientException if the request fails.
      */
     SolanaClientResponse<SimulateTransactionResponse> simulateTransaction(String transaction, SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException;
+
+    /**
+     * Retrieve the current version of Solana Core and supported Feature Set from the Solana node.
+     * @return a {@link SolanaClientResponse} containing a {@link SimulateTransactionResponse} object with the version and feature set.
+     * @throws SolanaJsonRpcClientException if the request fails.
+     */
+    SolanaClientResponse<SolanaVersion> getVersion() throws SolanaJsonRpcClientException;
 }
