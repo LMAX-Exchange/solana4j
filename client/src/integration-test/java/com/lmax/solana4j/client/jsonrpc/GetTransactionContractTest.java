@@ -32,14 +32,20 @@ final class GetTransactionContractTest extends SolanaClientIntegrationTestBase
         final var metadata = response.getMetadata();
         assertThat(metadata.getErr()).isNull();
         assertThat(metadata.getFee()).isGreaterThan(0);
+        // inner instructions are program invocations that occur inside the execution of a main (outer)
+        // transaction instruction
         assertThat(metadata.getInnerInstructions()).isEmpty();
         assertThat(metadata.getLogMessages()).hasSize(2);
         assertThat(metadata.getPreBalances()).hasSize(3);
         assertThat(metadata.getPostBalances()).hasSize(3);
         assertThat(metadata.getPreTokenBalances()).isEmpty();
         assertThat(metadata.getPostTokenBalances()).isEmpty();
+        //  the transaction must be associated with staking-related activities where rewards are distributed
+        // e.g. validator vote transactions
         assertThat(metadata.getRewards()).isEmpty();
         assertThat(metadata.getComputeUnitsConsumed()).isGreaterThan(0);
+        // accounts that were dynamically loaded during the execution of a transaction
+        // e.g. address lookup tables
         assertThat(metadata.getLoadedAddresses().getReadonly()).isEmpty();
         assertThat(metadata.getLoadedAddresses().getWritable()).isEmpty();
         assertThat(metadata.getStatus().getKey()).isEqualTo("Ok");
@@ -106,17 +112,20 @@ final class GetTransactionContractTest extends SolanaClientIntegrationTestBase
         final var messageHeader = message.getHeader();
         assertThat(messageHeader.getNumReadonlySignedAccounts()).isEqualTo(0);
         assertThat(messageHeader.getNumReadonlyUnsignedAccounts()).isEqualTo(1);
-        assertThat(messageHeader.getNumReadonlySignedAccounts()).isEqualTo(0);
+        assertThat(messageHeader.getNumRequiredSignatures()).isEqualTo(1);
 
         assertThat(message.getInstructions().size()).isEqualTo(1);
 
         final var instruction = message.getInstructions().get(0);
         assertThat(instruction.getData()).isEqualTo("3Bxs3zzLZLuLQEYX");
-        assertThat(instruction.getAccounts().getIndexes()).hasSize(2);
+        final var accountIndexes = instruction.getAccounts().getIndexes();
+        assertThat(accountIndexes).hasSize(2);
+        assertThat(accountIndexes.get(0)).isEqualTo(0);
+        assertThat(accountIndexes.get(1)).isEqualTo(1);
         assertThat(instruction.getAccounts().getAddresses()).isNull();
-        assertThat(instruction.getAccounts().getIndexes().get(0)).isEqualTo(0);
-        assertThat(instruction.getAccounts().getIndexes().get(1)).isEqualTo(1);
         assertThat(instruction.getProgramIdIndex()).isEqualTo(2);
+        // stack height refers to the execution depth of an instruction within a transaction,
+        // especially when dealing with nested program invocations (inner instructions)
         assertThat(instruction.getStackHeight()).isEqualTo(null);
 
         assertThat(message.getRecentBlockhash()).isNotEmpty();
@@ -165,9 +174,11 @@ final class GetTransactionContractTest extends SolanaClientIntegrationTestBase
 
         // would have been present if encoding json not jsonParsed
         assertThat(instruction.getData()).isNull();
-        // jsonParsed so getAccounts().getIndexes() is null (as expected) but i _would_ expect getAccounts().getAddresses() to NOT be null ...
+        // it's curious that instruction.getAccounts() is NULL when encoding is jsonParsed ...
         assertThat(instruction.getAccounts()).isNull();
         assertThat(instruction.getProgramIdIndex()).isNull();
+        // stack height refers to the execution depth of an instruction within a transaction,
+        // especially when dealing with nested program invocations (inner instructions)
         assertThat(instruction.getStackHeight()).isEqualTo(null);
 
         // i think the best we can do here is really just return a Map<String, Object> and let the user do their own parsing

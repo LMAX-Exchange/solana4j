@@ -3,7 +3,6 @@ package com.lmax.solana4j.client.jsonrpc;
 import com.lmax.solana4j.Solana;
 import com.lmax.solana4j.client.api.SolanaClientOptionalParams;
 import com.lmax.solana4j.encoding.SolanaEncoding;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -75,13 +74,16 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
     {
         final var response = SOLANA_API.simulateTransaction(mintToTransactionBlobBase64).getResponse();
 
-        Assertions.assertThat(response.getUnitsConsumed()).isEqualTo(958);
-        Assertions.assertThat(response.getLogs()).hasSize(4);
-        Assertions.assertThat(response.getInnerInstructions()).isNull();
-        Assertions.assertThat(response.getReplacementBlockhash()).isNull();
-        Assertions.assertThat(response.getAccounts()).isNull();
-        Assertions.assertThat(response.getReturnData()).isNull();
-        Assertions.assertThat(response.getErr()).isNull();
+        assertThat(response.getUnitsConsumed()).isEqualTo(958);
+        assertThat(response.getLogs().size()).isEqualTo(4);
+        // inner instructions are program invocations that occur inside the execution of a main (outer)
+        // transaction instruction
+        assertThat(response.getInnerInstructions()).isNull();
+        assertThat(response.getReplacementBlockhash()).isNull();
+        assertThat(response.getAccounts()).isNull();
+        // requires interacting with a smart contract that calls BPFs system call sol_set_return_data()
+        assertThat(response.getReturnData()).isNull();
+        assertThat(response.getErr()).isNull();
     }
 
     @Test
@@ -93,10 +95,10 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
 
         final var response = SOLANA_API.simulateTransaction(transactionBlobBase64BadSignatures, optionalParams);
 
-        Assertions.assertThat(response.isSuccess()).isFalse();
+        assertThat(response.isSuccess()).isFalse();
         // error because the signatures are invalid
-        Assertions.assertThat(response.getError().getErrorCode()).isEqualTo(-32003L);
-        Assertions.assertThat(response.getError().getErrorMessage()).isEqualTo("Transaction signature verification failure");
+        assertThat(response.getError().getErrorCode()).isEqualTo(-32003L);
+        assertThat(response.getError().getErrorMessage()).isEqualTo("Transaction signature verification failure");
     }
 
     @Test
@@ -109,7 +111,7 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
         final var response = SOLANA_API.simulateTransaction(transactionBlobBase64BadSignatures, optionalParams);
 
         // sigVerify false so not looking at signatures
-        Assertions.assertThat(response.isSuccess()).isTrue();
+        assertThat(response.isSuccess()).isTrue();
     }
 
     @Test
@@ -121,9 +123,9 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
 
         final var response = SOLANA_API.simulateTransaction(transactionBlobBase64ReplaceBlockhash, optionalParams);
 
-        Assertions.assertThat(response.isSuccess()).isTrue();
+        assertThat(response.isSuccess()).isTrue();
         // error because the invalid blockhash not replaced
-        Assertions.assertThat(response.getResponse().getErr()).isNotNull();
+        assertThat(response.getResponse().getErr()).isNotNull();
     }
 
 
@@ -136,9 +138,10 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
 
         final var response = SOLANA_API.simulateTransaction(transactionBlobBase64ReplaceBlockhash, optionalParams);
 
-        Assertions.assertThat(response.isSuccess()).isTrue();
+        assertThat(response.isSuccess()).isTrue();
         // no error because the invalid blockhash replaced
-        Assertions.assertThat(response.getResponse().getErr()).isNull();
+        assertThat(response.getResponse().getReplacementBlockhash()).isNotNull();
+        assertThat(response.getResponse().getErr()).isNull();
     }
 
     @Test
@@ -149,9 +152,9 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
 
         final var response = SOLANA_API.simulateTransaction(mintToTransactionBlobBase58, optionalParams);
 
-        Assertions.assertThat(response.getResponse().getUnitsConsumed()).isEqualTo(958);
-        Assertions.assertThat(response.getResponse().getLogs()).hasSize(4);
-        Assertions.assertThat(response.getResponse().getErr()).isNull();
+        assertThat(response.getResponse().getUnitsConsumed()).isEqualTo(958);
+        assertThat(response.getResponse().getLogs().size()).isEqualTo(4);
+        assertThat(response.getResponse().getErr()).isNull();
     }
 
     @Test
@@ -163,10 +166,11 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
 
         final var response = SOLANA_API.simulateTransaction(mintToTransactionBlobBase64, optionalParams);
 
-        // both fields require cross program interactions deemed out of scope of this test
-        // inner instructions will be empty and return data will be null
-        Assertions.assertThat(response.getResponse().getInnerInstructions()).hasSize(0);
-        Assertions.assertThat(response.getResponse().getReturnData()).isNull();
+        // inner instructions are program invocations that occur inside the execution of a main (outer)
+        // transaction instruction
+        assertThat(response.getResponse().getInnerInstructions().size()).isEqualTo(0);
+        // requires interacting with a smart contract that calls BPFs system call sol_set_return_data()
+        assertThat(response.getResponse().getReturnData()).isNull();
     }
 
     @Test
@@ -180,7 +184,7 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
 
         assertThat(response.isSuccess()).isTrue();
 
-        Assertions.assertThat(response.getResponse().getAccounts()).hasSize(1);
+        assertThat(response.getResponse().getAccounts().size()).isEqualTo(1);
 
         final var accountInfo = response.getResponse().getAccounts().get(0);
         assertThat(accountInfo.getSpace()).isEqualTo(165L);
@@ -222,7 +226,7 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
 
         assertThat(response.isSuccess()).isTrue();
 
-        Assertions.assertThat(response.getResponse().getAccounts()).hasSize(1);
+        assertThat(response.getResponse().getAccounts().size()).isEqualTo(1);
 
         final var data = response.getResponse().getAccounts().get(0).getData();
         assertThat(data.getAccountInfoParsed()).isNull();
@@ -243,7 +247,7 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
 
         assertThat(response.isSuccess()).isTrue();
 
-        Assertions.assertThat(response.getResponse().getAccounts()).hasSize(1);
+        assertThat(response.getResponse().getAccounts().size()).isEqualTo(1);
 
         final var data = response.getResponse().getAccounts().get(0).getData();
         assertThat(data.getAccountInfoEncoded()).isNull();
@@ -254,8 +258,8 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
 
         // i think the best we can do here is really just return a Map<String, Object> and let the user do their own parsing
         // since the parsing is very much program specific
-        Assertions.assertThat(parsedAccountInfo.getParsedData().get("type")).isEqualTo("account");
-        Assertions.assertThat(parsedAccountInfo.getParsedData().get("info")).usingRecursiveComparison().isEqualTo(
+        assertThat(parsedAccountInfo.getParsedData().get("type")).isEqualTo("account");
+        assertThat(parsedAccountInfo.getParsedData().get("info")).usingRecursiveComparison().isEqualTo(
                 Map.of("isNative", false,
                         "mint", "2tokpcExDmewsSNRKuTLVLMUseiSkEdBQWBjeQLmuFaS",
                         "owner", "7H1itW7F72uJbaXK2R4gP7J18HrQ2M683kL9YgUeeUHr",
@@ -277,9 +281,9 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
 
         final var response = SOLANA_API.sendTransaction(mintToTransactionBlobBase64, optionalParams);
 
-        Assertions.assertThat(response.isSuccess()).isFalse();
-        Assertions.assertThat(response.getError().getErrorCode()).isEqualTo(-32016L);
-        Assertions.assertThat(response.getError().getErrorMessage()).isEqualTo("Minimum context slot has not been reached");
+        assertThat(response.isSuccess()).isFalse();
+        assertThat(response.getError().getErrorCode()).isEqualTo(-32016L);
+        assertThat(response.getError().getErrorMessage()).isEqualTo("Minimum context slot has not been reached");
     }
 }
 

@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class GetVersionContractTest extends SolanaClientIntegrationTestBase
+// https://solana.com/docs/rpc/http/getversion
+class GetVersionContractTest extends SolanaClientIntegrationTestBase
 {
     @Test
     void shouldGetFeatureSet() throws SolanaJsonRpcClientException

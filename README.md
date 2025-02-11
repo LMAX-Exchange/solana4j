@@ -1,7 +1,7 @@
 #### Background
 
 At LMAX we are all Java developers. We are **not** Javascript developers. We are **not** Rust developers. To support our needs 
-as a business we needed to read and write from and to the Solana blockchain within our Java ecosystem. There lacked
+as a business we needed to read and write from and to the Solana blockchain from within our Java ecosystem. There lacked
 a mature enough Java library at the time our project started. We therefore challenged ourselves to write 
 our own. This repository is the product of that challenge.
 

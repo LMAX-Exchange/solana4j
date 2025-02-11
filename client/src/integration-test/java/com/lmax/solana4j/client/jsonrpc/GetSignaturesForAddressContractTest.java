@@ -43,6 +43,8 @@ final class GetSignaturesForAddressContractTest extends SolanaClientIntegrationT
         final var signature3 = signaturesForAddress.get(0);
         assertThat(signature3.getSignature()).isEqualTo(transactionSignature3);
         assertThat(signature3.getConfirmationStatus()).isEqualTo(Commitment.FINALIZED);
+        // requires an interaction with the memo program (allows you to attach arbitrary data (like notes) to transactions
+        // without affecting the state of any accounts)
         assertThat(signature3.getMemo()).isNull();
         assertThat(signature3.getErr()).isNull();
         assertThat(signature3.getSlot()).isGreaterThan(0L);
