@@ -4,15 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Represents the response of a transaction on the Solana blockchain.
- * This interface provides access to various details of a confirmed transaction, including
- * its slot number, timestamp, version, core transaction data, and associated metadata.
+ * Represents the response of a transaction on the blockchain.
  */
 public interface TransactionResponse
 {
     /**
      * Returns the slot in which the transaction was confirmed.
-     * The slot represents a specific point in time on the Solana blockchain when the transaction was processed.
      *
      * @return the slot number where the transaction was confirmed
      */
@@ -20,8 +17,6 @@ public interface TransactionResponse
 
     /**
      * Returns the block time when the transaction was confirmed.
-     * The block time is a Unix timestamp representing the approximate time at which the block containing
-     * the transaction was confirmed. This value may be null if the block time is not available.
      *
      * @return the block time as a Unix timestamp, or null if not available
      */
@@ -30,7 +25,6 @@ public interface TransactionResponse
     /**
      * Returns the version of the transaction.
      * The version represents the transaction version used when encoding the transaction data.
-     * This can be used to distinguish between different encoding versions of Solana transactions.
      *
      * @return the version of the transaction as a string
      */
@@ -41,28 +35,27 @@ public interface TransactionResponse
      * The transaction data contains essential components such as instructions, signatures, and account keys
      * involved in the transaction. This data provides the fundamental elements that make up the transaction.
      *
-     * @return the {@link TransactionData} object representing the core transaction data and its encoding
+     * @return the {@link TransactionData} object representing the transaction's data
      */
     TransactionData getTransactionData();
 
     /**
      * Returns the metadata associated with the transaction.
      * The metadata provides detailed information such as fees, balances, log messages, and other execution details
-     * generated during the transaction's processing. This information helps to analyze the transaction's outcome.
+     * generated during the transaction's processing.
      *
      * @return the {@link TransactionMetadata} object representing the transaction's metadata
      */
     TransactionMetadata getMetadata();
 
     /**
-     * Represents the core data of a transaction on the Solana blockchain.
-     * This interface provides access to both encoded and parsed transaction data.
+     * Represents the encoded and parsed data associated with the transaction.
      */
     interface TransactionData
     {
         /**
-         * Returns the parsed core data of the transaction.
-         * This parsed data provides structured access to essential elements of the transaction,
+         * Returns the parsed data of the transaction.
+         * The parsed data provides structured access to essential elements of the transaction,
          * such as messages, account keys, and signatures.
          *
          * @return the {@link TransactionDataParsed} object representing the parsed transaction data
@@ -71,16 +64,14 @@ public interface TransactionResponse
 
         /**
          * Returns the encoded transaction data.
-         * This data is represented as a list of base64-encoded strings, which provide a compact form of the
-         * transaction details for efficient storage and transmission.
+         * The first element of the list contains the data and the second the encoding scheme used to encode the data.
          *
-         * @return a list of base64-encoded strings representing the transaction data
+         * @return a list containing the encoded account information data and the encoding scheme
          */
         List<String> getEncodedTransactionData();
 
         /**
-         * Represents the core data of a transaction on the Solana blockchain.
-         * This interface provides access to the transaction's message, account keys, and signatures.
+         * Represents the parsed data associated with the transaction.
          */
         interface TransactionDataParsed
         {
@@ -94,8 +85,8 @@ public interface TransactionResponse
 
             /**
              * Returns the list of signatures for the transaction.
-             * Each signature is a base58-encoded string that verifies the authenticity of the transaction.
-             * These signatures confirm that the transaction has been authorized by the corresponding account holders.
+             * Each signature is a base58-encoded string. These signatures confirm that the transaction has
+             * been authorized by the corresponding account holders.
              *
              * @return a list of base58-encoded strings representing the transaction's signatures
              */
@@ -104,8 +95,7 @@ public interface TransactionResponse
     }
 
     /**
-     * Represents metadata associated with a transaction on the Solana blockchain.
-     * This interface provides detailed information about the transaction, such as errors, fees, balances, log messages, rewards, and more.
+     * Represents metadata associated with a transaction, including errors, fees, balances, log messages, rewards, and more.
      */
     interface TransactionMetadata
     {
@@ -119,7 +109,6 @@ public interface TransactionResponse
 
         /**
          * Returns the fee paid for processing the transaction.
-         * The fee is deducted in lamports, which are the smallest unit of SOL.
          *
          * @return the transaction fee in lamports
          */
@@ -200,8 +189,6 @@ public interface TransactionResponse
 
         /**
          * Returns the transaction status, including the status type and message.
-         * The status provides additional information on whether the transaction was successful
-         * and any related messages.
          *
          * @return a {@link Map.Entry} containing the status type as the key and the status message as the value
          */
@@ -209,7 +196,6 @@ public interface TransactionResponse
 
         /**
          * Represents the addresses loaded during a Solana transaction.
-         * This interface provides access to lists of read-only and writable addresses.
          */
         interface LoadedAddresses
         {
@@ -232,9 +218,9 @@ public interface TransactionResponse
         }
 
         /**
-         * Represents a reward given to a validator or account on the Solana blockchain.
-         * This interface provides access to details about the reward, including the recipient's public key,
-         * the amount of lamports rewarded, the post-reward balance, the reward type, and any commission involved.
+         * Represents a reward given to a validator or account in a transaction, which includes details such as
+         * the recipient's public key, the amount of lamports rewarded, the post-reward balance, the reward type,
+         * and any commission involved.
          */
         interface Reward
         {
@@ -249,7 +235,6 @@ public interface TransactionResponse
 
             /**
              * Returns the amount of lamports received as a reward.
-             * Lamports are the smallest unit of SOL, the native token of Solana.
              *
              * @return the amount of lamports rewarded
              */
@@ -282,9 +267,9 @@ public interface TransactionResponse
         }
 
         /**
-         * Represents the balance of an SPL token in a Solana transaction or account.
-         * This interface provides details about the token, including the account index,
-         * the token mint, the owner of the account, the program managing the token, and the user-friendly token amount.
+         * Represents the balance of an SPL token in a transaction or account, including details about the token such
+         * as the account index, the token mint, the owner of the account, the program managing the token,
+         * and the user-friendly token amount.
          */
         interface TokenBalance
         {
@@ -333,7 +318,7 @@ public interface TransactionResponse
     }
 
     /**
-     * Represents a message in a Solana transaction.
+     * Represents a message in a transaction.
      * A message contains all the necessary data for the transaction, including the account keys,
      * instructions to be executed, and metadata such as the recent blockhash and address table lookups.
      */
@@ -376,10 +361,8 @@ public interface TransactionResponse
         String getRecentBlockhash();
 
         /**
-         * Represents a collection of account keys used in a Solana transaction.
-         * Account keys are public addresses associated with accounts involved in a transaction.
-         * This interface provides access to both encoded and parsed representations of these keys,
-         * allowing detailed inspection of each key's properties, such as its origin, whether it is a signer, and if it is writable.
+         * Represents a collection of account keys used in a transaction.
+         * Account keys are public addresses associated with accounts involved in a transaction..
          */
         interface AccountKeys
         {
@@ -401,9 +384,7 @@ public interface TransactionResponse
             List<String> getEncodedAccountKeys();
 
             /**
-             * Represents an account key used in Solana transactions.
-             * This interface provides access to the key's properties, such as its source,
-             * whether it is a signer, and whether it is writable.
+             * Represents an account key used in transactions.
              */
             interface AccountKeyParsed
             {
@@ -457,7 +438,7 @@ public interface TransactionResponse
         }
 
         /**
-         * Represents the header of a transaction on the Solana blockchain.
+         * Represents the header of a transaction on the blockchain.
          * The header contains metadata about the transaction, including information about
          * the number of required signatures, readonly accounts, and whether the accounts are signed.
          */
@@ -493,7 +474,6 @@ public interface TransactionResponse
     /**
      * Represents an inner instruction in a Solana transaction.
      * Inner instructions are instructions that are executed within a broader transaction and can involve program invocations.
-     * This interface provides access to the index of the inner instruction and the list of associated instructions.
      */
     interface InnerInstruction
     {
@@ -516,7 +496,7 @@ public interface TransactionResponse
     }
 
     /**
-     * Represents an instruction in a Solana transaction.
+     * Represents an instruction in a transaction.
      * Instructions define actions to be executed on the Solana blockchain, specifying accounts involved,
      * the data for the instruction, and the program responsible for executing the instruction.
      *
@@ -526,10 +506,9 @@ public interface TransactionResponse
         /**
          * Retrieves information about the accounts involved in this instruction.
          * Each account is referenced by its index within the transaction's account list
-         * and is associated with its corresponding Solana address.
+         * and is associated with its corresponding address.
          *
-         * @return an {@link InstructionAccounts} instance containing the index and address
-         *         of the affected account.
+         * @return an {@link InstructionAccounts} instance containing the index and address of the affected account.
          */
         InstructionAccounts getAccounts();
 
@@ -543,7 +522,7 @@ public interface TransactionResponse
         String getData();
 
         /**
-         * Returns the index of the program ID that is responsible for executing the instruction.
+         * Returns the index of the program id that is responsible for executing the instruction.
          * The index refers to the program in the transaction's account list that defines the instruction's logic.
          *
          * @return the integer index of the program ID
@@ -552,56 +531,43 @@ public interface TransactionResponse
 
         /**
          * Returns the name or identifier of the program responsible for executing the instruction.
-         * This program is associated with the program ID and specifies the logic that the instruction will follow.
+         * This program is associated with the program id and specifies the logic that the instruction will follow.
          *
          * @return a string representing the program's name or identifier
          */
         String getProgram();
 
         /**
-         * Returns the program ID associated with the instruction.
-         * The program ID is a unique base58-encoded string that identifies the Solana program
+         * Returns the program id associated with the instruction.
+         * The program id is a unique base58-encoded string that identifies the Solana program
          * responsible for processing the instruction's actions on the blockchain.
          *
-         * @return the base58-encoded string representing the program ID
+         * @return the base58-encoded string representing the program id
          */
         String getProgramId();
 
 
         /**
          * Returns a map representation of the parsed instruction data.
-         * The parsed instruction data is represented as a {@link Map} with string keys and object values,
-         * allowing dynamic access to the fields of the instruction without a predefined structure.
-         * <p>
-         * This method is useful for cases where the instruction data may have a variable or unknown format.
-         * Nested objects within the instruction data will also be represented as maps,
-         * providing a flexible way to query the instruction's content.
-         * </p>
          *
-         * @return a {@link Map} where keys are field names and values are the corresponding data,
-         *         potentially nested as {@code Map<String, Object>} for complex structures
+         * @return a {@link Map} where keys are field names and values are the corresponding data
          */
         Map<String, Object> getInstructionParsed();
 
         /**
          * Returns the stack height at which this instruction operates, if applicable.
-         * The stack height may indicate the depth or order in which the instruction is processed
-         * within a series of instructions. A null value indicates that the stack height is unspecified.
          *
          * @return the stack height as an {@link Integer}, or null if not specified
          */
         Integer getStackHeight();
 
         /**
-         * Represents an account involved in an instruction within a Solana transaction.
-         * This interface provides access to both the account index within the transaction's
-         * account list and its corresponding address.
+         * Represents an account involved in an instruction within a transaction.
          */
         interface InstructionAccounts
         {
             /**
              * Retrieves the index of the account within the transaction's account list.
-             * This index is used to reference the account in the transaction's account array.
              *
              * @return the zero-based index of the account in the transaction's account list.
              */
@@ -609,9 +575,9 @@ public interface TransactionResponse
 
             /**
              * Retrieves the address of the account involved in the instruction.
-             * This is a Base58-encoded string representing the Solana account.
+             * This is a base58-encoded string representing the address.
              *
-             * @return the Solana account address as a string.
+             * @return the base58-encoded address as a string.
              */
             List<String> getAddresses();
         }

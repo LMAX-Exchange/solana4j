@@ -1,4 +1,4 @@
 /**
- * This package defines the solana client library's API.
+ * API package.
  */
 package com.lmax.solana4j.client.api;

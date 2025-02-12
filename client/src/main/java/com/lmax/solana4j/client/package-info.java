@@ -1,4 +1,4 @@
 /**
- * This package is the base package and is the entrypoint to the solana client library's APIs.
+ * Base factory package.
  */
 package com.lmax.solana4j.client;

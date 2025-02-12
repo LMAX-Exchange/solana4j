@@ -1,4 +1,4 @@
 /**
- * This package exposes the solana client library's API.
+ * Implementation package.
  */
 package com.lmax.solana4j.client.jsonrpc;

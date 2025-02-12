@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * Implementation of {@link SolanaClientOptionalParams} that provides support for adding
- * and retrieving optional parameters to be used in Solana JSON-RPC requests.
+ * and retrieving optional parameters to be used in requests to a solana node.
  */
 public final class SolanaJsonRpcClientOptionalParams implements SolanaClientOptionalParams
 {

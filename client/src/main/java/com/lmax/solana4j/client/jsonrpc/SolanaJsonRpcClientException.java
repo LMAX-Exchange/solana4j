@@ -1,9 +1,7 @@
 package com.lmax.solana4j.client.jsonrpc;
 
 /**
- * Exception thrown when an error occurs during communication with the Solana JSON RPC.
- * This exception encapsulates details about the error, including a message, an optional
- * cause, and a flag indicating whether the error is recoverable.
+ * Exception thrown when an error occurs during communication with a solana node.
  */
 public class SolanaJsonRpcClientException extends Exception
 {
@@ -64,7 +62,7 @@ public class SolanaJsonRpcClientException extends Exception
     /**
      * Returns the cause of this exception or {@code null} if the cause is nonexistent or unknown.
      *
-     * @return the cause of this exception.
+     * @return the cause of this exception
      */
     @Override
     public Throwable getCause()
@@ -75,7 +73,7 @@ public class SolanaJsonRpcClientException extends Exception
     /**
      * Indicates whether the error is recoverable.
      *
-     * @return {@code true} if the error is recoverable; {@code false} otherwise.
+     * @return {@code true} if the error is recoverable; {@code false} otherwise
      */
     public boolean isRecoverable()
     {

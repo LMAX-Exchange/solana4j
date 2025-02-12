@@ -6,9 +6,8 @@ import com.lmax.solana4j.client.jsonrpc.SolanaJsonRpcClient;
 import java.net.http.HttpClient;
 
 /**
- * The {@code SolanaClient} class provides a static factory method to interact with the Solana blockchain.
- * This class simplifies the creation of a {@link SolanaApi} instance,
- * which allows interaction with a Solana node.
+ * The {@code SolanaClient} class provides a static factory method to create a {@link SolanaApi} object
+ * to communicate with a solana node.
  */
 public final class SolanaClient
 {
@@ -17,14 +16,14 @@ public final class SolanaClient
     }
 
     /**
-     * Creates a new {@code SolanaApi} instance using the specified HTTP client and RPC URL.
+     * Creates a new {@code SolanaApi} instance using the specified http client and rpc url.
      *
      * @param httpClient  the {@link HttpClient} instance to use for sending requests.
-     *                    This allows customization of HTTP-related configurations such as
-     *                    connection pooling, SSL context, and timeouts.
-     * @param rpcUrl      the URL of the Solana JSON-RPC endpoint.
-     * @return            a new {@link SolanaApi} instance configured with the provided HTTP client
-     *                    and RPC URL.
+     *                    Providing this allows customization of http-related configurations such as
+     *                    connection pooling, ssl context, and timeouts.
+     * @param rpcUrl      the url of the solana json rpc endpoint.
+     * @return            a new {@link SolanaApi} instance configured with the provided http client
+     *                    and rpc url.
      */
     public static SolanaApi create(final HttpClient httpClient, final String rpcUrl)
     {

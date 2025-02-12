@@ -8,14 +8,14 @@ package com.lmax.solana4j.client.api;
 public interface SolanaClientResponse<T>
 {
     /**
-     * Retrieves the response payload in case of a successful operation.
+     * Returns the response payload in the case of a successful operation.
      *
      * @return the response payload, or {@code null} if the operation was not successful
      */
     T getResponse();
 
     /**
-     * Retrieves the error details in case of a failed operation.
+     * Retrieves the error details in the case of a failed operation.
      *
      * @return an instance of {@link SolanaClientError} containing error information, or {@code null} if the operation was successful
      */

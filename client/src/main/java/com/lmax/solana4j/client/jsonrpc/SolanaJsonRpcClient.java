@@ -182,13 +182,13 @@ public final class SolanaJsonRpcClient implements SolanaApi
     }
 
     @Override
-    public SolanaClientResponse<AccountInfo> getAccountInfo(final String address, final SolanaClientOptionalParams solanaClientOptionalParams) throws SolanaJsonRpcClientException
+    public SolanaClientResponse<AccountInfo> getAccountInfo(final String address, final SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException
     {
         return queryForObject(new TypeReference<>()
                               {
                               },
                 AccountInfoDTO::getValue, "getAccountInfo", address,
-                solanaClientOptionalParams.getParams()
+                optionalParams.getParams()
         );
     }
 
@@ -291,23 +291,23 @@ public final class SolanaJsonRpcClient implements SolanaApi
     }
 
     @Override
-    public SolanaClientResponse<List<SignatureForAddress>> getSignaturesForAddress(final String addressBase58) throws SolanaJsonRpcClientException
+    public SolanaClientResponse<List<SignatureForAddress>> getSignaturesForAddress(final String address) throws SolanaJsonRpcClientException
     {
         return queryForObject(new TypeReference<RpcWrapperDTO<List<SignatureForAddressDTO>>>()
                               {
                               },
-                ArrayList::new, "getSignaturesForAddress", addressBase58);
+                ArrayList::new, "getSignaturesForAddress", address);
     }
 
     @Override
     public SolanaClientResponse<List<SignatureForAddress>> getSignaturesForAddress(
-            final String addressBase58,
+            final String address,
             final SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException
     {
         return queryForObject(new TypeReference<RpcWrapperDTO<List<SignatureForAddressDTO>>>()
                               {
                               },
-                ArrayList::new, "getSignaturesForAddress", addressBase58,
+                ArrayList::new, "getSignaturesForAddress", address,
                 optionalParams.getParams());
     }
 

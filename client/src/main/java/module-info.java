@@ -1,9 +1,5 @@
 /**
- * This module provides functionality for the communication with a Solana blockchain.
- * <p>
- *      This module provides APIs for interacting with the Solana blockchain,
- *      including JSON-RPC communication and serialization of data structures.
- * </p>
+ * This module provides functionality for communicating with a solana node.
  */
 module com.lmax.solana4j.client {
     requires com.fasterxml.jackson.databind;
