@@ -6,10 +6,6 @@ import java.util.Optional;
 
 /**
  * Interface representing a visitor for reading information about Solana Messages.
- * <p>
- * This interface defines methods for visiting and interacting with different views of messages,
- * including legacy and versioned messages.
- * </p>
  *
  * @param <T> the type of the result produced by the visitor
  */
@@ -59,25 +55,27 @@ public interface MessageVisitor<T>
         List<PublicKey> staticAccounts();
 
         /**
-         * Returns the transaction data as a byte buffer.
+         * Returns a duplicate of the transaction data as a {@link ByteBuffer}.
          * <p>
-         * The buffer's position will be set to 0, its limit will be set to its capacity,
-         * and its capacity will be the size of the transaction in bytes.
+         * The returned buffer is created by calling {@code duplicate()} on the underlying transaction data buffer.
+         * Its position is set to 0, its limit is set to its capacity, and its capacity will be the size of the transaction in bytes.
+         * Note that while the duplicate shares the same underlying data, modifications to its position, limit,
+         * or mark do not affect the original buffer.
          * </p>
          *
-         * @return the transaction data as a {@link ByteBuffer}
+         * @return a duplicate of the transaction data as a {@link ByteBuffer}
          */
         ByteBuffer transaction();
 
         /**
-         * Returns the signature for the given account as a byte buffer.
+         * Retrieves the stored signature for the given account as a {@link ByteBuffer}.
          * <p>
-         * The buffer's position will be set to 0, its limit will be set to its capacity,
-         * and its capacity will be the size of the signature in bytes.
+         * This method returns a read-only buffer containing the signature.
+         * The buffer's position is set to 0, and its limit is set to its capacity.
          * </p>
          *
-         * @param account the account used to sign the transaction
-         * @return the signature as a {@link ByteBuffer}
+         * @param account the account whose signature is retrieved
+         * @return a {@link ByteBuffer} containing the signature data
          */
         ByteBuffer signature(PublicKey account);
 
@@ -113,10 +111,6 @@ public interface MessageVisitor<T>
 
     /**
      * Interface representing a view of a Solana Legacy message.
-     * <p>
-     * This interface provides methods to inspect and interact with legacy messages,
-     * which are message formats used in earlier versions of the Solana protocol.
-     * </p>
      */
     interface LegacyMessageView extends MessageView
     {
@@ -142,7 +136,7 @@ public interface MessageVisitor<T>
      * Interface representing a view of a Solana V0 message.
      * <p>
      * This interface extends the {@link LegacyMessageView} and provides additional methods
-     * specific to V0 messages, which include advanced features such as account lookup tables.
+     * specific to V0 messages
      * </p>
      */
     interface Version0MessageView extends MessageView
@@ -176,10 +170,6 @@ public interface MessageVisitor<T>
 
         /**
          * Checks if the specified account is designated as a writer in this V0 message.
-         * <p>
-         * This method checks both static accounts and accounts referenced via the provided
-         * address lookup tables to determine if the account has write access.
-         * </p>
          *
          * @param account             the public key of the account to check
          * @param addressLookupTables the list of address lookup tables to consult when determining if the account is a writer
@@ -221,13 +211,15 @@ public interface MessageVisitor<T>
         List<Integer> accountIndexes();
 
         /**
-         * Returns the instruction data as a byte buffer.
+         * Returns a duplicate of the instruction data as a {@link ByteBuffer}.
          * <p>
-         * The buffer's position will be set to 0, its limit will be set to its capacity,
-         * and its capacity will be the size of the data in bytes.
+         * The returned buffer is created by calling {@code duplicate()} on the underlying instruction data buffer.
+         * Its position is set to 0, its limit is set to its capacity, and its capacity will be the size of the instruction in bytes.
+         * Note that while the duplicate shares the same underlying data, modifications to its position, limit,
+         * or mark do not affect the original buffer.
          * </p>
          *
-         * @return the instruction data as a {@link ByteBuffer}
+         * @return a duplicate of the instruction data as a {@link ByteBuffer}
          */
         ByteBuffer data();
     }
@@ -310,8 +302,7 @@ public interface MessageVisitor<T>
         List<Integer> readOnlyTableIndexes();
 
         /**
-         * Finds the address lookup table, using the address lookup tables to map
-         * the indexes stored in the message to actual addresses.
+         * Finds the address lookup table used in the message from a list of given address lookup tables.
          *
          * @param addressLookupTables the list of address lookup tables
          * @return an {@link Optional} containing the matching {@link AddressLookupTable}, if found

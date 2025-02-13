@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 /**
  * Interface representing a public key.
  * <p>
- * A public key is used to identify accounts on the Solana blockchain.
+ * A public key is used to identify accounts on the blockchain.
  * </p>
  */
 public interface PublicKey
@@ -13,16 +13,13 @@ public interface PublicKey
 
     /**
      * The length of a public key in bytes.
-     * <p>
-     * This constant defines the fixed length of a public key used in Solana.
-     * </p>
      */
     int PUBLIC_KEY_LENGTH = 32;
 
     /**
-     * Returns the Base58-encoded string representation of the public key.
+     * Returns the base58-encoded string representation of the public key.
      *
-     * @return the Base58-encoded public key
+     * @return the base58-encoded public key
      */
     String base58();
 

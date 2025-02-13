@@ -14,7 +14,7 @@ import java.util.Optional;
 import static com.lmax.solana4j.encoding.SysVar.RENT;
 
 /**
- * Abstract base class for managing token operations on the Solana blockchain.
+ * Abstract base class for managing token operations on the blockchain.
  * <p>
  * This class defines the common operations for interacting with Solana token programs,
  * including minting tokens, transferring tokens, initializing accounts, and managing authorities.
@@ -66,9 +66,9 @@ public abstract class TokenProgramBase
     public static final int MINT_TO_INSTRUCTION = 7;
 
     /**
-     * Returns the program ID for the Token Program.
+     * Returns the program id for the Token Program.
      * <p>
-     * This method provides the public key associated with the Solana Token Program, which is necessary for
+     * This method provides the public key associated with the solana token program, which is necessary for
      * transactions involving token accounts.
      * </p>
      *
@@ -573,7 +573,7 @@ public abstract class TokenProgramBase
         CONFIDENTIAL_TRANSFER_MINT((byte) 9),
 
         /**
-         * Authority type for setting the transfer hook program ID.
+         * Authority type for setting the transfer hook program id.
          */
         TRANSFER_HOOK_PROGRAM_ID((byte) 10),
 

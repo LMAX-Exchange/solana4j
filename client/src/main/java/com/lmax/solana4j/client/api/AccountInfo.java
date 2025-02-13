@@ -34,7 +34,7 @@ public interface AccountInfo
 
     /**
      * Indicates whether the account is marked as executable.
-     * If true, the account contains a program that can be executed on the Solana blockchain.
+     * If true, the account contains a program that can be executed on the blockchain.
      *
      * @return true if the account is executable, false otherwise
      */

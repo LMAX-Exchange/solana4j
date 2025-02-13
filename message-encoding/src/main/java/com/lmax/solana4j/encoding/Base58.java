@@ -3,7 +3,7 @@ package com.lmax.solana4j.encoding;
 import java.util.Arrays;
 
 /**
- * Utility class for encoding and decoding Base58.
+ * Utility class for encoding and decoding base58.
  * <p>
  * Base58 is commonly used in cryptocurrency systems like Bitcoin to encode large numbers into a shorter, human-readable string format.
  * It avoids characters that can cause confusion, such as '0' (zero), 'O' (capital o), 'l' (lowercase L), and 'I' (capital I).

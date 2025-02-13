@@ -13,7 +13,7 @@ import java.util.List;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
- * Program for managing associated token metadata on the Solana blockchain.
+ * Program for managing associated token metadata on the blockchain.
  */
 public final class AssociatedTokenMetadataProgram
 {
@@ -27,25 +27,15 @@ public final class AssociatedTokenMetadataProgram
     private static final byte[] METADATA_MAGIC_STRING = "metadata".getBytes(UTF_8);
 
     /**
-     * The program ID for the associated token metadata program.
-     * <p>
-     * This constant defines the program ID associated with the Solana account for the associated token metadata program.
-     * </p>
+     * The program id for the associated token metadata program.
      */
     private static final byte[] ASSOCIATED_TOKEN_METADATA_PROGRAM_ID = SolanaEncoding.decodeBase58("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
 
     /**
      * The public key for the associated token metadata program account.
-     * <p>
-     * This constant defines the public key associated with the Solana account for the associated token metadata program.
-     * It is set to the value returned by {@link Solana#account(byte[])} using the {@link #ASSOCIATED_TOKEN_METADATA_PROGRAM_ID}.
-     * </p>
      */
     public static final PublicKey ASSOCIATED_TOKEN_METADATA_PROGRAM_ACCOUNT = Solana.account(ASSOCIATED_TOKEN_METADATA_PROGRAM_ID);
 
-    /**
-     * Private constructor to prevent instantiation.
-     */
     private AssociatedTokenMetadataProgram()
     {
     }
@@ -54,7 +44,7 @@ public final class AssociatedTokenMetadataProgram
      * Derives the program address for the given mint.
      * <p>
      * This method derives the program address for a specific token mint by using a combination of the
-     * metadata magic string, the associated token metadata program ID, and the mint's public key.
+     * metadata magic string, the associated token metadata program id, and the mint's public key.
      * </p>
      *
      * @param mint the public key of the token mint
@@ -70,10 +60,6 @@ public final class AssociatedTokenMetadataProgram
 
     /**
      * Extracts the token name from the base64-encoded metadata.
-     * <p>
-     * This method decodes the base64-encoded metadata and extracts the token name from it. The name is determined
-     * by reading the length of the name and then extracting the corresponding bytes from the metadata.
-     * </p>
      *
      * @param base64Metadata the base64-encoded metadata string
      * @return the extracted token name as a string

@@ -77,10 +77,8 @@ abstract class SolanaMessageView implements MessageView
 
         final var staticAccounts = formatter.readStaticAccounts();
 
-        // write recent-block-header or NONCE
         final var blockhash = formatter.readBlockHash();
 
-        // write transaction instructions
         final var instructions = formatter.readInstructions();
 
         if (legacyFormat)

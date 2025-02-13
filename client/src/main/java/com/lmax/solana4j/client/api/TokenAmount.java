@@ -1,7 +1,7 @@
 package com.lmax.solana4j.client.api;
 
 /**
- * Represents the amount of an SPL token in a token account on the blockchain.
+ * Represents the amount of an spl token in a token account on the blockchain.
  */
 public interface TokenAmount
 {

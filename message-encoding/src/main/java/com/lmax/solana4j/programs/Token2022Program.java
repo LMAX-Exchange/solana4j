@@ -6,10 +6,10 @@ import com.lmax.solana4j.api.TransactionBuilder;
 import com.lmax.solana4j.encoding.SolanaEncoding;
 
 /**
- * Program for managing Token 2022 operations on the Solana blockchain.
+ * Program for managing token 2022 operations on the blockchain.
  * <p>
- * This class extends the {@link TokenProgramBase} class to support Token 2022 specific operations.
- * It provides functionality to create transactions and manage token accounts under the Solana Token 2022 program.
+ * This class extends the {@link TokenProgramBase} class to support token 2022 specific operations.
+ * It provides functionality to create transactions and manage token accounts under the solana token 2022 program.
  * </p>
  */
 public final class Token2022Program extends TokenProgramBase
@@ -18,17 +18,13 @@ public final class Token2022Program extends TokenProgramBase
 
     /**
      * The public key for the Token 2022 program account.
-     * <p>
-     * This constant defines the public key associated with the Solana account for the Token 2022 program.
-     * It is set to the value returned by {@link Solana#account(byte[])} using the {@link #TOKEN_2022_PROGRAM_ID}.
-     * </p>
      */
     public static final PublicKey PROGRAM_ACCOUNT = Solana.account(TOKEN_2022_PROGRAM_ID);
 
     /**
-     * Returns the program ID for the Token 2022 program.
+     * Returns the program id for the token 2022 program.
      *
-     * @return the public key representing the Token 2022 program ID
+     * @return the public key representing the token 2022 program id
      */
     @Override
     PublicKey getProgramId()
@@ -38,9 +34,6 @@ public final class Token2022Program extends TokenProgramBase
 
     /**
      * Factory method for creating a new instance of {@code Token2022ProgramFactory}.
-     * <p>
-     * The factory method is used to build Token 2022 program transactions using a provided {@link TransactionBuilder}.
-     * </p>
      *
      * @param tb the transaction builder
      * @return a new instance of {@code Token2022ProgramFactory}
@@ -58,12 +51,6 @@ public final class Token2022Program extends TokenProgramBase
      */
     public static final class Token2022ProgramFactory extends TokenProgramBaseFactory
     {
-        /**
-         * Private constructor to initialize the factory with the given token program id and transaction builder.
-         *
-         * @param tokenProgramId the token program id
-         * @param tb the transaction builder
-         */
         private Token2022ProgramFactory(final PublicKey tokenProgramId, final TransactionBuilder tb)
         {
             super(tokenProgramId, tb);

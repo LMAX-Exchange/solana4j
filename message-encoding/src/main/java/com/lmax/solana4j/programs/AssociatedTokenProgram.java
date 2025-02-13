@@ -15,47 +15,30 @@ import static com.lmax.solana4j.programs.SystemProgram.SYSTEM_PROGRAM_ACCOUNT;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Program for managing associated token accounts on the Solana blockchain.
+ * Program for managing associated token accounts on the blockchain.
  */
 public final class AssociatedTokenProgram
 {
     /**
-     * The program ID for the associated token program.
-     * <p>
-     * This constant holds the program ID used to identify the associated token program.
-     * </p>
+     * The program id for the associated token program.
      */
     private static final byte[] ASSOCIATED_TOKEN_PROGRAM_ID = SolanaEncoding.decodeBase58("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
 
     /**
      * The public key for the associated token program account.
-     * <p>
-     * This constant defines the public key associated with the Solana account for the associated token program.
-     * It is set to the value returned by {@link Solana#account(byte[])} using the {@link #ASSOCIATED_TOKEN_PROGRAM_ID}.
-     * </p>
      */
     public static final PublicKey ASSOCIATED_TOKEN_PROGRAM_ACCOUNT = Solana.account(ASSOCIATED_TOKEN_PROGRAM_ID);
 
     /**
      * The instruction code for creating an account.
-     * <p>
-     * This constant defines the instruction code used to create a new token account in Solana.
-     * </p>
      */
     public static final int CREATE_INSTRUCTION = 0;
 
     /**
      * The instruction code for idempotently creating an account.
-     * <p>
-     * This constant defines the instruction code used to create a new token account idempotently,
-     * ensuring that if the creation is attempted multiple times, it will have the same effect as if it were done once.
-     * </p>
      */
     public static final int IDEMPOTENT_CREATE_INSTRUCTION = 1;
 
-    /**
-     * Private constructor to prevent instantiation.
-     */
     private AssociatedTokenProgram()
     {
     }
@@ -79,11 +62,6 @@ public final class AssociatedTokenProgram
 
         private final TransactionBuilder tb;
 
-        /**
-         * Private constructor to initialize the factory with the given transaction builder.
-         *
-         * @param tb the transaction builder
-         */
         private AssociatedTokenProgramFactory(final TransactionBuilder tb)
         {
             this.tb = tb;
@@ -148,10 +126,6 @@ public final class AssociatedTokenProgram
 
     /**
      * Derives a program address for a given owner, token program account, and mint.
-     * <p>
-     * This method generates a program-derived address based on the combination of the owner's public key,
-     * the token program account's public key, and the mint's public key, using the associated token program account.
-     * </p>
      *
      * @param owner               the owner's public key; must not be null
      * @param tokenProgramAccount the token program account's public key; must not be null

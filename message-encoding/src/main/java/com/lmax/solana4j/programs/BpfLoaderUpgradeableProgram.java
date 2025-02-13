@@ -12,38 +12,26 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Represents a program for interacting with the BPF Loader Upgradeable program on the Solana blockchain.
+ * Represents a program for interacting with the bpf loader upgradeable program on the blockchain.
  * This program allows for managing upgradeable programs, such as setting a new upgrade authority.
  */
 public final class BpfLoaderUpgradeableProgram
 {
     /**
-     * The Program ID for the BPF Loader Upgradeable program.
-     * <p>
-     * This constant holds the program ID used to identify the BPF Loader Upgradeable program.
-     * </p>
+     * The program id for the bpf loader upgradeable program.
      */
     private static final byte[] PROGRAM_ID = SolanaEncoding.decodeBase58("BPFLoaderUpgradeab1e11111111111111111111111");
 
     /**
-     * The public key associated with the BPF Loader Upgradeable program.
-     * <p>
-     * This constant defines the public key associated with the Solana account for the BPF Loader Upgradeable program.
-     * </p>
+     * The public key associated with the bpf loader upgradeable program.
      */
     public static final PublicKey PROGRAM_ACCOUNT = Solana.account(PROGRAM_ID);
 
     /**
      * The instruction code for setting a new upgrade authority.
-     * <p>
-     * This constant defines the instruction code used to change the upgrade authority for a program in the Solana BPF Loader Upgradeable program.
-     * </p>
      */
     private static final int SET_AUTHORITY_INSTRUCTION = 4;
 
-    /**
-     * Private constructor to prevent instantiation.
-     */
     private BpfLoaderUpgradeableProgram()
     {
     }
@@ -66,16 +54,8 @@ public final class BpfLoaderUpgradeableProgram
     public static final class BpfLoaderUpgradeableProgramFactory
     {
 
-        /**
-         * The transaction builder used to construct and manage Solana transactions.
-         */
         private final TransactionBuilder tb;
 
-        /**
-         * Private constructor to initialize the factory with the given transaction builder.
-         *
-         * @param tb the transaction builder
-         */
         private BpfLoaderUpgradeableProgramFactory(final TransactionBuilder tb)
         {
             this.tb = tb;

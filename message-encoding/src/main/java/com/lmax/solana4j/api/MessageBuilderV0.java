@@ -5,11 +5,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Interface for building V0 messages for the Solana blockchain.
- * <p>
- * This interface provides methods for setting instructions, specifying the payer, setting the recent blockhash,
- * adding account lookups, and sealing the message.
- * </p>
+ * Interface for building V0 messages for the blockchain.
  */
 public interface MessageBuilderV0
 {

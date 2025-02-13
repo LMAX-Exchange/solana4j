@@ -3,7 +3,7 @@ package com.lmax.solana4j.client.api;
 import java.util.Map;
 
 /**
- * Represents the status of a transaction signature on the Solana blockchain.
+ * Represents the status of a transaction signature on the blockchain.
  */
 public interface SignatureStatus
 {

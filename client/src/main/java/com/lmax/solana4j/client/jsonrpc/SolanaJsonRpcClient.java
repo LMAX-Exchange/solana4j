@@ -29,7 +29,7 @@ import java.util.function.Function;
 import static com.lmax.solana4j.client.jsonrpc.SolanaJsonRpcClientOptionalParams.defaultOptionalParams;
 
 /**
- * Implementation of the {@link SolanaApi} interface for interacting with the Solana blockchain via JSON-RPC.
+ * Implementation of the {@link SolanaApi} interface for interacting with the blockchain via JSON-RPC.
  * This client provides methods to perform various operations such as requesting airdrops, sending transactions,
  * retrieving account information, and more.
  */

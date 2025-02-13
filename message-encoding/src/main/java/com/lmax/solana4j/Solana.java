@@ -118,10 +118,10 @@ public final class Solana
     }
 
     /**
-     * Derives a program address from the given seeds and program ID.
+     * Derives a program address from the given seeds and program id.
      *
      * @param seeds     the list of byte arrays representing the seeds
-     * @param programId the public key of the program ID
+     * @param programId the public key of the program id
      * @return a new instance of {@link ProgramDerivedAddress}
      */
     public static ProgramDerivedAddress programDerivedAddress(final List<byte[]> seeds, final PublicKey programId)
@@ -141,9 +141,9 @@ public final class Solana
     }
 
     /**
-     * Creates a new Blockhash from the given Base58-encoded string.
+     * Creates a new blockhash from the given base58-encoded string.
      *
-     * @param blockhashBase58 the Base58-encoded string representing the Blockhash
+     * @param blockhashBase58 the base58-encoded string representing the Blockhash
      * @return a new instance of {@link Blockhash}
      */
     public static Blockhash blockhash(final String blockhashBase58)

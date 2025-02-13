@@ -3,11 +3,7 @@ package com.lmax.solana4j.api;
 import java.nio.ByteBuffer;
 
 /**
- * Interface representing a blockhash on the Solana blockchain.
- * <p>
- * A blockhash is a unique identifier for a block on the Solana blockchain, used for various purposes
- * including transaction validation and preventing double-spending.
- * </p>
+ * Interface representing a blockhash on the blockchain.
  */
 public interface Blockhash
 {

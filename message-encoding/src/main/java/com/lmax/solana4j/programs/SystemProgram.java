@@ -11,9 +11,9 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 /**
- * Program for managing system-level operations on the Solana blockchain.
+ * Program for managing system-level operations on the blockchain.
  * <p>
- * This class provides methods to create accounts, transfer funds, and manage nonce accounts on the Solana blockchain.
+ * This class provides methods to create accounts, transfer funds, and manage nonce accounts on the solana blockchain.
  * </p>
  */
 public final class SystemProgram
@@ -22,73 +22,45 @@ public final class SystemProgram
 
     /**
      * The public key for the system program account.
-     * <p>
-     * This constant defines the public key associated with the Solana account for the system program.
-     * It is set to the value returned by {@link Solana#account(byte[])} using the {@link #SYSTEM_PROGRAM_ID}.
-     * </p>
      */
     public static final PublicKey SYSTEM_PROGRAM_ACCOUNT = Solana.account(SYSTEM_PROGRAM_ID);
 
     /**
      * The length of a nonce account in bytes.
-     * <p>
-     * This constant defines the fixed length of a nonce account used in Solana.
-     * </p>
      */
     public static final int NONCE_ACCOUNT_LENGTH = 80;
 
     /**
      * The length of a mint account in bytes.
-     * <p>
-     * This constant defines the fixed length of a mint account used in Solana.
-     * </p>
      */
     public static final int MINT_ACCOUNT_LENGTH = 82;
 
     /**
      * The instruction code for creating an account.
-     * <p>
-     * This constant defines the instruction code used to create a new account in Solana.
-     * </p>
      */
     public static final int CREATE_ACCOUNT_INSTRUCTION = 0;
 
     /**
      * The instruction code for transferring funds.
-     * <p>
-     * This constant defines the instruction code used to transfer funds between accounts in Solana.
-     * </p>
      */
     public static final int TRANSFER_INSTRUCTION = 2;
 
     /**
      * The instruction code for advancing a nonce.
-     * <p>
-     * This constant defines the instruction code used to advance a nonce in a nonce account in Solana.
-     * </p>
      */
     public static final int ADVANCE_NONCE_INSTRUCTION = 4;
 
     /**
      * The instruction code for initializing a nonce account.
-     * <p>
-     * This constant defines the instruction code used to initialize a nonce account in Solana.
-     * </p>
      */
     public static final int NONCE_INIT_INSTRUCTION = 6;
 
-    /**
-     * Private constructor to prevent instantiation.
-     */
     private SystemProgram()
     {
     }
 
     /**
      * Factory method for creating a new instance of {@code SystemProgramFactory}.
-     * <p>
-     * This factory helps in creating new instances of {@link SystemProgram} for managing system-level operations using a provided {@link TransactionBuilder}.
-     * </p>
      *
      * @param tb the transaction builder
      * @return a new instance of {@code SystemProgramFactory}
@@ -106,11 +78,6 @@ public final class SystemProgram
 
         private final TransactionBuilder tb;
 
-        /**
-         * Private constructor to initialize the factory with the given transaction builder.
-         *
-         * @param tb the transaction builder
-         */
         private SystemProgramFactory(final TransactionBuilder tb)
         {
             this.tb = tb;

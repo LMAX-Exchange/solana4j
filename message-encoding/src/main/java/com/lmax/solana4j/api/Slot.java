@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 /**
  * Interface representing a Slot.
  * <p>
- * A slot is a specific time interval during which transactions are processed on the Solana blockchain.
+ * A slot is a specific time interval during which transactions are processed on the blockchain.
  * </p>
  */
 public interface Slot

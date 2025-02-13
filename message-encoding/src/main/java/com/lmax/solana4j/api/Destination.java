@@ -1,7 +1,7 @@
 package com.lmax.solana4j.api;
 
 /**
- * Interface representing a destination for a transaction on the Solana blockchain.
+ * Interface representing a destination for a transaction on the blockchain.
  * <p>
  * A destination includes a public key representing the destination account and an amount of tokens or lamports to be transferred.
  * </p>

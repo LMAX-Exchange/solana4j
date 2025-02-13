@@ -148,7 +148,7 @@ public interface TransactionResponse
 
         /**
          * Returns a list of token balances before the transaction was processed.
-         * This provides the pre-transaction SPL token balances for accounts that hold tokens.
+         * This provides the pre-transaction spl token balances for accounts that hold tokens.
          *
          * @return a list of {@link TokenBalance} objects representing pre-transaction token balances
          */
@@ -156,7 +156,7 @@ public interface TransactionResponse
 
         /**
          * Returns a list of token balances after the transaction was processed.
-         * This provides the post-transaction SPL token balances for accounts that hold tokens.
+         * This provides the post-transaction spl token balances for accounts that hold tokens.
          *
          * @return a list of {@link TokenBalance} objects representing post-transaction token balances
          */
@@ -267,7 +267,7 @@ public interface TransactionResponse
         }
 
         /**
-         * Represents the balance of an SPL token in a transaction or account, including details about the token such
+         * Represents the balance of an spl token in a transaction or account, including details about the token such
          * as the account index, the token mint, the owner of the account, the program managing the token,
          * and the user-friendly token amount.
          */
@@ -299,11 +299,11 @@ public interface TransactionResponse
             String getOwner();
 
             /**
-             * Returns the program ID managing the token.
-             * The program ID is the base58-encoded public key of the program responsible for managing the token,
-             * typically the SPL token program.
+             * Returns the program id managing the token.
+             * The program id is the base58-encoded public key of the program responsible for managing the token,
+             * typically the spl token program.
              *
-             * @return the base58-encoded string representing the program ID managing the token
+             * @return the base58-encoded string representing the program id managing the token
              */
             String getProgramId();
 
@@ -497,7 +497,7 @@ public interface TransactionResponse
 
     /**
      * Represents an instruction in a transaction.
-     * Instructions define actions to be executed on the Solana blockchain, specifying accounts involved,
+     * Instructions define actions to be executed on the blockchain, specifying accounts involved,
      * the data for the instruction, and the program responsible for executing the instruction.
      *
      */
@@ -525,7 +525,7 @@ public interface TransactionResponse
          * Returns the index of the program id that is responsible for executing the instruction.
          * The index refers to the program in the transaction's account list that defines the instruction's logic.
          *
-         * @return the integer index of the program ID
+         * @return the integer index of the program id
          */
         Integer getProgramIdIndex();
 

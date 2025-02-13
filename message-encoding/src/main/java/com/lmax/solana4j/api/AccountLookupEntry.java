@@ -40,16 +40,16 @@ public interface AccountLookupEntry
     PublicKey getLookupTableAddress();
 
     /**
-     * Returns a list of read-write address indexes.
+     * Returns a list of read-write lookup entrys.
      *
-     * @return a list of {@link LookupEntry} objects representing read-write address indexes
+     * @return a list of {@link LookupEntry} objects representing read-write lookup entrys
      */
     List<LookupEntry> getReadWriteLookupEntrys();
 
     /**
-     * Returns a list of read-only address indexes.
+     * Returns a list of read-only lookup entrys.
      *
-     * @return a list of {@link LookupEntry} objects representing read-only address indexes
+     * @return a list of {@link LookupEntry} objects representing read-only lookup entrys
      */
     List<LookupEntry> getReadOnlyLookupEntrys();
 

@@ -16,7 +16,7 @@ public interface Accounts
     List<PublicKey> getFlattenedAccountList();
 
     /**
-     * Returns a list of the static public keys.
+     * Returns a list of the static account keys.
      *
      * @return a list of {@link PublicKey} objects representing static accounts
      */

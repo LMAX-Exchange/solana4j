@@ -90,7 +90,7 @@ public interface SolanaApi
     SolanaClientResponse<Long> getBalance(String address, SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException;
 
     /**
-     * Returns the token account balance of an SPL token account with default optional parameters.
+     * Returns the token account balance of an spl token account with default optional parameters.
      *
      * @param address the base58-encoded public key of the token account
      * @return a {@link SolanaClientResponse} containing the {@link TokenAmount} representing the token balance of the account
@@ -99,7 +99,7 @@ public interface SolanaApi
     SolanaClientResponse<TokenAmount> getTokenAccountBalance(String address) throws SolanaJsonRpcClientException;
 
     /**
-     * Returns the token account balance of an SPL token account with optional parameters.
+     * Returns the token account balance of an spl token account with optional parameters.
      *
      * @param address        the base58-encoded public key of the token account
      * @param optionalParams  a map of optional parameters to customize the request, such as `commitment`
@@ -289,7 +289,7 @@ public interface SolanaApi
     SolanaClientResponse<SimulateTransactionResponse> simulateTransaction(String transaction) throws SolanaJsonRpcClientException;
 
     /**
-     * Simulates a transaction without broadcasting it to the Solana blockchain, with optional parameters.
+     * Simulates a transaction without broadcasting it to the blockchain, with optional parameters.
      * This allows for additional customizations, such as setting the commitment level or enabling signature verification.
      *
      * @param transaction    the base64-encoded string representing the transaction

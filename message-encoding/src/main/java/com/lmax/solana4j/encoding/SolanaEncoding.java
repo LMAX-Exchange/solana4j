@@ -26,10 +26,6 @@ public final class SolanaEncoding
 
     /**
      * The maximum size of a message in bytes.
-     * <p>
-     * This constant defines the maximum size of a message in the Solana protocol,
-     * accounting for overheads.
-     * </p>
      */
     public static final int MAX_MESSAGE_SIZE = 1280 - 40 - 8;
 
@@ -106,10 +102,10 @@ public final class SolanaEncoding
     }
 
     /**
-     * Derives a program address from the given seeds and program ID.
+     * Derives a program address from the given seeds and program id.
      *
      * @param seeds     the list of byte arrays representing the seeds
-     * @param programId the public key of the program ID
+     * @param programId the public key of the program id
      * @return a new instance of {@link ProgramDerivedAddress}
      */
     public static ProgramDerivedAddress deriveProgramAddress(final List<byte[]> seeds, final PublicKey programId)
@@ -179,7 +175,7 @@ public final class SolanaEncoding
     }
 
     /**
-     * Decodes a Base58-encoded string into a byte array.
+     * Decodes a base58-encoded string into a byte array.
      *
      * @param base58 the Base58-encoded string to decode
      * @return a byte array representing the decoded value of the Base58 string
@@ -191,10 +187,10 @@ public final class SolanaEncoding
     }
 
     /**
-     * Encodes a byte array into a Base58-encoded string.
+     * Encodes a byte array into a base58-encoded string.
      *
-     * @param bytes the byte array to encode into a Base58 string
-     * @return a Base58-encoded string representing the input byte array
+     * @param bytes the byte array to encode into a base58 string
+     * @return a base58-encoded string representing the input byte array
      */
     public static String encodeBase58(final byte[] bytes)
     {

@@ -4,9 +4,6 @@ import java.nio.ByteBuffer;
 
 /**
  * Interface representing an entity capable of signing transactions represented as {@link ByteBuffer}.
- * <p>
- * Implementations of this interface provide the ability to sign a transaction and write the corresponding signature.
- * </p>
  */
 public interface ByteBufferSigner
 {

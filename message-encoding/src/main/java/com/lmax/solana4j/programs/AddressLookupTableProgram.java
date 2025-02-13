@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Program for managing address lookup tables on the Solana blockchain.
+ * Program for managing address lookup tables on the blockchain.
  */
 public final class AddressLookupTableProgram
 {
@@ -25,7 +25,7 @@ public final class AddressLookupTableProgram
     /**
      * The public key for the address lookup table program account.
      * <p>
-     * This constant defines the public key associated with the Solana account for the address lookup table program.
+     * This constant defines the public key associated with the solana account for the address lookup table program.
      * It is set to the value returned by {@link Solana#account(byte[])} using the {@link #ADDRESS_LOOKUP_TABLE_PROGRAM}.
      * </p>
      */
@@ -55,9 +55,6 @@ public final class AddressLookupTableProgram
      */
     public static final int LOOKUP_TABLE_META_SIZE = 56;
 
-    /**
-     * Private constructor to prevent instantiation.
-     */
     private AddressLookupTableProgram()
     {
     }

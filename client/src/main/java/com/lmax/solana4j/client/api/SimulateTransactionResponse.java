@@ -66,7 +66,7 @@ public interface SimulateTransactionResponse
         /**
          * Returns the program id that generated the return data.
          *
-         * @return the base-58 encoded string representing the program ID
+         * @return the base-58 encoded string representing the program id
          */
         String getProgramId();
 

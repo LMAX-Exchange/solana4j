@@ -4,9 +4,6 @@ import java.util.function.Consumer;
 
 /**
  * Interface for building Solana transactions.
- * <p>
- * This interface provides a method for appending instructions to the transaction.
- * </p>
  */
 public interface TransactionBuilder
 {

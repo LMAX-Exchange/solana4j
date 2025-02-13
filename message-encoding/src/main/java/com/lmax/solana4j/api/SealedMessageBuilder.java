@@ -2,9 +2,6 @@ package com.lmax.solana4j.api;
 
 /**
  * Interface for building sealed messages.
- * <p>
- * This interface provides methods for creating signed and unsigned message builders from a sealed message.
- * </p>
  */
 public interface SealedMessageBuilder
 {
