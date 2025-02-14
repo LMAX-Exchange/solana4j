@@ -7,12 +7,12 @@ our own. This repository is the product of that challenge.
 
 #### Libraries
 
-##### solana4j (https://central.sonatype.com/artifact/com.lmax/solana4j/overview)
+##### solana4j (https://central.sonatype.com/artifact/com.lmax/solana4j)
 
 A pure Java library that encapsulates both the `Legacy` and `V0` encoding schemes, with support for many of 
 the core Solana programs.
 
-##### solana4j-json-rpc
+##### solana4j-json-rpc (https://central.sonatype.com/artifact/com.lmax/solana4j-json-rpc)
 
 A Java client library to communicate with the Solana blockchain, with support for many of the endpoints documented
 at `https://solana.com/docs/rpc`. This library requires the following dependencies:
