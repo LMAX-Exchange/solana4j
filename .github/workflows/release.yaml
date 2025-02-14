@@ -11,6 +11,7 @@ permissions:
 jobs:
   publish:
     strategy:
+      fail-fast: false
       matrix:
         package: [ "client", "message-encoding" ]
     runs-on: ubuntu-latest
