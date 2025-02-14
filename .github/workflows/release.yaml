@@ -10,6 +10,9 @@ permissions:
 
 jobs:
   publish:
+    strategy:
+      matrix:
+        package: [ "client", "message-encoding" ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,7 +40,7 @@ jobs:
       - name: Publish package to Maven Central
         uses: gradle/gradle-build-action@v2.11.1
         with:
-          arguments: jreleaserFullRelease
+          arguments: :${{ matrix.package }}:jreleaserFullRelease
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JRELEASER_MAVENCENTRAL_USERNAME: ${{ secrets.JRELEASER_MAVENCENTRAL_USERNAME }}
@@ -50,9 +53,9 @@ jobs:
       - name: Add Artifact to GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          files: build/libs/solana4j-*.jar
+          files: ${{ matrix.package }}/build/libs/solana4j-*.jar
       - name: Upload JReleaser Logs
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          path: build/jreleaser/trace.log
+          path: ${{ matrix.package }}/build/jreleaser/trace.log
