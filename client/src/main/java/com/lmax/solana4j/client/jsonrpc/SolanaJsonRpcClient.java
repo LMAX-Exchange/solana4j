@@ -16,17 +16,20 @@ import com.lmax.solana4j.client.api.TokenAmount;
 import com.lmax.solana4j.client.api.TransactionResponse;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
 import static com.lmax.solana4j.client.jsonrpc.SolanaJsonRpcClientOptionalParams.defaultOptionalParams;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Implementation of the {@link SolanaApi} interface for interacting with the blockchain via JSON-RPC.
@@ -38,9 +41,11 @@ public final class SolanaJsonRpcClient implements SolanaApi
     private final String rpcUrl;
     private final HttpClient httpClient;
     private final SolanaCodec solanaCodec;
+    private final Duration socketTimeout;
 
     /**
      * Constructs a new {@code SolanaJsonRpcClient} with the specified HTTP client and RPC URL.
+     * HTTP calls to RPC endpoints will be made with no socket timeout.
      *
      * @param httpClient      the {@link HttpClient} instance to use for sending requests.
      *                        This allows customization of HTTP settings such as connection pooling,
@@ -51,8 +56,31 @@ public final class SolanaJsonRpcClient implements SolanaApi
             final HttpClient httpClient,
             final String rpcUrl)
     {
-        this.rpcUrl = rpcUrl;
-        this.httpClient = httpClient;
+        this.rpcUrl = requireNonNull(rpcUrl);
+        this.httpClient = requireNonNull(httpClient);
+        this.socketTimeout = null;
+        this.solanaCodec = new SolanaCodec(false);
+    }
+
+    /**
+     * Constructs a new {@code SolanaJsonRpcClient} with the specified HTTP client and RPC URL.
+     * HTTP calls to RPC endpoints will be made with the given socket timeout.
+     *
+     * @param httpClient      the {@link HttpClient} instance to use for sending requests.
+     *                        This allows customization of HTTP settings such as connection pooling,
+     *                        SSL context, and timeout configurations.
+     * @param rpcUrl          the URL of the Solana JSON-RPC node.
+     * @param socketTimeout   the {@link Duration} of inactivity on the HTTP connection that will
+     *                        result in a {@link SocketTimeoutException} when making an RPC call.
+     */
+    public SolanaJsonRpcClient(
+            final HttpClient httpClient,
+            final String rpcUrl,
+            final Duration socketTimeout)
+    {
+        this.rpcUrl = requireNonNull(rpcUrl);
+        this.httpClient = requireNonNull(httpClient);
+        this.socketTimeout = requireNonNull(socketTimeout);
         this.solanaCodec = new SolanaCodec(false);
     }
 
@@ -64,6 +92,7 @@ public final class SolanaJsonRpcClient implements SolanaApi
         this.rpcUrl = rpcUrl;
         this.httpClient = httpClient;
         this.solanaCodec = new SolanaCodec(failOnUnknownProperties);
+        this.socketTimeout = null;
     }
 
     @Override
@@ -464,6 +493,11 @@ public final class SolanaJsonRpcClient implements SolanaApi
         request.uri(URI.create(rpcUrl));
         request.setHeader("Content-Type", "application/json");
         request.POST(HttpRequest.BodyPublishers.ofString(payload));
+
+        if (socketTimeout != null)
+        {
+            request.timeout(socketTimeout);
+        }
 
         return request.build();
     }

@@ -7,7 +7,7 @@ plugins {
 def solanaVersion = project.property('SOLANA_VERSION')
 
 group = 'com.lmax'
-version = '1.1.0'
+version = '1.1.1'
 
 dependencyAnalysis {
     issues {
