@@ -169,6 +169,14 @@ implements <a href="../api/SolanaApi.html" title="interface in com.lmax.solana4j
 <div class="block">Constructs a new <code>SolanaJsonRpcClient</code> with the specified HTTP client and RPC URL.</div>
 </td>
 </tr>
+<tr class="rowColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.net.http.HttpClient,java.lang.String,java.time.Duration)">SolanaJsonRpcClient</a></span>&#8203;(java.net.http.HttpClient&nbsp;httpClient,
+                   java.lang.String&nbsp;rpcUrl,
+                   java.time.Duration&nbsp;socketTimeout)</code></th>
+<td class="colLast">
+<div class="block">Constructs a new <code>SolanaJsonRpcClient</code> with the specified HTTP client and RPC URL.</div>
+</td>
+</tr>
 </table>
 </li>
 </ul>
@@ -446,18 +454,41 @@ implements <a href="../api/SolanaApi.html" title="interface in com.lmax.solana4j
 <a id="&lt;init&gt;(java.net.http.HttpClient,java.lang.String)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>SolanaJsonRpcClient</h4>
 <pre>public&nbsp;SolanaJsonRpcClient&#8203;(java.net.http.HttpClient&nbsp;httpClient,
                            java.lang.String&nbsp;rpcUrl)</pre>
-<div class="block">Constructs a new <code>SolanaJsonRpcClient</code> with the specified HTTP client and RPC URL.</div>
+<div class="block">Constructs a new <code>SolanaJsonRpcClient</code> with the specified HTTP client and RPC URL.
+ HTTP calls to RPC endpoints will be made with no socket timeout.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>httpClient</code> - the <code>HttpClient</code> instance to use for sending requests.
                         This allows customization of HTTP settings such as connection pooling,
                         SSL context, and timeout configurations.</dd>
 <dd><code>rpcUrl</code> - the URL of the Solana JSON-RPC node.</dd>
+</dl>
+</li>
+</ul>
+<a id="&lt;init&gt;(java.net.http.HttpClient,java.lang.String,java.time.Duration)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>SolanaJsonRpcClient</h4>
+<pre>public&nbsp;SolanaJsonRpcClient&#8203;(java.net.http.HttpClient&nbsp;httpClient,
+                           java.lang.String&nbsp;rpcUrl,
+                           java.time.Duration&nbsp;socketTimeout)</pre>
+<div class="block">Constructs a new <code>SolanaJsonRpcClient</code> with the specified HTTP client and RPC URL.
+ HTTP calls to RPC endpoints will be made with the given socket timeout.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>httpClient</code> - the <code>HttpClient</code> instance to use for sending requests.
+                        This allows customization of HTTP settings such as connection pooling,
+                        SSL context, and timeout configurations.</dd>
+<dd><code>rpcUrl</code> - the URL of the Solana JSON-RPC node.</dd>
+<dd><code>socketTimeout</code> - the <code>Duration</code> of inactivity on the HTTP connection that will
+                        result in a <code>SocketTimeoutException</code> when making an RPC call.</dd>
 </dl>
 </li>
 </ul>
