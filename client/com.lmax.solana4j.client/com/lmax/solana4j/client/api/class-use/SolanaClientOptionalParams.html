@@ -153,20 +153,28 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="../BlockResponse.html" title="interface in com.lmax.solana4j.client.api">BlockResponse</a>&gt;</code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">SolanaApi.</span><code><span class="memberNameLink"><a href="../SolanaApi.html#getBlock(long,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getBlock</a></span>&#8203;(long&nbsp;slot,
+        <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
+<td class="colLast">
+<div class="block">Returns the block response for a given slot with optional parameters.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.lang.Long&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaApi.</span><code><span class="memberNameLink"><a href="../SolanaApi.html#getBlockHeight(com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getBlockHeight</a></span>&#8203;(<a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
 <td class="colLast">
 <div class="block">Returns the current block height with optional parameters.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="../Blockhash.html" title="interface in com.lmax.solana4j.client.api">Blockhash</a>&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaApi.</span><code><span class="memberNameLink"><a href="../SolanaApi.html#getLatestBlockhash(com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getLatestBlockhash</a></span>&#8203;(<a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
 <td class="colLast">
 <div class="block">Returns the most recent blockhash with optional parameters.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.lang.Long&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaApi.</span><code><span class="memberNameLink"><a href="../SolanaApi.html#getMinimumBalanceForRentExemption(int,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getMinimumBalanceForRentExemption</a></span>&#8203;(int&nbsp;size,
                                  <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
@@ -174,7 +182,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Returns the minimum balance required for rent exemption for an account of the given size, with optional parameters.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.util.List&lt;<a href="../SignatureForAddress.html" title="interface in com.lmax.solana4j.client.api">SignatureForAddress</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaApi.</span><code><span class="memberNameLink"><a href="../SolanaApi.html#getSignaturesForAddress(java.lang.String,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getSignaturesForAddress</a></span>&#8203;(java.lang.String&nbsp;address,
                        <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
@@ -182,7 +190,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Retrieves a list of transaction signatures for a specified address, with optional parameters.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.util.List&lt;<a href="../SignatureStatus.html" title="interface in com.lmax.solana4j.client.api">SignatureStatus</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaApi.</span><code><span class="memberNameLink"><a href="../SolanaApi.html#getSignatureStatuses(java.util.List,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getSignatureStatuses</a></span>&#8203;(java.util.List&lt;java.lang.String&gt;&nbsp;transactionSignatures,
                     <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
@@ -190,14 +198,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Retrieves the statuses of one or more transaction signatures, with optional parameters.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.lang.Long&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaApi.</span><code><span class="memberNameLink"><a href="../SolanaApi.html#getSlot(com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getSlot</a></span>&#8203;(<a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
 <td class="colLast">
 <div class="block">Returns the current slot number with optional parameters.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="../TokenAmount.html" title="interface in com.lmax.solana4j.client.api">TokenAmount</a>&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaApi.</span><code><span class="memberNameLink"><a href="../SolanaApi.html#getTokenAccountBalance(java.lang.String,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getTokenAccountBalance</a></span>&#8203;(java.lang.String&nbsp;address,
                       <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
@@ -205,7 +213,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Returns the token account balance of an spl token account with optional parameters.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.util.List&lt;<a href="../TokenAccount.html" title="interface in com.lmax.solana4j.client.api">TokenAccount</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaApi.</span><code><span class="memberNameLink"><a href="../SolanaApi.html#getTokenAccountsByOwner(java.lang.String,java.util.Map.Entry,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getTokenAccountsByOwner</a></span>&#8203;(java.lang.String&nbsp;accountDelegate,
                        java.util.Map.Entry&lt;java.lang.String,&#8203;java.lang.String&gt;&nbsp;filter,
@@ -214,7 +222,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Retrieves token accounts owned by a specific address, filtered by the token mint or program id, with default optional parameters.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="../TransactionResponse.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaApi.</span><code><span class="memberNameLink"><a href="../SolanaApi.html#getTransaction(java.lang.String,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getTransaction</a></span>&#8203;(java.lang.String&nbsp;transactionSignature,
               <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
@@ -222,7 +230,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Returns the transaction response for a given transaction signature with optional parameters.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaApi.</span><code><span class="memberNameLink"><a href="../SolanaApi.html#requestAirdrop(java.lang.String,long,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">requestAirdrop</a></span>&#8203;(java.lang.String&nbsp;address,
               long&nbsp;amountLamports,
@@ -231,7 +239,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Requests an airdrop of lamports to the specified address with optional parameters.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaApi.</span><code><span class="memberNameLink"><a href="../SolanaApi.html#sendTransaction(java.lang.String,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">sendTransaction</a></span>&#8203;(java.lang.String&nbsp;transactionBlob,
                <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
@@ -239,7 +247,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Sends a transaction to the blockchain with optional parameters.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="../SimulateTransactionResponse.html" title="interface in com.lmax.solana4j.client.api">SimulateTransactionResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaApi.</span><code><span class="memberNameLink"><a href="../SolanaApi.html#simulateTransaction(java.lang.String,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">simulateTransaction</a></span>&#8203;(java.lang.String&nbsp;transaction,
                    <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
@@ -295,71 +303,77 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="../BlockResponse.html" title="interface in com.lmax.solana4j.client.api">BlockResponse</a>&gt;</code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">SolanaJsonRpcClient.</span><code><span class="memberNameLink"><a href="../../jsonrpc/SolanaJsonRpcClient.html#getBlock(long,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getBlock</a></span>&#8203;(long&nbsp;slot,
+        <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.lang.Long&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaJsonRpcClient.</span><code><span class="memberNameLink"><a href="../../jsonrpc/SolanaJsonRpcClient.html#getBlockHeight(com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getBlockHeight</a></span>&#8203;(<a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="../Blockhash.html" title="interface in com.lmax.solana4j.client.api">Blockhash</a>&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaJsonRpcClient.</span><code><span class="memberNameLink"><a href="../../jsonrpc/SolanaJsonRpcClient.html#getLatestBlockhash(com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getLatestBlockhash</a></span>&#8203;(<a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.lang.Long&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaJsonRpcClient.</span><code><span class="memberNameLink"><a href="../../jsonrpc/SolanaJsonRpcClient.html#getMinimumBalanceForRentExemption(int,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getMinimumBalanceForRentExemption</a></span>&#8203;(int&nbsp;size,
                                  <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.util.List&lt;<a href="../SignatureForAddress.html" title="interface in com.lmax.solana4j.client.api">SignatureForAddress</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaJsonRpcClient.</span><code><span class="memberNameLink"><a href="../../jsonrpc/SolanaJsonRpcClient.html#getSignaturesForAddress(java.lang.String,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getSignaturesForAddress</a></span>&#8203;(java.lang.String&nbsp;address,
                        <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.util.List&lt;<a href="../SignatureStatus.html" title="interface in com.lmax.solana4j.client.api">SignatureStatus</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaJsonRpcClient.</span><code><span class="memberNameLink"><a href="../../jsonrpc/SolanaJsonRpcClient.html#getSignatureStatuses(java.util.List,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getSignatureStatuses</a></span>&#8203;(java.util.List&lt;java.lang.String&gt;&nbsp;transactionSignatures,
                     <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.lang.Long&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaJsonRpcClient.</span><code><span class="memberNameLink"><a href="../../jsonrpc/SolanaJsonRpcClient.html#getSlot(com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getSlot</a></span>&#8203;(<a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="../TokenAmount.html" title="interface in com.lmax.solana4j.client.api">TokenAmount</a>&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaJsonRpcClient.</span><code><span class="memberNameLink"><a href="../../jsonrpc/SolanaJsonRpcClient.html#getTokenAccountBalance(java.lang.String,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getTokenAccountBalance</a></span>&#8203;(java.lang.String&nbsp;address,
                       <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.util.List&lt;<a href="../TokenAccount.html" title="interface in com.lmax.solana4j.client.api">TokenAccount</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaJsonRpcClient.</span><code><span class="memberNameLink"><a href="../../jsonrpc/SolanaJsonRpcClient.html#getTokenAccountsByOwner(java.lang.String,java.util.Map.Entry,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getTokenAccountsByOwner</a></span>&#8203;(java.lang.String&nbsp;accountDelegate,
                        java.util.Map.Entry&lt;java.lang.String,&#8203;java.lang.String&gt;&nbsp;filter,
                        <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="../TransactionResponse.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaJsonRpcClient.</span><code><span class="memberNameLink"><a href="../../jsonrpc/SolanaJsonRpcClient.html#getTransaction(java.lang.String,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getTransaction</a></span>&#8203;(java.lang.String&nbsp;transactionSignature,
               <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaJsonRpcClient.</span><code><span class="memberNameLink"><a href="../../jsonrpc/SolanaJsonRpcClient.html#requestAirdrop(java.lang.String,long,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">requestAirdrop</a></span>&#8203;(java.lang.String&nbsp;address,
               long&nbsp;amountLamports,
               <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaJsonRpcClient.</span><code><span class="memberNameLink"><a href="../../jsonrpc/SolanaJsonRpcClient.html#sendTransaction(java.lang.String,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">sendTransaction</a></span>&#8203;(java.lang.String&nbsp;transactionBlob,
                <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="../SimulateTransactionResponse.html" title="interface in com.lmax.solana4j.client.api">SimulateTransactionResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SolanaJsonRpcClient.</span><code><span class="memberNameLink"><a href="../../jsonrpc/SolanaJsonRpcClient.html#simulateTransaction(java.lang.String,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">simulateTransaction</a></span>&#8203;(java.lang.String&nbsp;transaction,
                    <a href="../SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>

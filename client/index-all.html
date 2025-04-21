@@ -130,6 +130,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Represents a blockhash on the blockchain.</div>
 </dd>
+<dt><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.html" title="interface in com.lmax.solana4j.client.api"><span class="typeNameLink">BlockResponse</span></a> - Interface in <a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/package-summary.html">com.lmax.solana4j.client.api</a></dt>
+<dd>
+<div class="block">Represents a block on the Solana blockchain.</div>
+</dd>
+<dt><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.Rewards.html" title="interface in com.lmax.solana4j.client.api"><span class="typeNameLink">BlockResponse.Rewards</span></a> - Interface in <a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/package-summary.html">com.lmax.solana4j.client.api</a></dt>
+<dd>
+<div class="block">Represents the details of a reward payment.</div>
+</dd>
 </dl>
 <a id="I:C">
 <!--   -->
@@ -260,9 +268,29 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClient.html#getBalance(java.lang.String,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getBalance(String, SolanaClientOptionalParams)</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClient.html" title="class in com.lmax.solana4j.client.jsonrpc">SolanaJsonRpcClient</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SolanaApi.html#getBlock(long)">getBlock(long)</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SolanaApi.html" title="interface in com.lmax.solana4j.client.api">SolanaApi</a></dt>
+<dd>
+<div class="block">Returns the block response for a given slot with default optional parameters.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClient.html#getBlock(long)">getBlock(long)</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClient.html" title="class in com.lmax.solana4j.client.jsonrpc">SolanaJsonRpcClient</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SolanaApi.html#getBlock(long,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getBlock(long, SolanaClientOptionalParams)</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SolanaApi.html" title="interface in com.lmax.solana4j.client.api">SolanaApi</a></dt>
+<dd>
+<div class="block">Returns the block response for a given slot with optional parameters.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClient.html#getBlock(long,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getBlock(long, SolanaClientOptionalParams)</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClient.html" title="class in com.lmax.solana4j.client.jsonrpc">SolanaJsonRpcClient</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.html#getBlockhash()">getBlockhash()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.html" title="interface in com.lmax.solana4j.client.api">BlockResponse</a></dt>
+<dd>
+<div class="block">The SHA-256 hash which uniquely represents this block.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/Blockhash.html#getBlockhashBase58()">getBlockhashBase58()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/Blockhash.html" title="interface in com.lmax.solana4j.client.api">Blockhash</a></dt>
 <dd>
 <div class="block">Returns the blockhash as a base58-encoded string.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.html#getBlockHeight()">getBlockHeight()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.html" title="interface in com.lmax.solana4j.client.api">BlockResponse</a></dt>
+<dd>
+<div class="block">The number of blocks beneath this block in the chain.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SolanaApi.html#getBlockHeight()">getBlockHeight()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SolanaApi.html" title="interface in com.lmax.solana4j.client.api">SolanaApi</a></dt>
 <dd>
@@ -276,6 +304,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClient.html#getBlockHeight(com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getBlockHeight(SolanaClientOptionalParams)</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClient.html" title="class in com.lmax.solana4j.client.jsonrpc">SolanaJsonRpcClient</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.html#getBlockTime()">getBlockTime()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.html" title="interface in com.lmax.solana4j.client.api">BlockResponse</a></dt>
+<dd>
+<div class="block">Returns the block time.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SignatureForAddress.html#getBlockTime()">getBlockTime()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SignatureForAddress.html" title="interface in com.lmax.solana4j.client.api">SignatureForAddress</a></dt>
 <dd>
 <div class="block">Retrieves the estimated production time of the block containing the transaction.</div>
@@ -287,6 +319,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClientException.html#getCause()">getCause()</a></span> - Method in exception com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClientException.html" title="class in com.lmax.solana4j.client.jsonrpc">SolanaJsonRpcClientException</a></dt>
 <dd>
 <div class="block">Returns the cause of this exception or <code>null</code> if the cause is nonexistent or unknown.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.Rewards.html#getCommission()">getCommission()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.Rewards.html" title="interface in com.lmax.solana4j.client.api">BlockResponse.Rewards</a></dt>
+<dd>
+<div class="block">The commission taken out of a staking reward by the validator on which the funds were staked.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.Reward.html#getCommission()">getCommission()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.Reward.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionMetadata.Reward</a></dt>
 <dd>
@@ -418,6 +454,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns the number of lamports in the account.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.Rewards.html#getLamports()">getLamports()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.Rewards.html" title="interface in com.lmax.solana4j.client.api">BlockResponse.Rewards</a></dt>
+<dd>
+<div class="block">The number of lamports paid in this reward.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.Reward.html#getLamports()">getLamports()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.Reward.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionMetadata.Reward</a></dt>
 <dd>
 <div class="block">Returns the amount of lamports received as a reward.</div>
@@ -508,6 +548,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClientOptionalParams.html#getParams()">getParams()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClientOptionalParams.html" title="class in com.lmax.solana4j.client.jsonrpc">SolanaJsonRpcClientOptionalParams</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.html#getParentSlot()">getParentSlot()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.html" title="interface in com.lmax.solana4j.client.api">BlockResponse</a></dt>
+<dd>
+<div class="block">The slot number in which this block was generated.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.Message.AccountKeys.html#getParsedAccountKeys()">getParsedAccountKeys()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.Message.AccountKeys.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.Message.AccountKeys</a></dt>
 <dd>
 <div class="block">Returns a list of parsed account keys, each providing detailed information on
@@ -520,6 +564,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionData.html#getParsedTransactionData()">getParsedTransactionData()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionData.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionData</a></dt>
 <dd>
 <div class="block">Returns the parsed data of the transaction.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.Rewards.html#getPostBalance()">getPostBalance()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.Rewards.html" title="interface in com.lmax.solana4j.client.api">BlockResponse.Rewards</a></dt>
+<dd>
+<div class="block">The balance of the rewarded address after payment of the reward.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.Reward.html#getPostBalance()">getPostBalance()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.Reward.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionMetadata.Reward</a></dt>
 <dd>
@@ -540,6 +588,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.html#getPreTokenBalances()">getPreTokenBalances()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionMetadata</a></dt>
 <dd>
 <div class="block">Returns a list of token balances before the transaction was processed.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.html#getPreviousBlockhash()">getPreviousBlockhash()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.html" title="interface in com.lmax.solana4j.client.api">BlockResponse</a></dt>
+<dd>
+<div class="block">The SHA-256 hash which uniquely represents the parent block of this block.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/AccountInfo.AccountInfoData.AccountInfoParsedData.html#getProgram()">getProgram()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/AccountInfo.AccountInfoData.AccountInfoParsedData.html" title="interface in com.lmax.solana4j.client.api">AccountInfo.AccountInfoData.AccountInfoParsedData</a></dt>
 <dd>
@@ -569,6 +621,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns the public key of the account or validator receiving the reward.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.Rewards.html#getPubkeyBase58()">getPubkeyBase58()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.Rewards.html" title="interface in com.lmax.solana4j.client.api">BlockResponse.Rewards</a></dt>
+<dd>
+<div class="block">The address to which the reward was paid.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TokenAccount.html#getPublicKey()">getPublicKey()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TokenAccount.html" title="interface in com.lmax.solana4j.client.api">TokenAccount</a></dt>
 <dd>
 <div class="block">Returns the public key of the token account.</div>
@@ -597,9 +653,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns any return data generated by an instruction during the transaction simulation.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.html#getRewards()">getRewards()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.html" title="interface in com.lmax.solana4j.client.api">BlockResponse</a></dt>
+<dd>
+<div class="block">Details of reward payments issued in this block.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.html#getRewards()">getRewards()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionMetadata</a></dt>
 <dd>
 <div class="block">Returns a list of rewards distributed as part of the transaction.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.Rewards.html#getRewardType()">getRewardType()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.Rewards.html" title="interface in com.lmax.solana4j.client.api">BlockResponse.Rewards</a></dt>
+<dd>
+<div class="block">The type of reward that was paid.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.Reward.html#getRewardType()">getRewardType()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.Reward.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionMetadata.Reward</a></dt>
 <dd>
@@ -728,6 +792,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.html#getTransactionData()">getTransactionData()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse</a></dt>
 <dd>
 <div class="block">Returns the core transaction data and its encoding.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.html#getTransactions()">getTransactions()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.html" title="interface in com.lmax.solana4j.client.api">BlockResponse</a></dt>
+<dd>
+<div class="block">The transactions contained in this block.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TokenAmount.html#getUiAmount()">getUiAmount()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TokenAmount.html" title="interface in com.lmax.solana4j.client.api">TokenAmount</a></dt>
 <dd>
