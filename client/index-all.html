@@ -144,6 +144,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">C</h2>
 <dl>
+<dt><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api"><span class="typeNameLink">ClusterNode</span></a> - Interface in <a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/package-summary.html">com.lmax.solana4j.client.api</a></dt>
+<dd>
+<div class="block">Represents an object containing the metadata of a node within a Solana cluster.</div>
+</dd>
+<dt><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc"><span class="typeNameLink">ClusterNodeDTO</span></a> - Class in <a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/package-summary.html">com.lmax.solana4j.client.jsonrpc</a></dt>
+<dd>
+<div class="block">Data Transfer Object for the output from <code>getClusterNodes</code> RPC call.</div>
+</dd>
 <dt><a href="com.lmax.solana4j.client/module-summary.html">com.lmax.solana4j.client</a> - module com.lmax.solana4j.client</dt>
 <dd>
 <div class="block">This module provides functionality for communicating with a solana node.</div>
@@ -320,6 +328,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns the cause of this exception or <code>null</code> if the cause is nonexistent or unknown.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SolanaApi.html#getClusterNodes()">getClusterNodes()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SolanaApi.html" title="interface in com.lmax.solana4j.client.api">SolanaApi</a></dt>
+<dd>
+<div class="block">Retrieve the metadata of all the active nodes within the Solana cluster.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClient.html#getClusterNodes()">getClusterNodes()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClient.html" title="class in com.lmax.solana4j.client.jsonrpc">SolanaJsonRpcClient</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.Rewards.html#getCommission()">getCommission()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/BlockResponse.Rewards.html" title="interface in com.lmax.solana4j.client.api">BlockResponse.Rewards</a></dt>
 <dd>
 <div class="block">The commission taken out of a staking reward by the validator on which the funds were staked.</div>
@@ -400,14 +414,26 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Retrieves the error message providing details about the failure.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html#getFeatureSet()">getFeatureSet()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></dt>
+<dd>
+<div class="block">Returns the current feature set as a number.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SolanaVersion.html#getFeatureSet()">getFeatureSet()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SolanaVersion.html" title="interface in com.lmax.solana4j.client.api">SolanaVersion</a></dt>
 <dd>
 <div class="block">Returns the current feature set as a number.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html#getFeatureSet()">getFeatureSet()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc">ClusterNodeDTO</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.html#getFee()">getFee()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionMetadata</a></dt>
 <dd>
 <div class="block">Returns the fee paid for processing the transaction.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html#getGossipAddress()">getGossipAddress()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></dt>
+<dd>
+<div class="block">Returns the Gossip Address for the node.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html#getGossipAddress()">getGossipAddress()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc">ClusterNodeDTO</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.Message.html#getHeader()">getHeader()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.Message.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.Message</a></dt>
 <dd>
 <div class="block">Returns the header of the message.</div>
@@ -625,10 +651,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The address to which the reward was paid.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html#getPublicKey()">getPublicKey()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></dt>
+<dd>
+<div class="block">Returns the public key of the Solana node.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TokenAccount.html#getPublicKey()">getPublicKey()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TokenAccount.html" title="interface in com.lmax.solana4j.client.api">TokenAccount</a></dt>
 <dd>
 <div class="block">Returns the public key of the token account.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html#getPublicKey()">getPublicKey()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc">ClusterNodeDTO</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html#getPubsubAddress()">getPubsubAddress()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></dt>
+<dd>
+<div class="block">Returns the PubSub Address for the node.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html#getPubsubAddress()">getPubsubAddress()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc">ClusterNodeDTO</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.LoadedAddresses.html#getReadonly()">getReadonly()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.LoadedAddresses.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionMetadata.LoadedAddresses</a></dt>
 <dd>
 <div class="block">Returns a list of read-only addresses loaded during the transaction.</div>
@@ -669,6 +707,24 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns the type of the reward.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html#getRpcAddress()">getRpcAddress()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></dt>
+<dd>
+<div class="block">Returns the JSON-RPC for the node.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html#getRpcAddress()">getRpcAddress()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc">ClusterNodeDTO</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html#getServeRepairAddress()">getServeRepairAddress()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></dt>
+<dd>
+<div class="block">Returns the Shred Repair Address for the node.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html#getServeRepairAddress()">getServeRepairAddress()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc">ClusterNodeDTO</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html#getShredVersion()">getShredVersion()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></dt>
+<dd>
+<div class="block">Returns the version of the shred database on the Solana node containing the blocks available on that node.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html#getShredVersion()">getShredVersion()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc">ClusterNodeDTO</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SignatureForAddress.html#getSignature()">getSignature()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SignatureForAddress.html" title="interface in com.lmax.solana4j.client.api">SignatureForAddress</a></dt>
 <dd>
 <div class="block">Returns the base58-encoded signature of the transaction.</div>
@@ -777,6 +833,36 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClient.html#getTokenAccountsByOwner(java.lang.String,java.util.Map.Entry,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getTokenAccountsByOwner(String, Map.Entry&lt;String, String&gt;, SolanaClientOptionalParams)</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClient.html" title="class in com.lmax.solana4j.client.jsonrpc">SolanaJsonRpcClient</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html#getTpuAddress()">getTpuAddress()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></dt>
+<dd>
+<div class="block">Returns the Transaction Processing Unit Address for the node.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html#getTpuAddress()">getTpuAddress()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc">ClusterNodeDTO</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html#getTpuForwardsAddress()">getTpuForwardsAddress()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></dt>
+<dd>
+<div class="block">Returns the Transaction Processing Unit Forwarding Address for the node.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html#getTpuForwardsAddress()">getTpuForwardsAddress()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc">ClusterNodeDTO</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html#getTpuForwardsQuicAddress()">getTpuForwardsQuicAddress()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></dt>
+<dd>
+<div class="block">Returns the Transaction Processing Unit Forwarding QUIC Address for the node.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html#getTpuForwardsQuicAddress()">getTpuForwardsQuicAddress()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc">ClusterNodeDTO</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html#getTpuQuicAddress()">getTpuQuicAddress()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></dt>
+<dd>
+<div class="block">Returns the Transaction Processing Unit QUIC Address for the node.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html#getTpuQuicAddress()">getTpuQuicAddress()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc">ClusterNodeDTO</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html#getTpuVoteAddress()">getTpuVoteAddress()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></dt>
+<dd>
+<div class="block">Returns the Transaction Processing Unit Vote Address for the node.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html#getTpuVoteAddress()">getTpuVoteAddress()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc">ClusterNodeDTO</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SolanaApi.html#getTransaction(java.lang.String)">getTransaction(String)</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SolanaApi.html" title="interface in com.lmax.solana4j.client.api">SolanaApi</a></dt>
 <dd>
 <div class="block">Returns the transaction response for a given transaction signature with default optional parameters.</div>
@@ -797,6 +883,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The transactions contained in this block.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html#getTvuAddress()">getTvuAddress()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></dt>
+<dd>
+<div class="block">Returns the Transaction Validation Unit Vote Address for the node.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html#getTvuAddress()">getTvuAddress()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc">ClusterNodeDTO</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TokenAmount.html#getUiAmount()">getUiAmount()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TokenAmount.html" title="interface in com.lmax.solana4j.client.api">TokenAmount</a></dt>
 <dd>
 <div class="block">Returns the token amount as a float, adjusted for the token's decimals.</div>
@@ -817,6 +909,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns the value of the rpc response.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html#getVersion()">getVersion()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></dt>
+<dd>
+<div class="block">Returns the version of solana core as a string.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SolanaApi.html#getVersion()">getVersion()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/SolanaApi.html" title="interface in com.lmax.solana4j.client.api">SolanaApi</a></dt>
 <dd>
 <div class="block">Retrieve the current version of Solana Core and supported Feature Set from the node.</div>
@@ -829,6 +925,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns the version of the transaction.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html#getVersion()">getVersion()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc">ClusterNodeDTO</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClient.html#getVersion()">getVersion()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClient.html" title="class in com.lmax.solana4j.client.jsonrpc">SolanaJsonRpcClient</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.LoadedAddresses.html#getWritable()">getWritable()</a></span> - Method in interface com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.TransactionMetadata.LoadedAddresses.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionMetadata.LoadedAddresses</a></dt>
@@ -1028,6 +1126,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Represents the amount of an spl token in a token account on the blockchain.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html#toString()">toString()</a></span> - Method in class com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/ClusterNodeDTO.html" title="class in com.lmax.solana4j.client.jsonrpc">ClusterNodeDTO</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClientException.html#toString()">toString()</a></span> - Method in exception com.lmax.solana4j.client.jsonrpc.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/jsonrpc/SolanaJsonRpcClientException.html" title="class in com.lmax.solana4j.client.jsonrpc">SolanaJsonRpcClientException</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.Message.AccountKeys.AccountKeyParsed.KeySource.html#TRANSACTION">TRANSACTION</a></span> - com.lmax.solana4j.client.api.<a href="com.lmax.solana4j.client/com/lmax/solana4j/client/api/TransactionResponse.Message.AccountKeys.AccountKeyParsed.KeySource.html" title="enum in com.lmax.solana4j.client.api">TransactionResponse.Message.AccountKeys.AccountKeyParsed.KeySource</a></dt>
