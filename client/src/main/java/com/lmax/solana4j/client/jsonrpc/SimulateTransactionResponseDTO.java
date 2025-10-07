@@ -54,6 +54,7 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
         private final BlockhashDTO.BlockhashValueDTO replacementBlockhash;
         private final DataDTO returnData;
         private final int unitsConsumed;
+        private final int fee;
 
         @JsonCreator
         SimulateTransactionValueDTO(
@@ -63,7 +64,8 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
                 final @JsonProperty("innerInstructions") List<TransactionResponseDTO.MetaDTO.InnerInstructionDTO> innerInstructions,
                 final @JsonProperty("replacementBlockhash") BlockhashDTO.BlockhashValueDTO replacementBlockhash,
                 final @JsonProperty("returnData") DataDTO returnData,
-                final @JsonProperty("unitsConsumed") int unitsConsumed)
+                final @JsonProperty("unitsConsumed") int unitsConsumed,
+                final @JsonProperty("fee") int fee)
         {
             this.err = err;
             this.logs = logs;
@@ -72,6 +74,7 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
             this.replacementBlockhash = replacementBlockhash;
             this.returnData = returnData;
             this.unitsConsumed = unitsConsumed;
+            this.fee = fee;
         }
 
         @Override
@@ -119,6 +122,12 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
         }
 
         @Override
+        public int getFee()
+        {
+            return fee;
+        }
+
+        @Override
         public String toString()
         {
             return "SimulateTransactionValueDTO{" +
@@ -129,6 +138,7 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
                     ", replacementBlockhash=" + replacementBlockhash +
                     ", returnData=" + returnData +
                     ", unitsConsumed=" + unitsConsumed +
+                    ", fee=" + fee +
                     '}';
         }
     }
