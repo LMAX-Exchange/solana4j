@@ -195,6 +195,13 @@ public interface TransactionResponse
         Map.Entry<String, Object> getStatus();
 
         /**
+         * Get consumed cost units for transaction.
+         *
+         * @return a {@link long} containing the cost units for the transaction.
+         */
+        long getCostUnits();
+
+        /**
          * Represents the addresses loaded during a Solana transaction.
          */
         interface LoadedAddresses

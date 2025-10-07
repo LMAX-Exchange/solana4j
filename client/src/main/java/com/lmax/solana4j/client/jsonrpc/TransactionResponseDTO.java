@@ -101,6 +101,7 @@ final class TransactionResponseDTO implements TransactionResponse
         public final long computeUnitsConsumed;
         private final LoadedAddressesDTO loadedAddresses;
         private final Map.Entry<String, Object> status;
+        private final long costUnits;
 
         @JsonCreator
         MetaDTO(
@@ -115,7 +116,8 @@ final class TransactionResponseDTO implements TransactionResponse
                 final @JsonProperty("rewards") List<RewardDTO> rewards,
                 final @JsonProperty("computeUnitsConsumed") long computeUnitsConsumed,
                 final @JsonProperty("loadedAddresses") LoadedAddressesDTO loadedAddresses,
-                final @JsonProperty("status") Map.Entry<String, Object> status)
+                final @JsonProperty("status") Map.Entry<String, Object> status,
+                final @JsonProperty("costUnits") long costUnits)
         {
             this.err = err;
             this.fee = fee;
@@ -129,6 +131,7 @@ final class TransactionResponseDTO implements TransactionResponse
             this.computeUnitsConsumed = computeUnitsConsumed;
             this.loadedAddresses = loadedAddresses;
             this.status = status;
+            this.costUnits = costUnits;
         }
 
         @Override
@@ -205,6 +208,12 @@ final class TransactionResponseDTO implements TransactionResponse
             return status;
         }
 
+        @Override
+        public long getCostUnits()
+        {
+            return costUnits;
+        }
+
 
         @Override
         public String toString()
@@ -222,6 +231,7 @@ final class TransactionResponseDTO implements TransactionResponse
                     ", computeUnitsConsumed=" + computeUnitsConsumed +
                     ", loadedAddresses=" + loadedAddresses +
                     ", status=" + status +
+                    ", costUnits=" + costUnits +
                     '}';
         }
 
