@@ -54,7 +54,12 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
         private final BlockhashDTO.BlockhashValueDTO replacementBlockhash;
         private final DataDTO returnData;
         private final int unitsConsumed;
-        private final int fee;
+        private final long fee;
+        private final List<Long> postBalances;
+        private final List<TransactionResponseDTO.TokenBalanceDTO> postTokenBalances;
+        private final List<Long> preBalances;
+        private final List<TransactionResponseDTO.TokenBalanceDTO> preTokenBalances;
+        private TransactionResponseDTO.LoadedAddressesDTO loadedAddresses;
 
         @JsonCreator
         SimulateTransactionValueDTO(
@@ -65,7 +70,12 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
                 final @JsonProperty("replacementBlockhash") BlockhashDTO.BlockhashValueDTO replacementBlockhash,
                 final @JsonProperty("returnData") DataDTO returnData,
                 final @JsonProperty("unitsConsumed") int unitsConsumed,
-                final @JsonProperty("fee") int fee)
+                final @JsonProperty("fee") long fee,
+                final @JsonProperty("loadedAddresses") TransactionResponseDTO.LoadedAddressesDTO loadedAddresses,
+                final @JsonProperty("postBalances") List<Long> postBalances,
+                final @JsonProperty("postTokenBalances") List<TransactionResponseDTO.TokenBalanceDTO> postTokenBalances,
+                final @JsonProperty("preBalances") List<Long> preBalances,
+                final @JsonProperty("preTokenBalances") List<TransactionResponseDTO.TokenBalanceDTO> preTokenBalances)
         {
             this.err = err;
             this.logs = logs;
@@ -75,6 +85,11 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
             this.returnData = returnData;
             this.unitsConsumed = unitsConsumed;
             this.fee = fee;
+            this.postBalances = postBalances;
+            this.postTokenBalances = postTokenBalances;
+            this.preBalances = preBalances;
+            this.preTokenBalances = preTokenBalances;
+            this.loadedAddresses = loadedAddresses;
         }
 
         @Override
@@ -122,9 +137,34 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
         }
 
         @Override
-        public int getFee()
+        public long getFee()
         {
             return fee;
+        }
+
+        @Override
+        public TransactionResponse.TransactionMetadata.LoadedAddresses getLoadedAddresses() {
+            return loadedAddresses;
+        }
+
+        @Override
+        public List<Long> getPreBalances() {
+            return preBalances;
+        }
+
+        @Override
+        public List<Long> getPostBalances() {
+            return postBalances;
+        }
+
+        @Override
+        public List<? extends TransactionResponse.TransactionMetadata.TokenBalance> getPreTokenBalances() {
+            return preTokenBalances;
+        }
+
+        @Override
+        public List<? extends TransactionResponse.TransactionMetadata.TokenBalance> getPostTokenBalances() {
+            return postTokenBalances;
         }
 
         @Override
