@@ -42,12 +42,12 @@ public class Base58EncodingBenchmark
     @Benchmark
     public void base58DecodeBitcoinjImplementation(final Blackhole bh)
     {
-        bh.consume(org.bitcoinj.core.Base58.decode(BASE58_STRING));
+        bh.consume(org.bitcoinj.base.Base58.decode(BASE58_STRING));
     }
 
     @Benchmark
     public void base58EncodeBitcoinjImplementation(final Blackhole bh)
     {
-        bh.consume(org.bitcoinj.core.Base58.encode(BYTES));
+        bh.consume(org.bitcoinj.base.Base58.encode(BYTES));
     }
 }
