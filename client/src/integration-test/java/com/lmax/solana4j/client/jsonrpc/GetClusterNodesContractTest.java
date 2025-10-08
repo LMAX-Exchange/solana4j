@@ -17,7 +17,7 @@ public class GetClusterNodesContractTest extends SolanaClientIntegrationTestBase
     void shouldGetListOfNodes() throws SolanaJsonRpcClientException
     {
         List<ClusterNode> nodes = SOLANA_API.getClusterNodes().getResponse();
-        assertEquals(0, nodes.size(), "Actual nodes: " + nodes.stream()
+        assertEquals(1, nodes.size(), "Actual nodes: " + nodes.stream()
                 .map(node -> String.format("Node: %s, RPC: %s, Gossip: %s", node.getPublicKey(), node.getRpcAddress(), node.getGossipAddress()))
                 .collect(Collectors.joining(" | ")));
     }
