@@ -37,6 +37,9 @@ Results are saved to:
 The JMH benchmarks are automatically run as part of the GitHub Actions CI pipeline on every push and pull request. 
 Results are uploaded as artifacts and can be downloaded from the workflow run page.
 
+**Performance Regression Detection**: On pull requests, the CI automatically compares benchmark results against the master branch baseline. 
+If any benchmark shows a performance regression of more than 10%, the CI check will fail. This helps prevent performance degradation from being merged.
+
 #### Benchmark Results
 
 ##### Base58 Encoding
