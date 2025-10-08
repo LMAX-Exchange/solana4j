@@ -115,34 +115,45 @@ jobs:
             echo "No JMH results file found"
           fi
 
-      - name: Fetch baseline results from master branch
+      - name: Fetch and build baseline from master branch
         if: github.event_name == 'pull_request'
         continue-on-error: true
         run: |
-          echo "Fetching baseline benchmark results from master branch..."
-          git fetch origin master:master
+          echo "Checking if baseline benchmarks can be built from master branch..."
           
-          # Check out the baseline file from master if it exists
-          if git cat-file -e master:message-encoding/build/reports/jmh/results.json 2>/dev/null; then
-            echo "Baseline results found in git history"
-            git show master:message-encoding/build/reports/jmh/results.json > baseline-results.json
-          else
-            echo "No baseline results found in master branch, will build baseline..."
+          # Fetch master branch
+          git fetch origin master
+          
+          # Check if jmh task exists on master
+          if git show FETCH_HEAD:message-encoding/build.gradle | grep -q "task jmh"; then
+            echo "JMH tasks found on master, building baseline..."
             
             # Save current results
             cp message-encoding/build/reports/jmh/results.json current-results.json
             
-            # Check out master and run benchmarks
-            git checkout master
+            # Check out master
+            git checkout FETCH_HEAD
+            
+            # Build and run benchmarks on master with reduced iterations for speed
             ./gradlew clean :message-encoding:jmh -Pjmh.fork=1 -Pjmh.warmup=2 -Pjmh.iterations=3
-            cp message-encoding/build/reports/jmh/results.json baseline-results.json
+            
+            # Save baseline results to parent directory (outside build dir)
+            cp message-encoding/build/reports/jmh/results.json ../baseline-results.json
             
             # Return to PR branch
             git checkout -
             
+            # Move baseline to working directory
+            mv ../baseline-results.json baseline-results.json
+            
             # Restore current results
             mkdir -p message-encoding/build/reports/jmh
             cp current-results.json message-encoding/build/reports/jmh/results.json
+            
+            echo "✓ Baseline benchmark completed"
+          else
+            echo "⚠️  JMH tasks not found on master branch (first time setup)"
+            echo "Skipping baseline comparison - current results will become the baseline"
           fi
 
       - name: Compare performance with baseline
@@ -152,7 +163,7 @@ jobs:
             echo "Comparing current results with baseline..."
             python3 .github/scripts/compare_benchmarks.py baseline-results.json message-encoding/build/reports/jmh/results.json 10
           else
-            echo "No baseline results available, skipping comparison"
+            echo "⚠️  No baseline results available, skipping comparison"
           fi
 
 
