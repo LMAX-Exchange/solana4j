@@ -1,0 +1,204 @@
+name: Update Solana Versions
+
+on:
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-versions:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install requests PyGithub
+      
+      - name: Fetch Solana versions
+        id: fetch_versions
+        run: |
+          python3 << 'EOF'
+          import requests
+          import json
+          import sys
+          import re
+          from pathlib import Path
+          
+          def get_network_version(network_url):
+              """Get Solana version from a network RPC endpoint."""
+              try:
+                  response = requests.post(
+                      network_url,
+                      json={"jsonrpc": "2.0", "id": 1, "method": "getVersion"},
+                      timeout=10
+                  )
+                  if response.status_code == 200:
+                      data = response.json()
+                      version_str = data.get('result', {}).get('solana-core', '')
+                      # Extract version number (e.g., "1.18.22" from "1.18.22" or similar)
+                      match = re.search(r'(\d+\.\d+\.\d+)', version_str)
+                      if match:
+                          return match.group(1)
+              except Exception as e:
+                  print(f"Error fetching version from {network_url}: {e}", file=sys.stderr)
+              return None
+          
+          def get_latest_github_release(owner, repo):
+              """Get latest release version from GitHub repository."""
+              try:
+                  response = requests.get(
+                      f"https://api.github.com/repos/{owner}/{repo}/releases/latest",
+                      timeout=10
+                  )
+                  if response.status_code == 200:
+                      data = response.json()
+                      tag_name = data.get('tag_name', '')
+                      # Extract version number, handling various tag formats
+                      match = re.search(r'v?(\d+\.\d+\.\d+)', tag_name)
+                      if match:
+                          return match.group(1)
+              except Exception as e:
+                  print(f"Error fetching release from {owner}/{repo}: {e}", file=sys.stderr)
+              return None
+          
+          # Fetch versions from different sources
+          versions = {}
+          
+          # Network endpoints
+          print("Fetching mainnet-beta version...")
+          versions['mainnet-beta'] = get_network_version('https://api.mainnet-beta.solana.com')
+          
+          print("Fetching testnet version...")
+          versions['testnet'] = get_network_version('https://api.testnet.solana.com')
+          
+          print("Fetching devnet version...")
+          versions['devnet'] = get_network_version('https://api.devnet.solana.com')
+          
+          # Latest releases from GitHub
+          print("Fetching latest Agave release...")
+          versions['agave-latest'] = get_latest_github_release('anza-xyz', 'agave')
+          
+          print("Fetching latest Pythnet release...")
+          pythnet_version = get_latest_github_release('pyth-network', 'pythnet')
+          versions['pythnet-latest'] = pythnet_version if pythnet_version else versions.get('agave-latest')
+          
+          # Firedancer is not yet released, so we'll use Agave for now
+          print("Firedancer not yet released, using Agave version...")
+          versions['firedancer-latest'] = versions.get('agave-latest')
+          
+          # Read current version from gradle.properties
+          try:
+              with open('gradle.properties', 'r') as f:
+                  for line in f:
+                      if line.startswith('SOLANA_VERSION='):
+                          current_version = line.split('=')[1].strip()
+                          versions['current'] = current_version
+                          break
+          except Exception as e:
+              print(f"Error reading gradle.properties: {e}", file=sys.stderr)
+          
+          # Print results
+          print("\nFetched versions:")
+          for key, value in versions.items():
+              print(f"  {key}: {value}")
+          
+          # Save to file for next step
+          with open('fetched_versions.json', 'w') as f:
+              json.dump(versions, f, indent=2)
+          
+          EOF
+      
+      - name: Update solana-versions.properties
+        id: update_file
+        run: |
+          python3 << 'EOF'
+          import json
+          from datetime import datetime
+          
+          # Load fetched versions
+          with open('fetched_versions.json', 'r') as f:
+              versions = json.load(f)
+          
+          # Read existing file
+          try:
+              with open('solana-versions.properties', 'r') as f:
+                  lines = f.readlines()
+          except FileNotFoundError:
+              lines = []
+          
+          # Update or add version entries
+          updated_lines = []
+          updated_lines.append("# Solana versions for testing\n")
+          updated_lines.append("# This file is automatically updated by the update-solana-versions workflow\n")
+          updated_lines.append(f"# Last updated: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')}\n")
+          updated_lines.append("# Format: network.name=version\n")
+          updated_lines.append("\n")
+          
+          # Add all versions
+          updated_lines.append("# Current production version (from gradle.properties)\n")
+          updated_lines.append(f"current={versions.get('current', 'unknown')}\n")
+          updated_lines.append("\n")
+          
+          updated_lines.append("# Solana mainnet-beta network\n")
+          updated_lines.append(f"mainnet-beta={versions.get('mainnet-beta', 'unknown')}\n")
+          updated_lines.append("\n")
+          
+          updated_lines.append("# Solana testnet network\n")
+          updated_lines.append(f"testnet={versions.get('testnet', 'unknown')}\n")
+          updated_lines.append("\n")
+          
+          updated_lines.append("# Solana devnet network\n")
+          updated_lines.append(f"devnet={versions.get('devnet', 'unknown')}\n")
+          updated_lines.append("\n")
+          
+          updated_lines.append("# Latest Agave release\n")
+          updated_lines.append(f"agave-latest={versions.get('agave-latest', 'unknown')}\n")
+          updated_lines.append("\n")
+          
+          updated_lines.append("# Latest Pythnet release (if different from Agave)\n")
+          updated_lines.append(f"pythnet-latest={versions.get('pythnet-latest', 'unknown')}\n")
+          updated_lines.append("\n")
+          
+          updated_lines.append("# Latest Firedancer release (when available)\n")
+          updated_lines.append(f"firedancer-latest={versions.get('firedancer-latest', 'unknown')}\n")
+          
+          # Write updated file
+          with open('solana-versions.properties', 'w') as f:
+              f.writelines(updated_lines)
+          
+          print("Updated solana-versions.properties")
+          EOF
+      
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet solana-versions.properties; then
+            echo "No changes detected"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            git diff solana-versions.properties
+          fi
+      
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add solana-versions.properties
+          git commit -m "chore: Update Solana versions from networks and releases"
+          git push
