@@ -200,6 +200,7 @@ public final class SolanaEncoding
 
     /**
      * Copies the contents of a {@link ByteBuffer} into a new byte array.
+     *
      * <p>
      * This method creates a new byte array that contains the exact content of the provided {@code ByteBuffer}.
      * The position, limit, and capacity of the original {@code ByteBuffer} are not modified.

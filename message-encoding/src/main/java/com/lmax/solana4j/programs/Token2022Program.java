@@ -7,6 +7,7 @@ import com.lmax.solana4j.encoding.SolanaEncoding;
 
 /**
  * Program for managing token 2022 operations on the blockchain.
+ *
  * <p>
  * This class extends the {@link TokenProgramBase} class to support token 2022 specific operations.
  * It provides functionality to create transactions and manage token accounts under the solana token 2022 program.
@@ -45,6 +46,7 @@ public final class Token2022Program extends TokenProgramBase
 
     /**
      * Inner factory class for creating transactions for the Token 2022 program using a token program id and {@link TransactionBuilder}.
+     *
      * <p>
      * This factory extends the {@link TokenProgramBaseFactory} class to provide functionality specific to the Token 2022 program.
      * </p>
