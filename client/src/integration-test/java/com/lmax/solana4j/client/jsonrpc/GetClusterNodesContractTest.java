@@ -4,6 +4,9 @@ import com.lmax.solana4j.client.api.ClusterNode;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,7 +16,10 @@ public class GetClusterNodesContractTest extends SolanaClientIntegrationTestBase
     @Test
     void shouldGetListOfNodes() throws SolanaJsonRpcClientException
     {
-        assertEquals(1, SOLANA_API.getClusterNodes().getResponse().size());
+        List<ClusterNode> nodes = SOLANA_API.getClusterNodes().getResponse();
+        assertEquals(0, nodes.size(), "Actual nodes: " + nodes.stream()
+                .map(node -> String.format("Node: %s, RPC: %s, Gossip: %s", node.getPublicKey(), node.getRpcAddress(), node.getGossipAddress()))
+                .collect(Collectors.joining(" | ")));
     }
 
     @Test
