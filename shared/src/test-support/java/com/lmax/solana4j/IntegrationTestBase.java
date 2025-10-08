@@ -59,7 +59,7 @@ public abstract class IntegrationTestBase
 
             SOLANA_VALIDATOR = new GenericContainer<>(new ImageFromDockerfile().withDockerfile(dockerfilePath).withBuildArg("SOLANA_VERSION", solanaVersion))
                     .withExposedPorts(SOLANA_HTTP_PORT, SOLANA_WS_PORT)
-                    .withEnv("SOLANA_RUN_SH_VALIDATOR_ARGS", "--ticks-per-slot=8")
+                    .withEnv("SOLANA_RUN_SH_VALIDATOR_ARGS", "--ticks-per-slot=16")
                     .withNetwork(NETWORK)
                     .withStartupTimeout(Duration.of(10, ChronoUnit.MINUTES));
 
