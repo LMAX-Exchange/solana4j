@@ -19,6 +19,7 @@ The automation consists of two main workflows:
   - Pyth Network's Pythnet repository (https://github.com/pyth-network/pythnet)
   - Firedancer repository (https://github.com/firedancer-io/firedancer) - when available
 - Updates the `solana-versions.properties` file with the fetched versions
+- Preserves existing versions if new versions cannot be fetched (network failures, etc.)
 - Commits changes directly to the repository if new versions are detected
 
 **Configuration**:

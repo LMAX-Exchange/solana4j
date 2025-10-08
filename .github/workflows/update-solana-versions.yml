@@ -132,12 +132,28 @@ jobs:
           with open('fetched_versions.json', 'r') as f:
               versions = json.load(f)
           
-          # Read existing file
+          # Read existing file to preserve versions that couldn't be fetched
+          existing_versions = {}
           try:
               with open('solana-versions.properties', 'r') as f:
-                  lines = f.readlines()
+                  for line in f:
+                      line = line.strip()
+                      if line and not line.startswith('#') and '=' in line:
+                          key, value = line.split('=', 1)
+                          if value != 'unknown':
+                              existing_versions[key] = value
           except FileNotFoundError:
-              lines = []
+              pass
+          
+          # Merge: prefer new versions, fall back to existing if new is None
+          def get_version(key):
+              new_val = versions.get(key)
+              if new_val and new_val != 'unknown':
+                  return new_val
+              existing_val = existing_versions.get(key)
+              if existing_val and existing_val != 'unknown':
+                  return existing_val
+              return 'unknown'
           
           # Update or add version entries
           updated_lines = []
@@ -149,31 +165,31 @@ jobs:
           
           # Add all versions
           updated_lines.append("# Current production version (from gradle.properties)\n")
-          updated_lines.append(f"current={versions.get('current', 'unknown')}\n")
+          updated_lines.append(f"current={get_version('current')}\n")
           updated_lines.append("\n")
           
           updated_lines.append("# Solana mainnet-beta network\n")
-          updated_lines.append(f"mainnet-beta={versions.get('mainnet-beta', 'unknown')}\n")
+          updated_lines.append(f"mainnet-beta={get_version('mainnet-beta')}\n")
           updated_lines.append("\n")
           
           updated_lines.append("# Solana testnet network\n")
-          updated_lines.append(f"testnet={versions.get('testnet', 'unknown')}\n")
+          updated_lines.append(f"testnet={get_version('testnet')}\n")
           updated_lines.append("\n")
           
           updated_lines.append("# Solana devnet network\n")
-          updated_lines.append(f"devnet={versions.get('devnet', 'unknown')}\n")
+          updated_lines.append(f"devnet={get_version('devnet')}\n")
           updated_lines.append("\n")
           
           updated_lines.append("# Latest Agave release\n")
-          updated_lines.append(f"agave-latest={versions.get('agave-latest', 'unknown')}\n")
+          updated_lines.append(f"agave-latest={get_version('agave-latest')}\n")
           updated_lines.append("\n")
           
           updated_lines.append("# Latest Pythnet release (if different from Agave)\n")
-          updated_lines.append(f"pythnet-latest={versions.get('pythnet-latest', 'unknown')}\n")
+          updated_lines.append(f"pythnet-latest={get_version('pythnet-latest')}\n")
           updated_lines.append("\n")
           
           updated_lines.append("# Latest Firedancer release (when available)\n")
-          updated_lines.append(f"firedancer-latest={versions.get('firedancer-latest', 'unknown')}\n")
+          updated_lines.append(f"firedancer-latest={get_version('firedancer-latest')}\n")
           
           # Write updated file
           with open('solana-versions.properties', 'w') as f:
