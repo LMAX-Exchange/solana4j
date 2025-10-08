@@ -40,9 +40,9 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
     public String toString()
     {
         return "SimulateTransactionResponseDTO{" +
-               "context=" + context +
-               ", value=" + value +
-               '}';
+                "context=" + context +
+                ", value=" + value +
+                '}';
     }
 
     public static final class SimulateTransactionValueDTO implements SimulateTransactionResponse
@@ -146,32 +146,38 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
         }
 
         @Override
-        public int getLoadedAccountsDataSize() {
+        public int getLoadedAccountsDataSize()
+        {
             return loadedAccountsDataSize;
         }
 
         @Override
-        public TransactionResponse.TransactionMetadata.LoadedAddresses getLoadedAddresses() {
+        public TransactionResponse.TransactionMetadata.LoadedAddresses getLoadedAddresses()
+        {
             return loadedAddresses;
         }
 
         @Override
-        public List<Long> getPreBalances() {
+        public List<Long> getPreBalances()
+        {
             return preBalances;
         }
 
         @Override
-        public List<Long> getPostBalances() {
+        public List<Long> getPostBalances()
+        {
             return postBalances;
         }
 
         @Override
-        public List<? extends TransactionResponse.TransactionMetadata.TokenBalance> getPreTokenBalances() {
+        public List<? extends TransactionResponse.TransactionMetadata.TokenBalance> getPreTokenBalances()
+        {
             return preTokenBalances;
         }
 
         @Override
-        public List<? extends TransactionResponse.TransactionMetadata.TokenBalance> getPostTokenBalances() {
+        public List<? extends TransactionResponse.TransactionMetadata.TokenBalance> getPostTokenBalances()
+        {
             return postTokenBalances;
         }
 
