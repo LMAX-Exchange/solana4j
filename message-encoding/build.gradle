@@ -149,6 +149,19 @@ task integrationTest(type: Test) {
     maxHeapSize = "1g"
 }
 
+task jmh(type: JavaExec) {
+    description = 'Runs JMH benchmarks.'
+    group = 'benchmark'
+    mainClass = 'org.openjdk.jmh.Main'
+    classpath = sourceSets.jmhTest.runtimeClasspath + sourceSets.testSupport.runtimeClasspath
+
+    doFirst {
+        file('build/reports/jmh').mkdirs()
+    }
+
+    args = ['-rf', 'json', '-rff', 'build/reports/jmh/result.json']
+}
+
 check.dependsOn unitTest
 check.dependsOn integrationTest
 check.dependsOn checkstyleMain
