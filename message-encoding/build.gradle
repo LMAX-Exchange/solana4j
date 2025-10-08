@@ -1,11 +1,11 @@
 plugins {
     id 'java'
     id 'java-library'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'com.gradleup.shadow' version '9.2.2'
     id 'maven-publish'
     id 'checkstyle'
-    id 'org.jreleaser' version '1.14.0'
-    id 'com.autonomousapps.dependency-analysis' version '2.2.0'
+    id 'org.jreleaser' version '1.20.0'
+    id 'com.autonomousapps.dependency-analysis' version '3.0.4'
 }
 
 def solanaVersion = project.rootProject.property('SOLANA_VERSION')
@@ -89,6 +89,7 @@ dependencies {
     testRuntimeOnly project(path: ':shared', configuration: 'sharedTestSupport')
 
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
 
     // integration test dependencies
@@ -147,6 +148,11 @@ task integrationTest(type: Test) {
         showStackTraces true
     }
     maxHeapSize = "1g"
+}
+
+// Disable the default test task since we use custom unitTest task
+tasks.named('test') {
+    enabled = false
 }
 
 check.dependsOn unitTest
