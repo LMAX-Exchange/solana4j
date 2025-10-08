@@ -41,13 +41,23 @@ The automation consists of two main workflows:
 **What it does**:
 1. **Prepare Matrix**: Reads `solana-versions.properties` using `prepare_matrix.py` and creates a test matrix with all unique versions
 2. **Test Execution**: For each version in the matrix:
-   - Updates `gradle.properties` with the specific Solana version
-   - Runs the full Gradle build including tests
+   - Updates `gradle.properties` with the specific Solana version via `SOLANA_VERSION` property
+   - Gradle reads this property and passes it to integration tests as a system property
+   - Runs the full Gradle build including tests (integration tests use this version with Testcontainers)
    - Saves test results as artifacts
 3. **Failure Reporting**: If any tests fail:
    - Creates a GitHub issue with details about the failure
    - Links to workflow run and test artifacts
    - Adds to existing open issue if one already exists
+
+**Version Flow**:
+```
+workflow → gradle.properties (SOLANA_VERSION=X.Y.Z)
+         → build.gradle reads property
+         → integrationTest task sets systemProperty 'solana.version'
+         → IntegrationTestBase.java reads System.getProperty("solana.version")
+         → Testcontainers uses version to pull Docker image
+```
 
 **Benefits**:
 - Parallel execution speeds up testing

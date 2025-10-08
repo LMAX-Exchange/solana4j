@@ -53,6 +53,8 @@ jobs:
       
       - name: Update Solana version in gradle.properties
         run: |
+          # Update SOLANA_VERSION property which is read by build.gradle
+          # and passed to integration tests via systemProperty
           sed -i "s/SOLANA_VERSION=.*/SOLANA_VERSION=${{ matrix.version }}/" gradle.properties
           echo "Testing with Solana version ${{ matrix.version }} (label: ${{ matrix.label }})"
           cat gradle.properties
