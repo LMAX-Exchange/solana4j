@@ -40,4 +40,4 @@ bin/
 
 cosign.pem
 
-javadoc/
+javadoc/__pycache__/
