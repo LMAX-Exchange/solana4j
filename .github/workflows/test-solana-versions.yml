@@ -1,7 +1,7 @@
 name: Test Solana Versions Matrix
 
 on:
-  # Run on pushes to master
+  # Run on pushes to master after the standard CI passes
   push:
     branches: [ "master" ]
   # Run on PRs targeting master
