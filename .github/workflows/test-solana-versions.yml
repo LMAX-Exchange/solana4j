@@ -1,11 +1,17 @@
 name: Test Solana Versions Matrix
 
 on:
+  # Run on pushes to master
   push:
     branches: [ "master" ]
+  # Run on PRs targeting master
   pull_request:
     branches: [ "master" ]
+  # Allow manual trigger
   workflow_dispatch:
+  # Run daily to catch new version issues quickly
+  schedule:
+    - cron: '0 4 * * *'  # Daily at 4 AM UTC (after version update at 2 AM)
 
 permissions:
   contents: read
