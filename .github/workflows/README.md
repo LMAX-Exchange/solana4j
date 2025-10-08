@@ -23,7 +23,9 @@ The automation consists of two main workflows:
 - Commits changes directly to the repository if new versions are detected
 
 **Configuration**:
-- The workflow uses Python to make HTTP requests to RPC endpoints and GitHub API
+- The workflow uses Python scripts located in `.github/scripts/`:
+  - `fetch_versions.py`: Makes HTTP requests to RPC endpoints and GitHub API
+  - `update_versions_file.py`: Updates the properties file with new versions
 - Network timeouts are set to 10 seconds
 - Failed requests are logged but don't fail the workflow
 
@@ -37,7 +39,7 @@ The automation consists of two main workflows:
 - Manual trigger via `workflow_dispatch`
 
 **What it does**:
-1. **Prepare Matrix**: Reads `solana-versions.properties` and creates a test matrix with all unique versions
+1. **Prepare Matrix**: Reads `solana-versions.properties` using `prepare_matrix.py` and creates a test matrix with all unique versions
 2. **Test Execution**: For each version in the matrix:
    - Updates `gradle.properties` with the specific Solana version
    - Runs the full Gradle build including tests
@@ -55,11 +57,16 @@ The automation consists of two main workflows:
 ## File Structure
 
 ```
-.github/workflows/
-├── update-solana-versions.yml   # Scheduled version updates
-└── test-solana-versions.yml     # Matrix testing workflow
+.github/
+├── scripts/
+│   ├── fetch_versions.py            # Fetches versions from networks and GitHub
+│   ├── update_versions_file.py      # Updates properties file with fetched versions
+│   └── prepare_matrix.py            # Creates test matrix from properties file
+└── workflows/
+    ├── update-solana-versions.yml   # Scheduled version updates
+    └── test-solana-versions.yml     # Matrix testing workflow
 
-solana-versions.properties        # Version tracking file
+solana-versions.properties            # Version tracking file
 ```
 
 ## Solana Versions Properties File
@@ -90,6 +97,29 @@ firedancer-latest=2.1.21
 ```
 
 This file is automatically updated by the `update-solana-versions` workflow and should not be manually edited.
+
+## Python Scripts
+
+The automation uses Python scripts located in `.github/scripts/`:
+
+### `fetch_versions.py`
+Queries Solana networks and GitHub releases to discover current versions:
+- Networks: mainnet-beta, testnet, devnet (via RPC)
+- GitHub: Agave, Pythnet, Firedancer (via GitHub API)
+- Outputs: `fetched_versions.json`
+
+### `update_versions_file.py`
+Updates `solana-versions.properties` with fetched versions:
+- Preserves existing versions if new ones can't be fetched
+- Adds timestamp to properties file
+- Maintains consistent format
+
+### `prepare_matrix.py`
+Creates GitHub Actions matrix configuration:
+- Parses `solana-versions.properties`
+- Deduplicates versions
+- Outputs JSON matrix for parallel testing
+- Falls back to `gradle.properties` if versions file not found
 
 ## Manual Testing
 
