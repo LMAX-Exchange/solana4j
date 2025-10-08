@@ -65,6 +65,13 @@ public interface SimulateTransactionResponse
     long getFee();
 
     /**
+     * Returns the loaded accounts data size for the transaction simulation.
+     *
+     * @return the transaction loaded accounts data size
+     */
+    int getLoadedAccountsDataSize();
+
+    /**
      * Returns the addresses that were loaded during the transaction simulation.
      * Loaded addresses may include writable or read-only addresses that provide data
      * or permissions necessary for the transaction's execution.

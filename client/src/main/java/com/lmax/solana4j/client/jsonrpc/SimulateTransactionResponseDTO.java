@@ -60,6 +60,7 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
         private final List<Long> preBalances;
         private final List<TransactionResponseDTO.TokenBalanceDTO> preTokenBalances;
         private TransactionResponseDTO.LoadedAddressesDTO loadedAddresses;
+        private int loadedAccountsDataSize;
 
         @JsonCreator
         SimulateTransactionValueDTO(
@@ -75,7 +76,8 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
                 final @JsonProperty("postBalances") List<Long> postBalances,
                 final @JsonProperty("postTokenBalances") List<TransactionResponseDTO.TokenBalanceDTO> postTokenBalances,
                 final @JsonProperty("preBalances") List<Long> preBalances,
-                final @JsonProperty("preTokenBalances") List<TransactionResponseDTO.TokenBalanceDTO> preTokenBalances)
+                final @JsonProperty("preTokenBalances") List<TransactionResponseDTO.TokenBalanceDTO> preTokenBalances,
+                final @JsonProperty("loadedAccountsDataSize") int loadedAccountsDataSize)
         {
             this.err = err;
             this.logs = logs;
@@ -90,6 +92,7 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
             this.preBalances = preBalances;
             this.preTokenBalances = preTokenBalances;
             this.loadedAddresses = loadedAddresses;
+            this.loadedAccountsDataSize = loadedAccountsDataSize;
         }
 
         @Override
@@ -140,6 +143,11 @@ final class SimulateTransactionResponseDTO implements SolanaRpcResponse<Simulate
         public long getFee()
         {
             return fee;
+        }
+
+        @Override
+        public int getLoadedAccountsDataSize() {
+            return loadedAccountsDataSize;
         }
 
         @Override
