@@ -74,7 +74,7 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
     {
         final var response = SOLANA_API.simulateTransaction(mintToTransactionBlobBase64).getResponse();
 
-        assertThat(response.getUnitsConsumed()).isEqualTo(958);
+        assertThat(response.getUnitsConsumed()).isEqualTo(1038);
         assertThat(response.getLogs().size()).isEqualTo(4);
         // inner instructions are program invocations that occur inside the execution of a main (outer)
         // transaction instruction
@@ -152,7 +152,7 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
 
         final var response = SOLANA_API.simulateTransaction(mintToTransactionBlobBase58, optionalParams);
 
-        assertThat(response.getResponse().getUnitsConsumed()).isEqualTo(958);
+        assertThat(response.getResponse().getUnitsConsumed()).isEqualTo(1038);
         assertThat(response.getResponse().getLogs().size()).isEqualTo(4);
         assertThat(response.getResponse().getErr()).isNull();
     }
