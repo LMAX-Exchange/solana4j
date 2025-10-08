@@ -4,7 +4,40 @@ This `solana4j` library re-implements a few crucial pieces of functionality that
 mostly to avoid it requiring any direct dependencies. We thought it would be fun to compare the performance of our implementations
 to that of these standard libraries.
 
-To run the JMH benchmarks, it is easiest to run via `IntelliJ` with the `JMH Java Microbenchmark Harness` plugin installed.
+#### Running Benchmarks
+
+You can run the JMH benchmarks in several ways:
+
+1. **Using Gradle** (recommended):
+   ```bash
+   # Run benchmarks with full iterations (takes ~5-10 minutes)
+   ./gradlew :message-encoding:jmh
+   
+   # Run benchmarks with text output
+   ./gradlew :message-encoding:jmhReport
+   
+   # Quick test run with reduced iterations
+   ./gradlew :message-encoding:jmh -Pjmh.fork=1 -Pjmh.warmup=1 -Pjmh.iterations=1
+   ```
+
+2. **Using IntelliJ**: Install the `JMH Java Microbenchmark Harness` plugin and run benchmarks directly from the IDE.
+
+3. **Using the JAR directly**:
+   ```bash
+   ./gradlew :message-encoding:jmhJar
+   java -jar message-encoding/build/libs/jmh-benchmarks-*-benchmarks.jar
+   ```
+
+Results are saved to:
+- JSON format: `message-encoding/build/reports/jmh/results.json`
+- Text format: `message-encoding/build/reports/jmh/results.txt`
+
+#### CI Integration
+
+The JMH benchmarks are automatically run as part of the GitHub Actions CI pipeline on every push and pull request. 
+Results are uploaded as artifacts and can be downloaded from the workflow run page.
+
+#### Benchmark Results
 
 ##### Base58 Encoding
 
@@ -31,6 +64,7 @@ EddsaPointOnCurveBenchmark.pointNotOnCurveSolana4jImplementation  thrpt   10   8
 EddsaPointOnCurveBenchmark.pointOnCurveEddsaImplementation        thrpt   10   83929.318 ± 3607.478  ops/s
 EddsaPointOnCurveBenchmark.pointOnCurveSolana4jImplementation     thrpt   10   84799.239 ± 5135.192  ops/s
 ```
+
 
 
 
