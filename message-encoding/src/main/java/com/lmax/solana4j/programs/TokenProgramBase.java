@@ -15,6 +15,7 @@ import static com.lmax.solana4j.encoding.SysVar.RENT;
 
 /**
  * Abstract base class for managing token operations on the blockchain.
+ *
  * <p>
  * This class defines the common operations for interacting with Solana token programs,
  * including minting tokens, transferring tokens, initializing accounts, and managing authorities.
@@ -24,6 +25,7 @@ public abstract class TokenProgramBase
 {
     /**
      * The instruction code for initializing a mint.
+     *
      * <p>
      * This constant defines the instruction code used to initialize a new mint in the Solana token program.
      * </p>
@@ -31,6 +33,7 @@ public abstract class TokenProgramBase
     public static final int INITIALIZE_MINT_INSTRUCTION = 0;
     /**
      * The instruction code for initializing an account.
+     *
      * <p>
      * This constant defines the instruction code used to initialize a new account in the Solana token program.
      * </p>
@@ -38,6 +41,7 @@ public abstract class TokenProgramBase
     public static final int INITIALIZE_ACCOUNT_INSTRUCTION = 1;
     /**
      * The instruction code for initializing a multisig account.
+     *
      * <p>
      * This constant defines the instruction code used to initialize a new multisig account in the Solana token program.
      * </p>
@@ -45,6 +49,7 @@ public abstract class TokenProgramBase
     public static final int INITIALIZE_MULTISIG_INSTRUCTION = 2;
     /**
      * The instruction code for transferring tokens.
+     *
      * <p>
      * This constant defines the instruction code used to transfer tokens between accounts in the Solana token program.
      * </p>
@@ -52,6 +57,7 @@ public abstract class TokenProgramBase
     public static final int TRANSFER_INSTRUCTION = 3;
     /**
      * The instruction code for setting an authority.
+     *
      * <p>
      * This constant defines the instruction code used to set a new authority for a token account in the Solana token program.
      * </p>
@@ -59,6 +65,7 @@ public abstract class TokenProgramBase
     public static final int SET_AUTHORITY_INSTRUCTION = 6;
     /**
      * The instruction code for minting new tokens to an account.
+     *
      * <p>
      * This constant defines the instruction code used to mint new tokens to an existing account in the Solana token program.
      * </p>
@@ -67,6 +74,7 @@ public abstract class TokenProgramBase
 
     /**
      * Returns the program id for the Token Program.
+     *
      * <p>
      * This method provides the public key associated with the solana token program, which is necessary for
      * transactions involving token accounts.
@@ -182,6 +190,7 @@ public abstract class TokenProgramBase
 
     /**
      * Factory class for managing token program operations with a {@link TransactionBuilder}.
+     *
      * <p>
      * This class provides methods for building token program-related transactions in a fluent manner.
      * </p>

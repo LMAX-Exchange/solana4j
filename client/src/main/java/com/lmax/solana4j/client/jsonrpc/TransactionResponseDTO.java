@@ -89,16 +89,16 @@ final class TransactionResponseDTO implements TransactionResponse
 
     static final class MetaDTO implements TransactionMetadata
     {
-        public final Object err;
-        public final long fee;
-        public final List<InnerInstructionDTO> innerInstructions;
-        public final List<String> logMessages;
-        public final List<Long> postBalances;
-        public final List<TokenBalanceDTO> postTokenBalances;
-        public final List<Long> preBalances;
-        public final List<TokenBalanceDTO> preTokenBalances;
-        public final List<RewardDTO> rewards;
-        public final long computeUnitsConsumed;
+        private final Object err;
+        private final long fee;
+        private final List<InnerInstructionDTO> innerInstructions;
+        private final List<String> logMessages;
+        private final List<Long> postBalances;
+        private final List<TokenBalanceDTO> postTokenBalances;
+        private final List<Long> preBalances;
+        private final List<TokenBalanceDTO> preTokenBalances;
+        private final List<RewardDTO> rewards;
+        private final long computeUnitsConsumed;
         private final LoadedAddressesDTO loadedAddresses;
         private final Map.Entry<String, Object> status;
 
@@ -842,7 +842,7 @@ final class TransactionResponseDTO implements TransactionResponse
                 return parsedInstruction;
             }
 
-            private static class InstructionParsedDeserializer extends JsonDeserializer<InstructionParsedDTO>
+            private static final class InstructionParsedDeserializer extends JsonDeserializer<InstructionParsedDTO>
             {
                 @Override
                 public InstructionParsedDTO deserialize(final JsonParser parser, final DeserializationContext context) throws IOException

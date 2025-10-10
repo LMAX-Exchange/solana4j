@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  * Utility class for encoding and decoding base58.
+ *
  * <p>
  * Base58 is commonly used in cryptocurrency systems like Bitcoin to encode large numbers into a shorter, human-readable string format.
  * It avoids characters that can cause confusion, such as '0' (zero), 'O' (capital o), 'l' (lowercase L), and 'I' (capital I).
@@ -30,6 +31,7 @@ final class Base58
 
     /**
      * Encodes the given byte array as a Base58 string.
+     *
      * <p>
      * The input byte array is treated as a large integer, and is encoded into a Base58 string using the Base58 alphabet.
      * Leading zeros in the byte array are preserved as '1' characters in the resulting Base58 string.
@@ -80,10 +82,12 @@ final class Base58
 
     /**
      * Decodes the given Base58 string into a byte array.
+     *
      * <p>
      * The input Base58 string is treated as a large integer, and decoded into a byte array.
      * Leading '1' characters in the Base58 string are treated as leading zeros in the byte array.
      * </p>
+     *
      * @param input the Base58 string to decode
      * @return the decoded byte array
      * @throws IllegalArgumentException if the input contains invalid Base58 characters
