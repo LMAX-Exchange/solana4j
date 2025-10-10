@@ -43,6 +43,7 @@ public interface MessageBuilderLegacy
 
     /**
      * Seals the legacy message and returns a sealed message builder.
+     *
      * <p>
      * This method finalizes the construction of a legacy message, ensuring that all required data is
      * properly written into the buffer. It then returns a {@link SealedMessageBuilder} instance representing

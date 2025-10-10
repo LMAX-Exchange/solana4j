@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'checkstyle'
-    id 'com.autonomousapps.dependency-analysis' version '2.2.0'
+    id 'com.autonomousapps.dependency-analysis' version '3.0.4'
 }
 
 def solanaVersion = project.property('SOLANA_VERSION')
