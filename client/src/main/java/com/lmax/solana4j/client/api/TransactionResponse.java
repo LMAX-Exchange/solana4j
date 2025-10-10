@@ -402,10 +402,14 @@ public interface TransactionResponse
                  */
                 enum KeySource
                 {
-                    /** The key originates from the transaction. */
+                    /**
+                     * The key originates from the transaction.
+                     */
                     TRANSACTION,
 
-                    /** The key originates from an address lookup table. */
+                    /**
+                     * The key originates from an address lookup table.
+                     */
                     LOOKUPTABLE
                 }
 

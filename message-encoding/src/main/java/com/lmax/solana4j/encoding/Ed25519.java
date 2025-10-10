@@ -5,13 +5,17 @@ import java.nio.ByteBuffer;
 
 /**
  * Utility class for performing Ed25519 elliptic curve operations.
+ *
  * <p>
  * This class provides a method to check whether a given public key, represented as a 32-byte array,
  * lies on the Ed25519 elliptic curve. It handles key validation by leveraging the curve equation
  * and modular arithmetic.
  * </p>
+ *
+ * <p>
  * The Ed25519 curve equation is:
  * dx^2y^2 + x^2 = y^2 - 1 (mod P), where d is a curve constant.
+ * </p>
  */
 final class Ed25519
 {
