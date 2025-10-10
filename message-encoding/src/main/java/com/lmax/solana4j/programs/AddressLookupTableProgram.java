@@ -24,6 +24,7 @@ public final class AddressLookupTableProgram
 
     /**
      * The public key for the address lookup table program account.
+     *
      * <p>
      * This constant defines the public key associated with the solana account for the address lookup table program.
      * It is set to the value returned by {@link Solana#account(byte[])} using the {@link #ADDRESS_LOOKUP_TABLE_PROGRAM}.
@@ -33,6 +34,7 @@ public final class AddressLookupTableProgram
 
     /**
      * The instruction code for creating a lookup table.
+     *
      * <p>
      * This constant defines the instruction code used to create a new address lookup table in Solana.
      * </p>
@@ -41,6 +43,7 @@ public final class AddressLookupTableProgram
 
     /**
      * The instruction code for extending a lookup table.
+     *
      * <p>
      * This constant defines the instruction code used to extend an existing address lookup table in Solana.
      * </p>
@@ -49,6 +52,7 @@ public final class AddressLookupTableProgram
 
     /**
      * The size of the lookup table metadata in bytes.
+     *
      * <p>
      * This constant defines the fixed size of the metadata for an address lookup table in Solana.
      * </p>
