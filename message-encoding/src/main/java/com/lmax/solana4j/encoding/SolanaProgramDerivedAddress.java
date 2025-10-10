@@ -15,7 +15,7 @@ import static java.util.Objects.requireNonNull;
 
 final class SolanaProgramDerivedAddress implements ProgramDerivedAddress
 {
-    public static final byte[] PROGRAM_DERIVED_ADDRESS_BYTES = "ProgramDerivedAddress".getBytes(StandardCharsets.UTF_8);
+    private static final byte[] PROGRAM_DERIVED_ADDRESS_BYTES = "ProgramDerivedAddress".getBytes(StandardCharsets.UTF_8);
     private static final int BUMP_LENGTH = 1;
 
     final PublicKey address;

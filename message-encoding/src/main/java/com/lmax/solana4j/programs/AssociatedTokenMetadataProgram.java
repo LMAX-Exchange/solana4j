@@ -20,6 +20,7 @@ public final class AssociatedTokenMetadataProgram
 
     /**
      * The magic string used for metadata.
+     *
      * <p>
      * This constant defines the magic string "metadata" used in deriving the associated token metadata address.
      * </p>
@@ -42,6 +43,7 @@ public final class AssociatedTokenMetadataProgram
 
     /**
      * Derives the program address for the given mint.
+     *
      * <p>
      * This method derives the program address for a specific token mint by using a combination of the
      * metadata magic string, the associated token metadata program id, and the mint's public key.

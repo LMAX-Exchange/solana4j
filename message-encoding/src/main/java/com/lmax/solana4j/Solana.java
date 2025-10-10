@@ -19,6 +19,7 @@ import java.util.function.Consumer;
 
 /**
  * Entrypoint to the library's APIs.
+ *
  * <p>
  * This class provides the entrypoint to the underlying APIs that this library provides.
  * </p>
@@ -32,6 +33,7 @@ public final class Solana
 
     /**
      * The maximum size for a message.
+     *
      * <p>
      * This constant defines the maximum allowable size for a message in the Solana encoding.
      * It is set to {@link SolanaEncoding#MAX_MESSAGE_SIZE}.

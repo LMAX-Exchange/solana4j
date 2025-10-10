@@ -56,6 +56,7 @@ public interface MessageVisitor<T>
 
         /**
          * Returns a duplicate of the transaction data as a {@link ByteBuffer}.
+         *
          * <p>
          * The returned buffer is created by calling {@code duplicate()} on the underlying transaction data buffer.
          * Its position is set to 0, its limit is set to its capacity, and its capacity will be the size of the transaction in bytes.
@@ -69,6 +70,7 @@ public interface MessageVisitor<T>
 
         /**
          * Retrieves the stored signature for the given account as a {@link ByteBuffer}.
+         *
          * <p>
          * This method returns a read-only buffer containing the signature.
          * The buffer's position is set to 0, and its limit is set to its capacity.
@@ -134,6 +136,7 @@ public interface MessageVisitor<T>
 
     /**
      * Interface representing a view of a Solana V0 message.
+     *
      * <p>
      * This interface extends the {@link LegacyMessageView} and provides additional methods
      * specific to V0 messages
@@ -151,6 +154,7 @@ public interface MessageVisitor<T>
 
         /**
          * Retrieves the list of account lookups in the message.
+         *
          * <p>
          * Account lookup tables help optimize the transaction by referencing accounts indirectly,
          * allowing for more efficient and flexible transaction structures.
@@ -212,6 +216,7 @@ public interface MessageVisitor<T>
 
         /**
          * Returns a duplicate of the instruction data as a {@link ByteBuffer}.
+         *
          * <p>
          * The returned buffer is created by calling {@code duplicate()} on the underlying instruction data buffer.
          * Its position is set to 0, its limit is set to its capacity, and its capacity will be the size of the instruction in bytes.
@@ -326,6 +331,7 @@ public interface MessageVisitor<T>
 
     /**
      * Interface representing a view of legacy accounts of a Solana Message.
+     *
      * <p>
      * Extends the {@link AccountsView} interface to represent legacy account views.
      * </p>
@@ -336,6 +342,7 @@ public interface MessageVisitor<T>
 
     /**
      * Interface representing a view of V0 accounts of a Solana Message.
+     *
      * <p>
      * Extends the {@link AccountsView} interface and provides methods specific to V0 accounts.
      * </p>

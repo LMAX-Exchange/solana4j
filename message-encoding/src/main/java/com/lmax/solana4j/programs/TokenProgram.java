@@ -7,6 +7,7 @@ import com.lmax.solana4j.encoding.SolanaEncoding;
 
 /**
  * Program for managing token operations on the blockchain.
+ *
  * <p>
  * This class provides functionality to manage solana token accounts, including operations such as creating,
  * initializing, and interacting with token accounts under the solana token program.
@@ -45,6 +46,7 @@ public final class TokenProgram extends TokenProgramBase
 
     /**
      * Factory method for creating a new instance of {@code TokenProgramFactory}.
+     *
      * <p>
      * The factory method provides a mechanism for creating transactions and managing token accounts using
      * the provided {@link TransactionBuilder}.
@@ -60,6 +62,7 @@ public final class TokenProgram extends TokenProgramBase
 
     /**
      * Inner factory class for creating transactions for the Token Program using a token program id and {@link TransactionBuilder}.
+     *
      * <p>
      * This factory extends the {@link TokenProgramBase.TokenProgramBaseFactory} class to provide functionality
      * specific to the Solana Token Program.

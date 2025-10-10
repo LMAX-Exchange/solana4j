@@ -2,6 +2,7 @@ package com.lmax.solana4j.api;
 
 /**
  * Interface representing a program derived address.
+ *
  * <p>
  * A program derived address is an address derived from a program id and a set of seeds.
  * </p>

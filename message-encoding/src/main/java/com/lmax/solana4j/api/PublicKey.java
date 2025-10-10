@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 
 /**
  * Interface representing a public key.
+ *
  * <p>
  * A public key is used to identify accounts on the blockchain.
  * </p>
