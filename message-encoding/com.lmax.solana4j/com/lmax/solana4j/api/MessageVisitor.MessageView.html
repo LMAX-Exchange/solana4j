@@ -306,6 +306,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>transaction</h4>
 <pre class="methodSignature">java.nio.ByteBuffer&nbsp;transaction()</pre>
 <div class="block">Returns a duplicate of the transaction data as a <code>ByteBuffer</code>.
+
  <p>
  The returned buffer is created by calling <code>duplicate()</code> on the underlying transaction data buffer.
  Its position is set to 0, its limit is set to its capacity, and its capacity will be the size of the transaction in bytes.
@@ -326,6 +327,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>signature</h4>
 <pre class="methodSignature">java.nio.ByteBuffer&nbsp;signature&#8203;(<a href="PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;account)</pre>
 <div class="block">Retrieves the stored signature for the given account as a <code>ByteBuffer</code>.
+
  <p>
  This method returns a read-only buffer containing the signature.
  The buffer's position is set to 0, and its limit is set to its capacity.

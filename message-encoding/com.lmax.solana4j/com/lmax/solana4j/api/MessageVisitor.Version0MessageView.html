@@ -136,6 +136,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public static interface <span class="typeNameLabel">MessageVisitor.Version0MessageView</span>
 extends <a href="MessageVisitor.MessageView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.MessageView</a></pre>
 <div class="block">Interface representing a view of a Solana V0 message.
+
  <p>
  This interface extends the <a href="MessageVisitor.LegacyMessageView.html" title="interface in com.lmax.solana4j.api"><code>MessageVisitor.LegacyMessageView</code></a> and provides additional methods
  specific to V0 messages
@@ -242,6 +243,7 @@ extends <a href="MessageVisitor.MessageView.html" title="interface in com.lmax.s
 <h4>accountLookups</h4>
 <pre class="methodSignature">java.util.List&lt;<a href="MessageVisitor.AccountLookupView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountLookupView</a>&gt;&nbsp;accountLookups()</pre>
 <div class="block">Retrieves the list of account lookups in the message.
+
  <p>
  Account lookup tables help optimize the transaction by referencing accounts indirectly,
  allowing for more efficient and flexible transaction structures.
