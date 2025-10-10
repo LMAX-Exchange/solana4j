@@ -163,6 +163,97 @@ check.dependsOn checkstyleTest
 check.dependsOn checkstyleTestSupport
 check.dependsOn checkstyleIntegrationTest
 
+// JMH Benchmark JAR
+task jmhJar(type: com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar) {
+    archiveBaseName = 'jmh-benchmarks'
+    archiveClassifier = 'benchmarks'
+    from sourceSets.jmhTest.output
+    from sourceSets.main.output
+    from sourceSets.testSupport.output
+    
+    configurations = [project.configurations.jmhTestRuntimeClasspath]
+    
+    manifest {
+        attributes 'Main-Class': 'org.openjdk.jmh.Main'
+    }
+    
+    // Merge service files
+    mergeServiceFiles()
+    
+    // Exclude signature files to avoid security exceptions
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+}
+
+// Task to run JMH benchmarks
+task jmh(type: JavaExec, dependsOn: jmhJar) {
+    description = 'Run JMH benchmarks'
+    group = 'verification'
+    
+    classpath = files(jmhJar.archiveFile)
+    mainClass = 'org.openjdk.jmh.Main'
+    
+    // Allow configuration via project properties for faster testing
+    def forks = project.hasProperty('jmh.fork') ? project.property('jmh.fork') : '2'
+    def warmupIterations = project.hasProperty('jmh.warmup') ? project.property('jmh.warmup') : '5'
+    def iterations = project.hasProperty('jmh.iterations') ? project.property('jmh.iterations') : '5'
+    
+    // JMH command line options
+    args = [
+        '-rf', 'json',                              // Result format: JSON
+        '-rff', "${project.buildDir}/reports/jmh/results.json", // Result file
+        '-f', forks,                                // Number of forks
+        '-wi', warmupIterations,                    // Warmup iterations
+        '-i', iterations,                           // Measurement iterations
+        '-bm', 'thrpt',                             // Benchmark mode: throughput
+        '-tu', 's'                                  // Time unit: seconds
+    ]
+    
+    // Create reports directory
+    doFirst {
+        file("${project.buildDir}/reports/jmh").mkdirs()
+    }
+    
+    // Print results location after execution
+    doLast {
+        println "JMH benchmark results written to: ${project.buildDir}/reports/jmh/results.json"
+    }
+}
+
+// Task to run JMH benchmarks with text output for easy viewing
+task jmhReport(type: JavaExec, dependsOn: jmhJar) {
+    description = 'Run JMH benchmarks with text output'
+    group = 'verification'
+    
+    classpath = files(jmhJar.archiveFile)
+    mainClass = 'org.openjdk.jmh.Main'
+    
+    // Allow configuration via project properties
+    def forks = project.hasProperty('jmh.fork') ? project.property('jmh.fork') : '2'
+    def warmupIterations = project.hasProperty('jmh.warmup') ? project.property('jmh.warmup') : '5'
+    def iterations = project.hasProperty('jmh.iterations') ? project.property('jmh.iterations') : '5'
+    
+    // JMH command line options
+    args = [
+        '-rf', 'text',                              // Result format: text
+        '-rff', "${project.buildDir}/reports/jmh/results.txt", // Result file
+        '-f', forks,
+        '-wi', warmupIterations,
+        '-i', iterations,
+        '-bm', 'thrpt',
+        '-tu', 's'
+    ]
+    
+    doFirst {
+        file("${project.buildDir}/reports/jmh").mkdirs()
+    }
+    
+    doLast {
+        println "JMH benchmark results written to: ${project.buildDir}/reports/jmh/results.txt"
+    }
+}
+
 tasks.processTestResources {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
