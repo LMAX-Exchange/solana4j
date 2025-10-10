@@ -156,7 +156,7 @@ class Base58Test
             final var randomByteArray = createRandomByteArray(32);
 
             final String base58EncodeSolana4jImplementation = Base58.encode(randomByteArray);
-            final String base58EncodeBitcoinjImplementation = org.bitcoinj.core.Base58.encode(randomByteArray);
+            final String base58EncodeBitcoinjImplementation = org.bitcoinj.base.Base58.encode(randomByteArray);
 
             assertEquals(base58EncodeSolana4jImplementation, base58EncodeBitcoinjImplementation);
         }
@@ -171,7 +171,7 @@ class Base58Test
             final var randomString = createRandomBase58String();
 
             final byte[] base58DecodeSolana4jImplementation = Base58.decode(randomString);
-            final byte[] base58DecodeBitcoinjImplementation = org.bitcoinj.core.Base58.decode(randomString);
+            final byte[] base58DecodeBitcoinjImplementation = org.bitcoinj.base.Base58.decode(randomString);
 
             assertThat(base58DecodeSolana4jImplementation)
                     .usingDefaultElementComparator()
