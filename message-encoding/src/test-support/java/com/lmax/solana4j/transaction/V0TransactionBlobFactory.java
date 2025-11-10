@@ -15,6 +15,7 @@ import com.lmax.solana4j.programs.AddressLookupTableProgram;
 import com.lmax.solana4j.programs.AssociatedTokenProgram;
 import com.lmax.solana4j.programs.BpfLoaderUpgradeableProgram;
 import com.lmax.solana4j.programs.ComputeBudgetProgram;
+import com.lmax.solana4j.programs.StakeProgram;
 import com.lmax.solana4j.programs.TokenProgramBase;
 import com.lmax.solana4j.sign.BouncyCastleSigner;
 
@@ -488,6 +489,125 @@ public class V0TransactionBlobFactory implements TransactionBlobFactory
 
         sign(buffer, signers);
 
+        return base64encode(buffer);
+    }
+
+    @Override
+    public String createStakeAccount(
+            final PublicKey stakeAccount,
+            final PublicKey stakeAuthority,
+            final PublicKey withdrawAuthority,
+            final long lamports,
+            final Blockhash blockhash,
+            final PublicKey payer,
+            final List<TestKeyPair> signers,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
+        Solana.builder(buffer)
+                .v0()
+                .recent(blockhash)
+                .instructions(versionedTransactionBuilder -> factory(versionedTransactionBuilder)
+                        .createAccount(
+                                payer,
+                                stakeAccount,
+                                lamports,
+                                StakeProgram.STAKE_ACCOUNT_SPACE,
+                                StakeProgram.STAKE_PROGRAM_ACCOUNT))
+                .instructions(versionedTransactionBuilder -> StakeProgram.factory(versionedTransactionBuilder)
+                        .initialize(
+                                stakeAccount,
+                                new StakeProgram.Authorized(stakeAuthority, withdrawAuthority),
+                                StakeProgram.Lockup.DEFAULT))
+                .payer(payer)
+                .lookups(addressLookupTables)
+                .seal()
+                .unsigned()
+                .build();
+
+        sign(buffer, signers);
+        return base64encode(buffer);
+    }
+
+    @Override
+    public String delegateStake(
+            final PublicKey stakeAccount,
+            final PublicKey stakeAuthority,
+            final PublicKey voteAccount,
+            final Blockhash blockhash,
+            final PublicKey payer,
+            final List<TestKeyPair> signers,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
+        Solana.builder(buffer)
+                .v0()
+                .recent(blockhash)
+                .instructions(versionedTransactionBuilder -> StakeProgram.factory(versionedTransactionBuilder)
+                        .delegate(stakeAccount, stakeAuthority, voteAccount))
+                .payer(payer)
+                .lookups(addressLookupTables)
+                .seal()
+                .unsigned()
+                .build();
+
+        sign(buffer, signers);
+        return base64encode(buffer);
+    }
+
+    @Override
+    public String deactivateStake(
+            final PublicKey stakeAccount,
+            final PublicKey stakeAuthority,
+            final Blockhash blockhash,
+            final PublicKey payer,
+            final List<TestKeyPair> signers,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
+        Solana.builder(buffer)
+                .v0()
+                .recent(blockhash)
+                .instructions(versionedTransactionBuilder -> StakeProgram.factory(versionedTransactionBuilder)
+                        .deactivate(stakeAccount, stakeAuthority))
+                .payer(payer)
+                .lookups(addressLookupTables)
+                .seal()
+                .unsigned()
+                .build();
+
+        sign(buffer, signers);
+        return base64encode(buffer);
+    }
+
+    @Override
+    public String withdrawFromStake(
+            final PublicKey stakeAccount,
+            final PublicKey withdrawAuthority,
+            final PublicKey recipient,
+            final long lamports,
+            final Blockhash blockhash,
+            final PublicKey payer,
+            final List<TestKeyPair> signers,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final ByteBuffer buffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+
+        Solana.builder(buffer)
+                .v0()
+                .recent(blockhash)
+                .instructions(versionedTransactionBuilder -> StakeProgram.factory(versionedTransactionBuilder)
+                        .withdraw(stakeAccount, withdrawAuthority, recipient, lamports))
+                .payer(payer)
+                .lookups(addressLookupTables)
+                .seal()
+                .unsigned()
+                .build();
+
+        sign(buffer, signers);
         return base64encode(buffer);
     }
 

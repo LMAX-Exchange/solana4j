@@ -18,4 +18,14 @@ public final class SysVar
      * The public key for the rent sysvar account.
      */
     public static final PublicKey RENT = Solana.account(Base58.decode("SysvarRent111111111111111111111111111111111"));
+
+    /**
+     * The public key for the clock sysvar account.
+     */
+    public static final PublicKey CLOCK = Solana.account(Base58.decode("SysvarC1ock11111111111111111111111111111111"));
+
+    /**
+     * The public key for the stake history sysvar account.
+     */
+    public static final PublicKey STAKE_HISTORY = Solana.account(Base58.decode("SysvarStakeHistory1111111111111111111111111"));
 }

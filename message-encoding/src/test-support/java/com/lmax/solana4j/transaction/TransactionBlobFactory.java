@@ -154,4 +154,41 @@ public interface TransactionBlobFactory
             PublicKey payer,
             List<TestKeyPair> signers,
             List<AddressLookupTable> addressLookupTables);
+
+    String createStakeAccount(
+            PublicKey stakeAccount,
+            PublicKey stakeAuthority,
+            PublicKey withdrawAuthority,
+            long lamports,
+            Blockhash blockhash,
+            PublicKey payer,
+            List<TestKeyPair> signers,
+            List<AddressLookupTable> addressLookupTables);
+
+    String delegateStake(
+            PublicKey stakeAccount,
+            PublicKey stakeAuthority,
+            PublicKey voteAccount,
+            Blockhash blockhash,
+            PublicKey payer,
+            List<TestKeyPair> signers,
+            List<AddressLookupTable> addressLookupTables);
+
+    String deactivateStake(
+            PublicKey stakeAccount,
+            PublicKey stakeAuthority,
+            Blockhash blockhash,
+            PublicKey payer,
+            List<TestKeyPair> signers,
+            List<AddressLookupTable> addressLookupTables);
+
+    String withdrawFromStake(
+            PublicKey stakeAccount,
+            PublicKey withdrawAuthority,
+            PublicKey recipient,
+            long lamports,
+            Blockhash blockhash,
+            PublicKey payer,
+            List<TestKeyPair> signers,
+            List<AddressLookupTable> addressLookupTables);
 }
