@@ -16,6 +16,7 @@ import com.lmax.solana4j.client.api.SolanaVersion;
 import com.lmax.solana4j.client.api.TokenAccount;
 import com.lmax.solana4j.client.api.TokenAmount;
 import com.lmax.solana4j.client.api.TransactionResponse;
+import com.lmax.solana4j.client.api.VoteAccounts;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -453,6 +454,26 @@ public final class SolanaJsonRpcClient implements SolanaApi
                               {
                               },
                 ArrayList::new, "getClusterNodes");
+    }
+
+    @Override
+    public SolanaClientResponse<VoteAccounts> getVoteAccounts() throws SolanaJsonRpcClientException
+    {
+        return queryForObject(new TypeReference<RpcWrapperDTO<VoteAccountsDTO>>()
+                              {
+                              },
+                dto -> dto, "getVoteAccounts",
+                defaultOptionalParams());
+    }
+
+    @Override
+    public SolanaClientResponse<VoteAccounts> getVoteAccounts(final SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException
+    {
+        return queryForObject(new TypeReference<RpcWrapperDTO<VoteAccountsDTO>>()
+                              {
+                              },
+                dto -> dto, "getVoteAccounts",
+                optionalParams.getParams());
     }
 
     private <S, T> SolanaClientResponse<S> queryForObject(

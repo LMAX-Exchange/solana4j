@@ -335,4 +335,21 @@ public interface SolanaApi
      * @throws SolanaJsonRpcClientException if there is an error with the JSON-RPC request
      */
     SolanaClientResponse<List<ClusterNode>> getClusterNodes() throws SolanaJsonRpcClientException;
+
+    /**
+     * Returns the account info and associated stake for all the voting accounts in the current bank with default optional parameters.
+     *
+     * @return a {@link SolanaClientResponse} containing a {@link VoteAccounts} object with current and delinquent vote accounts
+     * @throws SolanaJsonRpcClientException if there is an error with the JSON-RPC request
+     */
+    SolanaClientResponse<VoteAccounts> getVoteAccounts() throws SolanaJsonRpcClientException;
+
+    /**
+     * Returns the account info and associated stake for all the voting accounts in the current bank with optional parameters.
+     *
+     * @param optionalParams a map of optional parameters to customize the request, such as `commitment`, `votePubkey`, `keepUnstakedDelinquents`, and `delinquentSlotDistance`
+     * @return a {@link SolanaClientResponse} containing a {@link VoteAccounts} object with current and delinquent vote accounts
+     * @throws SolanaJsonRpcClientException if there is an error with the JSON-RPC request
+     */
+    SolanaClientResponse<VoteAccounts> getVoteAccounts(SolanaClientOptionalParams optionalParams) throws SolanaJsonRpcClientException;
 }
