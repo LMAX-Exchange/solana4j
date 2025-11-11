@@ -45,9 +45,9 @@ public class GetVoteAccountsContractTest extends SolanaClientIntegrationTestBase
         final List<VoteAccount> currentFilteredVoteAccounts = filteredVoteAccounts.getCurrent();
         assertThat(currentFilteredVoteAccounts).isNotNull();
         assertThat(currentFilteredVoteAccounts).isNotEmpty();
-        final VoteAccount firstFitleredVoteAccount = currentFilteredVoteAccounts.get(0);
+        final VoteAccount firstFilteredVoteAccount = currentFilteredVoteAccounts.get(0);
 
-        assertThat(firstFitleredVoteAccount.getVotePubkey()).isEqualTo(firstVoteAccount.getVotePubkey());
+        assertThat(firstFilteredVoteAccount.getVotePubkey()).isEqualTo(firstVoteAccount.getVotePubkey());
     }
 
     @Test
