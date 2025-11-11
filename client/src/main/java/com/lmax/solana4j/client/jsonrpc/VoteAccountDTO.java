@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lmax.solana4j.client.api.VoteAccount;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * Data Transfer Object for vote account information from the getVoteAccounts RPC call.
  */
