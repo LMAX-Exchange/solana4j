@@ -24,8 +24,10 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+
       - name: Set Gradle App Version to ${{ github.event.release.tag_name }}
         run: sed -i "s/version = '.*'/version = '${{ github.event.release.tag_name }}'/g" build.gradle
       - name: Install Cosign
@@ -33,17 +35,13 @@ jobs:
         with:
           cosign-release: 'v2.4.1'
       - name: Publish package
-        uses: gradle/gradle-build-action@v2.11.1
-        with:
-          arguments: :${{ matrix.package }}:publish
+        run: ./gradlew :${{ matrix.package }}:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Jreleaser directory
         run: mkdir -p ${{ matrix.package }}/build/jreleaser
       - name: Publish package to Maven Central
-        uses: gradle/gradle-build-action@v2.11.1
-        with:
-          arguments: :${{ matrix.package }}:jreleaserFullRelease
+        run: ./gradlew :${{ matrix.package }}:jreleaserFullRelease
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JRELEASER_MAVENCENTRAL_USERNAME: ${{ secrets.JRELEASER_MAVENCENTRAL_USERNAME }}
