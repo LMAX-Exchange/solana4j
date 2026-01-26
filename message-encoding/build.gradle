@@ -75,14 +75,14 @@ dependencies {
 
     testSupportImplementation 'org.slf4j:slf4j-api:2.0.9'
     testSupportImplementation 'com.lmax:simple-dsl:3.0.0'
-    testSupportImplementation 'org.assertj:assertj-core:3.26.3'
+    testSupportImplementation 'org.assertj:assertj-core:3.27.7'
     testSupportImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
     testSupportImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.2'
     testSupportImplementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
 
     // test dependencies
 
-    testImplementation 'org.assertj:assertj-core:3.26.3'
+    testImplementation 'org.assertj:assertj-core:3.27.7'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
     testImplementation 'net.i2p.crypto:eddsa:0.3.0'
     testImplementation 'org.bitcoinj:bitcoinj-core:0.17'
