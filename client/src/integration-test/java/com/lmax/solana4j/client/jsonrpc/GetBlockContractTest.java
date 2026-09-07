@@ -55,7 +55,7 @@ final class GetBlockContractTest extends SolanaClientIntegrationTestBase
         final SolanaClientResponse<Long> slotResponse = SOLANA_API.getSlot();
         assertThat(slotResponse.isSuccess()).isTrue();
 
-        SolanaClientResponse<BlockResponse> blockResponse = SOLANA_API.getBlock(slotResponse.getResponse() + 5);
+        SolanaClientResponse<BlockResponse> blockResponse = SOLANA_API.getBlock(slotResponse.getResponse() + 1_000_000L);
         assertThat(blockResponse.isSuccess()).isFalse();
     }
 
