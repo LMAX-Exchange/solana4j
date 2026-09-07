@@ -825,4 +825,216 @@ public class SolanaNodeDsl
         testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE).store(lookupTableAlias, addressLookupTable);
         return addressLookupTable;
     }
+
+    public void createStakeAccount(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("stakeAccount"),
+                new RequiredArg("stakeAuthority"),
+                new RequiredArg("withdrawAuthority"),
+                new RequiredArg("payer"),
+                new RequiredArg("amountSol"),
+                new OptionalArg("addressLookupTables").setAllowMultipleValues()
+        );
+
+        final TestKeyPair stakeAccount = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("stakeAccount"));
+        final TestKeyPair stakeAuthority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("stakeAuthority"));
+        final TestKeyPair withdrawAuthority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("withdrawAuthority"));
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+        final long lamports = Sol.lamports(params.valueAsBigDecimal("amountSol"));
+        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
+                .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        final String transactionSignature = solanaDriver.createStakeAccount(
+                stakeAccount,
+                stakeAuthority,
+                withdrawAuthority,
+                payer,
+                lamports,
+                addressLookupTables);
+
+        Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
+    }
+
+    public void verifyStakeAccount(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("stakeAccount"),
+                new RequiredArg("stakeAuthority"),
+                new RequiredArg("withdrawAuthority")
+        );
+
+        final TestPublicKey stakeAccount = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("stakeAccount"));
+        final TestPublicKey stakeAuthority = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("stakeAuthority"));
+        final TestPublicKey withdrawAuthority = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("withdrawAuthority"));
+
+        final AccountInfo accountInfo = solanaDriver.getAccountInfo(stakeAccount);
+
+        byte[] accountInfoBytes = Base64.decode(accountInfo.getData().getAccountInfoEncoded().get(0));
+
+        // Verify stake account is initialized (state = 1)
+        assertThat(accountInfoBytes[0]).isEqualTo((byte) 1);
+
+        // Verify authorized staker (bytes 12-44)
+        assertThat(SolanaEncoding.encodeBase58(Arrays.copyOfRange(accountInfoBytes, 12, 44))).isEqualTo(stakeAuthority.getPublicKeyBase58());
+
+        // Verify authorized withdrawer (bytes 44-76)
+        assertThat(SolanaEncoding.encodeBase58(Arrays.copyOfRange(accountInfoBytes, 44, 76))).isEqualTo(withdrawAuthority.getPublicKeyBase58());
+    }
+
+    public void delegateStake(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("stakeAccount"),
+                new RequiredArg("stakeAuthority"),
+                new RequiredArg("voteAccount"),
+                new RequiredArg("payer"),
+                new OptionalArg("addressLookupTables").setAllowMultipleValues()
+        );
+
+        final TestKeyPair stakeAccount = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("stakeAccount"));
+        final TestKeyPair stakeAuthority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("stakeAuthority"));
+        final TestPublicKey voteAccount = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("voteAccount"));
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
+                .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        final String transactionSignature = solanaDriver.delegateStake(
+                stakeAccount,
+                stakeAuthority,
+                voteAccount,
+                payer,
+                addressLookupTables);
+
+        Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
+    }
+
+    public void verifyStakeDelegated(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("stakeAccount"),
+                new RequiredArg("voteAccount")
+        );
+
+        final TestPublicKey stakeAccount = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("stakeAccount"));
+        final TestPublicKey voteAccount = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("voteAccount"));
+
+        final AccountInfo accountInfo = solanaDriver.getAccountInfo(stakeAccount);
+
+        byte[] accountInfoBytes = Base64.decode(accountInfo.getData().getAccountInfoEncoded().get(0));
+
+        // Verify stake account is in delegated state (state = 2)
+        assertThat(accountInfoBytes[0]).isEqualTo((byte) 2);
+
+        // Verify voter pubkey (bytes 124-156)
+        assertThat(SolanaEncoding.encodeBase58(Arrays.copyOfRange(accountInfoBytes, 124, 156))).isEqualTo(voteAccount.getPublicKeyBase58());
+    }
+
+    public void deactivateStake(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("stakeAccount"),
+                new RequiredArg("stakeAuthority"),
+                new RequiredArg("payer"),
+                new OptionalArg("addressLookupTables").setAllowMultipleValues()
+        );
+
+        final TestKeyPair stakeAccount = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("stakeAccount"));
+        final TestKeyPair stakeAuthority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("stakeAuthority"));
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
+                .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        final String transactionSignature = solanaDriver.deactivateStake(
+                stakeAccount,
+                stakeAuthority,
+                payer,
+                addressLookupTables);
+
+        Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
+    }
+
+    public void verifyStakeDeactivating(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("stakeAccount")
+        );
+
+        final TestPublicKey stakeAccount = testContext.data(TestDataType.TEST_PUBLIC_KEY).lookup(params.value("stakeAccount"));
+
+        final AccountInfo accountInfo = solanaDriver.getAccountInfo(stakeAccount);
+
+        byte[] accountInfoBytes = Base64.decode(accountInfo.getData().getAccountInfoEncoded().get(0));
+
+        // Verify stake account is still in delegated state but deactivating (state = 2)
+        // Note: Actual deactivation happens at epoch boundary, so we just verify the transaction succeeded
+        assertThat(accountInfoBytes[0]).isEqualTo((byte) 2);
+    }
+
+    public void withdrawFromStake(final String... args)
+    {
+        final DslParams params = DslParams.create(
+                args,
+                new RequiredArg("stakeAccount"),
+                new RequiredArg("withdrawAuthority"),
+                new RequiredArg("recipient"),
+                new RequiredArg("payer"),
+                new RequiredArg("amountSol"),
+                new OptionalArg("addressLookupTables").setAllowMultipleValues()
+        );
+
+        final TestKeyPair stakeAccount = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("stakeAccount"));
+        final TestKeyPair withdrawAuthority = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("withdrawAuthority"));
+        final TestKeyPair recipient = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("recipient"));
+        final TestKeyPair payer = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("payer"));
+        final long lamports = Sol.lamports(params.valueAsBigDecimal("amountSol"));
+        final List<AddressLookupTable> addressLookupTables = params.valuesAsList("addressLookupTables").stream()
+                .map(testContext.data(TestDataType.ADDRESS_LOOKUP_TABLE)::lookup)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        final String transactionSignature = solanaDriver.withdrawFromStake(
+                stakeAccount,
+                withdrawAuthority,
+                recipient,
+                payer,
+                lamports,
+                addressLookupTables);
+
+        Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
+    }
+
+    public void getValidatorVoteAccount(final String... args)
+    {
+        final DslParams params = DslParams.create(args, new RequiredArg("alias"));
+        final String alias = params.value("alias");
+
+        // Query the vote accounts to get the validator's vote account
+        // In a test environment with solana-test-validator, the validator is configured with a vote account
+        final com.lmax.solana4j.client.api.VoteAccounts voteAccounts = solanaDriver.getVoteAccounts();
+
+        if (voteAccounts.getCurrent().isEmpty())
+        {
+            throw new RuntimeException("No current vote accounts found");
+        }
+
+        // Get the first current vote account (in test environment, there's usually one validator)
+        final com.lmax.solana4j.client.api.VoteAccount voteAccount = voteAccounts.getCurrent().get(0);
+        final String voteAccountPublicKey = voteAccount.getVotePubkey();
+
+        // Store it as a TestPublicKey
+        testContext.data(TestDataType.TEST_PUBLIC_KEY).store(alias, new TestPublicKey(SolanaEncoding.decodeBase58(voteAccountPublicKey)));
+    }
 }

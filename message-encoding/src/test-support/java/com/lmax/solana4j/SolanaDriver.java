@@ -404,6 +404,102 @@ public class SolanaDriver
         return retryClient(() -> solanaApi.sendTransaction(transactionBlob));
     }
 
+    public String createStakeAccount(
+            final TestKeyPair stakeAccount,
+            final TestKeyPair stakeAuthority,
+            final TestKeyPair withdrawAuthority,
+            final TestKeyPair payer,
+            final long lamports,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final Blockhash blockhash = retryClient(solanaApi::getLatestBlockhash);
+
+        final String transactionBlob = getTransactionFactory().createStakeAccount(
+                stakeAccount.getSolana4jPublicKey(),
+                stakeAuthority.getSolana4jPublicKey(),
+                withdrawAuthority.getSolana4jPublicKey(),
+                lamports,
+                Solana.blockhash(blockhash.getBlockhashBase58()),
+                payer.getSolana4jPublicKey(),
+                List.of(payer, stakeAccount),
+                addressLookupTables);
+
+        return retryClient(() -> solanaApi.sendTransaction(transactionBlob));
+    }
+
+    public String delegateStake(
+            final TestKeyPair stakeAccount,
+            final TestKeyPair stakeAuthority,
+            final TestPublicKey voteAccount,
+            final TestKeyPair payer,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final Blockhash blockhash = retryClient(solanaApi::getLatestBlockhash);
+
+        final String transactionBlob = getTransactionFactory().delegateStake(
+                stakeAccount.getSolana4jPublicKey(),
+                stakeAuthority.getSolana4jPublicKey(),
+                voteAccount.getSolana4jPublicKey(),
+                Solana.blockhash(blockhash.getBlockhashBase58()),
+                payer.getSolana4jPublicKey(),
+                List.of(payer, stakeAuthority),
+                addressLookupTables);
+
+        return retryClient(() -> solanaApi.sendTransaction(transactionBlob));
+    }
+
+    public String deactivateStake(
+            final TestKeyPair stakeAccount,
+            final TestKeyPair stakeAuthority,
+            final TestKeyPair payer,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final Blockhash blockhash = retryClient(solanaApi::getLatestBlockhash);
+
+        final String transactionBlob = getTransactionFactory().deactivateStake(
+                stakeAccount.getSolana4jPublicKey(),
+                stakeAuthority.getSolana4jPublicKey(),
+                Solana.blockhash(blockhash.getBlockhashBase58()),
+                payer.getSolana4jPublicKey(),
+                List.of(payer, stakeAuthority),
+                addressLookupTables);
+
+        return retryClient(() -> solanaApi.sendTransaction(transactionBlob));
+    }
+
+    public String withdrawFromStake(
+            final TestKeyPair stakeAccount,
+            final TestKeyPair withdrawAuthority,
+            final TestKeyPair recipient,
+            final TestKeyPair payer,
+            final long lamports,
+            final List<AddressLookupTable> addressLookupTables)
+    {
+        final Blockhash blockhash = retryClient(solanaApi::getLatestBlockhash);
+
+        final String transactionBlob = getTransactionFactory().withdrawFromStake(
+                stakeAccount.getSolana4jPublicKey(),
+                withdrawAuthority.getSolana4jPublicKey(),
+                recipient.getSolana4jPublicKey(),
+                lamports,
+                Solana.blockhash(blockhash.getBlockhashBase58()),
+                payer.getSolana4jPublicKey(),
+                List.of(payer, withdrawAuthority),
+                addressLookupTables);
+
+        return retryClient(() -> solanaApi.sendTransaction(transactionBlob));
+    }
+
+    public List<com.lmax.solana4j.client.api.ClusterNode> getClusterNodes()
+    {
+        return retryClient(solanaApi::getClusterNodes);
+    }
+
+    public com.lmax.solana4j.client.api.VoteAccounts getVoteAccounts()
+    {
+        return retryClient(solanaApi::getVoteAccounts);
+    }
+
     public void setMessageEncoding(final String messageEncoding)
     {
         if (messageEncoding.equals("V0"))
