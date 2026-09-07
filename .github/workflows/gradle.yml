@@ -27,6 +27,13 @@ jobs:
         id: gradle_build
         run: ./gradlew build -i
 
+      - name: Publish Test Report
+        id: report
+        uses: mikepenz/action-junit-report@v6
+        if: success() || failure()
+        with:
+          report_paths: '**/build/test-results/test/TEST-*.xml'
+
   dependency-submission:
     runs-on: ubuntu-latest
     permissions:
