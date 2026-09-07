@@ -246,6 +246,26 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Inner factory class for building associated token program instructions using a <a href="com.lmax.solana4j/com/lmax/solana4j/api/TransactionBuilder.html" title="interface in com.lmax.solana4j.api"><code>TransactionBuilder</code></a>.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#authorize(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.programs.StakeProgram.StakeAuthorizationType)">authorize(PublicKey, PublicKey, PublicKey, StakeProgram.StakeAuthorizationType)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">Changes the authorization on a stake account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html#authorize(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.programs.StakeProgram.StakeAuthorizationType)">authorize(PublicKey, PublicKey, PublicKey, StakeProgram.StakeAuthorizationType)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html" title="class in com.lmax.solana4j.programs">StakeProgram.StakeProgramFactory</a></dt>
+<dd>
+<div class="block">Changes the authorization on a stake account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#AUTHORIZE_INSTRUCTION">AUTHORIZE_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">The instruction code for authorizing a stake account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#AUTHORIZE_WITH_SEED_INSTRUCTION">AUTHORIZE_WITH_SEED_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">The instruction code for authorizing with seed.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Authorized.html#%3Cinit%3E(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">Authorized(PublicKey, PublicKey)</a></span> - Constructor for class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Authorized.html" title="class in com.lmax.solana4j.programs">StakeProgram.Authorized</a></dt>
+<dd>
+<div class="block">Creates a new Authorized instance.</div>
+</dd>
 </dl>
 <a id="I:B">
 <!--   -->
@@ -330,6 +350,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">C</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/encoding/SysVar.html#CLOCK">CLOCK</a></span> - Static variable in class com.lmax.solana4j.encoding.<a href="com.lmax.solana4j/com/lmax/solana4j/encoding/SysVar.html" title="class in com.lmax.solana4j.encoding">SysVar</a></dt>
+<dd>
+<div class="block">The public key for the clock sysvar account.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html#CLOSE_ACCOUNT">CLOSE_ACCOUNT</a></span> - com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for closing an account.</div>
@@ -414,6 +438,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Creates a new account.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html#createAccount(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.programs.StakeProgram.Authorized,com.lmax.solana4j.programs.StakeProgram.Lockup,long)">createAccount(PublicKey, PublicKey, StakeProgram.Authorized, StakeProgram.Lockup, long)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html" title="class in com.lmax.solana4j.programs">StakeProgram.StakeProgramFactory</a></dt>
+<dd>
+<div class="block">Creates and initializes a new stake account.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/AssociatedTokenProgram.AssociatedTokenProgramFactory.html#createAssociatedTokenAccount(com.lmax.solana4j.api.ProgramDerivedAddress,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,boolean)">createAssociatedTokenAccount(ProgramDerivedAddress, PublicKey, PublicKey, PublicKey, PublicKey, boolean)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/AssociatedTokenProgram.AssociatedTokenProgramFactory.html" title="class in com.lmax.solana4j.programs">AssociatedTokenProgram.AssociatedTokenProgramFactory</a></dt>
 <dd>
 <div class="block">Creates a new associated token account.</div>
@@ -452,9 +480,37 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns the size of the data for this instruction.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#deactivate(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">deactivate(PublicKey, PublicKey)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">Deactivates a stake account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html#deactivate(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">deactivate(PublicKey, PublicKey)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html" title="class in com.lmax.solana4j.programs">StakeProgram.StakeProgramFactory</a></dt>
+<dd>
+<div class="block">Deactivates a stake account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#DEACTIVATE_INSTRUCTION">DEACTIVATE_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">The instruction code for deactivating a stake account.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/encoding/SolanaEncoding.html#decodeBase58(java.lang.String)">decodeBase58(String)</a></span> - Static method in class com.lmax.solana4j.encoding.<a href="com.lmax.solana4j/com/lmax/solana4j/encoding/SolanaEncoding.html" title="class in com.lmax.solana4j.encoding">SolanaEncoding</a></dt>
 <dd>
 <div class="block">Decodes a base58-encoded string into a byte array.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Lockup.html#DEFAULT">DEFAULT</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Lockup.html" title="class in com.lmax.solana4j.programs">StakeProgram.Lockup</a></dt>
+<dd>
+<div class="block">Default lockup with no restrictions.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#delegate(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">delegate(PublicKey, PublicKey, PublicKey)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">Delegates a stake account to a vote account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html#delegate(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">delegate(PublicKey, PublicKey, PublicKey)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html" title="class in com.lmax.solana4j.programs">StakeProgram.StakeProgramFactory</a></dt>
+<dd>
+<div class="block">Delegates a stake account to a vote account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#DELEGATE_INSTRUCTION">DELEGATE_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">The instruction code for delegating a stake account.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/AssociatedTokenMetadataProgram.html#deriveAddress(com.lmax.solana4j.api.PublicKey)">deriveAddress(PublicKey)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/AssociatedTokenMetadataProgram.html" title="class in com.lmax.solana4j.programs">AssociatedTokenMetadataProgram</a></dt>
 <dd>
@@ -540,6 +596,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Factory method for creating a new instance of <code>ComputeBudgetProgramFactory</code>.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#factory(com.lmax.solana4j.api.TransactionBuilder)">factory(TransactionBuilder)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">Factory method for creating a new instance of <code>StakeProgramFactory</code>.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/SystemProgram.html#factory(com.lmax.solana4j.api.TransactionBuilder)">factory(TransactionBuilder)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/SystemProgram.html" title="class in com.lmax.solana4j.programs">SystemProgram</a></dt>
 <dd>
 <div class="block">Factory method for creating a new instance of <code>SystemProgramFactory</code>.</div>
@@ -610,9 +670,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns the count of read-only unsigned accounts.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Lockup.html#getCustodian()">getCustodian()</a></span> - Method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Lockup.html" title="class in com.lmax.solana4j.programs">StakeProgram.Lockup</a></dt>
+<dd>
+<div class="block">Gets the custodian public key.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/Destination.html#getDestination()">getDestination()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/Destination.html" title="interface in com.lmax.solana4j.api">Destination</a></dt>
 <dd>
 <div class="block">Returns the public key of the destination account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Lockup.html#getEpoch()">getEpoch()</a></span> - Method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Lockup.html" title="class in com.lmax.solana4j.programs">StakeProgram.Lockup</a></dt>
+<dd>
+<div class="block">Gets the epoch.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/Accounts.html#getFlattenedAccountList()">getFlattenedAccountList()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/Accounts.html" title="interface in com.lmax.solana4j.api">Accounts</a></dt>
 <dd>
@@ -642,9 +710,25 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns a list of read-write lookup entrys.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Authorized.html#getStaker()">getStaker()</a></span> - Method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Authorized.html" title="class in com.lmax.solana4j.programs">StakeProgram.Authorized</a></dt>
+<dd>
+<div class="block">Gets the staker public key.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/Accounts.html#getStaticAccounts()">getStaticAccounts()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/Accounts.html" title="interface in com.lmax.solana4j.api">Accounts</a></dt>
 <dd>
 <div class="block">Returns a list of the static account keys.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Lockup.html#getUnixTimestamp()">getUnixTimestamp()</a></span> - Method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Lockup.html" title="class in com.lmax.solana4j.programs">StakeProgram.Lockup</a></dt>
+<dd>
+<div class="block">Gets the unix timestamp.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeAuthorizationType.html#getValue()">getValue()</a></span> - Method in enum com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeAuthorizationType.html" title="enum in com.lmax.solana4j.programs">StakeProgram.StakeAuthorizationType</a></dt>
+<dd>
+<div class="block">Gets the integer value of the authorization type.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Authorized.html#getWithdrawer()">getWithdrawer()</a></span> - Method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Authorized.html" title="class in com.lmax.solana4j.programs">StakeProgram.Authorized</a></dt>
+<dd>
+<div class="block">Gets the withdrawer public key.</div>
 </dd>
 </dl>
 <a id="I:I">
@@ -660,9 +744,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns the index of the given account in the reference collection.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#initialize(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.programs.StakeProgram.Authorized,com.lmax.solana4j.programs.StakeProgram.Lockup)">initialize(PublicKey, StakeProgram.Authorized, StakeProgram.Lockup)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">Initializes a stake account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html#initialize(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.programs.StakeProgram.Authorized,com.lmax.solana4j.programs.StakeProgram.Lockup)">initialize(PublicKey, StakeProgram.Authorized, StakeProgram.Lockup)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html" title="class in com.lmax.solana4j.programs">StakeProgram.StakeProgramFactory</a></dt>
+<dd>
+<div class="block">Initializes a stake account.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.html#INITIALIZE_ACCOUNT_INSTRUCTION">INITIALIZE_ACCOUNT_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.html" title="class in com.lmax.solana4j.programs">TokenProgramBase</a></dt>
 <dd>
 <div class="block">The instruction code for initializing an account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#INITIALIZE_INSTRUCTION">INITIALIZE_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">The instruction code for initializing a stake account.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.html#INITIALIZE_MINT_INSTRUCTION">INITIALIZE_MINT_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.html" title="class in com.lmax.solana4j.programs">TokenProgramBase</a></dt>
 <dd>
@@ -762,6 +858,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Creates and returns a builder for a legacy message.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Lockup.html#%3Cinit%3E(long,long,com.lmax.solana4j.api.PublicKey)">Lockup(long, long, PublicKey)</a></span> - Constructor for class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Lockup.html" title="class in com.lmax.solana4j.programs">StakeProgram.Lockup</a></dt>
+<dd>
+<div class="block">Creates a new Lockup instance.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/AddressLookupTableProgram.html#LOOKUP_TABLE_META_SIZE">LOOKUP_TABLE_META_SIZE</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/AddressLookupTableProgram.html" title="class in com.lmax.solana4j.programs">AddressLookupTableProgram</a></dt>
 <dd>
 <div class="block">The size of the lookup table metadata in bytes.</div>
@@ -783,6 +883,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/Solana.html#MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</a></span> - Static variable in class com.lmax.solana4j.<a href="com.lmax.solana4j/com/lmax/solana4j/Solana.html" title="class in com.lmax.solana4j">Solana</a></dt>
 <dd>
 <div class="block">The maximum size for a message.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#merge(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">merge(PublicKey, PublicKey, PublicKey)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">Merges two stake accounts.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html#merge(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">merge(PublicKey, PublicKey, PublicKey)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html" title="class in com.lmax.solana4j.programs">StakeProgram.StakeProgramFactory</a></dt>
+<dd>
+<div class="block">Merges two stake accounts.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#MERGE_INSTRUCTION">MERGE_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">The instruction code for merging stake accounts.</div>
 </dd>
 <dt><a href="com.lmax.solana4j/com/lmax/solana4j/api/Message.html" title="interface in com.lmax.solana4j.api"><span class="typeNameLink">Message</span></a> - Interface in <a href="com.lmax.solana4j/com/lmax/solana4j/api/package-summary.html">com.lmax.solana4j.api</a></dt>
 <dd>
@@ -1141,6 +1253,58 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Exposes the library's APIs.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#split(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,com.lmax.solana4j.api.PublicKey)">split(PublicKey, PublicKey, long, PublicKey)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">Splits a stake account into two accounts.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html#split(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,com.lmax.solana4j.api.PublicKey)">split(PublicKey, PublicKey, long, PublicKey)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html" title="class in com.lmax.solana4j.programs">StakeProgram.StakeProgramFactory</a></dt>
+<dd>
+<div class="block">Splits a stake account into two accounts.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#SPLIT_INSTRUCTION">SPLIT_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">The instruction code for splitting a stake account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#STAKE_ACCOUNT_SPACE">STAKE_ACCOUNT_SPACE</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">The maximum space for a stake account in bytes.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#STAKE_CONFIG_ACCOUNT">STAKE_CONFIG_ACCOUNT</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">The public key for the stake config account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/encoding/SysVar.html#STAKE_HISTORY">STAKE_HISTORY</a></span> - Static variable in class com.lmax.solana4j.encoding.<a href="com.lmax.solana4j/com/lmax/solana4j/encoding/SysVar.html" title="class in com.lmax.solana4j.encoding">SysVar</a></dt>
+<dd>
+<div class="block">The public key for the stake history sysvar account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#STAKE_PROGRAM_ACCOUNT">STAKE_PROGRAM_ACCOUNT</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">The public key for the stake program account.</div>
+</dd>
+<dt><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs"><span class="typeNameLink">StakeProgram</span></a> - Class in <a href="com.lmax.solana4j/com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
+<dd>
+<div class="block">Program for managing stake accounts on the blockchain.</div>
+</dd>
+<dt><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Authorized.html" title="class in com.lmax.solana4j.programs"><span class="typeNameLink">StakeProgram.Authorized</span></a> - Class in <a href="com.lmax.solana4j/com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
+<dd>
+<div class="block">Represents the authorized accounts for a stake account.</div>
+</dd>
+<dt><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.Lockup.html" title="class in com.lmax.solana4j.programs"><span class="typeNameLink">StakeProgram.Lockup</span></a> - Class in <a href="com.lmax.solana4j/com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
+<dd>
+<div class="block">Represents the lockup parameters for a stake account.</div>
+</dd>
+<dt><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeAuthorizationType.html" title="enum in com.lmax.solana4j.programs"><span class="typeNameLink">StakeProgram.StakeAuthorizationType</span></a> - Enum in <a href="com.lmax.solana4j/com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
+<dd>
+<div class="block">Stake authorization type.</div>
+</dd>
+<dt><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html" title="class in com.lmax.solana4j.programs"><span class="typeNameLink">StakeProgram.StakeProgramFactory</span></a> - Class in <a href="com.lmax.solana4j/com/lmax/solana4j/programs/package-summary.html">com.lmax.solana4j.programs</a></dt>
+<dd>
+<div class="block">Inner factory class for building stake program instructions using a <a href="com.lmax.solana4j/com/lmax/solana4j/api/TransactionBuilder.html" title="interface in com.lmax.solana4j.api"><code>TransactionBuilder</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeAuthorizationType.html#STAKER">STAKER</a></span> - com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeAuthorizationType.html" title="enum in com.lmax.solana4j.programs">StakeProgram.StakeAuthorizationType</a></dt>
+<dd>
+<div class="block">Staker authorization.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.AccountsView.html#staticAccounts()">staticAccounts()</a></span> - Method in interface com.lmax.solana4j.api.<a href="com.lmax.solana4j/com/lmax/solana4j/api/MessageVisitor.AccountsView.html" title="interface in com.lmax.solana4j.api">MessageVisitor.AccountsView</a></dt>
 <dd>
 <div class="block">Returns the list of static accounts.</div>
@@ -1283,9 +1447,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Creates and returns a builder for a V0 message.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeAuthorizationType.html#valueOf(java.lang.String)">valueOf(String)</a></span> - Static method in enum com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeAuthorizationType.html" title="enum in com.lmax.solana4j.programs">StakeProgram.StakeAuthorizationType</a></dt>
+<dd>
+<div class="block">Returns the enum constant of this type with the specified name.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html#valueOf(java.lang.String)">valueOf(String)</a></span> - Static method in enum com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Returns the enum constant of this type with the specified name.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeAuthorizationType.html#values()">values()</a></span> - Static method in enum com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeAuthorizationType.html" title="enum in com.lmax.solana4j.programs">StakeProgram.StakeAuthorizationType</a></dt>
+<dd>
+<div class="block">Returns an array containing the constants of this enum type, in
+the order they are declared.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html#values()">values()</a></span> - Static method in enum com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgramBase.AuthorityType</a></dt>
 <dd>
@@ -1306,6 +1479,22 @@ the order they are declared.</div>
 </a>
 <h2 class="title">W</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html#withdraw(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long)">withdraw(PublicKey, PublicKey, PublicKey, long)</a></span> - Method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeProgramFactory.html" title="class in com.lmax.solana4j.programs">StakeProgram.StakeProgramFactory</a></dt>
+<dd>
+<div class="block">Withdraws from a stake account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#withdraw(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long)">withdraw(PublicKey, PublicKey, PublicKey, long)</a></span> - Static method in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">Withdraws from a stake account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html#WITHDRAW_INSTRUCTION">WITHDRAW_INSTRUCTION</a></span> - Static variable in class com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.html" title="class in com.lmax.solana4j.programs">StakeProgram</a></dt>
+<dd>
+<div class="block">The instruction code for withdrawing from a stake account.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeAuthorizationType.html#WITHDRAWER">WITHDRAWER</a></span> - com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/StakeProgram.StakeAuthorizationType.html" title="enum in com.lmax.solana4j.programs">StakeProgram.StakeAuthorizationType</a></dt>
+<dd>
+<div class="block">Withdrawer authorization.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html#WITHHELD_WITHDRAW">WITHHELD_WITHDRAW</a></span> - com.lmax.solana4j.programs.<a href="com.lmax.solana4j/com/lmax/solana4j/programs/TokenProgramBase.AuthorityType.html" title="enum in com.lmax.solana4j.programs">TokenProgramBase.AuthorityType</a></dt>
 <dd>
 <div class="block">Authority type for withdrawing withheld tokens.</div>

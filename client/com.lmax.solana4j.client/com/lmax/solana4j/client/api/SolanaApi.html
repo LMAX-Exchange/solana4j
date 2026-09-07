@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6,"i14":6,"i15":6,"i16":6,"i17":6,"i18":6,"i19":6,"i20":6,"i21":6,"i22":6,"i23":6,"i24":6,"i25":6,"i26":6,"i27":6,"i28":6,"i29":6,"i30":6,"i31":6,"i32":6,"i33":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6,"i14":6,"i15":6,"i16":6,"i17":6,"i18":6,"i19":6,"i20":6,"i21":6,"i22":6,"i23":6,"i24":6,"i25":6,"i26":6,"i27":6,"i28":6,"i29":6,"i30":6,"i31":6,"i32":6,"i33":6,"i34":6,"i35":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -352,13 +352,27 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr id="i27" class="rowColor">
+<td class="colFirst"><code><a href="SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="VoteAccounts.html" title="interface in com.lmax.solana4j.client.api">VoteAccounts</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVoteAccounts()">getVoteAccounts</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the account info and associated stake for all the voting accounts in the current bank with default optional parameters.</div>
+</td>
+</tr>
+<tr id="i28" class="altColor">
+<td class="colFirst"><code><a href="SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="VoteAccounts.html" title="interface in com.lmax.solana4j.client.api">VoteAccounts</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVoteAccounts(com.lmax.solana4j.client.api.SolanaClientOptionalParams)">getVoteAccounts</a></span>&#8203;(<a href="SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
+<td class="colLast">
+<div class="block">Returns the account info and associated stake for all the voting accounts in the current bank with optional parameters.</div>
+</td>
+</tr>
+<tr id="i29" class="rowColor">
 <td class="colFirst"><code><a href="SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.lang.Long&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#minimumLedgerSlot()">minimumLedgerSlot</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the lowest slot that the node has information about in its ledger.</div>
 </td>
 </tr>
-<tr id="i28" class="altColor">
+<tr id="i30" class="altColor">
 <td class="colFirst"><code><a href="SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#requestAirdrop(java.lang.String,long)">requestAirdrop</a></span>&#8203;(java.lang.String&nbsp;address,
               long&nbsp;amountLamports)</code></th>
@@ -366,7 +380,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Requests an airdrop of lamports to the specified address with default optional parameters.</div>
 </td>
 </tr>
-<tr id="i29" class="rowColor">
+<tr id="i31" class="rowColor">
 <td class="colFirst"><code><a href="SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#requestAirdrop(java.lang.String,long,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">requestAirdrop</a></span>&#8203;(java.lang.String&nbsp;address,
               long&nbsp;amountLamports,
@@ -375,14 +389,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Requests an airdrop of lamports to the specified address with optional parameters.</div>
 </td>
 </tr>
-<tr id="i30" class="altColor">
+<tr id="i32" class="altColor">
 <td class="colFirst"><code><a href="SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sendTransaction(java.lang.String)">sendTransaction</a></span>&#8203;(java.lang.String&nbsp;transactionBlob)</code></th>
 <td class="colLast">
 <div class="block">Sends a transaction to the blockchain with default optional parameters.</div>
 </td>
 </tr>
-<tr id="i31" class="rowColor">
+<tr id="i33" class="rowColor">
 <td class="colFirst"><code><a href="SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sendTransaction(java.lang.String,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">sendTransaction</a></span>&#8203;(java.lang.String&nbsp;transactionBlob,
                <a href="SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
@@ -390,14 +404,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Sends a transaction to the blockchain with optional parameters.</div>
 </td>
 </tr>
-<tr id="i32" class="altColor">
+<tr id="i34" class="altColor">
 <td class="colFirst"><code><a href="SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="SimulateTransactionResponse.html" title="interface in com.lmax.solana4j.client.api">SimulateTransactionResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#simulateTransaction(java.lang.String)">simulateTransaction</a></span>&#8203;(java.lang.String&nbsp;transaction)</code></th>
 <td class="colLast">
 <div class="block">Simulates a transaction without broadcasting it to the blockchain, with default optional parameters.</div>
 </td>
 </tr>
-<tr id="i33" class="rowColor">
+<tr id="i35" class="rowColor">
 <td class="colFirst"><code><a href="SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="SimulateTransactionResponse.html" title="interface in com.lmax.solana4j.client.api">SimulateTransactionResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#simulateTransaction(java.lang.String,com.lmax.solana4j.client.api.SolanaClientOptionalParams)">simulateTransaction</a></span>&#8203;(java.lang.String&nbsp;transaction,
                    <a href="SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)</code></th>
@@ -1079,7 +1093,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <a id="getClusterNodes()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getClusterNodes</h4>
 <pre class="methodSignature"><a href="SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;java.util.List&lt;<a href="ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a>&gt;&gt;&nbsp;getClusterNodes()
@@ -1088,6 +1102,42 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a <a href="SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api"><code>SolanaClientResponse</code></a> containing a <code>List</code> of <a href="ClusterNode.html" title="interface in com.lmax.solana4j.client.api"><code>ClusterNode</code></a> objects with the metadata of the nodes within the Solana cluster</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../jsonrpc/SolanaJsonRpcClientException.html" title="class in com.lmax.solana4j.client.jsonrpc">SolanaJsonRpcClientException</a></code> - if there is an error with the JSON-RPC request</dd>
+</dl>
+</li>
+</ul>
+<a id="getVoteAccounts()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getVoteAccounts</h4>
+<pre class="methodSignature"><a href="SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="VoteAccounts.html" title="interface in com.lmax.solana4j.client.api">VoteAccounts</a>&gt;&nbsp;getVoteAccounts()
+                                            throws <a href="../jsonrpc/SolanaJsonRpcClientException.html" title="class in com.lmax.solana4j.client.jsonrpc">SolanaJsonRpcClientException</a></pre>
+<div class="block">Returns the account info and associated stake for all the voting accounts in the current bank with default optional parameters.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a <a href="SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api"><code>SolanaClientResponse</code></a> containing a <a href="VoteAccounts.html" title="interface in com.lmax.solana4j.client.api"><code>VoteAccounts</code></a> object with current and delinquent vote accounts</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../jsonrpc/SolanaJsonRpcClientException.html" title="class in com.lmax.solana4j.client.jsonrpc">SolanaJsonRpcClientException</a></code> - if there is an error with the JSON-RPC request</dd>
+</dl>
+</li>
+</ul>
+<a id="getVoteAccounts(com.lmax.solana4j.client.api.SolanaClientOptionalParams)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getVoteAccounts</h4>
+<pre class="methodSignature"><a href="SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api">SolanaClientResponse</a>&lt;<a href="VoteAccounts.html" title="interface in com.lmax.solana4j.client.api">VoteAccounts</a>&gt;&nbsp;getVoteAccounts&#8203;(<a href="SolanaClientOptionalParams.html" title="interface in com.lmax.solana4j.client.api">SolanaClientOptionalParams</a>&nbsp;optionalParams)
+                                            throws <a href="../jsonrpc/SolanaJsonRpcClientException.html" title="class in com.lmax.solana4j.client.jsonrpc">SolanaJsonRpcClientException</a></pre>
+<div class="block">Returns the account info and associated stake for all the voting accounts in the current bank with optional parameters.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>optionalParams</code> - a map of optional parameters to customize the request, such as `commitment`, `votePubkey`, `keepUnstakedDelinquents`, and `delinquentSlotDistance`</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a <a href="SolanaClientResponse.html" title="interface in com.lmax.solana4j.client.api"><code>SolanaClientResponse</code></a> containing a <a href="VoteAccounts.html" title="interface in com.lmax.solana4j.client.api"><code>VoteAccounts</code></a> object with current and delinquent vote accounts</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../jsonrpc/SolanaJsonRpcClientException.html" title="class in com.lmax.solana4j.client.jsonrpc">SolanaJsonRpcClientException</a></code> - if there is an error with the JSON-RPC request</dd>
 </dl>

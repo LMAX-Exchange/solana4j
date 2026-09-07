@@ -263,6 +263,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">StakeProgram.</span><code><span class="memberNameLink"><a href="../../programs/StakeProgram.html#authorize(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.programs.StakeProgram.StakeAuthorizationType)">authorize</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;stake,
+         <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authority,
+         <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;newAuthority,
+         <a href="../../programs/StakeProgram.StakeAuthorizationType.html" title="enum in com.lmax.solana4j.programs">StakeProgram.StakeAuthorizationType</a>&nbsp;stakeAuthorizationType)</code></th>
+<td class="colLast">
+<div class="block">Changes the authorization on a stake account.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SystemProgram.</span><code><span class="memberNameLink"><a href="../../programs/SystemProgram.html#createAccount(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,long,com.lmax.solana4j.api.PublicKey)">createAccount</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;payer,
              <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;newAccount,
              long&nbsp;lamports,
@@ -272,7 +282,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Creates a new account.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">AssociatedTokenProgram.</span><code><span class="memberNameLink"><a href="../../programs/AssociatedTokenProgram.html#createAssociatedTokenAccount(com.lmax.solana4j.api.ProgramDerivedAddress,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,boolean)">createAssociatedTokenAccount</a></span>&#8203;(<a href="../ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a>&nbsp;programDerivedAddress,
                             <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
@@ -284,7 +294,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Creates a new associated token account.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">AddressLookupTableProgram.</span><code><span class="memberNameLink"><a href="../../programs/AddressLookupTableProgram.html#createLookupTable(com.lmax.solana4j.api.ProgramDerivedAddress,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.Slot)">createLookupTable</a></span>&#8203;(<a href="../ProgramDerivedAddress.html" title="interface in com.lmax.solana4j.api">ProgramDerivedAddress</a>&nbsp;programDerivedAddress,
                  <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authority,
@@ -294,7 +304,24 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Creates a new address lookup table.</div>
 </td>
 </tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">StakeProgram.</span><code><span class="memberNameLink"><a href="../../programs/StakeProgram.html#deactivate(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">deactivate</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;stake,
+          <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;stakeAuthority)</code></th>
+<td class="colLast">
+<div class="block">Deactivates a stake account.</div>
+</td>
+</tr>
 <tr class="rowColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">StakeProgram.</span><code><span class="memberNameLink"><a href="../../programs/StakeProgram.html#delegate(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">delegate</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;stake,
+        <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;stakeAuthority,
+        <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;voteAccount)</code></th>
+<td class="colLast">
+<div class="block">Delegates a stake account to a vote account.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">AddressLookupTableProgram.</span><code><span class="memberNameLink"><a href="../../programs/AddressLookupTableProgram.html#extendLookupTable(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List)">extendLookupTable</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;lookupTable,
                  <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authority,
@@ -302,6 +329,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
                  java.util.List&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;addresses)</code></th>
 <td class="colLast">
 <div class="block">Extends an existing address lookup table with new addresses.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">StakeProgram.</span><code><span class="memberNameLink"><a href="../../programs/StakeProgram.html#initialize(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.programs.StakeProgram.Authorized,com.lmax.solana4j.programs.StakeProgram.Lockup)">initialize</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;stake,
+          <a href="../../programs/StakeProgram.Authorized.html" title="class in com.lmax.solana4j.programs">StakeProgram.Authorized</a>&nbsp;authorized,
+          <a href="../../programs/StakeProgram.Lockup.html" title="class in com.lmax.solana4j.programs">StakeProgram.Lockup</a>&nbsp;lockup)</code></th>
+<td class="colLast">
+<div class="block">Initializes a stake account.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -333,6 +369,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">StakeProgram.</span><code><span class="memberNameLink"><a href="../../programs/StakeProgram.html#merge(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">merge</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;destination,
+     <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;source,
+     <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;stakeAuthority)</code></th>
+<td class="colLast">
+<div class="block">Merges two stake accounts.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/TokenProgramBase.html#mintTo(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.Destination)">mintTo</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;mint,
       <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authority,
@@ -341,7 +386,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Mints new tokens to a destination.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SystemProgram.</span><code><span class="memberNameLink"><a href="../../programs/SystemProgram.html#nonceAdvance(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">nonceAdvance</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;nonce,
             <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authorized)</code></th>
@@ -349,7 +394,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Advances a nonce.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">SystemProgram.</span><code><span class="memberNameLink"><a href="../../programs/SystemProgram.html#nonceInitialize(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey)">nonceInitialize</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;nonce,
                <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;authorized)</code></th>
@@ -357,7 +402,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Initializes a nonce account.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">TokenProgramBase.</span><code><span class="memberNameLink"><a href="../../programs/TokenProgramBase.html#setAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.List,com.lmax.solana4j.programs.TokenProgramBase.AuthorityType)">setAuthority</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;tokenAccount,
             <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;newAuthority,
@@ -368,27 +413,37 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Sets a new authority for a token account.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">ComputeBudgetProgram.</span><code><span class="memberNameLink"><a href="../../programs/ComputeBudgetProgram.html#setComputeUnitLimit(int)">setComputeUnitLimit</a></span>&#8203;(int&nbsp;computeUnits)</code></th>
 <td class="colLast">
 <div class="block">Sets the compute unit limit.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">ComputeBudgetProgram.</span><code><span class="memberNameLink"><a href="../../programs/ComputeBudgetProgram.html#setComputeUnitPrice(long)">setComputeUnitPrice</a></span>&#8203;(long&nbsp;microLamports)</code></th>
 <td class="colLast">
 <div class="block">Sets the compute unit price.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">BpfLoaderUpgradeableProgram.</span><code><span class="memberNameLink"><a href="../../programs/BpfLoaderUpgradeableProgram.html#setUpgradeAuthority(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,java.util.Optional)">setUpgradeAuthority</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;programAddress,
                    <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;currentUpgradeAuthorityAddress,
                    java.util.Optional&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;maybeNewUpgradeAuthorityAddress)</code></th>
 <td class="colLast">
 <div class="block">Sets the upgrade authority for a given program address.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">StakeProgram.</span><code><span class="memberNameLink"><a href="../../programs/StakeProgram.html#split(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long,com.lmax.solana4j.api.PublicKey)">split</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;stake,
+     <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;stakeAuthority,
+     long&nbsp;lamports,
+     <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;newStake)</code></th>
+<td class="colLast">
+<div class="block">Splits a stake account into two accounts.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -409,6 +464,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
         java.util.List&lt;<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&gt;&nbsp;signers)</code></th>
 <td class="colLast">
 <div class="block">Transfers tokens between accounts.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../TransactionInstruction.html" title="interface in com.lmax.solana4j.api">TransactionInstruction</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">StakeProgram.</span><code><span class="memberNameLink"><a href="../../programs/StakeProgram.html#withdraw(com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,com.lmax.solana4j.api.PublicKey,long)">withdraw</a></span>&#8203;(<a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;stake,
+        <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;withdrawAuthority,
+        <a href="../PublicKey.html" title="interface in com.lmax.solana4j.api">PublicKey</a>&nbsp;to,
+        long&nbsp;lamports)</code></th>
+<td class="colLast">
+<div class="block">Withdraws from a stake account.</div>
 </td>
 </tr>
 </tbody>
