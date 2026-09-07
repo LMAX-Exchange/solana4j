@@ -17,6 +17,8 @@ import com.lmax.solana4j.client.api.TokenAccount;
 import com.lmax.solana4j.client.api.TokenAmount;
 import com.lmax.solana4j.client.api.TransactionResponse;
 import com.lmax.solana4j.client.api.VoteAccounts;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -41,6 +43,8 @@ import static java.util.Objects.requireNonNull;
  */
 public final class SolanaJsonRpcClient implements SolanaApi
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SolanaJsonRpcClient.class);
+
     private final String rpcUrl;
     private final HttpClient httpClient;
     private final SolanaCodec solanaCodec;
@@ -498,7 +502,9 @@ public final class SolanaJsonRpcClient implements SolanaApi
     {
         try
         {
-            return buildPostRequest(solanaCodec.encodeRequest(method, params));
+            final String payload = solanaCodec.encodeRequest(method, params);
+            LOGGER.debug("Sending: {}", payload);
+            return buildPostRequest(payload);
         }
         catch (final JsonProcessingException e)
         {
@@ -511,6 +517,8 @@ public final class SolanaJsonRpcClient implements SolanaApi
         try
         {
             final HttpResponse<String> httpResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            LOGGER.debug("Received Status Code {}: {}", httpResponse.statusCode(), httpResponse.body());
+
             if (httpResponse.statusCode() != 200)
             {
                 throw new SolanaJsonRpcClientException(String.format("Unexpected status code %s returned from the JSON RPC for request %s.", httpResponse.statusCode(), request));
