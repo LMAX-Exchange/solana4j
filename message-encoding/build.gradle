@@ -102,7 +102,7 @@ dependencies {
     integrationTestRuntimeOnly 'org.testcontainers:testcontainers:1.20.2'
     integrationTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
     integrationTestRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    integrationTestRuntimeOnly 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+    integrationTestRuntimeOnly 'com.fasterxml.jackson.core:jackson-databind:2.18.9'
     integrationTestRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
 
     // jmh test dependencies
