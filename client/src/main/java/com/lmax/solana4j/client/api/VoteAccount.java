@@ -61,4 +61,11 @@ public interface VoteAccount
      * @return the epoch credits history
      */
     java.util.List<java.util.List<Long>> getEpochCredits();
+
+    /**
+     * Returns the inflation rewards commission in basis points for this vote account.
+     *
+     * @return the inflation rewards commission in basis points, or {@code null} if not available
+     */
+    Integer getInflationRewardsCommissionBps();
 }

@@ -17,6 +17,7 @@ final class BlockResponseDTO implements BlockResponse
     private final long parentSlot;
     private final String previousBlockhashBase58;
     private final List<RewardsDTO> rewards;
+    private final Long numRewardPartitions;
     private final List<TransactionResponseDTO> transactions;
 
 
@@ -28,6 +29,7 @@ final class BlockResponseDTO implements BlockResponse
             final @JsonProperty("parentSlot") long parentSlot,
             final @JsonProperty("previousBlockhash") String previousBlockhashBase58,
             final @JsonProperty("rewards") List<RewardsDTO> rewards,
+            final @JsonProperty("numRewardPartitions") Long numRewardPartitions,
             final @JsonProperty("transactions") List<TransactionResponseDTO> transactions)
     {
         this.blockHeight = blockHeight;
@@ -36,6 +38,7 @@ final class BlockResponseDTO implements BlockResponse
         this.parentSlot = parentSlot;
         this.previousBlockhashBase58 = previousBlockhashBase58;
         this.rewards = rewards;
+        this.numRewardPartitions = numRewardPartitions;
         this.transactions = transactions;
     }
 
@@ -86,6 +89,12 @@ final class BlockResponseDTO implements BlockResponse
     }
 
     @Override
+    public Long getNumRewardPartitions()
+    {
+        return numRewardPartitions;
+    }
+
+    @Override
     public String toString()
     {
         return "BlockResponseDTO{" +
@@ -95,6 +104,7 @@ final class BlockResponseDTO implements BlockResponse
                 ", parentSlot=" + parentSlot +
                 ", previousBlockhashBase58='" + previousBlockhashBase58 + '\'' +
                 ", rewards=" + rewards +
+                ", numRewardPartitions=" + numRewardPartitions +
                 ", transactions=" + transactions +
                 '}';
     }

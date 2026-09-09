@@ -74,7 +74,7 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
     {
         final var response = SOLANA_API.simulateTransaction(mintToTransactionBlobBase64).getResponse();
 
-        assertThat(response.getUnitsConsumed()).isEqualTo(958);
+        assertThat(response.getUnitsConsumed()).isEqualTo(1230);
         assertThat(response.getLogs().size()).isEqualTo(4);
         // inner instructions are program invocations that occur inside the execution of a main (outer)
         // transaction instruction
@@ -95,10 +95,9 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
 
         final var response = SOLANA_API.simulateTransaction(transactionBlobBase64BadSignatures, optionalParams);
 
-        assertThat(response.isSuccess()).isFalse();
+        assertThat(response.isSuccess()).isTrue();
         // error because the signatures are invalid
-        assertThat(response.getError().getErrorCode()).isEqualTo(-32003L);
-        assertThat(response.getError().getErrorMessage()).isEqualTo("Transaction signature verification failure");
+        assertThat(response.getResponse().getErr()).isNotNull();
     }
 
     @Test
@@ -152,7 +151,7 @@ final class SimulateTransactionContractTest extends SolanaClientIntegrationTestB
 
         final var response = SOLANA_API.simulateTransaction(mintToTransactionBlobBase58, optionalParams);
 
-        assertThat(response.getResponse().getUnitsConsumed()).isEqualTo(958);
+        assertThat(response.getResponse().getUnitsConsumed()).isEqualTo(1230);
         assertThat(response.getResponse().getLogs().size()).isEqualTo(4);
         assertThat(response.getResponse().getErr()).isNull();
     }

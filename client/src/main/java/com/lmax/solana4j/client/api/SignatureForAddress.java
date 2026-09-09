@@ -48,4 +48,11 @@ public interface SignatureForAddress
      * @return the {@link Commitment} representing the confirmation status of the transaction
      */
     Commitment getConfirmationStatus();
+
+    /**
+     * Returns the index of the transaction within its block.
+     *
+     * @return the transaction index within the block, or {@code null} if not available
+     */
+    Integer getTransactionIndex();
 }

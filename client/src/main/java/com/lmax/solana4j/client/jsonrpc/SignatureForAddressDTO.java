@@ -13,6 +13,7 @@ final class SignatureForAddressDTO implements SignatureForAddress
     private final Long slot;
     private final Long blockTime;
     private final Commitment confirmationStatus;
+    private final Integer transactionIndex;
 
     @JsonCreator
     SignatureForAddressDTO(
@@ -21,7 +22,8 @@ final class SignatureForAddressDTO implements SignatureForAddress
             final @JsonProperty("signature") String signature,
             final @JsonProperty("slot") Long slot,
             final @JsonProperty("blockTime") Long blockTime,
-            final @JsonProperty("confirmationStatus") Commitment confirmationStatus)
+            final @JsonProperty("confirmationStatus") Commitment confirmationStatus,
+            final @JsonProperty("transactionIndex") Integer transactionIndex)
     {
         this.err = err;
         this.memo = memo;
@@ -29,6 +31,7 @@ final class SignatureForAddressDTO implements SignatureForAddress
         this.slot = slot;
         this.blockTime = blockTime;
         this.confirmationStatus = confirmationStatus;
+        this.transactionIndex = transactionIndex;
     }
 
     @Override
@@ -65,5 +68,11 @@ final class SignatureForAddressDTO implements SignatureForAddress
     public Commitment getConfirmationStatus()
     {
         return confirmationStatus;
+    }
+
+    @Override
+    public Integer getTransactionIndex()
+    {
+        return transactionIndex;
     }
 }
