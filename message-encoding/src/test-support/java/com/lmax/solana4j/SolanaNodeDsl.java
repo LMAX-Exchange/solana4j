@@ -824,7 +824,16 @@ public class SolanaNodeDsl
 
     private Condition<TransactionResponse> transactionFinalized(final String transactionSignature)
     {
-        return Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature));
+        return Condition.isNotNull(() ->
+        {
+            final TransactionResponse response = solanaDriver.getTransactionResponse(transactionSignature);
+            if (response != null && response.getMetadata().getErr() != null)
+            {
+                throw new RuntimeException("Transaction " + transactionSignature +
+                        " failed on-chain with error: " + response.getMetadata().getErr());
+            }
+            return response;
+        });
     }
 
     private AddressLookupTable storeAddressLookupTable(final TestPublicKey lookupTableAddress, final String lookupTableAlias)
