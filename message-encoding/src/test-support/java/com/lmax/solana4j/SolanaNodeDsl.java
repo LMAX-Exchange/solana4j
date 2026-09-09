@@ -545,7 +545,8 @@ public class SolanaNodeDsl
                 new RequiredArg("to"),
                 new RequiredArg("amountSol"),
                 new RequiredArg("payer"),
-                new OptionalArg("addressLookupTables").setAllowMultipleValues()
+                new OptionalArg("addressLookupTables").setAllowMultipleValues(),
+                new OptionalArg("rememberTransactionAs")
         );
 
         final TestKeyPair from = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("from"));
@@ -561,6 +562,11 @@ public class SolanaNodeDsl
         final String transactionSignature = solanaDriver.transfer(from, to, lamports, payer, addressLookupTables);
 
         Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
+
+        if (params.hasValue("rememberTransactionAs"))
+        {
+            testContext.data(TestDataType.TRANSACTION_ID).store(params.value("rememberTransactionAs"), transactionSignature);
+        }
     }
 
     public void createAssociatedTokenAccount(final String... args)
@@ -630,7 +636,7 @@ public class SolanaNodeDsl
     {
         final DslParams params = DslParams.create(
                 args,
-                new RequiredArg("messageEncoding").setAllowedValues("Legacy", "V0"),
+                new RequiredArg("messageEncoding").setAllowedValues("Legacy", "V0", "V1"),
                 new RequiredArg("payer"),
                 new RepeatingArgGroup(
                         new RequiredArg("lookupTableAddress"),
@@ -650,8 +656,7 @@ public class SolanaNodeDsl
                 final String addresses = String.join(", ", group.valuesAsList("addresses"));
                 extendAddressLookupTable(group.value("lookupTableAddress"), "authority: lookupAuthority", payer, "addresses: " + addresses);
             }
-        }
-    }
+        }    }
 
     public void setTokenAccountAuthority(final String... args)
     {
@@ -789,6 +794,12 @@ public class SolanaNodeDsl
         assertThat(accountInfo.getOwner()).isEqualTo("BPFLoaderUpgradeab1e11111111111111111111111");
     }
 
+
+    public TransactionResponse getTransactionResponse(final String alias)
+    {
+        final String transactionId = testContext.data(TestDataType.TRANSACTION_ID).lookup(alias);
+        return solanaDriver.getTransactionResponse(transactionId);
+    }
 
     public void verifyTransactionMetadata(final String... args)
     {

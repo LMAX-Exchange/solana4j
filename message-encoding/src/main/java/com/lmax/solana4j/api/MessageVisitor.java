@@ -195,6 +195,113 @@ public interface MessageVisitor<T>
     }
 
     /**
+     * Interface representing a view of a Solana V1 message.
+     *
+     * <p>
+     * V1 messages raise the size limit to 4,096 bytes, move resource limits into the message
+     * itself via a transaction config, and do not support address lookup tables.
+     * </p>
+     */
+    interface Version1MessageView extends MessageView
+    {
+
+        /**
+         * Retrieves the version number of this message.
+         *
+         * @return the version number of the message, expected to be 1 for V1 messages
+         */
+        int version();
+
+        /**
+         * Returns the config mask of the V1 message.
+         *
+         * <p>
+         * The config mask is a bitmask indicating which config values are present in the message.
+         * Bits 0-1 indicate priority fee, bit 2 indicates compute unit limit,
+         * bit 3 indicates loaded accounts data size limit, and bit 4 indicates requested heap size.
+         * </p>
+         *
+         * @return the config mask as an int
+         */
+        int configMask();
+
+        /**
+         * Checks if a priority fee is set in the config.
+         *
+         * @return {@code true} if a priority fee is set, {@code false} otherwise
+         */
+        boolean hasPriorityFee();
+
+        /**
+         * Returns the priority fee in lamports.
+         *
+         * @return the priority fee in lamports
+         * @throws IllegalStateException if no priority fee is set
+         */
+        long priorityFee();
+
+        /**
+         * Checks if a compute unit limit is set in the config.
+         *
+         * @return {@code true} if a compute unit limit is set, {@code false} otherwise
+         */
+        boolean hasComputeUnitLimit();
+
+        /**
+         * Returns the compute unit limit.
+         *
+         * @return the compute unit limit
+         * @throws IllegalStateException if no compute unit limit is set
+         */
+        int computeUnitLimit();
+
+        /**
+         * Checks if a loaded accounts data size limit is set in the config.
+         *
+         * @return {@code true} if a loaded accounts data size limit is set, {@code false} otherwise
+         */
+        boolean hasLoadedAccountsDataSizeLimit();
+
+        /**
+         * Returns the loaded accounts data size limit in bytes.
+         *
+         * @return the loaded accounts data size limit in bytes
+         * @throws IllegalStateException if no loaded accounts data size limit is set
+         */
+        int loadedAccountsDataSizeLimit();
+
+        /**
+         * Checks if a requested heap size is set in the config.
+         *
+         * @return {@code true} if a requested heap size is set, {@code false} otherwise
+         */
+        boolean hasRequestedHeapSize();
+
+        /**
+         * Returns the requested heap size in bytes.
+         *
+         * @return the requested heap size in bytes
+         * @throws IllegalStateException if no requested heap size is set
+         */
+        int requestedHeapSize();
+
+        /**
+         * Retrieves the list of instructions included in this V1 message.
+         *
+         * @return a list of {@link LegacyInstructionView} objects representing the instructions
+         */
+        List<LegacyInstructionView> instructions();
+
+        /**
+         * Checks if the specified account is marked as a writer in this V1 message.
+         *
+         * @param account the public key of the account to check
+         * @return {@code true} if the account is marked as a writer, {@code false} otherwise
+         */
+        boolean isWriter(PublicKey account);
+    }
+
+    /**
      * Interface representing an instruction view of a Solana Message.
      */
     interface InstructionView

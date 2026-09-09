@@ -18,6 +18,7 @@ import com.lmax.solana4j.programs.TokenProgramBase;
 import com.lmax.solana4j.transaction.LegacyTransactionBlobFactory;
 import com.lmax.solana4j.transaction.TransactionBlobFactory;
 import com.lmax.solana4j.transaction.V0TransactionBlobFactory;
+import com.lmax.solana4j.transaction.V1TransactionBlobFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -509,6 +510,10 @@ public class SolanaDriver
         else if (messageEncoding.equals("Legacy"))
         {
             transactionBlobFactory = new LegacyTransactionBlobFactory();
+        }
+        else if (messageEncoding.equals("V1"))
+        {
+            transactionBlobFactory = new V1TransactionBlobFactory();
         }
         else
         {
