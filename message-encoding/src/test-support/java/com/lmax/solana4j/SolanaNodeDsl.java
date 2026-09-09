@@ -656,7 +656,8 @@ public class SolanaNodeDsl
                 final String addresses = String.join(", ", group.valuesAsList("addresses"));
                 extendAddressLookupTable(group.value("lookupTableAddress"), "authority: lookupAuthority", payer, "addresses: " + addresses);
             }
-        }    }
+        }
+    }
 
     public void setTokenAccountAuthority(final String... args)
     {
