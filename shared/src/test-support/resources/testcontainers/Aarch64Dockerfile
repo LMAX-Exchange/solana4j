@@ -1,26 +1,57 @@
-FROM --platform=linux/aarch64 ubuntu:20.04
+ARG SOLANA_VERSION
+FROM --platform=linux/aarch64 ubuntu:22.04
 
 ARG SOLANA_VERSION
-ENV SOLANA_TAR=solana-release-aarch64-unknown-linux-gnu-$SOLANA_VERSION.tar.bz2
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime \
+    && apt update \
+    && apt install -y tzdata \
+    && dpkg-reconfigure --frontend noninteractive tzdata \
+    && apt install -y \
+    libssl-dev \
+    libudev-dev \
+    pkg-config \
+    zlib1g-dev \
+    llvm \
+    clang \
+    cmake \
+    make \
+    libprotobuf-dev \
+    protobuf-compiler \
+    curl \
+    wget \
+    git \
+    jq \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV DEBIAN_FRONTEND=dialog
+
+RUN useradd -m -s /bin/bash solana
+
+USER solana
+
+WORKDIR /home/solana
+
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+
+ENV PATH="/home/solana/.cargo/bin:${PATH}"
+
+RUN git clone https://github.com/anza-xyz/agave.git --depth 1 --branch v$SOLANA_VERSION /home/solana/solana-src-v$SOLANA_VERSION
+
+RUN /bin/bash -c "/home/solana/solana-src-v$SOLANA_VERSION/scripts/cargo-install-all.sh /home/solana/.local/share/solana/install/releases/$SOLANA_VERSION"
+
+ENV PATH="/home/solana/.local/share/solana/install/releases/$SOLANA_VERSION/bin:${PATH}"
 
 USER root
 
-COPY fetch-spl.sh /fetch-spl.sh
-COPY solana-run.sh /solana-run.sh
-COPY solana-release-aarch64-unknown-linux-gnu-$SOLANA_VERSION.tar.bz2 /solana-release-aarch64-unknown-linux-gnu-$SOLANA_VERSION.tar.bz2
+COPY solana-run.sh /usr/bin/solana-run.sh
 COPY lmax_multisig.so /lmax_multisig.so
 COPY upgrade_authority.json /upgrade_authority.json
 COPY bpf_program.json /bpf_program.json
 COPY accounts /accounts/
 
-RUN apt-get update && apt-get install -y wget curl
-
-RUN tar -xvjf /$SOLANA_TAR && rm -f /mount/$SOLANA_TAR && mv /home/solana/.local/share/solana/install/releases/$SOLANA_VERSION/bin/* /usr/local/bin/
-
-COPY /solana-run.sh /usr/bin/solana-run.sh
 RUN chmod +x /usr/bin/solana-run.sh
-
-COPY fetch-spl.sh /usr/bin/fetch-spl.sh
-RUN chmod +x /usr/bin/fetch-spl.sh
 
 ENTRYPOINT ["/usr/bin/solana-run.sh"]

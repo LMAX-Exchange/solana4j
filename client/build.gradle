@@ -78,7 +78,7 @@ dependencies {
     integrationTestRuntimeOnly project(path: ':message-encoding', configuration: 'default')
 
     integrationTestRuntimeOnly 'org.bouncycastle:bcprov-jdk18on:1.78.1'
-    integrationTestRuntimeOnly 'org.testcontainers:testcontainers:1.20.2'
+    integrationTestRuntimeOnly 'org.testcontainers:testcontainers:1.21.3'
     integrationTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
     integrationTestRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     integrationTestRuntimeOnly 'com.fasterxml.jackson.core:jackson-databind:2.18.9'
@@ -108,6 +108,7 @@ task integrationTest(type: Test) {
     classpath = sourceSets.integrationTest.runtimeClasspath
     shouldRunAfter test
     systemProperty 'solana.version', solanaVersion
+    systemProperty 'api.version', '1.45'
     testLogging {
         events "passed", "skipped", "failed"
         exceptionFormat "full"

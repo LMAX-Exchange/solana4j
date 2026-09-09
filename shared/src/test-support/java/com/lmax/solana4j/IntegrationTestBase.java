@@ -6,6 +6,7 @@ import org.testcontainers.images.builder.ImageFromDockerfile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -18,6 +19,7 @@ public abstract class IntegrationTestBase
     private static final int SOLANA_WS_PORT = 8900;
     private static final Network NETWORK = Network.newNetwork();
     private static final GenericContainer<?> SOLANA_VALIDATOR;
+    private static final Path CACHE_DIR = Path.of(System.getProperty("user.home"), ".cache", "solana4j");
 
     protected static String solanaRpcUrl;
 
@@ -32,7 +34,6 @@ public abstract class IntegrationTestBase
             final Path dockerfilePath = copyResourceToTempFile(parentDirectory, arch.equals("aarch64") ? "Aarch64Dockerfile" : "Dockerfile");
 
             copyResourceToTempFile(parentDirectory, "solana-run.sh");
-            copyResourceToTempFile(parentDirectory, "fetch-spl.sh");
             copyResourceToTempFile(parentDirectory, "lmax_multisig.so");
             copyResourceToTempFile(parentDirectory, "upgrade_authority.json");
             copyResourceToTempFile(parentDirectory, "bpf_program.json");
@@ -43,24 +44,14 @@ public abstract class IntegrationTestBase
             copyResourceToTempFile(parentDirectory, "accounts/nonce_account.json");
 
             final String solanaVersion = System.getProperty("solana.version");
-            if (arch.equals("aarch64"))
-            {
-                try
-                {
-                    copyResourceToTempFile(parentDirectory, String.format("solana-release-aarch64-unknown-linux-gnu-%s.tar.bz2", solanaVersion));
-                }
-                catch (final Exception e)
-                {
-                    throw new RuntimeException(
-                            String.format("Cannot find solana-release-aarch64-unknown-linux-gnu-%s.tar.bz2, " +
-                                    "are you sure you've run BuildMeAnAarch64CompliantSolanaDockerImagePleaseDockerfile?", solanaVersion));
-                }
-            }
+
+            downloadSolanaRelease(parentDirectory, solanaVersion);
 
             SOLANA_VALIDATOR = new GenericContainer<>(new ImageFromDockerfile().withDockerfile(dockerfilePath).withBuildArg("SOLANA_VERSION", solanaVersion))
                     .withExposedPorts(SOLANA_HTTP_PORT, SOLANA_WS_PORT)
                     .withEnv("SOLANA_RUN_SH_VALIDATOR_ARGS", "--ticks-per-slot=8")
                     .withNetwork(NETWORK)
+                    .withPrivilegedMode(true)
                     .withStartupTimeout(Duration.of(10, ChronoUnit.MINUTES));
 
             SOLANA_VALIDATOR.start();
@@ -92,5 +83,34 @@ public abstract class IntegrationTestBase
             Files.copy(resourceStream, tempFile, StandardCopyOption.REPLACE_EXISTING);
         }
         return tempFile;
+    }
+
+    private static void downloadSolanaRelease(final Path contextDir, final String solanaVersion) throws IOException
+    {
+        final String filename = "solana-release-x86_64-unknown-linux-gnu-" + solanaVersion + ".tar.bz2";
+        final String url = "https://github.com/anza-xyz/agave/releases/download/v" + solanaVersion + "/solana-release-x86_64-unknown-linux-gnu.tar.bz2";
+        downloadToContext(contextDir, filename, url);
+    }
+
+    private static void downloadToContext(final Path contextDir, final String filename, final String url) throws IOException
+    {
+        final Path target = contextDir.resolve(filename);
+        if (Files.exists(target))
+        {
+            return;
+        }
+
+        final Path cached = CACHE_DIR.resolve(filename);
+        if (!Files.exists(cached))
+        {
+            Files.createDirectories(CACHE_DIR);
+            System.out.println("Downloading " + filename + " from " + url);
+            try (InputStream in = new URL(url).openStream())
+            {
+                Files.copy(in, cached, StandardCopyOption.REPLACE_EXISTING);
+            }
+        }
+
+        Files.copy(cached, target, StandardCopyOption.REPLACE_EXISTING);
     }
 }

@@ -18,6 +18,7 @@ public class VoteAccountDTO implements VoteAccount
     private final long lastVote;
     private final long rootSlot;
     private final List<List<Long>> epochCredits;
+    private final Integer inflationRewardsCommissionBps;
 
     @JsonCreator
     VoteAccountDTO(
@@ -28,7 +29,8 @@ public class VoteAccountDTO implements VoteAccount
             final @JsonProperty("commission") int commission,
             final @JsonProperty("lastVote") long lastVote,
             final @JsonProperty("rootSlot") long rootSlot,
-            final @JsonProperty("epochCredits") List<List<Long>> epochCredits)
+            final @JsonProperty("epochCredits") List<List<Long>> epochCredits,
+            final @JsonProperty("inflationRewardsCommissionBps") Integer inflationRewardsCommissionBps)
     {
         this.nodePubkey = nodePubkey;
         this.votePubkey = votePubkey;
@@ -38,6 +40,7 @@ public class VoteAccountDTO implements VoteAccount
         this.lastVote = lastVote;
         this.rootSlot = rootSlot;
         this.epochCredits = epochCredits;
+        this.inflationRewardsCommissionBps = inflationRewardsCommissionBps;
     }
 
     @Override
@@ -97,6 +100,12 @@ public class VoteAccountDTO implements VoteAccount
     }
 
     @Override
+    public Integer getInflationRewardsCommissionBps()
+    {
+        return inflationRewardsCommissionBps;
+    }
+
+    @Override
     public String toString()
     {
         return "VoteAccountDTO{" +
@@ -108,6 +117,7 @@ public class VoteAccountDTO implements VoteAccount
                ", lastVote=" + lastVote +
                ", rootSlot=" + rootSlot +
                ", epochCredits=" + epochCredits +
+               ", inflationRewardsCommissionBps=" + inflationRewardsCommissionBps +
                '}';
     }
 }

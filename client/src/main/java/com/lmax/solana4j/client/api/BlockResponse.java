@@ -58,6 +58,13 @@ public interface BlockResponse
     List<TransactionResponse> getTransactions();
 
     /**
+     * Returns the number of reward partitions in the block.
+     *
+     * @return the number of reward partitions, or {@code null} if not available
+     */
+    Long getNumRewardPartitions();
+
+    /**
      * Represents the details of a reward payment.
      */
     interface Rewards

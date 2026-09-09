@@ -28,6 +28,7 @@ final class TransactionResponseDTO implements TransactionResponse
     private final TransactionDataDTO transaction;
     private final Long blockTime;
     private final String version;
+    private final Integer transactionIndex;
 
     @JsonCreator
     TransactionResponseDTO(
@@ -35,13 +36,15 @@ final class TransactionResponseDTO implements TransactionResponse
             final @JsonProperty("slot") long slot,
             final @JsonProperty("transaction") TransactionDataDTO transaction,
             final @JsonProperty("blockTime") Long blockTime,
-            final @JsonProperty("version") String version)
+            final @JsonProperty("version") String version,
+            final @JsonProperty("transactionIndex") Integer transactionIndex)
     {
         this.metaImpl = metaImpl;
         this.slot = slot;
         this.transaction = transaction;
         this.blockTime = blockTime;
         this.version = version;
+        this.transactionIndex = transactionIndex;
     }
 
     @Override
@@ -76,6 +79,12 @@ final class TransactionResponseDTO implements TransactionResponse
     }
 
     @Override
+    public Integer getTransactionIndex()
+    {
+        return transactionIndex;
+    }
+
+    @Override
     public String toString()
     {
         return "TransactionResponseDTO{" +
@@ -84,6 +93,7 @@ final class TransactionResponseDTO implements TransactionResponse
                 ", transaction=" + transaction +
                 ", blockTime=" + blockTime +
                 ", version='" + version + '\'' +
+                ", transactionIndex=" + transactionIndex +
                 '}';
     }
 
@@ -99,7 +109,9 @@ final class TransactionResponseDTO implements TransactionResponse
         private final List<TokenBalanceDTO> preTokenBalances;
         private final List<RewardDTO> rewards;
         private final long computeUnitsConsumed;
+        private final long costUnits;
         private final LoadedAddressesDTO loadedAddresses;
+        private final ReturnDataDTO returnData;
         private final Map.Entry<String, Object> status;
 
         @JsonCreator
@@ -114,7 +126,9 @@ final class TransactionResponseDTO implements TransactionResponse
                 final @JsonProperty("preTokenBalances") List<TokenBalanceDTO> preTokenBalances,
                 final @JsonProperty("rewards") List<RewardDTO> rewards,
                 final @JsonProperty("computeUnitsConsumed") long computeUnitsConsumed,
+                final @JsonProperty("costUnits") long costUnits,
                 final @JsonProperty("loadedAddresses") LoadedAddressesDTO loadedAddresses,
+                final @JsonProperty("returnData") ReturnDataDTO returnData,
                 final @JsonProperty("status") Map.Entry<String, Object> status)
         {
             this.err = err;
@@ -127,7 +141,9 @@ final class TransactionResponseDTO implements TransactionResponse
             this.preTokenBalances = preTokenBalances;
             this.rewards = rewards;
             this.computeUnitsConsumed = computeUnitsConsumed;
+            this.costUnits = costUnits;
             this.loadedAddresses = loadedAddresses;
+            this.returnData = returnData;
             this.status = status;
         }
 
@@ -194,9 +210,21 @@ final class TransactionResponseDTO implements TransactionResponse
         }
 
         @Override
+        public long getCostUnits()
+        {
+            return costUnits;
+        }
+
+        @Override
         public LoadedAddresses getLoadedAddresses()
         {
             return loadedAddresses;
+        }
+
+        @Override
+        public ReturnData getReturnData()
+        {
+            return returnData;
         }
 
         @Override
@@ -220,7 +248,9 @@ final class TransactionResponseDTO implements TransactionResponse
                     ", preTokenBalances=" + preTokenBalances +
                     ", rewards=" + rewards +
                     ", computeUnitsConsumed=" + computeUnitsConsumed +
+                    ", costUnits=" + costUnits +
                     ", loadedAddresses=" + loadedAddresses +
+                    ", returnData=" + returnData +
                     ", status=" + status +
                     '}';
         }
@@ -887,6 +917,40 @@ final class TransactionResponseDTO implements TransactionResponse
         public List<String> getWritable()
         {
             return writable;
+        }
+    }
+
+    static final class ReturnDataDTO implements TransactionMetadata.ReturnData
+    {
+        private final String programId;
+        private final List<String> data;
+
+        @JsonCreator
+        ReturnDataDTO(final @JsonProperty("programId") String programId, final @JsonProperty("data") List<String> data)
+        {
+            this.programId = programId;
+            this.data = data;
+        }
+
+        @Override
+        public String getProgramId()
+        {
+            return programId;
+        }
+
+        @Override
+        public List<String> getData()
+        {
+            return data;
+        }
+
+        @Override
+        public String toString()
+        {
+            return "ReturnDataDTO{" +
+                    "programId='" + programId + '\'' +
+                    ", data=" + data +
+                    '}';
         }
     }
 }

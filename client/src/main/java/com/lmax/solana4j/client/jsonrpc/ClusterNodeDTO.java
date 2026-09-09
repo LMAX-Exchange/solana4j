@@ -23,6 +23,7 @@ public class ClusterNodeDTO implements ClusterNode
     private final String tpuQuicAddress;
     private final String tpuVoteAddress;
     private final String tvuAddress;
+    private final String clientId;
 
     @JsonCreator
     ClusterNodeDTO(
@@ -39,7 +40,8 @@ public class ClusterNodeDTO implements ClusterNode
             final @JsonProperty("tpuForwardsQuic") String tpuForwardsQuicAddress,
             final @JsonProperty("tpuQuic") String tpuQuicAddress,
             final @JsonProperty("tpuVote") String tpuVoteAddress,
-            final @JsonProperty("tvu") String tvuAddress)
+            final @JsonProperty("tvu") String tvuAddress,
+            final @JsonProperty("clientId") String clientId)
     {
         this.featureSet = featureSet;
         this.gossipAddress = gossipAddress;
@@ -55,6 +57,7 @@ public class ClusterNodeDTO implements ClusterNode
         this.tpuQuicAddress = tpuQuicAddress;
         this.tpuVoteAddress = tpuVoteAddress;
         this.tvuAddress = tvuAddress;
+        this.clientId = clientId;
     }
 
     @Override
@@ -156,6 +159,12 @@ public class ClusterNodeDTO implements ClusterNode
     }
 
     @Override
+    public String getClientId()
+    {
+        return clientId;
+    }
+
+    @Override
     public String toString()
     {
         return "ClusterNodeDTO{" +
@@ -173,6 +182,7 @@ public class ClusterNodeDTO implements ClusterNode
                ", tpuQuicAddress='" + tpuQuicAddress + '\'' +
                ", tpuVoteAddress='" + tpuVoteAddress + '\'' +
                ", tvuAddress='" + tvuAddress + '\'' +
+               ", clientId='" + clientId + '\'' +
                '}';
     }
 }

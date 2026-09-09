@@ -126,7 +126,7 @@ final class GetTransactionContractTest extends SolanaClientIntegrationTestBase
         assertThat(instruction.getProgramIdIndex()).isEqualTo(2);
         // stack height refers to the execution depth of an instruction within a transaction,
         // especially when dealing with nested program invocations (inner instructions)
-        assertThat(instruction.getStackHeight()).isEqualTo(null);
+        assertThat(instruction.getStackHeight()).isEqualTo(1);
 
         assertThat(message.getRecentBlockhash()).isNotEmpty();
 
@@ -179,7 +179,7 @@ final class GetTransactionContractTest extends SolanaClientIntegrationTestBase
         assertThat(instruction.getProgramIdIndex()).isNull();
         // stack height refers to the execution depth of an instruction within a transaction,
         // especially when dealing with nested program invocations (inner instructions)
-        assertThat(instruction.getStackHeight()).isEqualTo(null);
+        assertThat(instruction.getStackHeight()).isEqualTo(1);
 
         // i think the best we can do here is really just return a Map<String, Object> and let the user do their own parsing
         // since the parsing is very much program specific

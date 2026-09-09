@@ -105,4 +105,11 @@ public interface ClusterNode
      * @return the Transaction Validation Unit Vote Address for the node.
      */
     String getTvuAddress();
+
+    /**
+     * Returns the client ID of the node.
+     *
+     * @return the client ID, or {@code null} if not available
+     */
+    String getClientId();
 }
