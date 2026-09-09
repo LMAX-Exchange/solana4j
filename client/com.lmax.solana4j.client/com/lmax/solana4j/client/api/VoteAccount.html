@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -173,34 +173,41 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>java.lang.Integer</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getInflationRewardsCommissionBps()">getInflationRewardsCommissionBps</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the inflation rewards commission in basis points for this vote account.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLastVote()">getLastVote</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the most recent slot voted on by this validator.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNodePubkey()">getNodePubkey</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the validator identity public key as a base58-encoded string.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRootSlot()">getRootSlot</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the current root slot for this validator.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVotePubkey()">getVotePubkey</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the vote account public key as a base58-encoded string.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isEpochVoteAccount()">isEpochVoteAccount</a></span>()</code></th>
 <td class="colLast">
@@ -325,7 +332,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <a id="getEpochCredits()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getEpochCredits</h4>
 <pre class="methodSignature">java.util.List&lt;java.util.List&lt;java.lang.Long&gt;&gt;&nbsp;getEpochCredits()</pre>
@@ -334,6 +341,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the epoch credits history</dd>
+</dl>
+</li>
+</ul>
+<a id="getInflationRewardsCommissionBps()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getInflationRewardsCommissionBps</h4>
+<pre class="methodSignature">java.lang.Integer&nbsp;getInflationRewardsCommissionBps()</pre>
+<div class="block">Returns the inflation rewards commission in basis points for this vote account.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the inflation rewards commission in basis points, or <code>null</code> if not available</dd>
 </dl>
 </li>
 </ul>

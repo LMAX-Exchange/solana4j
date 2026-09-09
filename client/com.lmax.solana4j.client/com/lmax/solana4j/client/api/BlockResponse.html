@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -194,27 +194,34 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>java.lang.Long</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNumRewardPartitions()">getNumRewardPartitions</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the number of reward partitions in the block.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getParentSlot()">getParentSlot</a></span>()</code></th>
 <td class="colLast">
 <div class="block">The slot number in which this block was generated.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPreviousBlockhash()">getPreviousBlockhash</a></span>()</code></th>
 <td class="colLast">
 <div class="block">The SHA-256 hash which uniquely represents the parent block of this block.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="BlockResponse.Rewards.html" title="interface in com.lmax.solana4j.client.api">BlockResponse.Rewards</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRewards()">getRewards</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Details of reward payments issued in this block.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="TransactionResponse.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTransactions()">getTransactions</a></span>()</code></th>
 <td class="colLast">
@@ -325,7 +332,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <a id="getTransactions()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getTransactions</h4>
 <pre class="methodSignature">java.util.List&lt;<a href="TransactionResponse.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse</a>&gt;&nbsp;getTransactions()</pre>
@@ -333,6 +340,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>A list of transaction objects</dd>
+</dl>
+</li>
+</ul>
+<a id="getNumRewardPartitions()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getNumRewardPartitions</h4>
+<pre class="methodSignature">java.lang.Long&nbsp;getNumRewardPartitions()</pre>
+<div class="block">Returns the number of reward partitions in the block.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the number of reward partitions, or <code>null</code> if not available</dd>
 </dl>
 </li>
 </ul>

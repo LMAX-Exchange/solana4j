@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -183,41 +183,48 @@ implements <a href="../api/VoteAccount.html" title="interface in com.lmax.solana
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>java.lang.Integer</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getInflationRewardsCommissionBps()">getInflationRewardsCommissionBps</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the inflation rewards commission in basis points for this vote account.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLastVote()">getLastVote</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the most recent slot voted on by this validator.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNodePubkey()">getNodePubkey</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the validator identity public key as a base58-encoded string.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRootSlot()">getRootSlot</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the current root slot for this validator.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVotePubkey()">getVotePubkey</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the vote account public key as a base58-encoded string.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isEpochVoteAccount()">isEpochVoteAccount</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns whether the vote account is a commission-earning account.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -380,6 +387,23 @@ implements <a href="../api/VoteAccount.html" title="interface in com.lmax.solana
 <dd><code><a href="../api/VoteAccount.html#getEpochCredits()">getEpochCredits</a></code>&nbsp;in interface&nbsp;<code><a href="../api/VoteAccount.html" title="interface in com.lmax.solana4j.client.api">VoteAccount</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the epoch credits history</dd>
+</dl>
+</li>
+</ul>
+<a id="getInflationRewardsCommissionBps()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getInflationRewardsCommissionBps</h4>
+<pre class="methodSignature">public&nbsp;java.lang.Integer&nbsp;getInflationRewardsCommissionBps()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../api/VoteAccount.html#getInflationRewardsCommissionBps()">VoteAccount</a></code></span></div>
+<div class="block">Returns the inflation rewards commission in basis points for this vote account.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../api/VoteAccount.html#getInflationRewardsCommissionBps()">getInflationRewardsCommissionBps</a></code>&nbsp;in interface&nbsp;<code><a href="../api/VoteAccount.html" title="interface in com.lmax.solana4j.client.api">VoteAccount</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the inflation rewards commission in basis points, or <code>null</code> if not available</dd>
 </dl>
 </li>
 </ul>

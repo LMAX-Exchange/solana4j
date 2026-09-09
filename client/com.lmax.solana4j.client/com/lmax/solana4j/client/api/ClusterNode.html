@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6,"i14":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -152,97 +152,104 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getClientId()">getClientId</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the client ID of the node.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFeatureSet()">getFeatureSet</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the current feature set as a number.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGossipAddress()">getGossipAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Gossip Address for the node.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPublicKey()">getPublicKey</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the public key of the Solana node.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPubsubAddress()">getPubsubAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the PubSub Address for the node.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRpcAddress()">getRpcAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the JSON-RPC for the node.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getServeRepairAddress()">getServeRepairAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Shred Repair Address for the node.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getShredVersion()">getShredVersion</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the version of the shred database on the Solana node containing the blocks available on that node.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTpuAddress()">getTpuAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Transaction Processing Unit Address for the node.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTpuForwardsAddress()">getTpuForwardsAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Transaction Processing Unit Forwarding Address for the node.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTpuForwardsQuicAddress()">getTpuForwardsQuicAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Transaction Processing Unit Forwarding QUIC Address for the node.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTpuQuicAddress()">getTpuQuicAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Transaction Processing Unit QUIC Address for the node.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTpuVoteAddress()">getTpuVoteAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Transaction Processing Unit Vote Address for the node.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTvuAddress()">getTvuAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Transaction Validation Unit Vote Address for the node.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVersion()">getVersion</a></span>()</code></th>
 <td class="colLast">
@@ -454,7 +461,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <a id="getTvuAddress()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getTvuAddress</h4>
 <pre class="methodSignature">java.lang.String&nbsp;getTvuAddress()</pre>
@@ -462,6 +469,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the Transaction Validation Unit Vote Address for the node.</dd>
+</dl>
+</li>
+</ul>
+<a id="getClientId()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getClientId</h4>
+<pre class="methodSignature">java.lang.String&nbsp;getClientId()</pre>
+<div class="block">Returns the client ID of the node.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the client ID, or <code>null</code> if not available</dd>
 </dl>
 </li>
 </ul>

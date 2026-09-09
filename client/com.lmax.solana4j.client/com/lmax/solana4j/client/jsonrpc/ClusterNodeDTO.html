@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -162,104 +162,111 @@ implements <a href="../api/ClusterNode.html" title="interface in com.lmax.solana
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getClientId()">getClientId</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the client ID of the node.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFeatureSet()">getFeatureSet</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the current feature set as a number.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGossipAddress()">getGossipAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Gossip Address for the node.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPublicKey()">getPublicKey</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the public key of the Solana node.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPubsubAddress()">getPubsubAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the PubSub Address for the node.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRpcAddress()">getRpcAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the JSON-RPC for the node.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getServeRepairAddress()">getServeRepairAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Shred Repair Address for the node.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getShredVersion()">getShredVersion</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the version of the shred database on the Solana node containing the blocks available on that node.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTpuAddress()">getTpuAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Transaction Processing Unit Address for the node.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTpuForwardsAddress()">getTpuForwardsAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Transaction Processing Unit Forwarding Address for the node.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTpuForwardsQuicAddress()">getTpuForwardsQuicAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Transaction Processing Unit Forwarding QUIC Address for the node.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTpuQuicAddress()">getTpuQuicAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Transaction Processing Unit QUIC Address for the node.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTpuVoteAddress()">getTpuVoteAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Transaction Processing Unit Vote Address for the node.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTvuAddress()">getTvuAddress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the Transaction Validation Unit Vote Address for the node.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVersion()">getVersion</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the version of solana core as a string.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -526,6 +533,23 @@ implements <a href="../api/ClusterNode.html" title="interface in com.lmax.solana
 <dd><code><a href="../api/ClusterNode.html#getTvuAddress()">getTvuAddress</a></code>&nbsp;in interface&nbsp;<code><a href="../api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the Transaction Validation Unit Vote Address for the node.</dd>
+</dl>
+</li>
+</ul>
+<a id="getClientId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getClientId</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getClientId()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../api/ClusterNode.html#getClientId()">ClusterNode</a></code></span></div>
+<div class="block">Returns the client ID of the node.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../api/ClusterNode.html#getClientId()">getClientId</a></code>&nbsp;in interface&nbsp;<code><a href="../api/ClusterNode.html" title="interface in com.lmax.solana4j.client.api">ClusterNode</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the client ID, or <code>null</code> if not available</dd>
 </dl>
 </li>
 </ul>

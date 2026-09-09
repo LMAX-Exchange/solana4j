@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -187,34 +187,83 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>java.lang.Long</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFee()">getFee</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the fee charged for the simulated transaction.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="TransactionResponse.InnerInstruction.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.InnerInstruction</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getInnerInstructions()">getInnerInstructions</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the list of inner instructions executed during the transaction simulation.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>java.lang.Long</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLoadedAccountsDataSize()">getLoadedAccountsDataSize</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the total number of account-data bytes loaded while simulating the transaction.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code><a href="TransactionResponse.TransactionMetadata.LoadedAddresses.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionMetadata.LoadedAddresses</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLoadedAddresses()">getLoadedAddresses</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the loaded account addresses resolved from lookup tables.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLogs()">getLogs</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the list of log messages generated during the transaction simulation.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>java.util.List&lt;java.lang.Long&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPostBalances()">getPostBalances</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the lamport balances after simulation, indexed to the transaction account list.</div>
+</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="TransactionResponse.TransactionMetadata.TokenBalance.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionMetadata.TokenBalance</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPostTokenBalances()">getPostTokenBalances</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the token balances after simulation.</div>
+</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>java.util.List&lt;java.lang.Long&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPreBalances()">getPreBalances</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the lamport balances before simulation, indexed to the transaction account list.</div>
+</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="TransactionResponse.TransactionMetadata.TokenBalance.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionMetadata.TokenBalance</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPreTokenBalances()">getPreTokenBalances</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns the token balances before simulation.</div>
+</td>
+</tr>
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code><a href="Blockhash.html" title="interface in com.lmax.solana4j.client.api">Blockhash</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReplacementBlockhash()">getReplacementBlockhash</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the replacement blockhash used during the transaction simulation.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code><a href="SimulateTransactionResponse.Data.html" title="interface in com.lmax.solana4j.client.api">SimulateTransactionResponse.Data</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReturnData()">getReturnData</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns any return data generated by an instruction during the transaction simulation.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUnitsConsumed()">getUnitsConsumed</a></span>()</code></th>
 <td class="colLast">
@@ -325,7 +374,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <a id="getUnitsConsumed()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getUnitsConsumed</h4>
 <pre class="methodSignature">int&nbsp;getUnitsConsumed()</pre>
@@ -333,6 +382,104 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the number of compute units consumed</dd>
+</dl>
+</li>
+</ul>
+<a id="getFee()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFee</h4>
+<pre class="methodSignature">java.lang.Long&nbsp;getFee()</pre>
+<div class="block">Returns the fee charged for the simulated transaction.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the fee in lamports, or <code>null</code> if simulation failed before fee calculation</dd>
+</dl>
+</li>
+</ul>
+<a id="getPreBalances()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPreBalances</h4>
+<pre class="methodSignature">java.util.List&lt;java.lang.Long&gt;&nbsp;getPreBalances()</pre>
+<div class="block">Returns the lamport balances before simulation, indexed to the transaction account list.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a list of pre-simulation balances in lamports, or <code>null</code> if not available</dd>
+</dl>
+</li>
+</ul>
+<a id="getPostBalances()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPostBalances</h4>
+<pre class="methodSignature">java.util.List&lt;java.lang.Long&gt;&nbsp;getPostBalances()</pre>
+<div class="block">Returns the lamport balances after simulation, indexed to the transaction account list.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a list of post-simulation balances in lamports, or <code>null</code> if not available</dd>
+</dl>
+</li>
+</ul>
+<a id="getPreTokenBalances()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPreTokenBalances</h4>
+<pre class="methodSignature">java.util.List&lt;<a href="TransactionResponse.TransactionMetadata.TokenBalance.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionMetadata.TokenBalance</a>&gt;&nbsp;getPreTokenBalances()</pre>
+<div class="block">Returns the token balances before simulation.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a list of <a href="TransactionResponse.TransactionMetadata.TokenBalance.html" title="interface in com.lmax.solana4j.client.api"><code>TransactionResponse.TransactionMetadata.TokenBalance</code></a> objects, or <code>null</code> if not available</dd>
+</dl>
+</li>
+</ul>
+<a id="getPostTokenBalances()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPostTokenBalances</h4>
+<pre class="methodSignature">java.util.List&lt;<a href="TransactionResponse.TransactionMetadata.TokenBalance.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionMetadata.TokenBalance</a>&gt;&nbsp;getPostTokenBalances()</pre>
+<div class="block">Returns the token balances after simulation.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a list of <a href="TransactionResponse.TransactionMetadata.TokenBalance.html" title="interface in com.lmax.solana4j.client.api"><code>TransactionResponse.TransactionMetadata.TokenBalance</code></a> objects, or <code>null</code> if not available</dd>
+</dl>
+</li>
+</ul>
+<a id="getLoadedAddresses()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLoadedAddresses</h4>
+<pre class="methodSignature"><a href="TransactionResponse.TransactionMetadata.LoadedAddresses.html" title="interface in com.lmax.solana4j.client.api">TransactionResponse.TransactionMetadata.LoadedAddresses</a>&nbsp;getLoadedAddresses()</pre>
+<div class="block">Returns the loaded account addresses resolved from lookup tables.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a <a href="TransactionResponse.TransactionMetadata.LoadedAddresses.html" title="interface in com.lmax.solana4j.client.api"><code>TransactionResponse.TransactionMetadata.LoadedAddresses</code></a> object, or <code>null</code> if not available</dd>
+</dl>
+</li>
+</ul>
+<a id="getLoadedAccountsDataSize()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getLoadedAccountsDataSize</h4>
+<pre class="methodSignature">java.lang.Long&nbsp;getLoadedAccountsDataSize()</pre>
+<div class="block">Returns the total number of account-data bytes loaded while simulating the transaction.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the loaded accounts data size in bytes, or <code>null</code> if not available</dd>
 </dl>
 </li>
 </ul>
