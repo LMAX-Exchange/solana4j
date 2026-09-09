@@ -77,7 +77,7 @@ dependencies {
 
     integrationTestRuntimeOnly project(path: ':message-encoding', configuration: 'default')
 
-    integrationTestRuntimeOnly 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+    integrationTestRuntimeOnly 'org.bouncycastle:bcprov-jdk18on:1.84'
     integrationTestRuntimeOnly 'org.testcontainers:testcontainers:1.21.3'
     integrationTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
     integrationTestRuntimeOnly 'org.junit.platform:junit-platform-launcher'
