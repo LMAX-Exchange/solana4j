@@ -10,6 +10,7 @@ import java.util.function.Consumer;
  * <p>
  * V1 messages raise the size limit to 4,096 bytes, move resource limits into the message
  * itself via a transaction config, and do not support address lookup tables.
+ * The wire format is defined by <a href="https://github.com/solana-foundation/solana-improvement-documents/blob/main/proposals/0385-transaction-v1.md">SIMD-0385</a>.
  * </p>
  */
 public interface MessageBuilderV1
@@ -68,6 +69,13 @@ public interface MessageBuilderV1
      * (capped at 1.4M), in V1 it must be set explicitly or the transaction will fail.
      * </p>
      *
+     * <p>
+     * Note that while the wire format makes this field optional (an unset bit means a requested
+     * compute unit limit of zero, i.e. a transaction that cannot execute), this library enforces
+     * its presence at {@link #seal()} time with an {@code IllegalStateException} to prevent
+     * building transactions that request no compute units.
+     * </p>
+     *
      * @param units the compute unit limit
      * @return this {@code MessageBuilderV1} instance for method chaining
      */
@@ -81,6 +89,13 @@ public interface MessageBuilderV1
      * or the transaction will fail with {@code MaxLoadedAccountsDataSizeExceeded}.
      * </p>
      *
+     * <p>
+     * Note that while the wire format makes this field optional (an unset bit means a requested
+     * limit of zero, which the network treats as reserving 32 KiB for the cost model), this
+     * library enforces its presence at {@link #seal()} time with an {@code IllegalStateException}.
+     * An explicit value of zero is permitted and expresses that minimal budget.
+     * </p>
+     *
      * @param bytes the loaded accounts data size limit in bytes
      * @return this {@code MessageBuilderV1} instance for method chaining
      */
@@ -88,6 +103,12 @@ public interface MessageBuilderV1
 
     /**
      * Sets the requested heap size for the V1 message.
+     *
+     * <p>
+     * The heap size must be a multiple of 1 KiB in the inclusive range [32 KiB, 256 KiB],
+     * as required by the V1 transaction format; values outside of these bounds are rejected
+     * with an {@code IllegalStateException} by this library rather than by the network.
+     * </p>
      *
      * @param bytes the requested heap size in bytes
      * @return this {@code MessageBuilderV1} instance for method chaining

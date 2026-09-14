@@ -33,9 +33,14 @@ public final class SolanaJsonRpcClientOptionalParams implements SolanaClientOpti
      * <ul>
      *   <li><b>encoding</b>: "base64" - Specifies that the data should be encoded in base64 format.</li>
      *   <li><b>commitment</b>: "finalized" - Sets the commitment level to "finalized" for queries, ensuring the request is processed with finalized data.</li>
-     * <li><b>maxSupportedTransactionVersion</b>: 1 - Indicates the maximum supported version of the transaction.
+     *   <li><b>maxSupportedTransactionVersion</b>: 1 - Indicates the maximum supported version of the transaction.
      *       Setting it to 1 specifies support for legacy, V0, and V1 versioned transactions.</li>
      * </ul>
+     *
+     * <p>
+     * Note that this default applies to all queries made by the client, so nodes that do not
+     * support V1 transactions may respond with an error for this parameter value.
+     * </p>
      *
      * @return a {@link Map} containing default parameters to be used in JSON-RPC requests
      */

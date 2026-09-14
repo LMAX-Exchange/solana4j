@@ -288,6 +288,12 @@ public interface MessageVisitor<T>
         /**
          * Retrieves the list of instructions included in this V1 message.
          *
+         * <p>
+         * V1 messages do not support address lookup tables, so their instructions reference
+         * static accounts only, exactly like legacy messages. For that reason this method
+         * reuses {@link LegacyInstructionView} rather than defining a V1-specific view.
+         * </p>
+         *
          * @return a list of {@link LegacyInstructionView} objects representing the instructions
          */
         List<LegacyInstructionView> instructions();

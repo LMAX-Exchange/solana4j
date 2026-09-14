@@ -91,6 +91,11 @@ final class SolanaMessageBuilderV1 implements MessageBuilderV1
     @Override
     public MessageBuilderV1 requestedHeapSize(final int bytes)
     {
+        if (bytes % 1024 != 0 || bytes < SolanaMessageWriterV1.MIN_REQUESTED_HEAP_SIZE || bytes > SolanaMessageWriterV1.MAX_REQUESTED_HEAP_SIZE)
+        {
+            throw new IllegalStateException("Solana transaction invalid; requested heap size must be a multiple of 1024 between " +
+                    SolanaMessageWriterV1.MIN_REQUESTED_HEAP_SIZE + " and " + SolanaMessageWriterV1.MAX_REQUESTED_HEAP_SIZE + ".");
+        }
         configMask |= SolanaMessageWriterV1.CONFIG_REQUESTED_HEAP_SIZE;
         this.requestedHeapSize = bytes;
         return this;
@@ -102,6 +107,16 @@ final class SolanaMessageBuilderV1 implements MessageBuilderV1
         if (this.payer == null)
         {
             throw new IllegalStateException("Solana transaction incomplete; payer has not been specified.");
+        }
+
+        if ((configMask & SolanaMessageWriterV1.CONFIG_COMPUTE_UNIT_LIMIT) == 0)
+        {
+            throw new IllegalStateException("Solana transaction incomplete; compute unit limit has not been specified.");
+        }
+
+        if ((configMask & SolanaMessageWriterV1.CONFIG_LOADED_ACCOUNTS_DATA_SIZE) == 0)
+        {
+            throw new IllegalStateException("Solana transaction incomplete; loaded accounts data size limit has not been specified.");
         }
 
         final var accounts = SolanaAccounts.create(instructions, payer);
@@ -118,6 +133,11 @@ final class SolanaMessageBuilderV1 implements MessageBuilderV1
 
         writer.write(buffer);
         buffer.flip();
+
+        if (buffer.limit() > SolanaEncoding.MAX_V1_MESSAGE_SIZE)
+        {
+            throw new IllegalStateException("Solana transaction invalid; V1 messages must be at most " + SolanaEncoding.MAX_V1_MESSAGE_SIZE + " bytes.");
+        }
 
         final ByteBuffer sealedBuffer = buffer.duplicate();
         return new SolanaSealedMessageBuilder(sealedBuffer);

@@ -17,7 +17,7 @@ abstract class SolanaMessageView implements MessageView
     private final int countAccountsSignedReadOnly;
     private final int countAccountsUnsignedReadOnly;
 
-    private final MessageVisitor.AccountsView accountsView;
+    protected final MessageVisitor.AccountsView accountsView;
     private final List<ByteBuffer> signatures;
     private final PublicKey feePayer;
     private final Blockhash recentBlockHash;
@@ -46,16 +46,13 @@ abstract class SolanaMessageView implements MessageView
 
     static MessageView fromBuffer(final ByteBuffer buffer)
     {
-        // Peek at first byte to detect V1 format (0x81 prefix, signatures at tail)
-        final byte firstByte = buffer.get();
-        buffer.rewind();
+        final byte firstByte = buffer.get(buffer.position());
 
         if (firstByte == (byte) 0x81)
         {
             return readV1Message(buffer);
         }
 
-        // Legacy or V0 format - signatures at the beginning
         final var formatter = new SolanaMessageFormattingCommon(buffer);
 
         final var signatures = formatter.readSignatures();
@@ -131,32 +128,31 @@ abstract class SolanaMessageView implements MessageView
     private static MessageView readV1Message(final ByteBuffer buffer)
     {
         buffer.order(ByteOrder.LITTLE_ENDIAN);
+
+        final int messageStart = buffer.position();
         final var formatter = new SolanaMessageFormattingCommon(buffer);
 
-        // Read version prefix
-        formatter.readByte(); // 0x81
+        formatter.readByte();
 
-        // Read header
         final int countAccountsSigned = formatter.readByte() & 0xff;
         final int countAccountsSignedReadOnly = formatter.readByte() & 0xff;
         final int countAccountsUnsignedReadOnly = formatter.readByte() & 0xff;
 
-        // Read config mask (u32 LE)
         final int configMask = buffer.getInt();
 
-        // Read blockhash
         final var blockhash = formatter.readBlockHash();
 
-        // Read num_instructions (fixed u8)
         final int numInstructions = formatter.readByte() & 0xff;
 
-        // Read num_addresses (fixed u8)
         final int numAddresses = formatter.readByte() & 0xff;
 
-        // Read addresses (fixed count, no compact-u16 prefix)
         final var staticAccounts = readFixedAccounts(buffer, numAddresses);
 
-        // Read config values (in bit order)
+        if (staticAccounts.isEmpty())
+        {
+            throw new IllegalStateException("message is malformed");
+        }
+
         long priorityFee = 0;
         int computeUnitLimit = 0;
         int loadedAccountsDataSizeLimit = 0;
@@ -179,7 +175,6 @@ abstract class SolanaMessageView implements MessageView
             requestedHeapSize = buffer.getInt();
         }
 
-        // Read instruction headers (N x 4 bytes: program_id_index u8, num_accounts u8, data_len u16 LE)
         final int[] programIndices = new int[numInstructions];
         final int[] numAccountsPerInstruction = new int[numInstructions];
         final int[] dataLens = new int[numInstructions];
@@ -190,7 +185,6 @@ abstract class SolanaMessageView implements MessageView
             dataLens[i] = buffer.getShort() & 0xffff;
         }
 
-        // Read instruction payloads (per instruction: account indices u8, then data)
         final List<MessageVisitor.InstructionView> instructions = new ArrayList<>(numInstructions);
         for (int i = 0; i < numInstructions; i++)
         {
@@ -207,20 +201,23 @@ abstract class SolanaMessageView implements MessageView
             instructions.add(new SolanaInstructionView(programIndices[i], accountIndexes, data));
         }
 
-        // Create transaction slice (message body from 0 to current position, excluding signatures)
         final int messageBodyEnd = buffer.position();
         final var transactionDup = buffer.duplicate();
-        transactionDup.position(0);
+        transactionDup.position(messageStart);
         transactionDup.limit(messageBodyEnd);
         final var transaction = transactionDup.slice();
 
-        // Read signatures from tail (count from header, no length prefix)
         final List<ByteBuffer> signatures = new ArrayList<>(countAccountsSigned);
         for (int i = 0; i < countAccountsSigned; i++)
         {
             final byte[] bytes = new byte[64];
             buffer.get(bytes);
             signatures.add(ByteBuffer.wrap(bytes));
+        }
+
+        if (buffer.remaining() != 0)
+        {
+            throw new IllegalStateException("message is malformed");
         }
 
         return new SolanaV1MessageView(
@@ -326,6 +323,16 @@ abstract class SolanaMessageView implements MessageView
     public List<PublicKey> staticAccounts()
     {
         return accountsView.staticAccounts();
+    }
+
+    protected final boolean isWriterStaticAccount(final int index)
+    {
+        final var isSignerWriter = index < countAccountsSigned - countAccountsSignedReadOnly;
+        final boolean isNonSigner = index >= countAccountsSigned;
+        final boolean isNonSignerReadonly = index >= (accountsView.staticAccounts().size() - countAccountsUnsignedReadOnly);
+        final var isNonSignerWriter = isNonSigner && !isNonSignerReadonly;
+
+        return isSignerWriter || isNonSignerWriter;
     }
 
 }

@@ -15,6 +15,13 @@ final class SolanaMessageWriterV1
     static final int CONFIG_LOADED_ACCOUNTS_DATA_SIZE = 0x8;
     static final int CONFIG_REQUESTED_HEAP_SIZE = 0x10;
 
+    static final int MAX_INSTRUCTIONS = 64;
+    static final int MAX_ADDRESSES = 64;
+    static final int MAX_SIGNERS = 12;
+    static final int MAX_INSTRUCTION_ACCOUNTS = 255;
+    static final int MIN_REQUESTED_HEAP_SIZE = 32 * 1024;
+    static final int MAX_REQUESTED_HEAP_SIZE = 256 * 1024;
+
     private final SolanaBlockhash recentBlockHash;
     private final List<TransactionInstruction> instructions;
     private final Accounts accounts;
@@ -46,6 +53,29 @@ final class SolanaMessageWriterV1
 
     void write(final ByteBuffer buffer)
     {
+        if (instructions.size() > MAX_INSTRUCTIONS)
+        {
+            throw new IllegalStateException("Solana transaction invalid; V1 messages support at most " + MAX_INSTRUCTIONS + " instructions.");
+        }
+
+        if (accounts.getStaticAccounts().size() > MAX_ADDRESSES)
+        {
+            throw new IllegalStateException("Solana transaction invalid; V1 messages support at most " + MAX_ADDRESSES + " account addresses.");
+        }
+
+        if (accounts.getCountSigned() > MAX_SIGNERS)
+        {
+            throw new IllegalStateException("Solana transaction invalid; V1 messages support at most " + MAX_SIGNERS + " signatures.");
+        }
+
+        for (final var instruction : instructions)
+        {
+            if (instruction.accountReferences().size() > MAX_INSTRUCTION_ACCOUNTS)
+            {
+                throw new IllegalStateException("Solana transaction invalid; V1 instructions support at most " + MAX_INSTRUCTION_ACCOUNTS + " accounts.");
+            }
+        }
+
         buffer.order(ByteOrder.LITTLE_ENDIAN);
 
         // write V1 version prefix
@@ -97,7 +127,12 @@ final class SolanaMessageWriterV1
         // write instruction headers (N x 4 bytes: program_id_index u8, num_accounts u8, data_len u16 LE)
         for (final var instruction : instructions)
         {
-            buffer.put((byte) references.indexOfAccount(instruction.program()));
+            final int programIndex = references.indexOfAccount(instruction.program());
+            if (programIndex == -1)
+            {
+                throw new RuntimeException("Should have found the account.");
+            }
+            buffer.put((byte) programIndex);
             buffer.put((byte) instruction.accountReferences().size());
             buffer.putShort((short) instruction.datasize());
         }
@@ -118,9 +153,6 @@ final class SolanaMessageWriterV1
         }
 
         // reserve signatures at the tail (no length prefix, count comes from header)
-        for (int i = 0; i < accounts.getCountSigned(); i++)
-        {
-            buffer.put(new byte[64]);
-        }
+        buffer.position(buffer.position() + (64 * accounts.getCountSigned()));
     }
 }

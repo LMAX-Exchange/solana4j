@@ -51,7 +51,6 @@ final class SolanaSignedMessageBuilder implements SignedMessageBuilder
                         message1.staticAccounts().subList(0, message1.countAccountsSigned()),
                         message1.transaction()));
 
-        // Detect V1 format: signatures at the tail with no length prefix
         final byte firstByte = this.buffer.duplicate().get();
         final boolean isV1 = firstByte == (byte) 0x81;
 
@@ -59,13 +58,15 @@ final class SolanaSignedMessageBuilder implements SignedMessageBuilder
 
         if (isV1)
         {
-            // V1: signatures at the tail, position at end of message body
             final int signatureStart = signingBufferView.limit() - (info.signatories.size() * SIGNATURE_LENGTH);
+            if (signatureStart < 0)
+            {
+                throw new IllegalStateException("message is malformed");
+            }
             signingBufferView.position(signatureStart);
         }
         else
         {
-            // Legacy/V0: signatures at the beginning with compact-u16 count prefix
             final SolanaMessageFormattingCommon formatter = new SolanaMessageFormattingCommon(signingBufferView);
             final int expectedSignatureCount = formatter.readInt();
             if (expectedSignatureCount != info.signatories.size())

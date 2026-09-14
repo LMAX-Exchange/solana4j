@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 
 final class SolanaV1MessageView extends SolanaMessageView implements MessageVisitor.Version1MessageView
 {
-    private final int version = 1;
-    private final MessageVisitor.LegacyAccountsView accountsView;
+    private static final int VERSION = 1;
+
     private final List<MessageVisitor.InstructionView> instructions;
     private final int configMask;
     private final long priorityFee;
@@ -36,7 +36,6 @@ final class SolanaV1MessageView extends SolanaMessageView implements MessageVisi
             final int requestedHeapSize)
     {
         super(countAccountsSigned, countAccountsSignedReadOnly, countAccountsUnsignedReadOnly, accountsView, transaction, signatures, feePayer, recentBlockHash);
-        this.accountsView = accountsView;
         this.instructions = instructions;
         this.configMask = configMask;
         this.priorityFee = priorityFee;
@@ -48,7 +47,7 @@ final class SolanaV1MessageView extends SolanaMessageView implements MessageVisi
     @Override
     public int version()
     {
-        return version;
+        return VERSION;
     }
 
     @Override
@@ -138,16 +137,7 @@ final class SolanaV1MessageView extends SolanaMessageView implements MessageVisi
     public boolean isWriter(final PublicKey account)
     {
         final var index = accountsView.staticAccounts().indexOf(account);
-        if (index == -1)
-        {
-            return false;
-        }
 
-        final var isSignerWriter = index < countAccountsSigned() - countAccountsSignedReadOnly();
-        final boolean isNonSigner = index >= countAccountsSigned();
-        final boolean isNonSignerReadonly = index >= (accountsView.staticAccounts().size() - countAccountsUnsignedReadOnly());
-        final var isNonSignerWriter = isNonSigner && !isNonSignerReadonly;
-
-        return isSignerWriter || isNonSignerWriter;
+        return index != -1 && isWriterStaticAccount(index);
     }
 }

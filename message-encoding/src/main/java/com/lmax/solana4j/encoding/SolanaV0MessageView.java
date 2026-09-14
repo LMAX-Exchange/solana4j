@@ -84,17 +84,6 @@ final class SolanaV0MessageView extends SolanaMessageView implements MessageVisi
                 ).collect(Collectors.toList());
     }
 
-    private boolean isWriterStaticAccount(final int index)
-    {
-        final var signedWriterStaticAccountsCount = countAccountsSigned() - countAccountsSignedReadOnly();
-        final var isSignerWriter = index < signedWriterStaticAccountsCount;
-        final var isNonSignerWriter =
-                (index >= countAccountsSigned() &&
-                (index < (accountsView.staticAccounts().size() - countAccountsUnsignedReadOnly())));
-
-        return isSignerWriter || isNonSignerWriter;
-    }
-
     private boolean isWriterLookupAccount(final PublicKey account, final List<AddressLookupTable> addressLookupTables) throws IllegalArgumentException
     {
         for (final MessageVisitor.AccountLookupView accountLookup : accountLookups)
