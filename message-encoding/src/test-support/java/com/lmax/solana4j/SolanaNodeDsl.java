@@ -545,7 +545,8 @@ public class SolanaNodeDsl
                 new RequiredArg("to"),
                 new RequiredArg("amountSol"),
                 new RequiredArg("payer"),
-                new OptionalArg("addressLookupTables").setAllowMultipleValues()
+                new OptionalArg("addressLookupTables").setAllowMultipleValues(),
+                new OptionalArg("rememberTransactionAs")
         );
 
         final TestKeyPair from = testContext.data(TestDataType.TEST_KEY_PAIR).lookup(params.value("from"));
@@ -561,6 +562,11 @@ public class SolanaNodeDsl
         final String transactionSignature = solanaDriver.transfer(from, to, lamports, payer, addressLookupTables);
 
         Waiter.waitForConditionMet(transactionFinalized(transactionSignature));
+
+        if (params.hasValue("rememberTransactionAs"))
+        {
+            testContext.data(TestDataType.TRANSACTION_ID).store(params.value("rememberTransactionAs"), transactionSignature);
+        }
     }
 
     public void createAssociatedTokenAccount(final String... args)
@@ -630,7 +636,7 @@ public class SolanaNodeDsl
     {
         final DslParams params = DslParams.create(
                 args,
-                new RequiredArg("messageEncoding").setAllowedValues("Legacy", "V0"),
+                new RequiredArg("messageEncoding").setAllowedValues("Legacy", "V0", "V1"),
                 new RequiredArg("payer"),
                 new RepeatingArgGroup(
                         new RequiredArg("lookupTableAddress"),
@@ -790,6 +796,12 @@ public class SolanaNodeDsl
     }
 
 
+    public TransactionResponse getTransactionResponse(final String alias)
+    {
+        final String transactionId = testContext.data(TestDataType.TRANSACTION_ID).lookup(alias);
+        return solanaDriver.getTransactionResponse(transactionId);
+    }
+
     public void verifyTransactionMetadata(final String... args)
     {
         final DslParams params = DslParams.create(
@@ -813,7 +825,16 @@ public class SolanaNodeDsl
 
     private Condition<TransactionResponse> transactionFinalized(final String transactionSignature)
     {
-        return Condition.isNotNull(() -> solanaDriver.getTransactionResponse(transactionSignature));
+        return Condition.isNotNull(() ->
+        {
+            final TransactionResponse response = solanaDriver.getTransactionResponse(transactionSignature);
+            if (response != null && response.getMetadata().getErr() != null)
+            {
+                throw new RuntimeException("Transaction " + transactionSignature +
+                        " failed on-chain with error: " + response.getMetadata().getErr());
+            }
+            return response;
+        });
     }
 
     private AddressLookupTable storeAddressLookupTable(final TestPublicKey lookupTableAddress, final String lookupTableAlias)

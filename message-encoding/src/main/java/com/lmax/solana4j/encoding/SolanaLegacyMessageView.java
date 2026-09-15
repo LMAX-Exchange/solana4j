@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 final class SolanaLegacyMessageView extends SolanaMessageView implements LegacyMessageView
 {
-    private final MessageVisitor.LegacyAccountsView accountsView;
     private final List<MessageVisitor.InstructionView> instructions;
 
     SolanaLegacyMessageView(
@@ -26,7 +25,6 @@ final class SolanaLegacyMessageView extends SolanaMessageView implements LegacyM
             final List<MessageVisitor.InstructionView> instructions)
     {
         super(countAccountsSigned, countAccountsSignedReadOnly, countAccountsUnsignedReadOnly, accountsView, transaction, signatures, feePayer, recentBlockHash);
-        this.accountsView = accountsView;
         this.instructions = instructions;
     }
 
@@ -47,16 +45,7 @@ final class SolanaLegacyMessageView extends SolanaMessageView implements LegacyM
     public boolean isWriter(final PublicKey account)
     {
         final var index = accountsView.staticAccounts().indexOf(account);
-        if (index == -1)
-        {
-            return false;
-        }
 
-        final var isSignerWriter = index < countAccountsSigned() - countAccountsSignedReadOnly();
-        final boolean isNonSigner = index >= countAccountsSigned();
-        final boolean isNonSignerReadonly = index >= (accountsView.staticAccounts().size() - countAccountsUnsignedReadOnly());
-        final var isNonSignerWriter = isNonSigner && !isNonSignerReadonly;
-
-        return isSignerWriter || isNonSignerWriter;
+        return index != -1 && isWriterStaticAccount(index);
     }
 }

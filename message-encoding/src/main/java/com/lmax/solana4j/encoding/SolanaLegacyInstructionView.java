@@ -9,13 +9,13 @@ import java.util.stream.Collectors;
 
 final class SolanaLegacyInstructionView extends SolanaInstructionView implements MessageVisitor.LegacyInstructionView
 {
-    private final MessageVisitor.LegacyAccountsView accountsView;
+    private final MessageVisitor.AccountsView accountsView;
 
     SolanaLegacyInstructionView(
             final int program,
             final List<Integer> accounts,
             final ByteBuffer data,
-            final MessageVisitor.LegacyAccountsView accountsView)
+            final MessageVisitor.AccountsView accountsView)
     {
         super(program, accounts, data);
         this.accountsView = accountsView;

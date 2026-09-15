@@ -50,13 +50,31 @@ final class SolanaSignedMessageBuilder implements SignedMessageBuilder
                 message1 -> new SigningInfo(
                         message1.staticAccounts().subList(0, message1.countAccountsSigned()),
                         message1.transaction()));
+
+        final byte firstByte = this.buffer.duplicate().get();
+        final boolean isV1 = firstByte == (byte) 0x81;
+
         final ByteBuffer signingBufferView = this.buffer.duplicate();
-        final SolanaMessageFormattingCommon formatter = new SolanaMessageFormattingCommon(signingBufferView);
-        final int expectedSignatureCount = formatter.readInt();
-        if (expectedSignatureCount != info.signatories.size())
+
+        if (isV1)
         {
-            throw new IllegalStateException("message is malformed");
+            final int signatureStart = signingBufferView.limit() - (info.signatories.size() * SIGNATURE_LENGTH);
+            if (signatureStart < 0)
+            {
+                throw new IllegalStateException("message is malformed");
+            }
+            signingBufferView.position(signatureStart);
         }
+        else
+        {
+            final SolanaMessageFormattingCommon formatter = new SolanaMessageFormattingCommon(signingBufferView);
+            final int expectedSignatureCount = formatter.readInt();
+            if (expectedSignatureCount != info.signatories.size())
+            {
+                throw new IllegalStateException("message is malformed");
+            }
+        }
+
         for (final var account : info.signatories)
         {
             final var signer = signers.get(account);

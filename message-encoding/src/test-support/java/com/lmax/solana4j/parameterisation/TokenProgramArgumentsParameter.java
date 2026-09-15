@@ -15,7 +15,9 @@ public class TokenProgramArgumentsParameter implements ArgumentsProvider
                 Arguments.of("V0", "Token"),
                 Arguments.of("V0", "Token2022"),
                 Arguments.of("Legacy", "Token"),
-                Arguments.of("Legacy", "Token2022")
+                Arguments.of("Legacy", "Token2022"),
+                Arguments.of("V1", "Token"),
+                Arguments.of("V1", "Token2022")
         );
     }
 }

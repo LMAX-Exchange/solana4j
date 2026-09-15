@@ -29,6 +29,11 @@ public final class SolanaEncoding
      */
     public static final int MAX_MESSAGE_SIZE = 1280 - 40 - 8;
 
+    /**
+     * The maximum size of a V1 message in bytes.
+     */
+    public static final int MAX_V1_MESSAGE_SIZE = 4096;
+
     private SolanaEncoding()
     {
     }

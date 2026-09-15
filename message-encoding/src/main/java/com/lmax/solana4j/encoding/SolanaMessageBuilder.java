@@ -3,6 +3,7 @@ package com.lmax.solana4j.encoding;
 import com.lmax.solana4j.api.MessageBuilder;
 import com.lmax.solana4j.api.MessageBuilderLegacy;
 import com.lmax.solana4j.api.MessageBuilderV0;
+import com.lmax.solana4j.api.MessageBuilderV1;
 
 import java.nio.ByteBuffer;
 
@@ -28,5 +29,11 @@ final class SolanaMessageBuilder implements MessageBuilder
     public MessageBuilderV0 v0()
     {
         return new SolanaMessageBuilderV0(this, this.buffer);
+    }
+
+    @Override
+    public MessageBuilderV1 v1()
+    {
+        return new SolanaMessageBuilderV1(this, this.buffer);
     }
 }

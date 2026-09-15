@@ -9,7 +9,7 @@ final class StakeProgramIntegrationTest extends SolanaProgramsIntegrationTestBas
     void beforeEachTest()
     {
         solana.createKeyPair("payer");
-        solana.airdropSol("payer", "100000");
+        solana.airdropSol("payer", "10");
     }
 
     @ParameterizedMessageEncodingTest
@@ -48,7 +48,7 @@ final class StakeProgramIntegrationTest extends SolanaProgramsIntegrationTestBas
                 "stakeAuthority: stakeAuthority",
                 "withdrawAuthority: withdrawAuthority",
                 "payer: payer",
-                "amountSol: 10000");
+                "amountSol: 5");
 
         solana.verifyStakeAccount("stakeAccount", "stakeAuthority", "withdrawAuthority");
 
@@ -78,7 +78,7 @@ final class StakeProgramIntegrationTest extends SolanaProgramsIntegrationTestBas
                 "stakeAuthority: stakeAuthority",
                 "withdrawAuthority: withdrawAuthority",
                 "payer: payer",
-                "amountSol: 10000");
+                "amountSol: 5");
 
         solana.delegateStake(
                 "stakeAccount: stakeAccount",
@@ -109,7 +109,7 @@ final class StakeProgramIntegrationTest extends SolanaProgramsIntegrationTestBas
                 "stakeAuthority: stakeAuthority",
                 "withdrawAuthority: withdrawAuthority",
                 "payer: payer",
-                "amountSol: 10000");
+                "amountSol: 5");
 
         solana.airdropSol("recipient", "0.001");
 

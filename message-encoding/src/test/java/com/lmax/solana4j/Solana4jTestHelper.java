@@ -309,6 +309,51 @@ public class Solana4jTestHelper
                 .build();
     }
 
+    public static Message writeSimpleUnsignedV1Message(final ByteBuffer buffer)
+    {
+        return Solana.builder(buffer)
+              .v1()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT4), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .data(DATA1.length, w -> w.put(DATA1))))
+              .computeUnitLimit(1_400_000)
+              .loadedAccountsDataSizeLimit(64 * 1024 * 1024)
+              .seal()
+              .unsigned()
+              .build();
+    }
+
+    public static Message writeSimpleFullySignedV1Message(final ByteBuffer buffer)
+    {
+        return Solana.builder(buffer)
+              .v1()
+              .payer(Solana.account(PAYER))
+              .recent(Solana.blockhash(BLOCKHASH))
+              .instructions(tb -> tb
+                      .append(ib -> ib
+                              .program(Solana.account(PROGRAM1))
+                              .account(Solana.account(ACCOUNT4), false, false)
+                              .account(Solana.account(ACCOUNT1), true, true)
+                              .account(Solana.account(ACCOUNT2), true, false)
+                              .account(Solana.account(ACCOUNT3), false, true)
+                              .data(DATA1.length, w -> w.put(DATA1))))
+              .computeUnitLimit(1_400_000)
+              .loadedAccountsDataSizeLimit(64 * 1024 * 1024)
+              .seal()
+              .signed()
+              .by(Solana.account(PAYER), getByteBufferSignerFor(PAYER))
+              .by(Solana.account(ACCOUNT1), getByteBufferSignerFor(ACCOUNT1))
+              .by(Solana.account(ACCOUNT2), getByteBufferSignerFor(ACCOUNT2))
+              .build();
+    }
+
     public static Message writeComplexUnsignedLegacyMessage(final ByteBuffer buffer)
     {
         return Solana.builder(buffer)

@@ -94,6 +94,7 @@ dependencies {
 
     // integration test dependencies
 
+    integrationTestImplementation project(path: ':client', configuration: 'default')
     integrationTestImplementation project(path: ':shared', configuration: 'sharedTestSupport')
 
     integrationTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'

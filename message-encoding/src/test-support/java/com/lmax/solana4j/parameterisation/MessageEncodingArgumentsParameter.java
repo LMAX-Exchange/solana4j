@@ -13,7 +13,8 @@ public class MessageEncodingArgumentsParameter implements ArgumentsProvider
     {
         return Stream.of(
                 Arguments.of("V0"),
-                Arguments.of("Legacy")
+                Arguments.of("Legacy"),
+                Arguments.of("V1")
         );
     }
 }

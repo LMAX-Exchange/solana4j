@@ -42,6 +42,16 @@ public final class Solana
     public static final int MAX_MESSAGE_SIZE = SolanaEncoding.MAX_MESSAGE_SIZE;
 
     /**
+     * The maximum size for a V1 message.
+     *
+     * <p>
+     * This constant defines the maximum allowable size for a V1 message in the Solana encoding.
+     * It is set to {@link SolanaEncoding#MAX_V1_MESSAGE_SIZE}.
+     * </p>
+     */
+    public static final int MAX_V1_MESSAGE_SIZE = SolanaEncoding.MAX_V1_MESSAGE_SIZE;
+
+    /**
      * Creates a new message builder for the given buffer.
      *
      * @param buffer the {@link ByteBuffer} to use for building the message
