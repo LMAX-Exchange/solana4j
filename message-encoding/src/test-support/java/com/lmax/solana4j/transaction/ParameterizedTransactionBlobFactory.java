@@ -215,7 +215,7 @@ public abstract class ParameterizedTransactionBlobFactory implements Transaction
         return encode(
                 List.of(
                         SystemProgram.createAccount(
-                                authority,
+                                payer,
                                 nonce,
                                 rentExemption,
                                 accountSpan,

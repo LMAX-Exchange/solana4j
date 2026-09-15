@@ -278,7 +278,7 @@ class SolanaV1MessageViewTest
 
         assertThatThrownBy(() -> SolanaV1MessageView.fromBuffer(trailing))
                 .isInstanceOf(IllegalStateException.class)
-                .hasMessage("message is malformed");
+                .hasMessageContaining("trailing bytes");
     }
 
     @Test
@@ -302,6 +302,6 @@ class SolanaV1MessageViewTest
 
         assertThatThrownBy(() -> SolanaV1MessageView.fromBuffer(buffer))
                 .isInstanceOf(IllegalStateException.class)
-                .hasMessage("message is malformed");
+                .hasMessageContaining("account addresses");
     }
 }

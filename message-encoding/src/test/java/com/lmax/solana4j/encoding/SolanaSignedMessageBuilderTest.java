@@ -34,7 +34,8 @@ class SolanaSignedMessageBuilderTest
 
         final Message signedMessageActual = signedMessageBuilder.build();
 
-        final Message signedMessageExpected = writeSimpleFullySignedLegacyMessage(buffer);
+        final var expectedBuffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+        final Message signedMessageExpected = writeSimpleFullySignedLegacyMessage(expectedBuffer);
 
         assertThat(signedMessageActual).usingRecursiveComparison().isEqualTo(signedMessageExpected);
     }
@@ -53,7 +54,8 @@ class SolanaSignedMessageBuilderTest
 
         final Message signedMessageActual = signedMessageBuilder.build();
 
-        final Message signedMessageExpected = writeSimpleFullySignedV0Message(buffer);
+        final var expectedBuffer = ByteBuffer.allocate(Solana.MAX_MESSAGE_SIZE);
+        final Message signedMessageExpected = writeSimpleFullySignedV0Message(expectedBuffer);
 
         assertThat(signedMessageActual).usingRecursiveComparison().isEqualTo(signedMessageExpected);
     }
@@ -72,7 +74,8 @@ class SolanaSignedMessageBuilderTest
 
         final Message signedMessageActual = signedMessageBuilder.build();
 
-        final Message signedMessageExpected = writeSimpleFullySignedV1Message(buffer);
+        final var expectedBuffer = ByteBuffer.allocate(Solana.MAX_V1_MESSAGE_SIZE);
+        final Message signedMessageExpected = writeSimpleFullySignedV1Message(expectedBuffer);
 
         assertThat(signedMessageActual).usingRecursiveComparison().isEqualTo(signedMessageExpected);
     }

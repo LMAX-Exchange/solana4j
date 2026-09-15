@@ -129,6 +129,12 @@ abstract class SolanaMessageView implements MessageView
     {
         buffer.order(ByteOrder.LITTLE_ENDIAN);
 
+        if (buffer.remaining() > SolanaEncoding.MAX_V1_MESSAGE_SIZE)
+        {
+            throw new IllegalStateException("message is malformed; V1 message length " + buffer.remaining() +
+                    " exceeds the maximum of " + SolanaEncoding.MAX_V1_MESSAGE_SIZE + " bytes");
+        }
+
         final int messageStart = buffer.position();
         final var formatter = new SolanaMessageFormattingCommon(buffer);
 
@@ -139,6 +145,7 @@ abstract class SolanaMessageView implements MessageView
         final int countAccountsUnsignedReadOnly = formatter.readByte() & 0xff;
 
         final int configMask = buffer.getInt();
+        validateConfigMask(configMask);
 
         final var blockhash = formatter.readBlockHash();
 
@@ -146,11 +153,18 @@ abstract class SolanaMessageView implements MessageView
 
         final int numAddresses = formatter.readByte() & 0xff;
 
+        validateV1Counts(
+                countAccountsSigned,
+                countAccountsSignedReadOnly,
+                countAccountsUnsignedReadOnly,
+                numInstructions,
+                numAddresses);
+
         final var staticAccounts = readFixedAccounts(buffer, numAddresses);
 
         if (staticAccounts.isEmpty())
         {
-            throw new IllegalStateException("message is malformed");
+            throw new IllegalStateException("message is malformed; V1 message must declare at least one account address");
         }
 
         long priorityFee = 0;
@@ -217,7 +231,8 @@ abstract class SolanaMessageView implements MessageView
 
         if (buffer.remaining() != 0)
         {
-            throw new IllegalStateException("message is malformed");
+            throw new IllegalStateException("message is malformed; " + buffer.remaining() +
+                    " unexpected trailing bytes after the signatures");
         }
 
         return new SolanaV1MessageView(
@@ -235,6 +250,68 @@ abstract class SolanaMessageView implements MessageView
                 computeUnitLimit,
                 loadedAccountsDataSizeLimit,
                 requestedHeapSize);
+    }
+
+    private static void validateConfigMask(final int configMask)
+    {
+        final int allowedBits =
+                SolanaMessageWriterV1.CONFIG_PRIORITY_FEE
+                        | SolanaMessageWriterV1.CONFIG_COMPUTE_UNIT_LIMIT
+                        | SolanaMessageWriterV1.CONFIG_LOADED_ACCOUNTS_DATA_SIZE
+                        | SolanaMessageWriterV1.CONFIG_REQUESTED_HEAP_SIZE;
+
+        if ((configMask & ~allowedBits) != 0)
+        {
+            throw new IllegalStateException("message is malformed; config mask 0x" + Integer.toHexString(configMask) +
+                    " sets bits outside the defined V1 config fields (allowed mask 0x" + Integer.toHexString(allowedBits) + ")");
+        }
+
+        final int priorityFeeLow = configMask & SolanaMessageWriterV1.CONFIG_PRIORITY_FEE;
+        if (priorityFeeLow != 0 && priorityFeeLow != SolanaMessageWriterV1.CONFIG_PRIORITY_FEE)
+        {
+            throw new IllegalStateException("message is malformed; config mask 0x" + Integer.toHexString(configMask) +
+                    " must set both priority fee bits (0x" + Integer.toHexString(SolanaMessageWriterV1.CONFIG_PRIORITY_FEE) + ") together");
+        }
+    }
+
+    private static void validateV1Counts(
+            final int countAccountsSigned,
+            final int countAccountsSignedReadOnly,
+            final int countAccountsUnsignedReadOnly,
+            final int numInstructions,
+            final int numAddresses)
+    {
+        if (numInstructions > SolanaMessageWriterV1.MAX_INSTRUCTIONS)
+        {
+            throw new IllegalStateException("message is malformed; V1 messages support at most " +
+                    SolanaMessageWriterV1.MAX_INSTRUCTIONS + " instructions but header declares " + numInstructions);
+        }
+        if (numAddresses > SolanaMessageWriterV1.MAX_ADDRESSES)
+        {
+            throw new IllegalStateException("message is malformed; V1 messages support at most " +
+                    SolanaMessageWriterV1.MAX_ADDRESSES + " account addresses but header declares " + numAddresses);
+        }
+        if (countAccountsSigned > SolanaMessageWriterV1.MAX_SIGNERS)
+        {
+            throw new IllegalStateException("message is malformed; V1 messages support at most " +
+                    SolanaMessageWriterV1.MAX_SIGNERS + " signers but header declares " + countAccountsSigned);
+        }
+        if (countAccountsSigned < 1)
+        {
+            throw new IllegalStateException("message is malformed; header declares " + countAccountsSigned +
+                    " signers but at least one signer (the fee payer) is required");
+        }
+        if (countAccountsSignedReadOnly > countAccountsSigned)
+        {
+            throw new IllegalStateException("message is malformed; header declares " + countAccountsSignedReadOnly +
+                    " read-only signers which exceeds the " + countAccountsSigned + " total signers");
+        }
+        if (countAccountsSigned + countAccountsUnsignedReadOnly > numAddresses)
+        {
+            throw new IllegalStateException("message is malformed; header signer/read-only counts (" +
+                    countAccountsSigned + " signed, " + countAccountsUnsignedReadOnly +
+                    " unsigned read-only) exceed the " + numAddresses + " declared account addresses");
+        }
     }
 
     private static List<PublicKey> readFixedAccounts(final ByteBuffer buffer, final int count)

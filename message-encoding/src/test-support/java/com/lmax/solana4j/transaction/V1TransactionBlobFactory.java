@@ -60,7 +60,7 @@ public class V1TransactionBlobFactory extends ParameterizedTransactionBlobFactor
 
         if (computeUnitPrice > 0)
         {
-            builder.priorityFee(((long) computeUnitPrice * computeUnitLimit) / 1_000_000L);
+            builder.priorityFee(((computeUnitPrice * computeUnitLimit) + 999_999L) / 1_000_000L);
         }
 
         builder.seal()
