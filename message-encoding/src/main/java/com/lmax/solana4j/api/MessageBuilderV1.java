@@ -73,7 +73,8 @@ public interface MessageBuilderV1
      * Note that while the wire format makes this field optional (an unset bit means a requested
      * compute unit limit of zero, i.e. a transaction that cannot execute), this library enforces
      * its presence at {@link #seal()} time with an {@code IllegalStateException} to prevent
-     * building transactions that request no compute units.
+     * building transactions that request no compute units. Non-positive limits are likewise
+     * rejected by {@code computeUnitLimit} itself.
      * </p>
      *
      * @param units the compute unit limit

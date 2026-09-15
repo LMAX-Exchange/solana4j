@@ -516,6 +516,19 @@ class SolanaV1MessageBuilderConformanceTest
     }
 
     @Test
+    void shouldRejectInvalidComputeUnitLimitValues()
+    {
+        final var buffer = ByteBuffer.allocate(Solana.MAX_V1_MESSAGE_SIZE);
+
+        assertThatThrownBy(() -> Solana.builder(buffer).v1().computeUnitLimit(0))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("compute unit limit must be positive");
+        assertThatThrownBy(() -> Solana.builder(buffer).v1().computeUnitLimit(-1))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("compute unit limit must be positive");
+    }
+
+    @Test
     void shouldRejectInvalidRequestedHeapSizeValues()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_V1_MESSAGE_SIZE);

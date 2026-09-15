@@ -75,6 +75,10 @@ final class SolanaMessageBuilderV1 implements MessageBuilderV1
     @Override
     public MessageBuilderV1 computeUnitLimit(final int units)
     {
+        if (units < 1)
+        {
+            throw new IllegalStateException("Solana transaction invalid; compute unit limit must be positive.");
+        }
         configMask |= SolanaMessageWriterV1.CONFIG_COMPUTE_UNIT_LIMIT;
         this.computeUnitLimit = units;
         return this;
