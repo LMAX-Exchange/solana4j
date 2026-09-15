@@ -304,4 +304,88 @@ class SolanaV1MessageViewTest
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("account addresses");
     }
+
+    @Test
+    void shouldRejectV1MessageWithProgramIndexOutsideAccounts()
+    {
+        final var buffer = ByteBuffer.allocate(Solana.MAX_V1_MESSAGE_SIZE);
+        buffer.order(ByteOrder.LITTLE_ENDIAN);
+
+        buffer.put((byte) 0x81);
+        buffer.put((byte) 1);
+        buffer.put((byte) 0);
+        buffer.put((byte) 0);
+        buffer.putInt(0x0C);
+        buffer.put(BLOCKHASH);
+        buffer.put((byte) 1);
+        buffer.put((byte) 2);
+        buffer.put(Solana.account(PAYER).bytes());
+        buffer.put(Solana.account(PROGRAM1).bytes());
+        buffer.putInt(250_000);
+        buffer.putInt(32 * 1024 * 1024);
+        buffer.put((byte) 2);
+        buffer.put((byte) 0);
+        buffer.putShort((short) 0);
+        buffer.put(new byte[SIGNATURE_LENGTH]);
+        buffer.flip();
+
+        assertThatThrownBy(() -> SolanaV1MessageView.fromBuffer(buffer))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("program index 2 is outside the 2 declared account addresses");
+    }
+
+    @Test
+    void shouldRejectV1MessageWithAccountIndexOutsideAccounts()
+    {
+        final var buffer = ByteBuffer.allocate(Solana.MAX_V1_MESSAGE_SIZE);
+        buffer.order(ByteOrder.LITTLE_ENDIAN);
+
+        buffer.put((byte) 0x81);
+        buffer.put((byte) 1);
+        buffer.put((byte) 0);
+        buffer.put((byte) 0);
+        buffer.putInt(0x0C);
+        buffer.put(BLOCKHASH);
+        buffer.put((byte) 1);
+        buffer.put((byte) 2);
+        buffer.put(Solana.account(PAYER).bytes());
+        buffer.put(Solana.account(PROGRAM1).bytes());
+        buffer.putInt(250_000);
+        buffer.putInt(32 * 1024 * 1024);
+        buffer.put((byte) 0);
+        buffer.put((byte) 1);
+        buffer.putShort((short) 0);
+        buffer.put((byte) 2);
+        buffer.put(new byte[SIGNATURE_LENGTH]);
+        buffer.flip();
+
+        assertThatThrownBy(() -> SolanaV1MessageView.fromBuffer(buffer))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("account index 2 is outside the 2 declared account addresses");
+    }
+
+    @Test
+    void shouldRejectV1MessageWithAllSignersReadOnly()
+    {
+        final var buffer = ByteBuffer.allocate(Solana.MAX_V1_MESSAGE_SIZE);
+        buffer.order(ByteOrder.LITTLE_ENDIAN);
+
+        buffer.put((byte) 0x81);
+        buffer.put((byte) 1);
+        buffer.put((byte) 1);
+        buffer.put((byte) 0);
+        buffer.putInt(0x0C);
+        buffer.put(BLOCKHASH);
+        buffer.put((byte) 0);
+        buffer.put((byte) 1);
+        buffer.put(Solana.account(PAYER).bytes());
+        buffer.putInt(250_000);
+        buffer.putInt(32 * 1024 * 1024);
+        buffer.put(new byte[SIGNATURE_LENGTH]);
+        buffer.flip();
+
+        assertThatThrownBy(() -> SolanaV1MessageView.fromBuffer(buffer))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("at least one signer (the fee payer) must be writable");
+    }
 }

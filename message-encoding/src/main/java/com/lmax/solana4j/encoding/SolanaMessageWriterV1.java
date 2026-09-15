@@ -132,9 +132,15 @@ final class SolanaMessageWriterV1
             {
                 throw new RuntimeException("Should have found the account.");
             }
+            final int dataSize = instruction.datasize();
+            if (dataSize < 0 || dataSize > 0xFFFF)
+            {
+                throw new IllegalStateException("Solana transaction invalid; V1 instruction data length " + dataSize +
+                        " does not fit in the 16-bit wire format field.");
+            }
             buffer.put((byte) programIndex);
             buffer.put((byte) instruction.accountReferences().size());
-            buffer.putShort((short) instruction.datasize());
+            buffer.putShort((short) dataSize);
         }
 
         // write instruction payloads (per instruction: account indices u8, then data)

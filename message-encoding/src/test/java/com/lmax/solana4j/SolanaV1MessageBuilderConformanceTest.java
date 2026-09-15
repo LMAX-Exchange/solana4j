@@ -693,4 +693,26 @@ class SolanaV1MessageBuilderConformanceTest
                     .build())
                 .isInstanceOf(IllegalStateException.class);
     }
+
+    @Test
+    void shouldRejectInstructionDataExceedingWireFormatLimit()
+    {
+        final var buffer = ByteBuffer.allocate(Solana.MAX_V1_MESSAGE_SIZE);
+
+        assertThatThrownBy(() -> Solana.builder(buffer)
+                    .v1()
+                    .payer(account(PAYER))
+                    .recent(blockhash(BLOCKHASH))
+                    .instructions(tb -> tb
+                            .append(ib -> ib
+                                    .program(account(PROGRAM1))
+                                    .data(65_536, w -> w.put(new byte[65_536]))))
+                    .computeUnitLimit(250_000)
+                    .loadedAccountsDataSizeLimit(32 * 1024 * 1024)
+                    .seal()
+                    .unsigned()
+                    .build())
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("16-bit wire format field");
+    }
 }

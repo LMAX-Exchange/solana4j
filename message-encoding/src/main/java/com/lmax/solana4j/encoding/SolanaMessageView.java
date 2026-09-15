@@ -197,6 +197,12 @@ abstract class SolanaMessageView implements MessageView
             programIndices[i] = formatter.readByte() & 0xff;
             numAccountsPerInstruction[i] = formatter.readByte() & 0xff;
             dataLens[i] = buffer.getShort() & 0xffff;
+
+            if (programIndices[i] >= numAddresses)
+            {
+                throw new IllegalStateException("message is malformed; instruction " + i + " program index " +
+                        programIndices[i] + " is outside the " + numAddresses + " declared account addresses");
+            }
         }
 
         final List<MessageVisitor.InstructionView> instructions = new ArrayList<>(numInstructions);
@@ -205,7 +211,13 @@ abstract class SolanaMessageView implements MessageView
             final var accountIndexes = new ArrayList<Integer>();
             for (int j = 0; j < numAccountsPerInstruction[i]; j++)
             {
-                accountIndexes.add(formatter.readByte() & 0xff);
+                final int accountIndex = formatter.readByte() & 0xff;
+                if (accountIndex >= numAddresses)
+                {
+                    throw new IllegalStateException("message is malformed; instruction " + i + " account index " +
+                            accountIndex + " is outside the " + numAddresses + " declared account addresses");
+                }
+                accountIndexes.add(accountIndex);
             }
             final var ro = buffer.asReadOnlyBuffer();
             ro.limit(ro.position() + dataLens[i]);
@@ -301,10 +313,10 @@ abstract class SolanaMessageView implements MessageView
             throw new IllegalStateException("message is malformed; header declares " + countAccountsSigned +
                     " signers but at least one signer (the fee payer) is required");
         }
-        if (countAccountsSignedReadOnly > countAccountsSigned)
+        if (countAccountsSignedReadOnly >= countAccountsSigned)
         {
             throw new IllegalStateException("message is malformed; header declares " + countAccountsSignedReadOnly +
-                    " read-only signers which exceeds the " + countAccountsSigned + " total signers");
+                    " read-only signers but at least one signer (the fee payer) must be writable");
         }
         if (countAccountsSigned + countAccountsUnsignedReadOnly > numAddresses)
         {
