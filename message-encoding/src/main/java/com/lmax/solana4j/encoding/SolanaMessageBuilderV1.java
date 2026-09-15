@@ -67,6 +67,10 @@ final class SolanaMessageBuilderV1 implements MessageBuilderV1
     @Override
     public MessageBuilderV1 priorityFee(final long lamports)
     {
+        if (lamports < 0)
+        {
+            throw new IllegalStateException("Solana transaction invalid; priority fee must not be negative.");
+        }
         configMask |= SolanaMessageWriterV1.CONFIG_PRIORITY_FEE;
         this.priorityFee = lamports;
         return this;
@@ -87,6 +91,10 @@ final class SolanaMessageBuilderV1 implements MessageBuilderV1
     @Override
     public MessageBuilderV1 loadedAccountsDataSizeLimit(final int bytes)
     {
+        if (bytes < 0)
+        {
+            throw new IllegalStateException("Solana transaction invalid; loaded accounts data size limit must not be negative.");
+        }
         configMask |= SolanaMessageWriterV1.CONFIG_LOADED_ACCOUNTS_DATA_SIZE;
         this.loadedAccountsDataSizeLimit = bytes;
         return this;
@@ -111,6 +119,11 @@ final class SolanaMessageBuilderV1 implements MessageBuilderV1
         if (this.payer == null)
         {
             throw new IllegalStateException("Solana transaction incomplete; payer has not been specified.");
+        }
+
+        if (this.recent == null)
+        {
+            throw new IllegalStateException("Solana transaction incomplete; recent blockhash has not been specified.");
         }
 
         if ((configMask & SolanaMessageWriterV1.CONFIG_COMPUTE_UNIT_LIMIT) == 0)

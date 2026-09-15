@@ -529,6 +529,41 @@ class SolanaV1MessageBuilderConformanceTest
     }
 
     @Test
+    void shouldRejectNegativePriorityFee()
+    {
+        final var buffer = ByteBuffer.allocate(Solana.MAX_V1_MESSAGE_SIZE);
+
+        assertThatThrownBy(() -> Solana.builder(buffer).v1().priorityFee(-1))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("priority fee must not be negative");
+    }
+
+    @Test
+    void shouldRejectNegativeLoadedAccountsDataSizeLimit()
+    {
+        final var buffer = ByteBuffer.allocate(Solana.MAX_V1_MESSAGE_SIZE);
+
+        assertThatThrownBy(() -> Solana.builder(buffer).v1().loadedAccountsDataSizeLimit(-1))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("loaded accounts data size limit must not be negative");
+    }
+
+    @Test
+    void shouldRejectSealingWithoutBlockhash()
+    {
+        final var buffer = ByteBuffer.allocate(Solana.MAX_V1_MESSAGE_SIZE);
+
+        assertThatThrownBy(() -> Solana.builder(buffer)
+                    .v1()
+                    .payer(account(PAYER))
+                    .computeUnitLimit(250_000)
+                    .loadedAccountsDataSizeLimit(32 * 1024 * 1024)
+                    .seal())
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("recent blockhash has not been specified");
+    }
+
+    @Test
     void shouldRejectInvalidRequestedHeapSizeValues()
     {
         final var buffer = ByteBuffer.allocate(Solana.MAX_V1_MESSAGE_SIZE);
