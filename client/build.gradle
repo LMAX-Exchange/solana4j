@@ -85,7 +85,7 @@ dependencies {
     integrationTestRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
 }
 
-task unitTest(type: Test) {
+tasks.register('unitTest', Test) {
     useJUnitPlatform()
     description = 'Runs the solana client unit tests .'
     group = 'verification'
@@ -100,7 +100,7 @@ task unitTest(type: Test) {
     }
 }
 
-task integrationTest(type: Test) {
+tasks.register('integrationTest', Test) {
     useJUnitPlatform()
     description = 'Runs the solana client integration tests.'
     group = 'verification'

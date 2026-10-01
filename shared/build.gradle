@@ -43,7 +43,7 @@ configurations {
     sharedTestSupport
 }
 
-task testSupportJar(type: Jar) {
+tasks.register('testSupportJar', Jar) {
     from sourceSets.testSupport.output
 }
 
