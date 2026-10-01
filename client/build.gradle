@@ -5,7 +5,7 @@ plugins {
     id 'maven-publish'
     id 'checkstyle'
     id 'org.jreleaser' version '1.20.0'
-    id 'com.autonomousapps.dependency-analysis' version '3.0.4'
+    id 'com.autonomousapps.dependency-analysis' version '3.19.2'
 }
 
 def solanaVersion = project.rootProject.property('SOLANA_VERSION')
@@ -77,7 +77,7 @@ dependencies {
 
     integrationTestRuntimeOnly project(path: ':message-encoding', configuration: 'default')
 
-    integrationTestRuntimeOnly 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+    integrationTestRuntimeOnly 'org.bouncycastle:bcprov-jdk18on:1.85'
     integrationTestRuntimeOnly 'org.testcontainers:testcontainers:1.21.3'
     integrationTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
     integrationTestRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -85,7 +85,7 @@ dependencies {
     integrationTestRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
 }
 
-task unitTest(type: Test) {
+tasks.register('unitTest', Test) {
     useJUnitPlatform()
     description = 'Runs the solana client unit tests .'
     group = 'verification'
@@ -100,7 +100,7 @@ task unitTest(type: Test) {
     }
 }
 
-task integrationTest(type: Test) {
+tasks.register('integrationTest', Test) {
     useJUnitPlatform()
     description = 'Runs the solana client integration tests.'
     group = 'verification'

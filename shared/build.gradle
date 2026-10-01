@@ -3,7 +3,7 @@ plugins {
     id 'java-library'
     id 'com.gradleup.shadow' version '9.2.2'
     id 'checkstyle'
-    id 'com.autonomousapps.dependency-analysis' version '3.0.4'
+    id 'com.autonomousapps.dependency-analysis' version '3.19.2'
 }
 
 repositories {
@@ -34,7 +34,7 @@ dependencies {
     testSupportImplementation 'org.testcontainers:testcontainers:1.21.3'
     testSupportImplementation 'org.assertj:assertj-core:3.27.7'
     testSupportImplementation 'org.slf4j:slf4j-api:2.0.9'
-    testSupportImplementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+    testSupportImplementation 'org.bouncycastle:bcprov-jdk18on:1.85'
 
     testSupportRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
 }
@@ -43,7 +43,7 @@ configurations {
     sharedTestSupport
 }
 
-task testSupportJar(type: Jar) {
+tasks.register('testSupportJar', Jar) {
     from sourceSets.testSupport.output
 }
 

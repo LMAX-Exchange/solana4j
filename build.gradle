@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'checkstyle'
-    id 'com.autonomousapps.dependency-analysis' version '3.0.4'
+    id 'com.autonomousapps.dependency-analysis' version '3.19.2'
 }
 
 def solanaVersion = project.property('SOLANA_VERSION')
@@ -17,6 +17,10 @@ dependencyAnalysis {
             }
         }
     }
+}
+
+repositories {
+    mavenCentral()
 }
 
 allprojects {
@@ -37,7 +41,7 @@ subprojects {
     version = rootProject.version
 }
 
-task setUpGitHooks(type: Exec, description: 'Add a pre-commit git hook that runs gradle check & test tasks') {
+tasks.register('setUpGitHooks', Exec) {
     def hooksFolder = file('.githooks').getAbsolutePath()
     commandLine 'git', 'config', 'core.hooksPath', hooksFolder
 }
