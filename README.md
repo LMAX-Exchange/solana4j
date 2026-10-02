@@ -28,6 +28,15 @@ at `https://solana.com/docs/rpc`. This library requires the following dependenci
 
 If running on an `M[1,2,3,4] Mac` please read `shared/src/test-support/resources/README.md`.
 
+#### Automated Testing
+
+This project includes automated testing against multiple Solana versions to ensure compatibility. The automation:
+* Daily checks for new Solana releases from mainnet, testnet, devnet, and GitHub (Agave, Pythnet, Firedancer)
+* Runs the full test suite against all tracked versions in a matrix build
+* Automatically creates GitHub issues when tests fail on new versions
+
+See `.github/workflows/README.md` for detailed information about the automation system.
+
 #### Contributions
 
 * Fork the repository.
