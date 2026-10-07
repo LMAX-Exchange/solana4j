@@ -31,7 +31,7 @@ allprojects {
 
 subprojects {
     checkstyle {
-        toolVersion = '10.4'
+        toolVersion = '14.3.0'
         configFile = rootProject.file('config/checkstyle/checkstyle.xml')
     }
 

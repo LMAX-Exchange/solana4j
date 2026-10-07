@@ -1,10 +1,10 @@
 plugins {
     id 'java'
     id 'java-library'
-    id 'com.gradleup.shadow' version '9.2.2'
+    id 'com.gradleup.shadow' version '9.6.1'
     id 'maven-publish'
     id 'checkstyle'
-    id 'org.jreleaser' version '1.20.0'
+    id 'org.jreleaser' version '1.26.0'
     id 'com.autonomousapps.dependency-analysis' version '3.19.2'
 }
 
@@ -73,38 +73,38 @@ dependencies {
     testSupportImplementation project(path: ':client', configuration: 'default')
     testSupportImplementation project(path: ':shared', configuration: 'sharedTestSupport')
 
-    testSupportImplementation 'org.slf4j:slf4j-api:2.0.9'
+    testSupportImplementation 'org.slf4j:slf4j-api:2.0.20'
     testSupportImplementation 'com.lmax:simple-dsl:3.0.0'
     testSupportImplementation 'org.assertj:assertj-core:3.27.7'
-    testSupportImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
-    testSupportImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.2'
-    testSupportImplementation 'org.bouncycastle:bcprov-jdk18on:1.85'
+    testSupportImplementation 'org.junit.jupiter:junit-jupiter-api:5.14.4'
+    testSupportImplementation 'org.junit.jupiter:junit-jupiter-params:5.14.4'
+    testSupportImplementation 'org.bouncycastle:bcprov-jdk18on:1.86'
 
     // test dependencies
 
     testImplementation 'org.assertj:assertj-core:3.27.7'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.14.4'
     testImplementation 'net.i2p.crypto:eddsa:0.3.0'
-    testImplementation 'org.bitcoinj:bitcoinj-core:0.17'
+    testImplementation 'org.bitcoinj:bitcoinj-core:0.17.1'
     testRuntimeOnly project(path: ':shared', configuration: 'sharedTestSupport')
 
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.14.4'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    testRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
+    testRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.26.1'
 
     // integration test dependencies
 
     integrationTestImplementation project(path: ':client', configuration: 'default')
     integrationTestImplementation project(path: ':shared', configuration: 'sharedTestSupport')
 
-    integrationTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+    integrationTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.14.4'
 
     integrationTestRuntimeOnly 'com.lmax:simple-dsl:3.0.0'
-    integrationTestRuntimeOnly 'org.testcontainers:testcontainers:1.21.3'
-    integrationTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+    integrationTestRuntimeOnly 'org.testcontainers:testcontainers:2.0.5'
+    integrationTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.14.4'
     integrationTestRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    integrationTestRuntimeOnly 'com.fasterxml.jackson.core:jackson-databind:2.18.11'
-    integrationTestRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
+    integrationTestRuntimeOnly 'com.fasterxml.jackson.core:jackson-databind:2.22.3'
+    integrationTestRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.26.1'
 
     // jmh test dependencies
 
@@ -112,11 +112,11 @@ dependencies {
 
     jmhTestImplementation 'org.openjdk.jmh:jmh-core:1.37'
     jmhTestImplementation 'net.i2p.crypto:eddsa:0.3.0'
-    jmhTestImplementation 'org.bitcoinj:bitcoinj-core:0.17'
+    jmhTestImplementation 'org.bitcoinj:bitcoinj-core:0.17.1'
 
-    jmhTestRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
+    jmhTestRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.26.1'
 
-    jmhTestAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.36'
+    jmhTestAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.37'
 }
 
 tasks.register('unitTest', Test) {
